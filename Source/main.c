@@ -16,8 +16,6 @@
 #include "stdafx.h"		// Should be included first in every .c file!
 
 #include <AEEngine.h>
-#include "image_handler.h"
-#include "mesh_handler.h"
 
 // ---------------------------------------------------------------------------
 
