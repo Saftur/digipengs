@@ -5,9 +5,21 @@
     <ClCompile Include="Source\main.c">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Source\image_handler.c">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\mesh_handler.c">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
+    <ClInclude Include="Source\mesh_handler.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\image_handler.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">

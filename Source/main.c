@@ -1,6 +1,6 @@
 // ---------------------------------------------------------------------------
 // Project Name		:	Simple Demo
-// File Name		:	Main.cpp
+// File Name		:	Main.c
 // Author			:	Antoine Abi Chacra
 // Creation Date	:	2012/01/11
 // Purpose			:	Demonstrates Alpha Engine features.
@@ -16,6 +16,8 @@
 #include "stdafx.h"		// Should be included first in every .c file!
 
 #include <AEEngine.h>
+#include "image_handler.h"
+#include "mesh_handler.h"
 
 // ---------------------------------------------------------------------------
 
@@ -60,11 +62,12 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 	AESysInit(&sysInitInfo);
 
 	// reset the system modules
-	AESysReset();
+    AESysReset();
 
 	// Game Loop
 	while (gGameRunning)
 	{
+
 		// Informing the system about the loop's start
 		AESysFrameStart();
 
