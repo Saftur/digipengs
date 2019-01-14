@@ -5,6 +5,18 @@
     <ClCompile Include="Source\main.c">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Source\LevelTable.c">
+      <Filter>Engine\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LevelManager.c">
+      <Filter>Engine\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Level1.c">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LevelStub.c">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
     <ClCompile Include="Source\object.c">
       <Filter>Engine\Objects</Filter>
     </ClCompile>
@@ -26,6 +38,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
+    <ClInclude Include="Source\LevelManager.h">
+      <Filter>Engine\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LevelTable.h">
+      <Filter>Engine\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Level1.h">
+      <Filter>Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LevelStub.h">
+      <Filter>Game\Levels</Filter>
+    </ClInclude>
     <ClInclude Include="Source\object.h">
       <Filter>Engine\Objects</Filter>
     </ClInclude>
@@ -51,6 +75,12 @@
     </Filter>
     <Filter Include="Engine">
       <UniqueIdentifier>{27443241-f732-4181-9750-5c69ccc4403e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Levels">
+      <UniqueIdentifier>{2a887908-ae02-4a2a-bb39-8297fcb9a2e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Levels">
+      <UniqueIdentifier>{4998fbab-585f-47f9-9372-5c617d3a4e6f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Objects">
       <UniqueIdentifier>{1ff97164-15c8-487a-af33-d2ee0ca946ee}</UniqueIdentifier>

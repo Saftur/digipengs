@@ -11,6 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Level1.c" />
+    <ClCompile Include="Source\LevelManager.c" />
+    <ClCompile Include="Source\LevelStub.c" />
+    <ClCompile Include="Source\LevelTable.c" />
     <ClCompile Include="Source\example_obj.c" />
     <ClCompile Include="Source\image_handler.c" />
     <ClCompile Include="Source\main.c" />
@@ -24,6 +28,10 @@
     <ClCompile Include="Source\vector.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Level1.h" />
+    <ClInclude Include="Source\LevelManager.h" />
+    <ClInclude Include="Source\LevelStub.h" />
+    <ClInclude Include="Source\LevelTable.h" />
     <ClInclude Include="Source\example_obj.h" />
     <ClInclude Include="Source\object.h" />
     <ClInclude Include="Source\objectmanager.h" />
