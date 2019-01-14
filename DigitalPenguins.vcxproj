@@ -11,6 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Level1.c" />
+    <ClCompile Include="Source\LevelManager.c" />
+    <ClCompile Include="Source\LevelStub.c" />
+    <ClCompile Include="Source\LevelTable.c" />
     <ClCompile Include="Source\main.c" />
     <ClCompile Include="Source\stdafx.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -18,6 +22,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Level1.h" />
+    <ClInclude Include="Source\LevelManager.h" />
+    <ClInclude Include="Source\LevelStub.h" />
+    <ClInclude Include="Source\LevelTable.h" />
     <ClInclude Include="Source\stdafx.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

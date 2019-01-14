@@ -16,6 +16,7 @@
 #include "stdafx.h"		// Should be included first in every .c file!
 
 #include <AEEngine.h>
+#include "LevelManager.h"
 
 // ---------------------------------------------------------------------------
 
@@ -62,8 +63,15 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 	// reset the system modules
 	AESysReset();
 
+    //Dt variables
+    float dt = 0.0167f;
+    DWORD lastTime = 0;
+    DWORD currentTime = GetTickCount();
+
+    LevelManagerInit();
+
 	// Game Loop
-	while (gGameRunning)
+	while (LevelManagerIsRunning())
 	{
 		// Informing the system about the loop's start
 		AESysFrameStart();
@@ -71,13 +79,19 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 		// Handling Input
 		AEInputUpdate();
 
+        //Calculate dt
+        currentTime = GetTickCount();
+        if (lastTime > 0) dt = (float) (currentTime - lastTime)/1000;
+        lastTime = currentTime;
+
+        LevelManagerUpdate(dt);
 
 		// Informing the system about the loop's end
 		AESysFrameEnd();
 
 		// check if forcing the application to quit
-		if (AEInputCheckTriggered(VK_ESCAPE) || 0 == AESysDoesWindowExist())
-			gGameRunning = 0;
+        if (AEInputCheckTriggered(VK_ESCAPE) || 0 == AESysDoesWindowExist())
+            LevelManagerSetNextLevel(LevelQuit);
 	}
 
 	// free the system
