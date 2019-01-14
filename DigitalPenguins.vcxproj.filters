@@ -5,6 +5,18 @@
     <ClCompile Include="Source\main.c">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Source\object.c">
+      <Filter>Engine\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\objectmanager.c">
+      <Filter>Engine\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\vector.c">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\example_obj.c">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
     <ClCompile Include="Source\image_handler.c">
       <Filter>Engine</Filter>
     </ClCompile>
@@ -14,6 +26,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
+    <ClInclude Include="Source\object.h">
+      <Filter>Engine\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\objectmanager.h">
+      <Filter>Engine\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\vector.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\example_obj.h">
+      <Filter>Game\Objects</Filter>
+    </ClInclude>
     <ClInclude Include="Source\mesh_handler.h">
       <Filter>Engine</Filter>
     </ClInclude>
@@ -27,6 +51,12 @@
     </Filter>
     <Filter Include="Engine">
       <UniqueIdentifier>{27443241-f732-4181-9750-5c69ccc4403e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Objects">
+      <UniqueIdentifier>{1ff97164-15c8-487a-af33-d2ee0ca946ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Objects">
+      <UniqueIdentifier>{c88643f4-1bbc-4ab2-a17c-5fabb5a820d5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
