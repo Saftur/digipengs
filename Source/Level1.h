@@ -18,6 +18,7 @@ void Level1Init();
 
 /**
  * @brief Update Level1.
+ * @param dt Delta Time for updates.
  */
 void Level1Update(float dt);
 
