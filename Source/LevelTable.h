@@ -31,11 +31,14 @@ typedef enum
 /**
  * @brief Check if level is valid.
  * @param level The level to check if actually exists.
+ * @return Whether or not the level is valid.
  */
 int LevelIsValid(Levels level);
 
 /**
  * @brief Check if the level is
+ * @param level The level to check if is special (I.E. quitting or restarting).
+ * @return Whether or not the level is special.
  */
 int LevelIsSpecial(Levels level);
 

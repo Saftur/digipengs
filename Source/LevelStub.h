@@ -18,6 +18,7 @@ void LevelStubInit();
 
 /**
  * @brief Update Level.
+ * @param dt Delta Time for updates.
  */
 void LevelStubUpdate(float dt);
 
