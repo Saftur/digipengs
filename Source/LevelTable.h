@@ -63,12 +63,12 @@ void ExecuteLevelUpdate(Levels level, float dt);
 
 /**
  * @brief Shutdown a level.
- * @param Level to shutdown.
+ * @param level to shutdown.
 */
 void ExecuteLevelShutdown(Levels level);
 
 /**
  * @brief Unload a level.
- * @param Level to unload.
+ * @param level to unload.
 */
 void ExecuteLevelUnload(Levels level);
