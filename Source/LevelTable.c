@@ -25,40 +25,40 @@ typedef struct {
 
 ///< Table of all levels and functions for said levels.
 static const TableEntry LevelTable[LevelNum] = {
-    {Level1Load, Level1Init, Level1Update, Level1Shutdown, Level1Unload}
+    {Level1_onLoad, Level1_onInit, Level1_onUpdate, Level1_onShutdown, Level1_onUnload}
 };
 
-int LevelIsValid(Levels level)
+int Level_isValid(Levels level)
 {
     return ((level >= 0) && (level < LevelNum));
 }
 
-int LevelIsSpecial(Levels level)
+int Level_isSpecial(Levels level)
 {
     return level == LevelQuit || level == LevelRestart;
 }
 
-void ExecuteLevelLoad(Levels level)
+void Level_load(Levels level)
 {
-    if (LevelIsValid(level) && (*LevelTable[level].levelLoad) != NULL) (*LevelTable[level].levelLoad)();
+    if (Level_isValid(level) && (*LevelTable[level].levelLoad) != NULL) (*LevelTable[level].levelLoad)();
 }
 
-void ExecuteLevelInit(Levels level)
+void Level_init(Levels level)
 {
-    if (LevelIsValid(level) && (*LevelTable[level].levelInit) != NULL) (*LevelTable[level].levelInit)();
+    if (Level_isValid(level) && (*LevelTable[level].levelInit) != NULL) (*LevelTable[level].levelInit)();
 }
 
-void ExecuteLevelUpdate(Levels level, float dt)
+void Level_update(Levels level, float dt)
 {
-    if (LevelIsValid(level) && ((*LevelTable[level].levelUpdate) != NULL)) (*LevelTable[level].levelUpdate)(dt);
+    if (Level_isValid(level) && ((*LevelTable[level].levelUpdate) != NULL)) (*LevelTable[level].levelUpdate)(dt);
 }
 
-void ExecuteLevelShutdown(Levels level)
+void Level_shutdown(Levels level)
 {
-    if (LevelIsValid(level) && ((*LevelTable[level].levelShutdown) != NULL)) (*LevelTable[level].levelShutdown)();
+    if (Level_isValid(level) && ((*LevelTable[level].levelShutdown) != NULL)) (*LevelTable[level].levelShutdown)();
 }
 
-void ExecuteLevelUnload(Levels level)
+void Level_unload(Levels level)
 {
-    if (LevelIsValid(level) && ((*LevelTable[level].levelUnload) != NULL)) (*LevelTable[level].levelUnload)();
+    if (Level_isValid(level) && ((*LevelTable[level].levelUnload) != NULL)) (*LevelTable[level].levelUnload)();
 }

@@ -75,6 +75,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li class="current"><a href="globals.html"><span>All</span></a></li>
       <li><a href="globals_func.html"><span>Functions</span></a></li>
       <li><a href="globals_vars.html"><span>Variables</span></a></li>
+      <li><a href="globals_type.html"><span>Typedefs</span></a></li>
+      <li><a href="globals_enum.html"><span>Enumerations</span></a></li>
+      <li><a href="globals_eval.html"><span>Enumerator</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow4" class="tabs3">
+    <ul class="tablist">
+      <li><a href="#index_e"><span>e</span></a></li>
+      <li><a href="#index_i"><span>i</span></a></li>
+      <li><a href="#index_l"><span>l</span></a></li>
+      <li><a href="#index_m"><span>m</span></a></li>
+      <li><a href="#index_o"><span>o</span></a></li>
+      <li><a href="#index_t"><span>t</span></a></li>
+      <li class="current"><a href="#index_v"><span>v</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -97,7 +111,7 @@ $(document).ready(function(){initNavTree('globals.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,29 +121,270 @@ $(document).ready(function(){initNavTree('globals.html','');});
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all file members with links to the files they belong to:</div><ul>
-<li>createSquareMesh()
-: <a class="el" href="mesh__handler_8h.html#aa19cf78730f36910860f27421563ccb1">mesh_handler.h</a>
-, <a class="el" href="mesh__handler_8c.html#aa19cf78730f36910860f27421563ccb1">mesh_handler.c</a>
+<div class="textblock">Here is a list of all file members with links to the files they belong to:</div>
+
+<h3><a class="anchor" id="index_e"></a>- e -</h3><ul>
+<li>ExampleObj_new()
+: <a class="el" href="example__obj_8c.html#a0a00e67c86df181b8047d72652f16ab0">example_obj.c</a>
+, <a class="el" href="example__obj_8h.html#a0a00e67c86df181b8047d72652f16ab0">example_obj.h</a>
 </li>
-<li>drawTexture()
-: <a class="el" href="image__handler_8h.html#ac58100d668ec739b7d93c411ecf52fd7">image_handler.h</a>
-, <a class="el" href="Image__handler_8c.html#ac58100d668ec739b7d93c411ecf52fd7">Image_handler.c</a>
+<li>ExampleObj_onInit()
+: <a class="el" href="example__obj_8c.html#abed5160f88f4c0aea71fa51f659f63a7">example_obj.c</a>
 </li>
-<li>drawTextureAlpha()
-: <a class="el" href="image__handler_8h.html#a38a23e61aa8379eaf7bc784b9ba79e40">image_handler.h</a>
-, <a class="el" href="Image__handler_8c.html#a38a23e61aa8379eaf7bc784b9ba79e40">Image_handler.c</a>
+<li>ExampleObj_onUpdate()
+: <a class="el" href="example__obj_8c.html#a7d815084373a526d2eb6b09ff29245e0">example_obj.c</a>
 </li>
-<li>initializeTextures()
-: <a class="el" href="image__handler_8h.html#a57d7f972c2d4355a84e3da62d82c3621">image_handler.h</a>
-, <a class="el" href="Image__handler_8c.html#a57d7f972c2d4355a84e3da62d82c3621">Image_handler.c</a>
+</ul>
+
+
+<h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
+<li>ImageHandler_drawTexture()
+: <a class="el" href="ImageHandler_8c.html#ab2c117e009b88d47cb17c7bd9e0c51c6">ImageHandler.c</a>
+, <a class="el" href="ImageHandler_8h.html#ab2c117e009b88d47cb17c7bd9e0c51c6">ImageHandler.h</a>
+</li>
+<li>ImageHandler_drawTextureAlpha()
+: <a class="el" href="ImageHandler_8h.html#aa06824fc049beeca87bb04142e3f45d6">ImageHandler.h</a>
+, <a class="el" href="ImageHandler_8c.html#aa06824fc049beeca87bb04142e3f45d6">ImageHandler.c</a>
+</li>
+<li>ImageHandler_initializeTextures()
+: <a class="el" href="ImageHandler_8h.html#ad82ed0c05b8e6ceeff264acf62940266">ImageHandler.h</a>
+, <a class="el" href="ImageHandler_8c.html#ad82ed0c05b8e6ceeff264acf62940266">ImageHandler.c</a>
+</li>
+<li>InitialLevel
+: <a class="el" href="LevelTable_8h.html#ae06cf0c67532073a49f95f03488d29bfac9a4696efea10b30d481082433df249b">LevelTable.h</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_l"></a>- l -</h3><ul>
+<li>LastLevel
+: <a class="el" href="LevelTable_8h.html#ae06cf0c67532073a49f95f03488d29bfa40766d67ec48c4e6a2ca17cae555e547">LevelTable.h</a>
+</li>
+<li>level
+: <a class="el" href="LevelManager_8c.html#a083b6d36ebd55b2e07bedb04440cb325">LevelManager.c</a>
+</li>
+<li>Level1
+: <a class="el" href="LevelTable_8h.html#ae06cf0c67532073a49f95f03488d29bfa155663b2a29847bed79bd7c18fd40d7f">LevelTable.h</a>
+</li>
+<li>Level1_onInit()
+: <a class="el" href="Level1_8c.html#a9db421a26aad26e8a19592687744b815">Level1.c</a>
+, <a class="el" href="Level1_8h.html#a9db421a26aad26e8a19592687744b815">Level1.h</a>
+</li>
+<li>Level1_onLoad()
+: <a class="el" href="Level1_8c.html#a605b89e8023b85e248ea445b25c06304">Level1.c</a>
+, <a class="el" href="Level1_8h.html#a605b89e8023b85e248ea445b25c06304">Level1.h</a>
+</li>
+<li>Level1_onShutdown()
+: <a class="el" href="Level1_8c.html#a09d199d528dd3139a49bff96b9311585">Level1.c</a>
+, <a class="el" href="Level1_8h.html#a09d199d528dd3139a49bff96b9311585">Level1.h</a>
+</li>
+<li>Level1_onUnload()
+: <a class="el" href="Level1_8c.html#a3edc9f13616d960c97eb64ae01ed9b92">Level1.c</a>
+, <a class="el" href="Level1_8h.html#a3edc9f13616d960c97eb64ae01ed9b92">Level1.h</a>
+</li>
+<li>Level1_onUpdate()
+: <a class="el" href="Level1_8c.html#a4e81bb1246612ef2ffaf51035e7d0f06">Level1.c</a>
+, <a class="el" href="Level1_8h.html#a4e81bb1246612ef2ffaf51035e7d0f06">Level1.h</a>
+</li>
+<li>Level_init()
+: <a class="el" href="LevelTable_8c.html#aa516b9d89c0a2f75529c7d428720d243">LevelTable.c</a>
+, <a class="el" href="LevelTable_8h.html#aa516b9d89c0a2f75529c7d428720d243">LevelTable.h</a>
+</li>
+<li>Level_isSpecial()
+: <a class="el" href="LevelTable_8c.html#a5c5263d8ab04964128210b12ef9d3900">LevelTable.c</a>
+, <a class="el" href="LevelTable_8h.html#a5c5263d8ab04964128210b12ef9d3900">LevelTable.h</a>
+</li>
+<li>Level_isValid()
+: <a class="el" href="LevelTable_8c.html#a2e226d21d2f04d001162c58730dd2d4c">LevelTable.c</a>
+, <a class="el" href="LevelTable_8h.html#a2e226d21d2f04d001162c58730dd2d4c">LevelTable.h</a>
+</li>
+<li>Level_load()
+: <a class="el" href="LevelTable_8c.html#ac7f5116bafb35c7797158011cff78350">LevelTable.c</a>
+, <a class="el" href="LevelTable_8h.html#ac7f5116bafb35c7797158011cff78350">LevelTable.h</a>
+</li>
+<li>Level_shutdown()
+: <a class="el" href="LevelTable_8c.html#a70d24f10e836ab4464145fc9cc9e1bdc">LevelTable.c</a>
+, <a class="el" href="LevelTable_8h.html#a70d24f10e836ab4464145fc9cc9e1bdc">LevelTable.h</a>
+</li>
+<li>Level_unload()
+: <a class="el" href="LevelTable_8c.html#ad0ae7d17c314c920bf59e79ff8a7258d">LevelTable.c</a>
+, <a class="el" href="LevelTable_8h.html#ad0ae7d17c314c920bf59e79ff8a7258d">LevelTable.h</a>
+</li>
+<li>Level_update()
+: <a class="el" href="LevelTable_8c.html#a1573b90cb5034ad0134e867fbd304474">LevelTable.c</a>
+, <a class="el" href="LevelTable_8h.html#a1573b90cb5034ad0134e867fbd304474">LevelTable.h</a>
+</li>
+<li>LevelInvalid
+: <a class="el" href="LevelTable_8h.html#ae06cf0c67532073a49f95f03488d29bfab6730a80204cb51ac6c952c2ced759d3">LevelTable.h</a>
+</li>
+<li>LevelIsChanging()
+: <a class="el" href="LevelManager_8c.html#a35bb92157a20af529fc6725e8a3c05c9">LevelManager.c</a>
+</li>
+<li>LevelManager_init()
+: <a class="el" href="LevelManager_8h.html#a233307ad0c58b12e1a1e15651d3cd7f7">LevelManager.h</a>
+, <a class="el" href="LevelManager_8c.html#a233307ad0c58b12e1a1e15651d3cd7f7">LevelManager.c</a>
+</li>
+<li>LevelManager_isRestarting()
+: <a class="el" href="LevelManager_8c.html#a9d25fa790da814969cd0e25c804ed4a9">LevelManager.c</a>
+, <a class="el" href="LevelManager_8h.html#a9d25fa790da814969cd0e25c804ed4a9">LevelManager.h</a>
+</li>
+<li>LevelManager_isRunning()
+: <a class="el" href="LevelManager_8c.html#a353e493f3aca70c5f13e01a3b50e4adc">LevelManager.c</a>
+, <a class="el" href="LevelManager_8h.html#a353e493f3aca70c5f13e01a3b50e4adc">LevelManager.h</a>
+</li>
+<li>LevelManager_setNextLevel()
+: <a class="el" href="LevelManager_8c.html#ad73e05b3aa0568350c434150eeec4406">LevelManager.c</a>
+, <a class="el" href="LevelManager_8h.html#ad73e05b3aa0568350c434150eeec4406">LevelManager.h</a>
+</li>
+<li>LevelManager_shutdown()
+: <a class="el" href="LevelManager_8c.html#acccd242c9d1ed7b9f3c2139791346c9e">LevelManager.c</a>
+, <a class="el" href="LevelManager_8h.html#acccd242c9d1ed7b9f3c2139791346c9e">LevelManager.h</a>
+</li>
+<li>LevelManager_update()
+: <a class="el" href="LevelManager_8h.html#a5189bcb0a2c2dd11e7f483c5a35de7af">LevelManager.h</a>
+, <a class="el" href="LevelManager_8c.html#a5189bcb0a2c2dd11e7f483c5a35de7af">LevelManager.c</a>
+</li>
+<li>LevelNum
+: <a class="el" href="LevelTable_8h.html#ae06cf0c67532073a49f95f03488d29bfacfe02325abd337377d10c09cce9458cf">LevelTable.h</a>
+</li>
+<li>LevelQuit
+: <a class="el" href="LevelTable_8h.html#ae06cf0c67532073a49f95f03488d29bfa864862c3ddcb12c31e0116a40779f53b">LevelTable.h</a>
+</li>
+<li>LevelRestart
+: <a class="el" href="LevelTable_8h.html#ae06cf0c67532073a49f95f03488d29bfa773bdcf2f70ad0161d4967ef2f025c8b">LevelTable.h</a>
+</li>
+<li>Levels
+: <a class="el" href="LevelTable_8h.html#ae06cf0c67532073a49f95f03488d29bf">LevelTable.h</a>
+</li>
+<li>LevelStubInit()
+: <a class="el" href="LevelStub_8h.html#a76b83bbb06ad7eb05b400c3ebb93db87">LevelStub.h</a>
+, <a class="el" href="LevelStub_8c.html#a76b83bbb06ad7eb05b400c3ebb93db87">LevelStub.c</a>
+</li>
+<li>LevelStubLoad()
+: <a class="el" href="LevelStub_8h.html#a827b470a3e8a464eac6a61478569651d">LevelStub.h</a>
+, <a class="el" href="LevelStub_8c.html#a827b470a3e8a464eac6a61478569651d">LevelStub.c</a>
+</li>
+<li>LevelStubShutdown()
+: <a class="el" href="LevelStub_8c.html#aa4c9f603b86c73f1ba77a48d6884ab29">LevelStub.c</a>
+, <a class="el" href="LevelStub_8h.html#aa4c9f603b86c73f1ba77a48d6884ab29">LevelStub.h</a>
+</li>
+<li>LevelStubUnload()
+: <a class="el" href="LevelStub_8c.html#a79149bdfe9e215c5b54c523a4d27c5e5">LevelStub.c</a>
+, <a class="el" href="LevelStub_8h.html#a79149bdfe9e215c5b54c523a4d27c5e5">LevelStub.h</a>
+</li>
+<li>LevelStubUpdate()
+: <a class="el" href="LevelStub_8c.html#aab37d503dd9228e946a63a2f808f3c75">LevelStub.c</a>
+, <a class="el" href="LevelStub_8h.html#aab37d503dd9228e946a63a2f808f3c75">LevelStub.h</a>
+</li>
+<li>LevelTable
+: <a class="el" href="LevelTable_8c.html#a1f490be8973d2696dfd1e79b70f215cf">LevelTable.c</a>
 </li>
 <li>LOADEDTEXTURES
-: <a class="el" href="image__handler_8h.html#acc0c3578343c297c045263e7c1f773f5">image_handler.h</a>
+: <a class="el" href="ImageHandler_8h.html#acc0c3578343c297c045263e7c1f773f5">ImageHandler.h</a>
 </li>
+</ul>
+
+
+<h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
+<li>MeshHandler_createSquareMesh()
+: <a class="el" href="MeshHandler_8c.html#ac5c244aa253818a56496b799cbbcd163">MeshHandler.c</a>
+, <a class="el" href="MeshHandler_8h.html#ac5c244aa253818a56496b799cbbcd163">MeshHandler.h</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_o"></a>- o -</h3><ul>
+<li>Object
+: <a class="el" href="Object_8c.html#a71c0c698be85fce6ae7d701b736c1a0a">Object.c</a>
+, <a class="el" href="Object_8h.html#ab1287b6141419421dc5c14b9f7756b0a">Object.h</a>
+</li>
+<li>Object_delete()
+: <a class="el" href="Object_8h.html#a5a751c997c4f1812315f9a116865cfc7">Object.h</a>
+, <a class="el" href="Object_8c.html#a5a751c997c4f1812315f9a116865cfc7">Object.c</a>
+</li>
+<li>Object_init()
+: <a class="el" href="Object_8c.html#a8b3a4d32abbc6ed511176b9b5bf7e233">Object.c</a>
+, <a class="el" href="Object_8h.html#a8b3a4d32abbc6ed511176b9b5bf7e233">Object.h</a>
+</li>
+<li>Object_new()
+: <a class="el" href="Object_8h.html#a11776bf3d365bb0570c2374c80a6c628">Object.h</a>
+, <a class="el" href="Object_8c.html#a11776bf3d365bb0570c2374c80a6c628">Object.c</a>
+</li>
+<li>Object_update()
+: <a class="el" href="Object_8c.html#a6e8d9ae2072908fa0f33596b6173ca0c">Object.c</a>
+, <a class="el" href="Object_8h.html#a6e8d9ae2072908fa0f33596b6173ca0c">Object.h</a>
+</li>
+<li>ObjectManager_addObj()
+: <a class="el" href="ObjectManager_8c.html#aed393befa5b820a5d903c5b8043d3f2b">ObjectManager.c</a>
+, <a class="el" href="ObjectManager_8h.html#aed393befa5b820a5d903c5b8043d3f2b">ObjectManager.h</a>
+</li>
+<li>ObjectManager_end()
+: <a class="el" href="ObjectManager_8c.html#a0452c96eb86038ca789a3a4b113cf35e">ObjectManager.c</a>
+, <a class="el" href="ObjectManager_8h.html#a0452c96eb86038ca789a3a4b113cf35e">ObjectManager.h</a>
+</li>
+<li>ObjectManager_init()
+: <a class="el" href="ObjectManager_8h.html#afecb1d5d549e70a25073c27f7000566b">ObjectManager.h</a>
+, <a class="el" href="ObjectManager_8c.html#afecb1d5d549e70a25073c27f7000566b">ObjectManager.c</a>
+</li>
+<li>ObjectManager_update()
+: <a class="el" href="ObjectManager_8h.html#ab3a03a8c29cbc679d75864c1782ef55d">ObjectManager.h</a>
+, <a class="el" href="ObjectManager_8c.html#ab3a03a8c29cbc679d75864c1782ef55d">ObjectManager.c</a>
+</li>
+<li>ObjInit
+: <a class="el" href="Object_8h.html#a17a94e09989deae8aa34c5cabfde9f33">Object.h</a>
+</li>
+<li>objs
+: <a class="el" href="ObjectManager_8c.html#abeb3ff5f4c8dfc8725eb36edc781eaa2">ObjectManager.c</a>
+</li>
+<li>ObjUpdate
+: <a class="el" href="Object_8h.html#aa627d9dfda3b41a52a4958eb9b8db7bc">Object.h</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
 <li>TEXTURES
-: <a class="el" href="image__handler_8h.html#ae615df439838018fa2b808dc75260432">image_handler.h</a>
-, <a class="el" href="Image__handler_8c.html#ae615df439838018fa2b808dc75260432">Image_handler.c</a>
+: <a class="el" href="ImageHandler_8c.html#ae615df439838018fa2b808dc75260432">ImageHandler.c</a>
+, <a class="el" href="ImageHandler_8h.html#ae615df439838018fa2b808dc75260432">ImageHandler.h</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_v"></a>- v -</h3><ul>
+<li>vector
+: <a class="el" href="Vector_8h.html#ac8c5476186a019b60cc8fd4cc6ea41a1">Vector.h</a>
+</li>
+<li>vector_at()
+: <a class="el" href="Vector_8c.html#a011649961a198f4ba1ee23f9e4f90251">Vector.c</a>
+, <a class="el" href="Vector_8h.html#a011649961a198f4ba1ee23f9e4f90251">Vector.h</a>
+</li>
+<li>vector_delete()
+: <a class="el" href="Vector_8c.html#a937379b5b4137bcf0e3e2b6cbfa9afa8">Vector.c</a>
+, <a class="el" href="Vector_8h.html#a937379b5b4137bcf0e3e2b6cbfa9afa8">Vector.h</a>
+</li>
+<li>vector_empty()
+: <a class="el" href="Vector_8c.html#a8c9d2a5d23cc648914052cceff3c1c82">Vector.c</a>
+, <a class="el" href="Vector_8h.html#a8c9d2a5d23cc648914052cceff3c1c82">Vector.h</a>
+</li>
+<li>vector_max_size()
+: <a class="el" href="Vector_8c.html#aa71f3e2c33d7af75c81a9a1f42f12429">Vector.c</a>
+, <a class="el" href="Vector_8h.html#aa71f3e2c33d7af75c81a9a1f42f12429">Vector.h</a>
+</li>
+<li>vector_new()
+: <a class="el" href="Vector_8h.html#aae966358de627b32946f0c8583388bc9">Vector.h</a>
+, <a class="el" href="Vector_8c.html#aae966358de627b32946f0c8583388bc9">Vector.c</a>
+</li>
+<li>vector_push_back()
+: <a class="el" href="Vector_8h.html#abc81ea9cecaef88612a90f9229ee8342">Vector.h</a>
+, <a class="el" href="Vector_8c.html#abc81ea9cecaef88612a90f9229ee8342">Vector.c</a>
+</li>
+<li>vector_reserve()
+: <a class="el" href="Vector_8c.html#a6c792ff31f3d63872f763b5c4ca99176">Vector.c</a>
+, <a class="el" href="Vector_8h.html#a6c792ff31f3d63872f763b5c4ca99176">Vector.h</a>
+</li>
+<li>vector_size()
+: <a class="el" href="Vector_8c.html#a9855846757600c289eb1d11da2e6fa4a">Vector.c</a>
+, <a class="el" href="Vector_8h.html#a9855846757600c289eb1d11da2e6fa4a">Vector.h</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -137,7 +392,7 @@ $(document).ready(function(){initNavTree('globals.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sun Jan 13 2019 13:02:14 for Digital Penguins by
+    <li class="footer">Generated on Tue Jan 15 2019 11:38:14 for Digital Penguins by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

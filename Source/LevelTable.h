@@ -33,42 +33,42 @@ typedef enum
  * @param level The level to check if actually exists.
  * @return Whether or not the level is valid.
  */
-int LevelIsValid(Levels level);
+int Level_isValid(Levels level);
 
 /**
  * @brief Check if the level is
  * @param level The level to check if is special (I.E. quitting or restarting).
  * @return Whether or not the level is special.
  */
-int LevelIsSpecial(Levels level);
+int Level_isSpecial(Levels level);
 
 /**
  * @brief Load a level.
  * @param level Level to load.
  */
-void ExecuteLevelLoad(Levels level);
+void Level_load(Levels level);
 
 /**
  * @brief Initialize a level.
  * @param level Level to initialize.
  */
-void ExecuteLevelInit(Levels level);
+void Level_init(Levels level);
 
 /**
  * @brief Update a level.
  * @param level Level to update.
  * @param dt DeltaTime for updates.
 */
-void ExecuteLevelUpdate(Levels level, float dt);
+void Level_update(Levels level, float dt);
 
 /**
  * @brief Shutdown a level.
  * @param level to shutdown.
 */
-void ExecuteLevelShutdown(Levels level);
+void Level_shutdown(Levels level);
 
 /**
  * @brief Unload a level.
  * @param level to unload.
 */
-void ExecuteLevelUnload(Levels level);
+void Level_unload(Levels level);

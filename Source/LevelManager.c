@@ -28,23 +28,23 @@ static int LevelIsChanging();
 void LevelManager_update(float dt)
 {
     if (LevelIsChanging()) {
-        ExecuteLevelShutdown(level.current);
+        Level_shutdown(level.current);
 
-        if (!LevelManager_isRestarting()) ExecuteLevelUnload(level.current);
+        if (!LevelManager_isRestarting()) Level_unload(level.current);
 
         level.previous = level.current;
         level.current = level.next;
 
-        if (!LevelManager_isRestarting()) ExecuteLevelLoad(level.current);
+        if (!LevelManager_isRestarting()) Level_load(level.current);
         else {
             level.current = level.previous;
             level.next = level.current;
         }
 
-        ExecuteLevelInit(level.current);
+        Level_init(level.current);
     }
 
-    ExecuteLevelUpdate(level.current, dt);
+    Level_update(level.current, dt);
 }
 
 void LevelManager_shutdown()
@@ -63,7 +63,7 @@ int LevelManager_isRunning()
 
 void LevelManager_setNextLevel(Levels nextLevel)
 {
-    if (LevelIsValid(nextLevel) || LevelIsSpecial(nextLevel)) {
+    if (Level_isValid(nextLevel) || Level_isSpecial(nextLevel)) {
         level.next = nextLevel;
     }
 }

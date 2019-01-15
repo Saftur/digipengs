@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['image_5fhandler_2ec',['Image_handler.c',['../Image__handler_8c.html',1,'']]],
-  ['image_5fhandler_2eh',['image_handler.h',['../image__handler_8h.html',1,'']]],
-  ['initializetextures',['initializeTextures',['../image__handler_8h.html#a57d7f972c2d4355a84e3da62d82c3621',1,'initializeTextures():&#160;Image_handler.c'],['../Image__handler_8c.html#a57d7f972c2d4355a84e3da62d82c3621',1,'initializeTextures():&#160;Image_handler.c']]]
+  ['example_5fobj_2ec',['example_obj.c',['../example__obj_8c.html',1,'']]],
+  ['example_5fobj_2eh',['example_obj.h',['../example__obj_8h.html',1,'']]],
+  ['exampleobj_5fnew',['ExampleObj_new',['../example__obj_8c.html#a0a00e67c86df181b8047d72652f16ab0',1,'ExampleObj_new():&#160;example_obj.c'],['../example__obj_8h.html#a0a00e67c86df181b8047d72652f16ab0',1,'ExampleObj_new():&#160;example_obj.c']]],
+  ['exampleobj_5foninit',['ExampleObj_onInit',['../example__obj_8c.html#abed5160f88f4c0aea71fa51f659f63a7',1,'example_obj.c']]],
+  ['exampleobj_5fonupdate',['ExampleObj_onUpdate',['../example__obj_8c.html#a7d815084373a526d2eb6b09ff29245e0',1,'example_obj.c']]]
 ];

@@ -10,17 +10,17 @@
 /**
  * @brief ExampleObj init function
  */
-void ExampleObj_init() {
+void ExampleObj_onInit() {
 	printf("ExampleObj init\n");
 }
 
 /**
  * @brief ExampleObj update function
  */
-void ExampleObj_update() {
+void ExampleObj_onUpdate() {
 	printf("ExampleObj update\n");
 }
 
 Object *ExampleObj_new() {
-	return Object_new(ExampleObj_init, ExampleObj_update);
+	return Object_new(ExampleObj_onInit, ExampleObj_onUpdate);
 }

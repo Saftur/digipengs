@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['loadedtextures',['LOADEDTEXTURES',['../image__handler_8h.html#acc0c3578343c297c045263e7c1f773f5',1,'image_handler.h']]]
+  ['current',['current',['../structLevel.html#af609e9942d1bfe4094a7967455fb0032',1,'Level']]]
 ];

@@ -9,25 +9,25 @@
 /**
  * @brief Load Level1.
  */
-void Level1Load();
+void Level1_onLoad();
 
 /**
  * @brief Initialize Level1.
  */
-void Level1Init();
+void Level1_onInit();
 
 /**
  * @brief Update Level1.
  * @param dt Delta Time for updates.
  */
-void Level1Update(float dt);
+void Level1_onUpdate(float dt);
 
 /**
  * @brief Shutdown Level1.
  */
-void Level1Shutdown();
+void Level1_onShutdown();
 
 /**
  * @brief Unload Level1.
  */
-void Level1Unload();
+void Level1_onUnload();

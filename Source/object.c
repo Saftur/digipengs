@@ -7,6 +7,12 @@
 
 #include "Object.h"
 
+
+typedef struct Object {
+    ObjInit init;     ///< @brief Object init function
+    ObjUpdate update; ///< @brief Object update function
+} Object;
+
 Object *Object_new(ObjInit init, ObjUpdate update) {
 	Object *obj = malloc(sizeof(Object));
 

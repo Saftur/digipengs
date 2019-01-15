@@ -75,6 +75,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>All</span></a></li>
       <li><a href="globals_func.html"><span>Functions</span></a></li>
       <li class="current"><a href="globals_vars.html"><span>Variables</span></a></li>
+      <li><a href="globals_type.html"><span>Typedefs</span></a></li>
+      <li><a href="globals_enum.html"><span>Enumerations</span></a></li>
+      <li><a href="globals_eval.html"><span>Enumerator</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -97,7 +100,7 @@ $(document).ready(function(){initNavTree('globals_vars.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -108,12 +111,21 @@ $(document).ready(function(){initNavTree('globals_vars.html','');});
 
 <div class="contents">
 &#160;<ul>
+<li>level
+: <a class="el" href="LevelManager_8c.html#a083b6d36ebd55b2e07bedb04440cb325">LevelManager.c</a>
+</li>
+<li>LevelTable
+: <a class="el" href="LevelTable_8c.html#a1f490be8973d2696dfd1e79b70f215cf">LevelTable.c</a>
+</li>
 <li>LOADEDTEXTURES
-: <a class="el" href="image__handler_8h.html#acc0c3578343c297c045263e7c1f773f5">image_handler.h</a>
+: <a class="el" href="ImageHandler_8h.html#acc0c3578343c297c045263e7c1f773f5">ImageHandler.h</a>
+</li>
+<li>objs
+: <a class="el" href="ObjectManager_8c.html#abeb3ff5f4c8dfc8725eb36edc781eaa2">ObjectManager.c</a>
 </li>
 <li>TEXTURES
-: <a class="el" href="image__handler_8h.html#ae615df439838018fa2b808dc75260432">image_handler.h</a>
-, <a class="el" href="Image__handler_8c.html#ae615df439838018fa2b808dc75260432">Image_handler.c</a>
+: <a class="el" href="ImageHandler_8c.html#ae615df439838018fa2b808dc75260432">ImageHandler.c</a>
+, <a class="el" href="ImageHandler_8h.html#ae615df439838018fa2b808dc75260432">ImageHandler.h</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -121,7 +133,7 @@ $(document).ready(function(){initNavTree('globals_vars.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sun Jan 13 2019 13:02:14 for Digital Penguins by
+    <li class="footer">Generated on Tue Jan 15 2019 11:38:14 for Digital Penguins by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

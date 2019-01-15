@@ -8,23 +8,23 @@
 #include "stdafx.h"
 #include "Level1.h"
 
-void Level1Load()
+void Level1_onLoad()
 {
 }
 
-void Level1Init()
+void Level1_onInit()
 {
 }
 
-void Level1Update(float dt)
+void Level1_onUpdate(float dt)
 {
     UNREFERENCED_PARAMETER(dt);
 }
 
-void Level1Shutdown()
+void Level1_onShutdown()
 {
 }
 
-void Level1Unload()
+void Level1_onUnload()
 {
 }

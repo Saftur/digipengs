@@ -11,10 +11,7 @@ typedef void(*ObjUpdate)(); ///< @brief Object update function type
 /**
  * @brief Game Object
  */
-typedef struct Object {
-	ObjInit init;     ///< @brief Object init function
-	ObjUpdate update; ///< @brief Object update function
-} Object;
+typedef struct Object Object;
 
 /**
  * @brief Create new Object
