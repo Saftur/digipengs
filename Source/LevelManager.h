@@ -11,29 +11,29 @@
 /**
  * @brief Initialize the level manager.
  */
-void LevelManagerInit();
+void LevelManager_init();
 
 /**
  * @brief Update the level manager.
  */
-void LevelManagerUpdate(float dt);
+void LevelManager_update(float dt);
 
 /**
  * @brief Shutdown the level manager.
  */
-void LevelManagerShutdown();
+void LevelManager_shutdown();
 
 /**
  * @brief Determine if the current level is being restarted.
  */
-int LevelManagerIsRestarting();
+int LevelManager_isRestarting();
 
 /**
  * @brief Determine if the game is still running.
  */
-int LevelManagerIsRunning();
+int LevelManager_isRunning();
 
 /**
  * @brief Set the next level to run.
  */
-void LevelManagerSetNextLevel(Levels nextLevel);
+void LevelManager_setNextLevel(Levels nextLevel);

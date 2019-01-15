@@ -1,5 +1,5 @@
 /**
- * @file mesh_handler.h
+ * @file MeshHandler.h
  * @author Connor Meyers
  * @date 2019/01/10
  * @brief Creates meshes given a size
@@ -16,7 +16,7 @@
  * @return A pointer to a mesh
  * @par Example: 
  * @code 
- * AEGfxVertexList *squareMesh = createSquareMesh(200, 200); 
+ * AEGfxVertexList *squareMesh = MeshHandler_createSquareMesh(200, 200); 
  * @endcode
  */
-AEGfxVertexList* createSquareMesh(float width, float height);
+AEGfxVertexList* MeshHandler_createSquareMesh(float width, float height);

@@ -16,16 +16,16 @@
     <ClCompile Include="Source\LevelStub.c" />
     <ClCompile Include="Source\LevelTable.c" />
     <ClCompile Include="Source\example_obj.c" />
-    <ClCompile Include="Source\image_handler.c" />
+    <ClCompile Include="Source\ImageHandler.c" />
     <ClCompile Include="Source\main.c" />
-    <ClCompile Include="Source\object.c" />
-    <ClCompile Include="Source\objectmanager.c" />
-    <ClCompile Include="Source\mesh_handler.c" />
+    <ClCompile Include="Source\Object.c" />
+    <ClCompile Include="Source\ObjectManager.c" />
+    <ClCompile Include="Source\MeshHandler.c" />
     <ClCompile Include="Source\stdafx.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Source\vector.c" />
+    <ClCompile Include="Source\Vector.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Level1.h" />
@@ -33,12 +33,12 @@
     <ClInclude Include="Source\LevelStub.h" />
     <ClInclude Include="Source\LevelTable.h" />
     <ClInclude Include="Source\example_obj.h" />
-    <ClInclude Include="Source\object.h" />
-    <ClInclude Include="Source\objectmanager.h" />
-    <ClInclude Include="Source\image_handler.h" />
-    <ClInclude Include="Source\mesh_handler.h" />
+    <ClInclude Include="Source\Object.h" />
+    <ClInclude Include="Source\ObjectManager.h" />
+    <ClInclude Include="Source\ImageHandler.h" />
+    <ClInclude Include="Source\MeshHandler.h" />
     <ClInclude Include="Source\stdafx.h" />
-    <ClInclude Include="Source\vector.h" />
+    <ClInclude Include="Source\Vector.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{71A03382-4E92-4D93-A8D2-58B289C3D484}</ProjectGuid>

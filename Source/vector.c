@@ -1,11 +1,11 @@
 /**
- * @file vector.c
+ * @file Vector.c
  * @author Arthur Bouvier
  * @brief vector implementation
  */
 #include "stdafx.h"
 
-#include "vector.h"
+#include "Vector.h"
 
 struct vector {
 	void **data;

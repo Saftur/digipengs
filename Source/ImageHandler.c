@@ -1,5 +1,5 @@
 /**
- * @file image_handler.c
+ * @file ImageHandler.c
  * @author Connor Meyers
  * @date 2019/01/10
  * @brief Imports images from a filename. The file should be located in the 'Assets' folder.
@@ -7,17 +7,17 @@
 
 #include "stdafx.h"		// Should be included first in every .c file!
 
-#include "image_handler.h"
+#include "ImageHandler.h"
 
 LOADEDTEXTURES TEXTURES;
 
-void initializeTextures()
+void ImageHandler_initializeTextures()
 {
     TEXTURES.test = AEGfxTextureLoad("./Assets/PlanetTexture.png");
     AE_ASSERT_MESG(TEXTURES.test, "Failed to load/create TEXTURE: test");
 }
 
-void drawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position)
+void ImageHandler_drawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position)
 {
     AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
     // Set poisition 
@@ -29,7 +29,7 @@ void drawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position)
     AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
 }
 
-void drawTextureAlpha(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float alpha)
+void ImageHandler_drawTextureAlpha(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float alpha)
 {
     AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
     // Set poisition 

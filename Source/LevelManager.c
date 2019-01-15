@@ -16,7 +16,7 @@ typedef struct {
 
 static Level level;
 
-void LevelManagerInit()
+void LevelManager_init()
 {
     level.current = LevelInvalid;
     level.previous = LevelInvalid;
@@ -25,17 +25,17 @@ void LevelManagerInit()
 
 static int LevelIsChanging();
 
-void LevelManagerUpdate(float dt)
+void LevelManager_update(float dt)
 {
     if (LevelIsChanging()) {
         ExecuteLevelShutdown(level.current);
 
-        if (!LevelManagerIsRestarting()) ExecuteLevelUnload(level.current);
+        if (!LevelManager_isRestarting()) ExecuteLevelUnload(level.current);
 
         level.previous = level.current;
         level.current = level.next;
 
-        if (!LevelManagerIsRestarting()) ExecuteLevelLoad(level.current);
+        if (!LevelManager_isRestarting()) ExecuteLevelLoad(level.current);
         else {
             level.current = level.previous;
             level.next = level.current;
@@ -47,21 +47,21 @@ void LevelManagerUpdate(float dt)
     ExecuteLevelUpdate(level.current, dt);
 }
 
-void LevelManagerShutdown()
+void LevelManager_shutdown()
 {
 }
 
-int LevelManagerIsRestarting()
+int LevelManager_isRestarting()
 {
     return level.next == LevelRestart;
 }
 
-int LevelManagerIsRunning()
+int LevelManager_isRunning()
 {
     return level.current != LevelQuit;
 }
 
-void LevelManagerSetNextLevel(Levels nextLevel)
+void LevelManager_setNextLevel(Levels nextLevel)
 {
     if (LevelIsValid(nextLevel) || LevelIsSpecial(nextLevel)) {
         level.next = nextLevel;

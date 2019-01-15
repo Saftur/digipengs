@@ -1,11 +1,11 @@
 /**
- * @file objectmanager.c
+ * @file ObjectManager.c
  * @author Arthur Bouvier
  * @brief ObjectManager implementation
  */
 #include "stdafx.h"
 
-#include "objectmanager.h"
+#include "ObjectManager.h"
 #include "vector.h"
 
 static vector *objs;

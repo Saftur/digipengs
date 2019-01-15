@@ -1,5 +1,5 @@
 /**
- * @file vector.h
+ * @file Vector.h
  * @author Arthur Bouvier
  * @brief C++-style NULL-type vector class
  */

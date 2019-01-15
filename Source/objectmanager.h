@@ -1,11 +1,11 @@
 /**
- * @file objectmanager.h
+ * @file ObjectManager.h
  * @author Arthur Bouvier
  * @brief Game Object manager
  */
 #pragma once
 
-#include "object.h"
+#include "Object.h"
 
 /**
  * @brief Initialize ObjectManager

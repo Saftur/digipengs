@@ -17,7 +17,7 @@
 
 #include <AEEngine.h>
 #include "LevelManager.h"
-#include "objectmanager.h"
+#include "ObjectManager.h"
 
 // ---------------------------------------------------------------------------
 
@@ -69,11 +69,11 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
     DWORD lastTime = 0;
     DWORD currentTime = GetTickCount();
 
-    LevelManagerInit();
+    LevelManager_init();
 	ObjectManager_init();
 
 	// Game Loop
-	while (LevelManagerIsRunning())
+	while (LevelManager_isRunning())
 	{
 
 		// Informing the system about the loop's start
@@ -87,7 +87,7 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
         if (lastTime > 0) dt = (float) (currentTime - lastTime)/1000;
         lastTime = currentTime;
 
-        LevelManagerUpdate(dt);
+        LevelManager_update(dt);
 
 		ObjectManager_update();
 
@@ -96,7 +96,7 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 
 		// check if forcing the application to quit
         if (AEInputCheckTriggered(VK_ESCAPE) || 0 == AESysDoesWindowExist())
-            LevelManagerSetNextLevel(LevelQuit);
+            LevelManager_setNextLevel(LevelQuit);
 	}
 
 	ObjectManager_end();

@@ -1,11 +1,11 @@
 /**
- * @file object.c
+ * @file Object.c
  * @author Arthur Bouvier
  * @brief Object implementation
  */
 #include "stdafx.h"
 
-#include "object.h"
+#include "Object.h"
 
 Object *Object_new(ObjInit init, ObjUpdate update) {
 	Object *obj = malloc(sizeof(Object));

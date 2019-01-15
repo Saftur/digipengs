@@ -1,5 +1,5 @@
 /**
- * @file mesh_handler.c
+ * @file MeshHandler.c
  * @author Connor Meyers
  * @date 2019/01/10
  * @brief Creates meshes given a size
@@ -7,9 +7,9 @@
 
 #include "stdafx.h"		// Should be included first in every .c file!
 
-#include "mesh_handler.h"
+#include "MeshHandler.h"
 
-AEGfxVertexList* createSquareMesh(float width, float height)
+AEGfxVertexList* MeshHandler_createSquareMesh(float width, float height)
 {
     AEGfxVertexList* squareMesh;
 
