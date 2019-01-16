@@ -89,7 +89,7 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 
         LevelManager_update(dt);
 
-		ObjectManager_update();
+		ObjectManager_update(dt);
 
 		// Informing the system about the loop's end
 		AESysFrameEnd();

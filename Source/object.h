@@ -5,13 +5,13 @@
  */
 #pragma once
 
-typedef void(*ObjInit)();   ///< @brief Object init function type
-typedef void(*ObjUpdate)(); ///< @brief Object update function type
-
 /**
  * @brief Game Object
  */
 typedef struct Object Object;
+
+typedef void(*ObjInit)(Object *obj);			 ///< @brief Object init function type
+typedef void(*ObjUpdate)(Object *obj, float dt); ///< @brief Object update function type
 
 /**
  * @brief Create new Object
@@ -36,5 +36,6 @@ void Object_init(Object *obj);
 /**
  * @brief Update Object
  * @param obj Object to Update
+ * @param dt Current delta time in seconds
  */
-void Object_update(Object *obj);
+void Object_update(Object *obj, float dt);

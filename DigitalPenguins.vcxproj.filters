@@ -2,9 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Source\stdafx.c" />
-    <ClCompile Include="Source\main.c">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="Source\LevelTable.c">
       <Filter>Engine\Levels</Filter>
     </ClCompile>
@@ -16,9 +13,6 @@
     </ClCompile>
     <ClCompile Include="Source\LevelStub.c">
       <Filter>Game\Levels</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\example_obj.c">
-      <Filter>Game\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Source\ImageHandler.c">
       <Filter>Engine\Handlers</Filter>
@@ -35,6 +29,12 @@
     <ClCompile Include="Source\Vector.c">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ExampleObj.c">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Main.c">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
@@ -50,9 +50,6 @@
     <ClInclude Include="Source\LevelStub.h">
       <Filter>Game\Levels</Filter>
     </ClInclude>
-    <ClInclude Include="Source\example_obj.h">
-      <Filter>Game\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Source\ImageHandler.h">
       <Filter>Engine\Handlers</Filter>
     </ClInclude>
@@ -67,6 +64,9 @@
     </ClInclude>
     <ClInclude Include="Source\Vector.h">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ExampleObj.h">
+      <Filter>Game\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

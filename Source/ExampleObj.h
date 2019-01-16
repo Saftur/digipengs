@@ -1,5 +1,5 @@
 /**
- * @file example_obj.h
+ * @file ExampleObj.h
  * @author Arthur Bouvier
  * @brief Example Game Object
  */

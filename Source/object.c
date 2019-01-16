@@ -28,10 +28,10 @@ void Object_delete(Object *obj) {
 
 void Object_init(Object *obj) {
 	if (obj->init)
-		obj->init();
+		obj->init(obj);
 }
 
-void Object_update(Object *obj) {
+void Object_update(Object *obj, float dt) {
 	if (obj->update)
-		obj->update();
+		obj->update(obj, dt);
 }

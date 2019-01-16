@@ -15,9 +15,9 @@
     <ClCompile Include="Source\LevelManager.c" />
     <ClCompile Include="Source\LevelStub.c" />
     <ClCompile Include="Source\LevelTable.c" />
-    <ClCompile Include="Source\example_obj.c" />
+    <ClCompile Include="Source\ExampleObj.c" />
     <ClCompile Include="Source\ImageHandler.c" />
-    <ClCompile Include="Source\main.c" />
+    <ClCompile Include="Source\Main.c" />
     <ClCompile Include="Source\Object.c" />
     <ClCompile Include="Source\ObjectManager.c" />
     <ClCompile Include="Source\MeshHandler.c" />
@@ -32,7 +32,7 @@
     <ClInclude Include="Source\LevelManager.h" />
     <ClInclude Include="Source\LevelStub.h" />
     <ClInclude Include="Source\LevelTable.h" />
-    <ClInclude Include="Source\example_obj.h" />
+    <ClInclude Include="Source\ExampleObj.h" />
     <ClInclude Include="Source\Object.h" />
     <ClInclude Include="Source\ObjectManager.h" />
     <ClInclude Include="Source\ImageHandler.h" />

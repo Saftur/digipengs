@@ -14,8 +14,9 @@ void ObjectManager_init();
 
 /**
  * @brief Update ObjectManager
+ * @param dt Current delta time in seconds
  */
-void ObjectManager_update();
+void ObjectManager_update(float dt);
 
 /**
  * @brief Add Object to ObjectManager

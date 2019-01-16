@@ -14,11 +14,11 @@ void ObjectManager_init() {
 	objs = vector_new(10);
 }
 
-void ObjectManager_update() {
+void ObjectManager_update(float dt) {
 	for (unsigned i = 0; i < vector_size(objs); i++) {
 		Object *obj = vector_at(objs, i);
 
-		Object_update(obj);
+		Object_update(obj, dt);
 	}
 }
 
