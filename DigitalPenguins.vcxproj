@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\InputHandler.c" />
     <ClCompile Include="Source\Level1.c" />
     <ClCompile Include="Source\LevelManager.c" />
     <ClCompile Include="Source\LevelStub.c" />
@@ -28,6 +29,7 @@
     <ClCompile Include="Source\Vector.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\InputHandler.h" />
     <ClInclude Include="Source\Level1.h" />
     <ClInclude Include="Source\LevelManager.h" />
     <ClInclude Include="Source\LevelStub.h" />

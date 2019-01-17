@@ -35,6 +35,9 @@
     <ClCompile Include="Source\Main.c">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Source\InputHandler.c">
+      <Filter>Engine\Handlers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
@@ -67,6 +70,9 @@
     </ClInclude>
     <ClInclude Include="Source\ExampleObj.h">
       <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\InputHandler.h">
+      <Filter>Engine\Handlers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
