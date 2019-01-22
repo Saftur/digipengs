@@ -10,16 +10,17 @@
  */
 typedef struct Object Object;
 
-typedef void(*ObjInit)(Object *obj);			 ///< @brief Object init function type
-typedef void(*ObjUpdate)(Object *obj, float dt); ///< @brief Object update function type
+typedef void(*ObjInit)(Object *obj, void *data);			 ///< @brief Object init function type
+typedef void(*ObjUpdate)(Object *obj, void *data, float dt); ///< @brief Object update function type
 
 /**
  * @brief Create new Object
  * @param init   Init function for new Object
  * @param update Update function for new Object
+ * @param data   Upvalue for Object functions
  * @return New Object
  */
-Object *Object_new(ObjInit init, ObjUpdate update);
+Object *Object_new(ObjInit init, ObjUpdate update, void *data);
 
 /**
  * @brief Delete Object

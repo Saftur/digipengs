@@ -10,20 +10,22 @@
 /**
  * @brief ExampleObj init function
  */
-void ExampleObj_onInit(Object *obj) {
+void ExampleObj_onInit(Object *obj, void *data) {
 	printf("ExampleObj init\n");
 	UNREFERENCED_PARAMETER(obj);
+	UNREFERENCED_PARAMETER(data);
 }
 
 /**
  * @brief ExampleObj update function
  */
-void ExampleObj_onUpdate(Object *obj, float dt) {
+void ExampleObj_onUpdate(Object *obj, void *data, float dt) {
 	printf("ExampleObj update\n");
 	UNREFERENCED_PARAMETER(obj);
+	UNREFERENCED_PARAMETER(data);
 	UNREFERENCED_PARAMETER(dt);
 }
 
 Object *ExampleObj_new() {
-	return Object_new(ExampleObj_onInit, ExampleObj_onUpdate);
+	return Object_new(ExampleObj_onInit, ExampleObj_onUpdate, NULL);
 }
