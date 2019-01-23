@@ -18,6 +18,7 @@
 #include <AEEngine.h>
 #include "LevelManager.h"
 #include "ObjectManager.h"
+#include "ImageHandler.h"
 
 // ---------------------------------------------------------------------------
 
@@ -71,6 +72,9 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 
     LevelManager_init();
 	ObjectManager_init();
+	ImageHandler_initializeTextures();
+
+	LevelManager_setNextLevel(TitleScreen);
 
 	// Game Loop
 	while (LevelManager_isRunning())
@@ -100,6 +104,7 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 	}
 
 	ObjectManager_end();
+	ImageHandler_shutdown();
 
 	// free the system
 	AESysExit();

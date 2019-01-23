@@ -38,6 +38,9 @@
     <ClCompile Include="Source\InputHandler.c">
       <Filter>Engine\Handlers</Filter>
     </ClCompile>
+    <ClCompile Include="Source\TitleScreen.c">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
@@ -73,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="Source\InputHandler.h">
       <Filter>Engine\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TitleScreen.h">
+      <Filter>Game\Levels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
