@@ -18,6 +18,7 @@
 #include <AEEngine.h>
 #include "LevelManager.h"
 #include "ObjectManager.h"
+#include "Camera.h"
 
 // ---------------------------------------------------------------------------
 
@@ -71,6 +72,7 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 
     LevelManager_init();
 	ObjectManager_init();
+	Camera_init();
 
 	// Game Loop
 	while (LevelManager_isRunning())
@@ -91,6 +93,11 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 
 		ObjectManager_update(dt);
 
+		for (unsigned i = 0; i < Camera_count(); i++) {
+			Camera_set(i);
+			ObjectManager_draw();
+		}
+
 		// Informing the system about the loop's end
 		AESysFrameEnd();
 
@@ -100,6 +107,7 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 	}
 
 	ObjectManager_end();
+	Camera_shutdown();
 
 	// free the system
 	AESysExit();

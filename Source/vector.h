@@ -7,12 +7,17 @@
 
 typedef struct vector vector; ///< @brief vector forward declaration
 
+typedef void *(*vector_copyfunc)(void *item); ///< Function type to copy item
+typedef void(*vector_delfunc)(void *item);    ///< Function type to delete item
+
 /**
  * @brief Create new vector
- * @param max Starting array allocation size
+ * @param max      Starting array allocation size
+ * @param copyfunc Item copy function
+ * @param delfunc  Item delete function
  * @return New vector
  */
-vector *vector_new(size_t max);
+vector *vector_new(size_t max, vector_copyfunc copyfunc, vector_delfunc delfunc);
 /** 
  * @brief Delete vector
  * @param vec vector to delete
@@ -58,4 +63,10 @@ void *vector_at(vector *vec, unsigned i);
  * @param item Item to add
  */
 void vector_push_back(vector *vec, void *item);
+
+/**
+ * @brief Delete all items in vector
+ * @param vec vector to clear
+ */
+void vector_clear(vector *vec);
 

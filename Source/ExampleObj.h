@@ -5,7 +5,7 @@
  */
 #pragma once
 
-#include "object.h"
+#include "Object.h"
 
 /**
  * @brief Create new ExampleObj

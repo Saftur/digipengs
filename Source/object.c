@@ -11,15 +11,18 @@
 typedef struct Object {
     ObjInit init;     ///< Object init function
     ObjUpdate update; ///< Object update function
+	ObjDraw draw;	  ///< Object draw function
+
 	void *data;	      ///< Object data
 	AEVec2 pos;		  ///< Object position
 } Object;
 
-Object *Object_new(ObjInit init, ObjUpdate update, void *data) {
+Object *Object_new(ObjInit init, ObjUpdate update, ObjDraw draw, void *data) {
 	Object *obj = malloc(sizeof(Object));
 
 	obj->init = init;
 	obj->update = update;
+	obj->draw = draw;
 	obj->data = data;
 	obj->pos.x = 0.f;
 	obj->pos.y = 0.f;
@@ -40,6 +43,11 @@ void Object_init(Object *obj) {
 void Object_update(Object *obj, float dt) {
 	if (obj->update)
 		obj->update(obj, obj->data, dt);
+}
+
+void Object_draw(Object *obj) {
+	if (obj->draw)
+		obj->draw(obj, obj->data);
 }
 
 AEVec2 Object_getPos(Object *obj) {

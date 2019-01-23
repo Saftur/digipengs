@@ -11,17 +11,23 @@ struct vector {
 	void **data;
 	size_t size;
 	size_t max;
+
+	vector_copyfunc copyfunc;
+	vector_delfunc delfunc;
 };
 
-vector *vector_new(size_t max) {
+vector *vector_new(size_t max, vector_copyfunc copyfunc, vector_delfunc delfunc) {
 	vector *vec = malloc(sizeof(vector));
 	vec->max = max;
 	vec->size = 0;
 	vec->data = malloc(sizeof(void*) * max);
+	vec->copyfunc = copyfunc;
+	vec->delfunc = delfunc;
 	return vec;
 }
 
 void vector_delete(vector *vec) {
+	vector_clear(vec);
 	free(vec->data);
 	free(vec);
 }
@@ -56,4 +62,10 @@ void vector_push_back(vector *vec, void *item) {
 	if (vec->size + 1 >= vec->max)
 		vector_reserve(vec, vec->max * 2);
 	vec->data[vec->size++] = item;
+}
+
+void vector_clear(vector *vec) {
+	for (unsigned i = 0; i < vec->size; i++)
+		vec->delfunc(vec->data[i]);
+	vec->size = 0;
 }

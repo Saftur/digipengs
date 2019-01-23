@@ -19,6 +19,11 @@ void ObjectManager_init();
 void ObjectManager_update(float dt);
 
 /**
+ * @brief Draw ObjectManager
+ */
+void ObjectManager_draw();
+
+/**
  * @brief Add Object to ObjectManager
  * @param obj Object to add
  */

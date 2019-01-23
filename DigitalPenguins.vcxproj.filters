@@ -38,6 +38,9 @@
     <ClCompile Include="Source\InputHandler.c">
       <Filter>Engine\Handlers</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Camera.c">
+      <Filter>Engine\Objects\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
@@ -74,6 +77,9 @@
     <ClInclude Include="Source\InputHandler.h">
       <Filter>Engine\Handlers</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Camera.h">
+      <Filter>Engine\Objects\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
@@ -96,6 +102,9 @@
     </Filter>
     <Filter Include="Engine\Handlers">
       <UniqueIdentifier>{ca319c28-e82c-4b26-96e6-2daa2e3cdd3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Objects\Camera">
+      <UniqueIdentifier>{083f4d94-0cb7-4652-b5b1-8863e161c98e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

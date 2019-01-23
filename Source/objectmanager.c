@@ -11,7 +11,7 @@
 static vector *objs;
 
 void ObjectManager_init() {
-	objs = vector_new(10);
+	objs = vector_new(10, NULL, Object_delete);
 }
 
 void ObjectManager_update(float dt) {
@@ -19,6 +19,14 @@ void ObjectManager_update(float dt) {
 		Object *obj = vector_at(objs, i);
 
 		Object_update(obj, dt);
+	}
+}
+
+void ObjectManager_draw() {
+	for (unsigned i = 0; i < vector_size(objs); i++) {
+		Object *obj = vector_at(objs, i);
+
+		Object_draw(obj);
 	}
 }
 
