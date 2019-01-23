@@ -12,6 +12,7 @@ typedef struct Object {
     ObjInit init;     ///< @brief Object init function
     ObjUpdate update; ///< @brief Object update function
 	void *data;	      ///< @brief Object data
+	AEVec2 pos;		  ///< @brief Object position
 } Object;
 
 Object *Object_new(ObjInit init, ObjUpdate update, void *data) {
@@ -20,6 +21,8 @@ Object *Object_new(ObjInit init, ObjUpdate update, void *data) {
 	obj->init = init;
 	obj->update = update;
 	obj->data = data;
+	obj->pos.x = 0.f;
+	obj->pos.y = 0.f;
 
 	return obj;
 }
@@ -37,4 +40,12 @@ void Object_init(Object *obj) {
 void Object_update(Object *obj, float dt) {
 	if (obj->update)
 		obj->update(obj, obj->data, dt);
+}
+
+AEVec2 Object_getPos(Object *obj) {
+	return obj->pos;
+}
+
+void Object_setPos(Object *obj, AEVec2 pos) {
+	obj->pos = pos;
 }

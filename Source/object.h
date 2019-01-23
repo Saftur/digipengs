@@ -5,6 +5,8 @@
  */
 #pragma once
 
+#include <AEEngine.h>
+
 /**
  * @brief Game Object
  */
@@ -40,3 +42,17 @@ void Object_init(Object *obj);
  * @param dt Current delta time in seconds
  */
 void Object_update(Object *obj, float dt);
+
+/**
+ * @brief Get Object position
+ * @param obj Object to get from
+ * @return Position of Object
+ */
+AEVec2 Object_getPos(Object *obj);
+
+/**
+ * @brief Set Object position
+ * @param obj Object to set on
+ * @param pos New position
+ */
+void Object_setPos(Object *obj, AEVec2 pos);
