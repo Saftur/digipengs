@@ -9,10 +9,10 @@
 
 
 typedef struct Object {
-    ObjInit init;     ///< @brief Object init function
-    ObjUpdate update; ///< @brief Object update function
-	void *data;	      ///< @brief Object data
-	AEVec2 pos;		  ///< @brief Object position
+    ObjInit init;     ///< Object init function
+    ObjUpdate update; ///< Object update function
+	void *data;	      ///< Object data
+	AEVec2 pos;		  ///< Object position
 } Object;
 
 Object *Object_new(ObjInit init, ObjUpdate update, void *data) {

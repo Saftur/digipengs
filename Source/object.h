@@ -12,8 +12,8 @@
  */
 typedef struct Object Object;
 
-typedef void(*ObjInit)(Object *obj, void *data);			 ///< @brief Object init function type
-typedef void(*ObjUpdate)(Object *obj, void *data, float dt); ///< @brief Object update function type
+typedef void(*ObjInit)(Object *obj, void *data);			 ///< Object init function type
+typedef void(*ObjUpdate)(Object *obj, void *data, float dt); ///< Object update function type
 
 /**
  * @brief Create new Object
