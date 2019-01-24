@@ -16,6 +16,11 @@
 struct LOADEDTEXTURES
 {
     AEGfxTexture *test; ///< For testing purposes
+	AEGfxTexture *titleScreen_title; ///< the title for the titlescreen 
+	AEGfxTexture *titleScreen_startButton; ///< the title for the titlescreen 
+	AEGfxTexture *titleScreen_button; ///< the title for the titlescreen 
+	AEGfxTexture *titleScreen_exitButton; ///< the title for the titlescreen 
+	
 }typedef LOADEDTEXTURES;
 
 /**
@@ -28,6 +33,8 @@ extern LOADEDTEXTURES TEXTURES;
  * @brief Loads all textures in the game
  */
 void ImageHandler_initializeTextures();
+
+void ImageHandler_shutdown();
 
 /**
  * @brief Draws a texture onto a given mesh (Assumes mesh is a composite of triangles)

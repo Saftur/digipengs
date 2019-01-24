@@ -19,6 +19,7 @@ typedef enum
 
     //Game levels.
     Level1,
+	TitleScreen,
 
     //Extra info
     LevelNum,
