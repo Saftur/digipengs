@@ -18,6 +18,8 @@
 #include <AEEngine.h>
 #include "LevelManager.h"
 #include "ObjectManager.h"
+#include "Boulder.h"
+#include "ImageHandler.h"
 
 // ---------------------------------------------------------------------------
 
@@ -71,6 +73,11 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 
     LevelManager_init();
 	ObjectManager_init();
+    ImageHandler_initializeTextures();
+
+    Boulder_intialize();
+
+    ObjectManager_addObj(Boulder_new(BOULDER_TYPES.giant, (AEVec2) { 0, 0 }));
 
 	// Game Loop
 	while (LevelManager_isRunning())
@@ -91,6 +98,7 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 
 		ObjectManager_update(dt);
 
+
 		// Informing the system about the loop's end
 		AESysFrameEnd();
 
@@ -100,6 +108,7 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 	}
 
 	ObjectManager_end();
+    Boulder_shutdown();
 
 	// free the system
 	AESysExit();

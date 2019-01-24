@@ -8,6 +8,7 @@
 #include "stdafx.h"		// Should be included first in every .c file!
 
 #include "ImageHandler.h"
+#include "Boulder.h"
 
 LOADEDTEXTURES TEXTURES;
 

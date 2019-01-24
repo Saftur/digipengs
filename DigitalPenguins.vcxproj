@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\Boulder.c" />
     <ClCompile Include="Source\InputHandler.c" />
     <ClCompile Include="Source\Level1.c" />
     <ClCompile Include="Source\LevelManager.c" />
@@ -29,12 +30,15 @@
     <ClCompile Include="Source\Vector.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\Boulder.h" />
+    <ClInclude Include="source\Ice.h" />
     <ClInclude Include="Source\InputHandler.h" />
     <ClInclude Include="Source\Level1.h" />
     <ClInclude Include="Source\LevelManager.h" />
     <ClInclude Include="Source\LevelStub.h" />
     <ClInclude Include="Source\LevelTable.h" />
     <ClInclude Include="Source\ExampleObj.h" />
+    <ClInclude Include="source\Map.h" />
     <ClInclude Include="Source\Object.h" />
     <ClInclude Include="Source\ObjectManager.h" />
     <ClInclude Include="Source\ImageHandler.h" />
