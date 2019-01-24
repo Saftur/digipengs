@@ -65,6 +65,13 @@ void *vector_at(vector *vec, unsigned i);
 void vector_push_back(vector *vec, void *item);
 
 /**
+ * @brief Erase item from vector
+ * @param vec vector to erase fom
+ * @param i   Index of item to delete
+ */
+void vector_erase(vector *vec, unsigned i);
+
+/**
  * @brief Delete all items in vector
  * @param vec vector to clear
  */

@@ -64,6 +64,14 @@ void vector_push_back(vector *vec, void *item) {
 	vec->data[vec->size++] = item;
 }
 
+void vector_erase(vector *vec, unsigned i) {
+	if (i >= vec->size)
+		return;
+	vec->delfunc(vec->data[i]);
+	memmove(vec->data + i, vec->data + i + 1, (vec->size - i - 1) * sizeof(void*));
+	vec->size--;
+}
+
 void vector_clear(vector *vec) {
 	for (unsigned i = 0; i < vec->size; i++)
 		vec->delfunc(vec->data[i]);
