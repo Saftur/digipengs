@@ -47,6 +47,9 @@
     <ClCompile Include="Source\Camera.c">
       <Filter>Engine\Objects\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Button.c">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
@@ -91,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="Source\Camera.h">
       <Filter>Engine\Objects\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Button.h">
+      <Filter>Game\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -9,6 +9,9 @@
 #include "TitleScreen.h"
 #include "ImageHandler.h"
 #include "MeshHandler.h"
+#include "ObjectManager.h"
+
+#include "Button.h"
 
 AEGfxVertexList* TitleMesh;
 AEGfxVertexList* StartMesh;
@@ -25,6 +28,10 @@ void TitleScreen_onInit()
 	StartMesh = MeshHandler_createSquareMesh(600, 50);
 	OptionsMesh = MeshHandler_createSquareMesh(50, 50);
 	ExitMesh = MeshHandler_createSquareMesh(600, 50);
+
+	Object *startButton = Button_new(TEXTURES.titleScreen_startButton, StartMesh);
+	Object_setPos(startButton, (AEVec2) { 0, 0 });
+	ObjectManager_addObj(startButton);
 }
 
 void TitleScreen_onUpdate(float dt)
