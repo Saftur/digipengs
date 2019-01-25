@@ -27,5 +27,5 @@ void ExampleObj_onUpdate(Object *obj, void *data, float dt) {
 }
 
 Object *ExampleObj_new() {
-	return Object_new(ExampleObj_onInit, ExampleObj_onUpdate, NULL, NULL);
+	return Object_new(ExampleObj_onInit, ExampleObj_onUpdate, NULL, NULL, NULL);
 }
