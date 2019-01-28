@@ -11,4 +11,4 @@
  * @brief Create new Button
  * @return New Button
  */
-Object *Button_new(AEGfxTexture *texture, AEGfxVertexList *mesh);
+Object *Button_new(AEGfxTexture *texture, AEGfxVertexList *mesh, AEVec2 pos);

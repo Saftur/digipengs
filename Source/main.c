@@ -77,6 +77,9 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 	LevelManager_setNextLevel(TitleScreen);
 	Camera_init();
 
+    Camera_new((AEVec2) { 100, 0 }, (AEVec2) { 1, 1 }, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 300 });
+    Camera_new((AEVec2) { 0, 0 }, (AEVec2) { 1, 1 }, 0, (AEVec2) { 0, 300 }, (AEVec2) { 800, 300 });
+
 	// Game Loop
 	while (LevelManager_isRunning())
 	{

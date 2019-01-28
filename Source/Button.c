@@ -7,6 +7,7 @@
 
 #include "Button.h"
 #include <AEEngine.h>
+#include "ImageHandler.h"
 
 typedef struct Button {
 	AEGfxTexture *texture;
@@ -36,16 +37,11 @@ void Button_onDraw(Object *obj, Button *data) {
 	ImageHandler_drawTexture(data->mesh, data->texture, Object_getPos(obj));
 }
 
-Object *Button_new(AEGfxTexture *texture, AEGfxVertexList *mesh, int x, int y) {
+Object *Button_new(AEGfxTexture *texture, AEGfxVertexList *mesh, AEVec2 pos) {
 	Button *buttonData = malloc(sizeof(Button));
 	buttonData->texture = texture;
 	buttonData->mesh = mesh;
-	Object *buttonObj = Object_new(Button_onInit, Button_onUpdate, Button_onDraw, buttonData);
-	Object_setPos(buttonObj, (AEVec2) { x, y });
-	ObjectManager_addObj(buttonObj);
+	Object *buttonObj = Object_new(Button_onInit, Button_onUpdate, Button_onDraw, buttonData, free);
+	Object_setPos(buttonObj, pos);
 	return buttonObj;
-}
-
-Object *Button_new(AEGfxTexture *texture, int x, int y, int width, int height) {
-	Object *button = Button_new(texture, MeshHandler_createSquareMesh(width, height), x, y);
 }
