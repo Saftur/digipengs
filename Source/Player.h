@@ -8,10 +8,8 @@
 #include <AEEngine.h>
 #include "Object.h"
 
- /**
-  * @brief Initializes boulder data
-  */
-void Player_intialize();
+#define PLAYER_STANDARD_TEXTURE   TEXTURES.test
+#define PLAYER_SCALE (AEVec2){64,64}
 
 /**
  * @brief Frees all allocated memory and calls any ending functions
@@ -19,26 +17,11 @@ void Player_intialize();
 void Player_shutdown();
 
 /**
- * @brief Create new boulder
- * @param type Type of boulder to create
- * @param pos Position to create boulder at
- * @return New boulder
+ * @brief Create new Player
+ * @param pos Position to create player at
+ * @return New player
  */
-Object *Player_new();
-
-/**
- * @brief Returns the transform of a player
- * @param player Player to get the transform of
- * @return Transform
- */
-AEVec2 Player_getTransform(Object * player);
-
-/**
- * @brief Sets the transform of a player
- * @param player Player to set the transform of
- * @param vec New Transform
- */
-void Player_setTransform(Object * player, AEVec2 vec);
+Object * Player_new(AEVec2 pos);
 
 /**
  * @brief Returns the direction of a player

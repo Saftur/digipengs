@@ -49,13 +49,12 @@ void Boulder_onInit(Object *obj, void *data)
 	UNREFERENCED_PARAMETER(data);
 }
 
-float rotation = 0;
 void Boulder_onUpdate(Object *obj, void *data, float dt) 
 {
     BoulderInfo infoData = *(BoulderInfoPtr)data;
     UNREFERENCED_PARAMETER(dt);
 
-    ImageHandler_drawTexture(infoData.mesh, infoData.texture, Object_getPos(obj));
+    ImageHandler_drawTexture(infoData.mesh, infoData.texture, Object_getPos(obj), 0);
 }
 
 Object * Boulder_new(BoulderInfoPtr type, AEVec2 pos)

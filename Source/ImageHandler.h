@@ -41,22 +41,21 @@ void ImageHandler_shutdown();
  * @param mesh The mesh to draw onto
  * @param texture The texture to draw onto the mesh
  * @param position Where to draw
+ * @param rotation rotation of image
  * @par Example: 
  * @code
- * ImageHandler_drawTexture(squareMesh, TEXTURES.test, (AEVec2) { 0, 0 });
+ * ImageHandler_drawTexture(squareMesh, TEXTURES.test, (AEVec2) { 0, 0 }, 0);
  * @endcode
  */
-void ImageHandler_drawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position);
+void ImageHandler_drawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float rotation);
 
 /**
- * @brief Draws a texture onto a given mesh with a set alpha transparency (Assumes mesh is a composite of triangles)
+ * @brief Draws a texture onto a given mesh (Assumes mesh is a composite of triangles)
  * @param mesh The mesh to draw onto
  * @param texture The texture to draw onto the mesh
  * @param position Where to draw
- * @param alpha The alpha value of the texture from 0 to 1
- * @par Example: 
- * @code
- * ImageHandler_drawTextureAlpha(squareMesh, TEXTURES.test, (AEVec2) { 0, 0 }, 0.5f);
- * @endcode
+ * @param scale Scale to draw the image at
+ * @param rotation Rotation of the image
+ * @param alpha Alpha of the image
  */
-void ImageHandler_drawTextureAlpha(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float alpha);
+void ImageHandler_fullDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, AEVec2 scale, float rotation, float alpha);

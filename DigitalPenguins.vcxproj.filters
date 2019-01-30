@@ -53,6 +53,9 @@
     <ClCompile Include="Source\Button.c">
       <Filter>Game\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="source\Player.c">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />

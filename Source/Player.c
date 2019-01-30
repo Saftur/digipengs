@@ -14,22 +14,46 @@
 
 typedef struct PlayerData
 {
-    AEVec2 transform;         ///< Position
-    float direction;          ///< From -1 to 1;
+    float direction;  ///< From -1 to 1;
 
     AEGfxVertexList *mesh;    ///< Mesh
     AEGfxTexture    *texture; ///< Texture
+
+    float alpha; ///< Transparency
 }PlayerData;
 
-void Player_intialize();
+void Player_shutdown()
+{
 
-void Player_shutdown();
+}
 
-Object *Player_new(PlayerData * data);
 
-AEVec2 Player_getTransform(Object * player);
+void Player_onInit(Object *obj, void *data)
+{
+    UNREFERENCED_PARAMETER(obj);
+    UNREFERENCED_PARAMETER(data);
+}
 
-void Player_setTransform(Object * player, AEVec2 vec);
+void Player_onUpdate(Object *obj, void *data, float dt)
+{
+    UNREFERENCED_PARAMETER(obj);
+    UNREFERENCED_PARAMETER(data);
+    UNREFERENCED_PARAMETER(dt);
+}
+
+void Player_onDraw(Object *obj, PlayerData *data)
+{
+    ImageHandler_fullDrawTexture(data->mesh, data->texture, Object_getPos(obj), PLAYER_SCALE, data->direction, data->alpha);
+}
+
+
+Object *Player_new(AEVec2 pos)
+{
+    PlayerData *data = calloc(1, sizeof(PlayerData));
+    Object *player = Object_new(Player_onInit, Player_onUpdate, Player_onDraw, data, NULL);
+    Object_setPos(player, pos);
+    return player;
+}
 
 float Player_getDirection(Object * player);
 
