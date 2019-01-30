@@ -45,6 +45,18 @@ void Camera_new(AEVec2 worldPos, AEVec2 worldScale, float worldRot, AEVec2 viewp
 void Camera_set(unsigned camNum);
 
 /**
+ * @brief Get current Camera X pos
+ * @return Camera X pos
+ */
+float Camera_xPos();
+
+/**
+ * @brief Get current Camera Y pos
+ * @return Camera Y pos
+ */
+float Camera_yPos();
+
+/**
  * @brief Get current Camera X scale
  * @return Camera X scale
  */

@@ -52,6 +52,14 @@ void Camera_set(unsigned camNum) {
     AEGfxSetCamPosition(currCam->worldPos.x, currCam->worldPos.y);
 }
 
+float Camera_xPos() {
+    return currCam->worldPos.x;
+}
+
+float Camera_yPos() {
+    return currCam->worldPos.y;
+}
+
 float Camera_xScl() {
     return currCam->worldScale.x;
 }
@@ -61,5 +69,5 @@ float Camera_yScl() {
 }
 
 float Camera_rot() {
-    return -currCam->worldRot;
+    return currCam->worldRot;
 }
