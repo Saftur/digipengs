@@ -16,6 +16,7 @@ typedef struct Camera {
 } Camera;
 
 static vector *cams;
+static Camera *currCam;
 
 void Camera_init() {
 	cams = vector_new(2, NULL, free);
@@ -46,7 +47,19 @@ void Camera_new(AEVec2 worldPos, AEVec2 worldScale, float worldRot, AEVec2 viewp
 void Camera_set(unsigned camNum) {
 	if (camNum >= Camera_count())
 		return;
-	Camera *cam = vector_at(cams, camNum);
-	AEGfxSetViewportPositionAndDimensions((int)cam->viewportPos.x, (int)cam->viewportPos.y, (int)cam->viewportSize.x, (int)cam->viewportSize.y);
-	//AEGfxSetFullTransform(cam->worldPos.x, cam->worldPos.y, cam->worldRot, cam->worldScale.x, cam->worldScale.y);
+	currCam = vector_at(cams, camNum);
+	AEGfxSetViewportPositionAndDimensions((int)currCam->viewportPos.x, (int)currCam->viewportPos.y, (int)currCam->viewportSize.x, (int)currCam->viewportSize.y);
+    AEGfxSetCamPosition(currCam->worldPos.x, currCam->worldPos.y);
+}
+
+float Camera_xScl() {
+    return currCam->worldScale.x;
+}
+
+float Camera_yScl() {
+    return currCam->worldScale.y;
+}
+
+float Camera_rot() {
+    return -currCam->worldRot;
 }
