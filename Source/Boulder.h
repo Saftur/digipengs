@@ -21,7 +21,7 @@
 #define BOULDER_BIG_TEXTURE    TEXTURES.test
 #define BOULDER_GIANT_TEXTURE  TEXTURES.test
 
-typedef struct BoulderInfo * BoulderInfoPtr;
+typedef struct BoulderInfo BoulderInfo;
 
  /**
   * @struct _boulderTypes
@@ -29,10 +29,10 @@ typedef struct BoulderInfo * BoulderInfoPtr;
   */
 struct _boulderTypes
 {
-    BoulderInfoPtr tiny,   ///< Covers one lane
-                   normal, ///< Covers two lanes
-                   big,    ///< Covers three lanes
-                   giant;  ///< Covers four lanes
+    BoulderInfo *tiny,   ///< Covers one lane
+                *normal, ///< Covers two lanes
+                *big,    ///< Covers three lanes
+                *giant;  ///< Covers four lanes
 };
 
 /**
@@ -57,4 +57,4 @@ void Boulder_shutdown();
  * @param pos Position to create boulder at
  * @return New boulder
  */
-Object *Boulder_new(BoulderInfoPtr type, AEVec2 pos);
+Object *Boulder_new(BoulderInfo * type, AEVec2 pos);

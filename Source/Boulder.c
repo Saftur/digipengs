@@ -20,9 +20,9 @@ typedef struct BoulderInfo
 
 struct _boulderTypes BOULDER_TYPES;
 
-static void initalizeInfo(BoulderInfoPtr * info, AEGfxTexture *texture, float size)
+static void initalizeInfo(BoulderInfo * * info, AEGfxTexture *texture, float size)
 {
-    *info = (BoulderInfoPtr)malloc(sizeof(BoulderInfo));
+    *info = (BoulderInfo *)malloc(sizeof(BoulderInfo));
     (*info)->texture = texture;
     (*info)->mesh = MeshHandler_createSquareMesh(size, size);
 }
@@ -49,18 +49,21 @@ void Boulder_onInit(Object *obj, void *data)
 	UNREFERENCED_PARAMETER(data);
 }
 
-float rotation = 0;
-void Boulder_onUpdate(Object *obj, void *data, float dt) 
+void Boulder_onUpdate(Object *obj, BoulderInfo * data, float dt)
 {
-    BoulderInfo infoData = *(BoulderInfoPtr)data;
     UNREFERENCED_PARAMETER(dt);
-
-    ImageHandler_drawTexture(infoData.mesh, infoData.texture, Object_getPos(obj));
+    UNREFERENCED_PARAMETER(obj);
+    UNREFERENCED_PARAMETER(data);
 }
 
-Object * Boulder_new(BoulderInfoPtr type, AEVec2 pos)
+void Boulder_onDraw(Object *obj, BoulderInfo * data)
 {
-    Object *boulder = Object_new(Boulder_onInit, Boulder_onUpdate, NULL, type, NULL);
+    ImageHandler_drawTexture(data->mesh, data->texture, Object_getPos(obj));
+}
+
+Object * Boulder_new(BoulderInfo * type, AEVec2 pos)
+{
+    Object *boulder = Object_new(Boulder_onInit, Boulder_onUpdate, Boulder_onDraw, type, NULL);
     Object_setPos(boulder, pos);
     return boulder;
 }
