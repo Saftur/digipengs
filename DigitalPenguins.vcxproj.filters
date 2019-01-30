@@ -35,11 +35,23 @@
     <ClCompile Include="Source\InputHandler.c">
       <Filter>Engine\Handlers</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Leaderboard.c">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TitleScreen.c">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
     <ClCompile Include="source\Boulder.c">
       <Filter>Game\Objects\Obstacles</Filter>
     </ClCompile>
     <ClCompile Include="Source\Object.c">
       <Filter>Engine\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Camera.c">
+      <Filter>Engine\Objects\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Button.c">
+      <Filter>Game\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +89,18 @@
     <ClInclude Include="Source\InputHandler.h">
       <Filter>Engine\Handlers</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Leaderboard.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TitleScreen.h">
+      <Filter>Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Camera.h">
+      <Filter>Engine\Objects\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Button.h">
+      <Filter>Game\Objects</Filter>
+    </ClInclude>
     <ClInclude Include="source\Boulder.h">
       <Filter>Game\Objects\Obstacles</Filter>
     </ClInclude>
@@ -108,6 +132,9 @@
     </Filter>
     <Filter Include="Engine\Handlers">
       <UniqueIdentifier>{ca319c28-e82c-4b26-96e6-2daa2e3cdd3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Objects\Camera">
+      <UniqueIdentifier>{083f4d94-0cb7-4652-b5b1-8863e161c98e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Objects\Obstacles">
       <UniqueIdentifier>{400eb312-5a45-4588-a662-33ad57a8ff59}</UniqueIdentifier>

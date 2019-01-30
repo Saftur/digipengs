@@ -14,15 +14,19 @@ typedef struct Object Object;
 
 typedef void(*ObjInit)(Object *obj, void *data);			 ///< Object init function type
 typedef void(*ObjUpdate)(Object *obj, void *data, float dt); ///< Object update function type
+typedef void(*ObjDraw)(Object *obj, void *data);			 ///< Object draw function type
+typedef void(*ObjDataDestructor)(void *data);				 ///< Object data destructor function type
 
 /**
  * @brief Create new Object
- * @param init   Init function for new Object
- * @param update Update function for new Object
- * @param data   Upvalue for Object functions
+ * @param init           Init function for new Object
+ * @param update         Update function for new Object
+ * @param draw           Draw function for new Object
+ * @param data           Upvalue for Object functions
+ * @param dataDestructor Upvalue destructor
  * @return New Object
  */
-Object *Object_new(ObjInit init, ObjUpdate update, void *data);
+Object *Object_new(ObjInit init, ObjUpdate update, ObjDraw draw, void *data, ObjDataDestructor dataDestructor);
 
 /**
  * @brief Delete Object
@@ -38,10 +42,16 @@ void Object_init(Object *obj);
 
 /**
  * @brief Update Object
- * @param obj Object to Update
+ * @param obj Object to update
  * @param dt Current delta time in seconds
  */
 void Object_update(Object *obj, float dt);
+
+/**
+ * @brief Draw Object
+ * @param obj Object to draw
+ */
+void Object_draw(Object *obj);
 
 /**
  * @brief Get Object position

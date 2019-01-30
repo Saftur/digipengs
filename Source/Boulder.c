@@ -60,9 +60,7 @@ void Boulder_onUpdate(Object *obj, void *data, float dt)
 
 Object * Boulder_new(BoulderInfoPtr type, AEVec2 pos)
 {
-    BoulderInfoPtr data = (BoulderInfoPtr)malloc(sizeof(BoulderInfo));
-    memcpy(data, type, sizeof(BoulderInfo));
-    Object *boulder = Object_new(Boulder_onInit, Boulder_onUpdate, type);
+    Object *boulder = Object_new(Boulder_onInit, Boulder_onUpdate, NULL, type, NULL);
     Object_setPos(boulder, pos);
     return boulder;
 }
