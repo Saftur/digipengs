@@ -54,6 +54,13 @@ void Object_update(Object *obj, float dt);
 void Object_draw(Object *obj);
 
 /**
+ * @brief Get data pointer from Object
+ * @param obj Object to get from
+ * @return Data pointer
+ */
+void *Object_getData(Object *obj);
+
+/**
  * @brief Get Object position
  * @param obj Object to get from
  * @return Position of Object
