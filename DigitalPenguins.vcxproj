@@ -50,6 +50,7 @@
     <ClInclude Include="Source\ObjectManager.h" />
     <ClInclude Include="Source\ImageHandler.h" />
     <ClInclude Include="Source\MeshHandler.h" />
+    <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\stdafx.h" />
     <ClInclude Include="Source\TitleScreen.h" />
     <ClInclude Include="Source\Vector.h" />

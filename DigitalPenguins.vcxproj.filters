@@ -110,6 +110,9 @@
     <ClInclude Include="source\Ice.h">
       <Filter>Game\Objects\Obstacles</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Player.h">
+      <Filter>Game\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
