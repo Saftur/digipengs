@@ -119,6 +119,9 @@
     <ClInclude Include="Source\CollisionHandler.h">
       <Filter>Engine\Collisions</Filter>
     </ClInclude>
+    <ClInclude Include="ObstacleManager.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">

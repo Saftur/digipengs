@@ -62,4 +62,4 @@ void CollisionHandler_Destroy_Collider(Collider *collider);
  * @brief Destroy a collider on an object.
  * @param object What object to remove a collider from.
  */
-void CollisionHandler_Destroy_Collider_By_Object(Object *object);
+void CollisionHandler_Destroy_Collider_On_Object(Object *object);
