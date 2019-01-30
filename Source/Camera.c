@@ -12,7 +12,7 @@ typedef struct Camera {
 	float worldRot;
 	AEVec2 worldScale;
 	AEVec2 viewportPos;
-	AEVec2 viewportScale;
+	AEVec2 viewportSize;
 } Camera;
 
 static vector *cams;
@@ -33,13 +33,13 @@ unsigned Camera_count() {
 	return vector_size(cams);
 }
 
-void Camera_new(AEVec2 worldPos, AEVec2 worldScale, float worldRot, AEVec2 viewportPos, AEVec2 viewportScale) {
+void Camera_new(AEVec2 worldPos, AEVec2 worldScale, float worldRot, AEVec2 viewportPos, AEVec2 viewportSize) {
 	Camera *cam = malloc(sizeof(Camera));
 	cam->worldPos = worldPos;
 	cam->worldScale = worldScale;
 	cam->worldRot = worldRot;
 	cam->viewportPos = viewportPos;
-	cam->viewportScale = viewportScale;
+	cam->viewportSize = viewportSize;
 	vector_push_back(cams, cam);
 }
 
@@ -47,6 +47,6 @@ void Camera_set(unsigned camNum) {
 	if (camNum >= Camera_count())
 		return;
 	Camera *cam = vector_at(cams, camNum);
-	AEGfxSetFullTransform(cam->worldPos.x, cam->worldPos.y, cam->worldRot, cam->worldScale.x, cam->worldScale.y);
-	AEGfxSetViewportPositionAndDimensions((int)cam->viewportPos.x, (int)cam->viewportPos.y, (int)cam->viewportScale.x, (int)cam->viewportScale.y);
+	AEGfxSetViewportPositionAndDimensions((int)cam->viewportPos.x, (int)cam->viewportPos.y, (int)cam->viewportSize.x, (int)cam->viewportSize.y);
+	//AEGfxSetFullTransform(cam->worldPos.x, cam->worldPos.y, cam->worldRot, cam->worldScale.x, cam->worldScale.y);
 }

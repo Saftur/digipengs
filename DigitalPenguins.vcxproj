@@ -11,8 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\Boulder.c" />
     <ClCompile Include="Source\Button.c" />
     <ClCompile Include="Source\Camera.c" />
+    <ClCompile Include="Source\CollisionEvents.c" />
+    <ClCompile Include="Source\CollisionHandler.c" />
     <ClCompile Include="Source\InputHandler.c" />
     <ClCompile Include="Source\Leaderboard.c" />
     <ClCompile Include="Source\Level1.c" />
@@ -25,6 +28,7 @@
     <ClCompile Include="Source\Object.c" />
     <ClCompile Include="Source\ObjectManager.c" />
     <ClCompile Include="Source\MeshHandler.c" />
+    <ClCompile Include="source\Player.c" />
     <ClCompile Include="Source\stdafx.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -35,6 +39,9 @@
   <ItemGroup>
     <ClInclude Include="Source\Button.h" />
     <ClInclude Include="Source\Camera.h" />
+    <ClInclude Include="source\Boulder.h" />
+    <ClInclude Include="source\Ice.h" />
+    <ClInclude Include="Source\CollisionHandler.h" />
     <ClInclude Include="Source\InputHandler.h" />
     <ClInclude Include="Source\Leaderboard.h" />
     <ClInclude Include="Source\Level1.h" />
@@ -42,10 +49,12 @@
     <ClInclude Include="Source\LevelStub.h" />
     <ClInclude Include="Source\LevelTable.h" />
     <ClInclude Include="Source\ExampleObj.h" />
+    <ClInclude Include="source\Map.h" />
     <ClInclude Include="Source\Object.h" />
     <ClInclude Include="Source\ObjectManager.h" />
     <ClInclude Include="Source\ImageHandler.h" />
     <ClInclude Include="Source\MeshHandler.h" />
+    <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\stdafx.h" />
     <ClInclude Include="Source\TitleScreen.h" />
     <ClInclude Include="Source\Vector.h" />

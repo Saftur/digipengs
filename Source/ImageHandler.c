@@ -8,6 +8,7 @@
 #include "stdafx.h"		// Should be included first in every .c file!
 
 #include "ImageHandler.h"
+#include "Boulder.h"
 
 LOADEDTEXTURES TEXTURES;
 
@@ -38,11 +39,11 @@ void ImageHandler_shutdown() {
 	AEGfxTextureUnload(TEXTURES.titleScreen_exitButton);
 }
 
-void ImageHandler_drawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position)
+void ImageHandler_drawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float rotation)
 {
     AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
     // Set poisition 
-    AEGfxSetPosition(position.x, position.y);
+    AEGfxSetFullTransform(position.x, position.y, AERadToDeg(rotation), 1.0f, 1.0f);
     // Set texture for object 2
     AEGfxTextureSet(texture, 0.0f, 0.0f);
     AEGfxSetTransparency(1.0f);
@@ -50,11 +51,11 @@ void ImageHandler_drawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVe
     AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
 }
 
-void ImageHandler_drawTextureAlpha(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float alpha)
+void ImageHandler_fullDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, AEVec2 scale, float rotation, float alpha)
 {
     AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
     // Set poisition 
-    AEGfxSetPosition(position.x, position.y);
+    AEGfxSetFullTransform(position.x, position.y, AERadToDeg(rotation), scale.x, scale.y);
     // Set texture for object 2
     AEGfxTextureSet(texture, 0.0f, 0.0f);
     AEGfxSetTransparency(alpha);

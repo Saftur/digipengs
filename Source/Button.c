@@ -7,11 +7,12 @@
 #include "ImageHandler.h"
 #include "Button.h"
 #include <AEEngine.h>
+#include "ImageHandler.h"
 
 typedef struct Button {
 	AEGfxTexture *defaultTexture;
 	AEGfxTexture *mouseHoverTexture;
-	AEGfxTexture *OnClickTexture;
+	AEGfxTexture *onClickTexture;
 	AEGfxVertexList *mesh;
 	//what to do when pressed
 } Button;
@@ -36,17 +37,16 @@ void Button_onUpdate(Object *obj, void *data, float dt) {
 }
 
 void Button_onDraw(Object *obj, Button *data) {
-	ImageHandler_drawTexture(data->mesh, data->defaultTexture, Object_getPos(obj));
+	ImageHandler_drawTexture(data->mesh, data->defaultTexture, Object_getPos(obj), 0);
 }
 
-Object *Button_new(AEGfxTexture *defaultTexture, AEGfxTexture *mouseHoverTexture, AEGfxTexture *OnClickTexture, AEGfxVertexList *mesh, int x, int y) {
+Object *Button_new(AEGfxTexture *defaultTexture, AEGfxTexture *mouseHoverTexture, AEGfxTexture *onClickTexture, AEGfxVertexList *mesh, AEVec2 pos) {
 	Button *buttonData = malloc(sizeof(Button));
 	buttonData->defaultTexture = defaultTexture;
 	buttonData->mouseHoverTexture = mouseHoverTexture;
-	buttonData->OnClickTexture = OnClickTexture;
+	buttonData->onClickTexture = onClickTexture;
 	buttonData->mesh = mesh;
-	Object *buttonObj = Object_new(Button_onInit, Button_onUpdate, Button_onDraw, buttonData);
-	Object_setPos(buttonObj, (AEVec2) { x, y });
-	ObjectManager_addObj(buttonObj);
+	Object *buttonObj = Object_new(Button_onInit, Button_onUpdate, Button_onDraw, buttonData, free);
+	Object_setPos(buttonObj, pos);
 	return buttonObj;
 }
