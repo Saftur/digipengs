@@ -53,6 +53,11 @@
     <ClCompile Include="Source\Button.c">
       <Filter>Game\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CollisionEvents.c" />
+    <ClCompile Include="Source\CollisionHandler.c" />
+    <ClCompile Include="Source\Level2.c">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
@@ -109,6 +114,10 @@
     </ClInclude>
     <ClInclude Include="source\Ice.h">
       <Filter>Game\Objects\Obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CollisionHandler.h" />
+    <ClInclude Include="Source\Level2.h">
+      <Filter>Game\Levels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
