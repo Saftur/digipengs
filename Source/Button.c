@@ -34,7 +34,7 @@ void Button_onUpdate(Object *obj, void *data, float dt) {
 }
 
 void Button_onDraw(Object *obj, Button *data) {
-	ImageHandler_drawTexture(data->mesh, data->texture, Object_getPos(obj));
+	ImageHandler_drawTexture(data->mesh, data->texture, Object_getPos(obj), 0);
 }
 
 Object *Button_new(AEGfxTexture *texture, AEGfxVertexList *mesh, AEVec2 pos) {

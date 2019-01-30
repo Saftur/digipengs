@@ -58,7 +58,7 @@ void Boulder_onUpdate(Object *obj, BoulderInfo * data, float dt)
 
 void Boulder_onDraw(Object *obj, BoulderInfo * data)
 {
-    ImageHandler_drawTexture(data->mesh, data->texture, Object_getPos(obj));
+    ImageHandler_drawTexture(data->mesh, data->texture, Object_getPos(obj), 0);
 }
 
 Object * Boulder_new(BoulderInfo * type, AEVec2 pos)
