@@ -13,6 +13,9 @@ AEGfxVertexList* MeshHandler_createSquareMesh(float width, float height)
 {
     AEGfxVertexList* squareMesh;
 
+	width /= 2;
+	height /= 2;
+
     // Informing the library that we're about to start adding triangles
     AEGfxMeshStart();
 

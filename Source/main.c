@@ -18,6 +18,8 @@
 #include <AEEngine.h>
 #include "LevelManager.h"
 #include "ObjectManager.h"
+#include "Boulder.h"
+#include "ImageHandler.h"
 #include "Camera.h"
 #include "CollisionHandler.h"
 
@@ -74,7 +76,16 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
     CollisionHandler_Init();
     LevelManager_init();
 	ObjectManager_init();
+	ImageHandler_initializeTextures();
+	//LevelManager_setNextLevel(TitleScreen);
 	Camera_init();
+
+    Boulder_intialize();
+
+    ObjectManager_addObj(Boulder_new(BOULDER_TYPES.giant, (AEVec2) { 0, 0 }));
+    
+	Camera_new((AEVec2) { 100, 0 }, (AEVec2) { 1, 1 }, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 300 });
+    Camera_new((AEVec2) { 0, 0 }, (AEVec2) { 1, 1 }, 0, (AEVec2) { 0, 300 }, (AEVec2) { 800, 300 });
 
 	// Game Loop
 	while (LevelManager_isRunning())
@@ -108,8 +119,10 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
             LevelManager_setNextLevel(LevelQuit);
 	}
 
-	ObjectManager_end();
+	ObjectManager_shutdown();
+	ImageHandler_shutdown();
 	Camera_shutdown();
+    Boulder_shutdown();
 
 	// free the system
 	AESysExit();

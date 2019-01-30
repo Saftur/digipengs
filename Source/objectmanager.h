@@ -30,6 +30,6 @@ void ObjectManager_draw();
 void ObjectManager_addObj(Object *obj);
 
 /**
- * @brief End ObjectManager
+ * @brief Shutdown ObjectManager
  */
-void ObjectManager_end();
+void ObjectManager_shutdown();
