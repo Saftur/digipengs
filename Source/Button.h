@@ -1,6 +1,6 @@
 /**
  * @file Button.h
- * @author Arthur Bouvier
+ * @author Parker Friedland
  * @brief Example Game Object
  */
 #pragma once
@@ -11,4 +11,5 @@
  * @brief Create new Button
  * @return New Button
  */
-Object *Button_new(AEGfxTexture *texture, AEGfxVertexList *mesh);
+Object *Button_new(AEGfxTexture *defaultTexture, AEGfxTexture *mouseHoverTexture, AEGfxTexture *OnClickTexture, AEGfxVertexList *mesh, int x, int y);
+
