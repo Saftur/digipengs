@@ -53,6 +53,10 @@ void Object_draw(Object *obj) {
 		obj->draw(obj, obj->data);
 }
 
+void *Object_getData(Object *obj) {
+    return obj->data;
+}
+
 AEVec2 Object_getPos(Object *obj) {
 	return obj->pos;
 }
