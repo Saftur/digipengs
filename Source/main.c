@@ -19,6 +19,7 @@
 #include "LevelManager.h"
 #include "ObjectManager.h"
 #include "Camera.h"
+#include "CollisionHandler.h"
 
 // ---------------------------------------------------------------------------
 
@@ -70,6 +71,7 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
     DWORD lastTime = 0;
     DWORD currentTime = GetTickCount();
 
+    CollisionHandler_Init();
     LevelManager_init();
 	ObjectManager_init();
 	Camera_init();

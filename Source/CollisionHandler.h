@@ -11,7 +11,9 @@
 #include "vector.h"
 
 
-typedef enum ColliderType { Square, Circle } ColliderType;
+typedef enum { Square, Circle } ColliderType;
+
+typedef struct Collider Collider;
 
 typedef struct Collider {
 
@@ -52,6 +54,12 @@ void CollisionHandler_Create_Circle_Collider(Object *gameObject, float radius, v
 
 /**
  * @brief Destroy a collider.
- * @param Collider to destroy.
+ * @param collider to destroy.
  */
 void CollisionHandler_Destroy_Collider(Collider *collider);
+
+/**
+ * @brief Destroy a collider on an object.
+ * @param object What object to remove a collider from.
+ */
+void CollisionHandler_Destroy_Collider_By_Object(Object *object);

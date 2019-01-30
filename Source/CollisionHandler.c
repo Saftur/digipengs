@@ -33,8 +33,10 @@ void CollisionHandler_Check_Collisions()
                 AEVec2 pos2 = Object_getPos(collider2->gameObject);
 
                 //Find distance between colliders.
-                AEVec2 distance = { pos2.x - pos1.x, pos2.y - pos1.y };
-                float dist = sqrt(distance.x * distance.x + distance.y * distance.y);
+                AEVec2 distance;
+                distance.x = pos2.x - pos1.x;
+                distance.y = pos2.y - pos1.y;
+                float dist = sqrtf(distance.x * distance.x + distance.y * distance.y);
 
                 //If colliders are colliding.
                 if (dist <= collider1->radius + collider2->radius) {
@@ -57,7 +59,9 @@ void CollisionHandler_Check_Collisions()
                 AEVec2 circlePos = Object_getPos(circle->gameObject);
 
                 //Get direction towards the square collider.
-                AEVec2 direction = { squarePos.x - circlePos.x, squarePos.y - circlePos.y };
+                AEVec2 direction;
+                direction.x = squarePos.x - circlePos.x;
+                direction.y = squarePos.y - circlePos.y;
                 AEVec2Normalize(&direction, &direction);
 
                 //Point to determine if is inside of the square or not.
@@ -83,7 +87,6 @@ void CollisionHandler_Create_Square_Collider(Object * gameObject, AEVec2 size, v
     collider->size = size;
 
     vector_push_back(colliders, collider);
-    return collider;
 }
 
 void CollisionHandler_Create_Circle_Collider(Object * gameObject, float radius, void(*OnCollision)(Collider *self, Collider *other))
@@ -95,13 +98,22 @@ void CollisionHandler_Create_Circle_Collider(Object * gameObject, float radius, 
     collider->radius = radius;
 
     vector_push_back(colliders, collider);
-    return collider;
 }
 
 void CollisionHandler_Destroy_Collider(Collider * collider)
 {
-    for (int i = 0; i < vector_size(colliders); i++) {
+    for (unsigned i = 0; i < vector_size(colliders); i++) {
         if (vector_at(colliders, i) == collider) {
+            vector_erase(colliders, i);
+            return;
+        }
+    }
+}
+
+void CollisionHandler_Destroy_Collider_By_Object(Object * object)
+{
+    for (unsigned i = 0; i < vector_size(colliders); i++) {
+        if (((Collider*)vector_at(colliders, i))->gameObject == object) {
             vector_erase(colliders, i);
             return;
         }
