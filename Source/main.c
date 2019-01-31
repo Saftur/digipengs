@@ -22,6 +22,7 @@
 #include "ImageHandler.h"
 #include "Camera.h"
 #include "CollisionHandler.h"
+#include "Player.h"
 
 // ---------------------------------------------------------------------------
 
@@ -82,7 +83,10 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 
     Boulder_intialize();
 
-    ObjectManager_addObj(Boulder_new(BOULDER_TYPES.giant, (AEVec2) { 0, 0 }));
+    AEGfxSetBackgroundColor(0.4f, 0.4f, 0.4f);
+
+    //ObjectManager_addObj(Boulder_new(BOULDER_TYPES.giant, (AEVec2) { 0, 0 }));
+    ObjectManager_addObj(Player_new((AEVec2) { 0, 0 }));
     
 	Camera_new((AEVec2) { 100, 0 }, (AEVec2) { 1, 1 }, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 300 });
     Camera_new((AEVec2) { 0, 0 }, (AEVec2) { 1, 1 }, 0, (AEVec2) { 0, 300 }, (AEVec2) { 800, 300 });

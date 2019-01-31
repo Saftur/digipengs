@@ -29,6 +29,8 @@ void ImageHandler_initializeTextures()
     TEXTURES.test = AEGfxTextureLoad("./Assets/PlanetTexture.png");
     AE_ASSERT_MESG(TEXTURES.test, "Failed to load/create TEXTURE: test");
 
+    TEXTURES.player = AEGfxTextureLoad("./Assets/Player.png");
+    AE_ASSERT_MESG(TEXTURES.player, "Failed to load/create TEXTURE: Player");
 }
 
 void ImageHandler_shutdown() {
@@ -42,10 +44,12 @@ void ImageHandler_shutdown() {
 void ImageHandler_drawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float rotation)
 {
     AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
+    AEGfxSetBlendMode(AE_GFX_BM_BLEND);
     // Set poisition 
     AEGfxSetFullTransform(position.x, position.y, AERadToDeg(rotation), 1.0f, 1.0f);
     // Set texture for object 2
     AEGfxTextureSet(texture, 0.0f, 0.0f);
+    AEGfxSetBlendColor(0.0f, 0.0f, 0.0f, 0.0f);
     AEGfxSetTransparency(1.0f);
     // Drawing the mesh (list of triangles)
     AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
@@ -54,10 +58,12 @@ void ImageHandler_drawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVe
 void ImageHandler_fullDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, AEVec2 scale, float rotation, float alpha)
 {
     AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
+    AEGfxSetBlendMode(AE_GFX_BM_BLEND);
     // Set poisition 
     AEGfxSetFullTransform(position.x, position.y, AERadToDeg(rotation), scale.x, scale.y);
     // Set texture for object 2
     AEGfxTextureSet(texture, 0.0f, 0.0f);
+    AEGfxSetBlendColor(0.0f, 0.0f, 0.0f, 0.0f);
     AEGfxSetTransparency(alpha);
     // Drawing the mesh (list of triangles)
     AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
