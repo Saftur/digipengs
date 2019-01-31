@@ -15,11 +15,12 @@
  */
 struct LOADEDTEXTURES
 {
-    AEGfxTexture *test; ///< For testing purposes
-	AEGfxTexture *titleScreen_title; ///< the title for the titlescreen 
+    AEGfxTexture *test;                    ///< For testing purposes
+	AEGfxTexture *titleScreen_title;       ///< the title for the titlescreen 
 	AEGfxTexture *titleScreen_startButton; ///< the title for the titlescreen 
-	AEGfxTexture *titleScreen_button; ///< the title for the titlescreen 
-	AEGfxTexture *titleScreen_exitButton; ///< the title for the titlescreen 
+	AEGfxTexture *titleScreen_button;      ///< the title for the titlescreen 
+	AEGfxTexture *titleScreen_exitButton;  ///< the title for the titlescreen 
+    AEGfxTexture *player;                  ///< THE PLAYER
 	
 }typedef LOADEDTEXTURES;
 

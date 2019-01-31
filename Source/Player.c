@@ -22,16 +22,18 @@ typedef struct PlayerData
     float alpha; ///< Transparency
 }PlayerData;
 
-void Player_shutdown()
+void Player_onShutdown(PlayerData *data)
 {
-
+    free(data);
 }
 
 
-void Player_onInit(Object *obj, void *data)
+void Player_onInit(Object *obj, PlayerData *data)
 {
     UNREFERENCED_PARAMETER(obj);
-    UNREFERENCED_PARAMETER(data);
+    data->alpha = 1.0f;
+    data->mesh = MeshHandler_createSquareMesh(PLAYER_SCALE.x, PLAYER_SCALE.y);
+    data->texture = PLAYER_STANDARD_TEXTURE;
 }
 
 void Player_onUpdate(Object *obj, void *data, float dt)
@@ -43,20 +45,39 @@ void Player_onUpdate(Object *obj, void *data, float dt)
 
 void Player_onDraw(Object *obj, PlayerData *data)
 {
-    ImageHandler_fullDrawTexture(data->mesh, data->texture, Object_getPos(obj), PLAYER_SCALE, data->direction, data->alpha);
+    ImageHandler_fullDrawTexture(data->mesh, data->texture, Object_getPos(obj), (AEVec2) { 1.0f , 1.0f }, data->direction, data->alpha);
 }
 
 
 Object *Player_new(AEVec2 pos)
 {
-    PlayerData *data = calloc(1, sizeof(PlayerData));
-    Object *player = Object_new(Player_onInit, Player_onUpdate, Player_onDraw, data, NULL);
+    PlayerData * data = calloc(1, sizeof(PlayerData));
+    Object *player = Object_new(Player_onInit, Player_onUpdate, Player_onDraw, data, Player_onShutdown);
     Object_setPos(player, pos);
     return player;
 }
 
-float Player_getDirection(Object * player);
+float Player_getDirection(Object * player)
+{
+    return ((PlayerData*)Object_getData(player))->direction;
+}
 
-void Player_setDirection(Object * player, float dir);
+void Player_setDirection(Object * player, float dir)
+{
+    ((PlayerData*)Object_getData(player))->direction = dir;
+}
 
-void Player_changeTexture(Object * player, AEGfxTexture texture);
+void Player_changeTexture(Object * player, AEGfxTexture * texture)
+{
+    ((PlayerData*)Object_getData(player))->texture = texture;
+}
+
+float Player_getAlpha(Object * player)
+{
+    return ((PlayerData*)Object_getData(player))->alpha;
+}
+
+void Player_setAlpha(Object * player, float alpha)
+{
+    ((PlayerData*)Object_getData(player))->alpha = alpha;
+}
