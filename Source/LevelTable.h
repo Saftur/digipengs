@@ -27,7 +27,7 @@ typedef enum
     LastLevel = LevelNum - 1,
 
     //Initial level.
-    InitialLevel = Level1
+    InitialLevel = Level2
 } Levels;
 
 /**

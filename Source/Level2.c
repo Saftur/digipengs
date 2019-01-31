@@ -6,9 +6,15 @@
  */
 
 #include "stdafx.h"
+#include "AEEngine.h"
 #include "Level2.h"
 #include "ObjectManager.h"
-#include "Boulder.h"
+#include "Button.h"
+#include "ImageHandler.h"
+#include "MeshHandler.h"
+
+AEGfxVertexList* mapMesh;
+AEGfxTexture*    mapTex;
 
 void Level2_onLoad()
 {
@@ -16,16 +22,55 @@ void Level2_onLoad()
 
 void Level2_onInit()
 {
-	ObjectManager_addObj(Boulder_new(BOULDER_TYPES.giant, (AEVec2) { 0, 0 }));
+	mapMesh = MeshHandler_createSquareMesh(1280, 1408);
+	
+	// Map Texture: From file
+	mapTex = AEGfxTextureLoad("./Assets/Map.png");
+	
+	ObjectManager_addObj(Button_new(mapTex, mapMesh, (AEVec2) { 0, 0 }));
 }
 
 void Level2_onUpdate(float dt)
 {
     UNREFERENCED_PARAMETER(dt);
+
+	/*AEGfxVertexList     *pMeshMap;	// Pointer to Map Mesh
+	AEGfxTexture        *pTexMap;	// Pointer to Map Texture
+
+	// Informing the library that we're about to start adding triangles
+	AEGfxMeshStart();
+
+	// This shape has 2 triangles
+	AEGfxTriAdd(
+		-30.0f, -30.0f, 0x00FF00FF, 0.0f, 1.0f,
+		30.0f, -30.0f, 0x00FFFF00, 1.0f, 1.0f,
+		-30.0f, 30.0f, 0x00F00FFF, 0.0f, 0.0f);
+
+	AEGfxTriAdd(
+		300.0f, -300.0f, 0x00FFFFFF, 1.0f, 1.0f,
+		300.0f, 300.0f, 0x00FFFFFF, 1.0f, 0.0f,
+		-300.0f, 300.0f, 0x00FFFFFF, 0.0f, 0.0f);
+
+	pMeshMap = AEGfxMeshEnd();
+	AE_ASSERT_MESG(pMeshMap, "Failed to create Map mesh!");
+
+
+	// Map Texture: From file
+	pTexMap = AEGfxTextureLoad("./Assets/Map.png");
+	AE_ASSERT_MESG(pTexMap, "Failed to create Map texture!!");
+
+	AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
+	AEGfxSetPosition(0.0f, 0.0f);
+	AEGfxTextureSet(pTexMap, 0.0f, 0.0f);
+	AEGfxSetTransparency(1.0f);
+	AEGfxMeshDraw(pMeshMap, AE_GFX_MDM_TRIANGLES);
+	AESysFrameEnd();*/
 }
 
 void Level2_onShutdown()
 {
+	//EGfxMeshFree(pMeshMap);
+	//AEGfxTextureUnload(pTexMap);
 }
 
 void Level2_onUnload()
