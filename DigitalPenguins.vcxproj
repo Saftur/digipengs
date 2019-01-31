@@ -37,6 +37,7 @@
     <ClCompile Include="Source\Vector.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ObstacleManager.h" />
     <ClInclude Include="Source\Button.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="source\Boulder.h" />

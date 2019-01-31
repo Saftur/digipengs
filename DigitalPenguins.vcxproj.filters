@@ -53,6 +53,12 @@
     <ClCompile Include="Source\Button.c">
       <Filter>Game\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CollisionEvents.c">
+      <Filter>Engine\Collisions</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CollisionHandler.c">
+      <Filter>Engine\Collisions</Filter>
+    </ClCompile>
     <ClCompile Include="source\Player.c">
       <Filter>Game\Objects</Filter>
     </ClCompile>
@@ -113,6 +119,12 @@
     <ClInclude Include="source\Ice.h">
       <Filter>Game\Objects\Obstacles</Filter>
     </ClInclude>
+    <ClInclude Include="Source\CollisionHandler.h">
+      <Filter>Engine\Collisions</Filter>
+    </ClInclude>
+    <ClInclude Include="ObstacleManager.h">
+      <Filter>Game</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Player.h">
       <Filter>Game\Objects</Filter>
     </ClInclude>
@@ -144,6 +156,9 @@
     </Filter>
     <Filter Include="Game\Objects\Obstacles">
       <UniqueIdentifier>{400eb312-5a45-4588-a662-33ad57a8ff59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Collisions">
+      <UniqueIdentifier>{70303c5b-c750-41c6-a6ab-78044851b966}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

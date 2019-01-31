@@ -110,7 +110,7 @@ void CollisionHandler_Destroy_Collider(Collider * collider)
     }
 }
 
-void CollisionHandler_Destroy_Collider_By_Object(Object * object)
+void CollisionHandler_Destroy_Collider_On_Object(Object * object)
 {
     for (unsigned i = 0; i < vector_size(colliders); i++) {
         if (((Collider*)vector_at(colliders, i))->gameObject == object) {

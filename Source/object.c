@@ -6,6 +6,7 @@
 #include "stdafx.h"
 
 #include "Object.h"
+#include "CollisionHandler.h"
 
 
 typedef struct Object {
@@ -35,6 +36,7 @@ Object *Object_new(ObjInit init, ObjUpdate update, ObjDraw draw, void *data, Obj
 void Object_delete(Object *obj) {
     if (obj->dataDestructor)
         obj->dataDestructor(obj->data);
+    CollisionHandler_Destroy_Collider_On_Object(obj);
 	free(obj);
 }
 
