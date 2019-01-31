@@ -19,6 +19,7 @@
     <ClCompile Include="Source\InputHandler.c" />
     <ClCompile Include="Source\Leaderboard.c" />
     <ClCompile Include="Source\Level1.c" />
+    <ClCompile Include="Source\Level2.c" />
     <ClCompile Include="Source\LevelManager.c" />
     <ClCompile Include="Source\LevelStub.c" />
     <ClCompile Include="Source\LevelTable.c" />
@@ -46,6 +47,7 @@
     <ClInclude Include="Source\InputHandler.h" />
     <ClInclude Include="Source\Leaderboard.h" />
     <ClInclude Include="Source\Level1.h" />
+    <ClInclude Include="Source\Level2.h" />
     <ClInclude Include="Source\LevelManager.h" />
     <ClInclude Include="Source\LevelStub.h" />
     <ClInclude Include="Source\LevelTable.h" />

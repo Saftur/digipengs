@@ -10,6 +10,7 @@
 
 //Levels
 #include "Level1.h"
+#include "Level2.h"
 #include "TitleScreen.h"
 
  /**
@@ -27,6 +28,7 @@ typedef struct {
 ///< Table of all levels and functions for said levels.
 static const TableEntry LevelTable[LevelNum] = {
     {Level1_onLoad, Level1_onInit, Level1_onUpdate, Level1_onShutdown, Level1_onUnload},
+	{Level2_onLoad, Level2_onInit, Level2_onUpdate, Level2_onShutdown, Level2_onUnload},
 	{TitleScreen_onLoad, TitleScreen_onInit, TitleScreen_onUpdate, TitleScreen_onShutdown, TitleScreen_onUnload}
 };
 
