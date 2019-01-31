@@ -13,21 +13,17 @@
 #include "ImageHandler.h"
 #include "MeshHandler.h"
 
-AEGfxVertexList* mapMesh;
-AEGfxTexture*    mapTex;
-
 void Level2_onLoad()
 {
 }
 
 void Level2_onInit()
 {
+	AEGfxVertexList* mapMesh;
 	mapMesh = MeshHandler_createSquareMesh(1280, 1408);
 	
 	// Map Texture: From file
-	mapTex = AEGfxTextureLoad("./Assets/Map.png");
-	
-	ObjectManager_addObj(Button_new(mapTex, mapMesh, (AEVec2) { 0, 0 }));
+	ObjectManager_addObj(Button_new(TEXTURES.map, mapMesh, (AEVec2) { 0, 0 }));
 }
 
 void Level2_onUpdate(float dt)

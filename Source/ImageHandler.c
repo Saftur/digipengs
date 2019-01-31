@@ -29,6 +29,9 @@ void ImageHandler_initializeTextures()
     TEXTURES.test = AEGfxTextureLoad("./Assets/PlanetTexture.png");
     AE_ASSERT_MESG(TEXTURES.test, "Failed to load/create TEXTURE: test");
 
+	TEXTURES.map = AEGfxTextureLoad("./Assets/Map.png");
+	AE_ASSERT_MESG(TEXTURES.map, "Failed to load/create TEXTURE: map");
+
     TEXTURES.player = AEGfxTextureLoad("./Assets/Player.png");
     AE_ASSERT_MESG(TEXTURES.player, "Failed to load/create TEXTURE: Player");
 }
@@ -39,6 +42,7 @@ void ImageHandler_shutdown() {
 	AEGfxTextureUnload(TEXTURES.titleScreen_startButton);
 	AEGfxTextureUnload(TEXTURES.titleScreen_button);
 	AEGfxTextureUnload(TEXTURES.titleScreen_exitButton);
+	AEGfxTextureUnload(TEXTURES.map);
     AEGfxTextureUnload(TEXTURES.player);
 }
 
