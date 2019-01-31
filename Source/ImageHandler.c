@@ -39,7 +39,7 @@ void ImageHandler_shutdown() {
 	AEGfxTextureUnload(TEXTURES.titleScreen_startButton);
 	AEGfxTextureUnload(TEXTURES.titleScreen_button);
 	AEGfxTextureUnload(TEXTURES.titleScreen_exitButton);
-    ARGfxTextureUnload(TEXTURES.player);
+    AEGfxTextureUnload(TEXTURES.player);
 }
 
 void ImageHandler_drawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float rotation)
