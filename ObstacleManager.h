@@ -6,3 +6,11 @@
  */
 
 #pragma once
+
+typedef enum ObstacleType { Boulder } ObstacleType;
+
+/**
+ * @brief Create a new obstacle.
+ * @param type The type of obstacle to create.
+ */
+void ObstacleManager_Create_Obstacle(ObstacleType type);
