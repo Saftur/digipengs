@@ -19,6 +19,13 @@
 
 #include "Camera.h"
 
+static AEGfxVertexList* mapMesh;
+
+static void mapDraw(Object *obj, void *data) {
+    UNREFERENCED_PARAMETER(obj);
+    UNREFERENCED_PARAMETER(data);
+    ImageHandler_drawTexture(mapMesh, TEXTURES.map, (AEVec2) { 512, -512 }, 0);
+}
 
 void Level2_onLoad()
 {
@@ -26,21 +33,25 @@ void Level2_onLoad()
 
 void Level2_onInit()
 {
-	AEGfxVertexList* mapMesh;
+    Camera_clear();
+    Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, (AEVec2) { 400, 600 });
+    Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 400, 0 }, (AEVec2) { 400, 600 });
+
 	mapMesh = MeshHandler_createSquareMesh(1050, 1050);
 	// Map Texture: From file
-	ObjectManager_addObj(Button_new(TEXTURES.map, mapMesh, (AEVec2) { 512, -512 }));
+	//ObjectManager_addObj(Button_new(TEXTURES.map, mapMesh, (AEVec2) { 512, -512 }));
+    ObjectManager_addObj(Object_new(NULL, NULL, mapDraw, NULL, NULL));
 
     Map_init("Assets\\Map.txt");
 
     AEVec2 pos1;
     Map_tilePosToWorldPos(&pos1.x, &pos1.y, 1, 2);
-    ObjectManager_addObj(Player_new(pos1, (Controls) {'A', 'D', 'W', 'S'}, 0));
     pos1.y += 32;
-    /*AEVec2 pos2;
+    ObjectManager_addObj(Player_new(pos1, (Controls) {'A', 'D', 'W', 'S'}, 0));
+    AEVec2 pos2;
     Map_tilePosToWorldPos(&pos2.x, &pos2.y, 1, 2);
     pos2.y -= 32;
-	ObjectManager_addObj(Player_new(pos2, (Controls) {VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN}, 1));*/
+	ObjectManager_addObj(Player_new(pos2, (Controls) {VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN}, 1));
 
     ObstacleManager_generateObstacles((AEVec2) { 0, 0 });
 }
@@ -54,46 +65,13 @@ void Level2_onUpdate(float dt)
         cam->worldScale *= 0.9f;
     if (AEInputCheckCurr('E'))
         cam->worldScale *= 1.1f;
-
-	//Player_onUpdate(Player, Object_getData(Player), dt);
-	
-	/*AEGfxVertexList     *pMeshMap;	// Pointer to Map Mesh
-	AEGfxTexture        *pTexMap;	// Pointer to Map Texture
-
-	// Informing the library that we're about to start adding triangles
-	AEGfxMeshStart();
-
-	// This shape has 2 triangles
-	AEGfxTriAdd(
-		-30.0f, -30.0f, 0x00FF00FF, 0.0f, 1.0f,
-		30.0f, -30.0f, 0x00FFFF00, 1.0f, 1.0f,
-		-30.0f, 30.0f, 0x00F00FFF, 0.0f, 0.0f);
-
-	AEGfxTriAdd(
-		300.0f, -300.0f, 0x00FFFFFF, 1.0f, 1.0f,
-		300.0f, 300.0f, 0x00FFFFFF, 1.0f, 0.0f,
-		-300.0f, 300.0f, 0x00FFFFFF, 0.0f, 0.0f);
-
-	pMeshMap = AEGfxMeshEnd();
-	AE_ASSERT_MESG(pMeshMap, "Failed to create Map mesh!");
-
-
-	// Map Texture: From file
-	pTexMap = AEGfxTextureLoad("./Assets/Map.png");
-	AE_ASSERT_MESG(pTexMap, "Failed to create Map texture!!");
-
-	AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
-	AEGfxSetPosition(0.0f, 0.0f);
-	AEGfxTextureSet(pTexMap, 0.0f, 0.0f);
-	AEGfxSetTransparency(1.0f);
-	AEGfxMeshDraw(pMeshMap, AE_GFX_MDM_TRIANGLES);
-	AESysFrameEnd();*/
 }
 
 void Level2_onShutdown()
 {
-	//EGfxMeshFree(pMeshMap);
-	//AEGfxTextureUnload(pTexMap);
+    AEGfxMeshFree(mapMesh);
+    Camera_clear();
+    Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 600 });
 }
 
 void Level2_onUnload()

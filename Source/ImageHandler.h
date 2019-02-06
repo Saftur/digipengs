@@ -23,6 +23,9 @@ struct LOADEDTEXTURES
 	AEGfxTexture *map;                     ///< A test map
     AEGfxTexture *player;                  ///< THE PLAYER
     AEGfxTexture *boulder;                 ///< Boulder
+	AEGfxTexture *endScreen_youDied; ///< button for the endscreen
+	AEGfxTexture *endScreen_tryAgainButton; ///< button for the endscreen
+	AEGfxTexture *endScreen_titleScreenButton; ///< button for the titlescreen
 
 	
 }typedef LOADEDTEXTURES;
