@@ -27,7 +27,7 @@ void Level2_onLoad()
 void Level2_onInit()
 {
 	AEGfxVertexList* mapMesh;
-	mapMesh = MeshHandler_createSquareMesh(1024, 1024);
+	mapMesh = MeshHandler_createSquareMesh(1050, 1050);
 	// Map Texture: From file
 	ObjectManager_addObj(Button_new(TEXTURES.map, mapMesh, (AEVec2) { 512, -512 }));
 
