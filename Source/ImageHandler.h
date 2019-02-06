@@ -20,6 +20,9 @@ struct LOADEDTEXTURES
 	AEGfxTexture *titleScreen_startButton; ///< the title for the titlescreen 
 	AEGfxTexture *titleScreen_button; ///< the title for the titlescreen 
 	AEGfxTexture *titleScreen_exitButton; ///< the title for the titlescreen 
+	AEGfxTexture *endScreen_youDied; ///< button for the endscreen
+	AEGfxTexture *endScreen_tryAgainButton; ///< button for the endscreen
+	AEGfxTexture *endScreen_mainMenuButton; ///< button for the titlescreen
 	
 }typedef LOADEDTEXTURES;
 
