@@ -11,17 +11,28 @@
 #define PLAYER_STANDARD_TEXTURE TEXTURES.player
 #define PLAYER_SCALE (AEVec2){30,36}
 
-/**
- * @brief Frees all allocated memory and calls any ending functions
- */
-void Player_shutdown();
+typedef struct PlayerData
+{
+	float direction;  ///< From -1 to 1;
+	float speed;
+	float acceleration;
+	float speedcap;
+
+	AEGfxVertexList *mesh;    ///< Mesh
+	AEGfxTexture    *texture; ///< Texture
+
+    unsigned camNum; ///< Camera id
+
+	float alpha; ///< Transparency
+}PlayerData;
 
 /**
  * @brief Create new Player
- * @param pos Position to create player at
+ * @param pos    Position to create player at
+ * @param camNum Id of the camera that follows this player
  * @return New player
  */
-Object * Player_new(AEVec2 pos);
+Object * Player_new(AEVec2 pos, unsigned camNum);
 
 /**
  * @brief Returns the direction of a player
@@ -57,3 +68,7 @@ float Player_getAlpha(Object * player);
  * @param alpha New alpha (clamped between 0 and 1)
  */
 void Player_setAlpha(Object * player, float alpha);
+
+void Player_onUpdate(Object *obj, PlayerData *data, float dt);
+
+void Player_resetSpeed(PlayerData *data);

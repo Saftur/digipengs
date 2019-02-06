@@ -12,6 +12,12 @@
 #include "Button.h"
 #include "ImageHandler.h"
 #include "MeshHandler.h"
+#include "Player.h"
+#include "Object.h"
+#include "Map.h"
+
+
+static Object * Player;
 
 void Level2_onLoad()
 {
@@ -21,15 +27,21 @@ void Level2_onInit()
 {
 	AEGfxVertexList* mapMesh;
 	mapMesh = MeshHandler_createSquareMesh(1280, 1408);
-	
 	// Map Texture: From file
-	ObjectManager_addObj(Button_new(TEXTURES.map, mapMesh, (AEVec2) { 0, 0 }));
+	ObjectManager_addObj(Button_new(TEXTURES.map, mapMesh, (AEVec2) { 640, -704 }));
+
+    Map_init("Assets\\Map.txt");
+
+	Player = Player_new((AEVec2) { 0, 0 }, 0);
+	ObjectManager_addObj(Player);
 }
 
 void Level2_onUpdate(float dt)
 {
     UNREFERENCED_PARAMETER(dt);
 
+	Player_onUpdate(Player, Object_getData(Player), dt);
+	
 	/*AEGfxVertexList     *pMeshMap;	// Pointer to Map Mesh
 	AEGfxTexture        *pTexMap;	// Pointer to Map Texture
 
