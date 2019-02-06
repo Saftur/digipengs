@@ -11,6 +11,7 @@
 #include "MeshHandler.h"
 #include "ObjectManager.h"
 #include "LevelManager.h"
+#include "Level2.h"
 
 #include "Button.h"
 
@@ -19,11 +20,18 @@ AEGfxVertexList* longButtonMesh;
 AEGfxVertexList* squareButtonMesh;
 
 static void singleplayerButtonEffect() {
+	splitScreen = 0;
+	LevelManager_setNextLevel(Level2);
+	
+}
+
+static void multiplayerButtonEffect() {
+	splitScreen = 1;
 	LevelManager_setNextLevel(Level2);
 }
 
 static void quitEffect() {
-		LevelManager_setNextLevel(LevelQuit);
+	LevelManager_setNextLevel(LevelQuit);
 }
 
 static void titleDraw(Object *obj, void *data) {
@@ -46,7 +54,7 @@ void TitleScreen_onInit()
 
 	Object *singlePlayerButton = Button_new(singleplayerButtonEffect, TEXTURES.titleScreen_startButton, TEXTURES.buttonSelected, TEXTURES.titleScreen_startButton,
         longButtonMesh, 0, 0, 600, 50);
-	Object *multiPlayerButton = Button_new(NULL, TEXTURES.titleScreen_startButton, TEXTURES.buttonSelected, TEXTURES.titleScreen_startButton,
+	Object *multiPlayerButton = Button_new(multiplayerButtonEffect, TEXTURES.titleScreen_startButton, TEXTURES.buttonSelected, TEXTURES.titleScreen_startButton,
 		longButtonMesh, 0, -100, 600, 50);
 	Object *exitButton = Button_new(quitEffect, TEXTURES.titleScreen_exitButton, TEXTURES.buttonSelected, TEXTURES.titleScreen_exitButton,
 		longButtonMesh, 0, -200, 600, 50);
