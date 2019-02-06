@@ -10,11 +10,20 @@
 #include "ImageHandler.h"
 #include "MeshHandler.h"
 #include "ObjectManager.h"
+#include "LevelManager.h"
 
 #include "Button.h"
 
 AEGfxVertexList* youDiedMesh;
 AEGfxVertexList* buttonMesh;
+
+static void tryAgainEffect() {
+	LevelManager_setNextLevel(Level1);
+}
+
+static void titleScreenEffect() {
+	LevelManager_setNextLevel(titleScreen);
+}
 
 void EndScreen_onLoad()
 {
@@ -25,21 +34,23 @@ void EndScreen_onInit()
 	youDiedMesh = MeshHandler_createSquareMesh(600, 100);
 	buttonMesh = MeshHandler_createSquareMesh(600, 50);
 
-	ObjectManager_addObj(Button_new(TEXTURES.endScreen_tryAgainButton, buttonMesh, (AEVec2) { 0, 0 }));
-	ObjectManager_addObj(Button_new(TEXTURES.endScreen_mainMenuButton, buttonMesh, (AEVec2) { 0, -100 }));
-	ObjectManager_addObj(Button_new(TEXTURES.titleScreen_exitButton, buttonMesh, (AEVec2) { 0, -200 }));
+	Object *tryAgainButton = Button_new(tryAgainEffect, TEXTURES.endScreen_tryAgainButton, TEXTURES.endScreen_tryAgainButton, TEXTURES.endScreen_tryAgainButton,
+		buttonMesh, 0, 0, 600, 50);
+	Object *mainMenuButton = Button_new(titleScreenEffect, TEXTURES.endScreen_titleScreenButton, TEXTURES.endScreen_titleScreenButton, TEXTURES.endScreen_titleScreenButton,
+		buttonMesh, 0, -100, 600, 50);
+	Object *exitButton = Button_new(NULL, TEXTURES.titleScreen_exitButton, TEXTURES.titleScreen_exitButton, TEXTURES.titleScreen_exitButton,
+		buttonMesh, 0, -200, 600, 50);
+
+	ObjectManager_addObj(tryAgainButton);
+	ObjectManager_addObj(mainMenuButton);
+	ObjectManager_addObj(exitButton);
 }
 
 void EndScreen_onUpdate(float dt)
 {
-	UNREFERENCED_PARAMETER(dt); // don't think we need this for the title screen but it's here just in case
+	UNREFERENCED_PARAMETER(dt);
 
-	//ImageHandler_drawTexture(TitleMesh, TEXTURES.titleScreen_title, (AEVec2) { 0, 200 });
-	//ImageHandler_drawTexture(StartMesh, TEXTURES.titleScreen_startButton, (AEVec2) { 0, 0 });
-	//ImageHandler_drawTexture(StartMesh, TEXTURES.titleScreen_startButton, (AEVec2) { 0, -100});
-	//ImageHandler_drawTexture(ExitMesh, TEXTURES.titleScreen_exitButton, (AEVec2) { 0, -200 });
-
-	//ImageHandler_drawTexture(OptionsMesh, TEXTURES.titleScreen_button, (AEVec2) { -375, 275 });
+	ImageHandler_drawTexture(youDiedMesh, TEXTURES.endScreen_youDied, (AEVec2) { 0, 150 }, 0);
 }
 
 void EndScreen_onShutdown()
