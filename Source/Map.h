@@ -43,6 +43,15 @@ void Map_init(const char *filename);
 void Map_worldPosToTilePos(unsigned *tx, unsigned *ty, float wx, float wy);
 
 /**
+ * @brief Convert from map tile to world coordinates
+ * @param[out] wx Where to store world x coord
+ * @param[out] wy Where to store world y coord
+ * @param      tx Tile x coord
+ * @param      ty Tile y coord
+ */
+void Map_tilePosToWorldPos(float *wx, float *wy, unsigned tx, unsigned ty);
+
+/**
  * @brief Get a tile from the map
  * @param x X tile position
  * @param y Y tile position

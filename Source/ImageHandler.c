@@ -9,6 +9,7 @@
 
 #include "ImageHandler.h"
 #include "Boulder.h"
+#include "Camera.h"
 
 LOADEDTEXTURES TEXTURES;
 
@@ -51,7 +52,7 @@ void ImageHandler_drawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVe
     AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
     AEGfxSetBlendMode(AE_GFX_BM_BLEND);
     // Set poisition 
-    AEGfxSetFullTransform(position.x, position.y, AERadToDeg(rotation), 1.0f, 1.0f);
+    AEGfxSetFullTransform(position.x - Camera_xPos(), position.y - Camera_yPos(), AERadToDeg(rotation) - Camera_rot(), Camera_xScl(), Camera_yScl());
     // Set texture for object 2
     AEGfxTextureSet(texture, 0.0f, 0.0f);
     AEGfxSetBlendColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -65,7 +66,7 @@ void ImageHandler_fullDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, 
     AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
     AEGfxSetBlendMode(AE_GFX_BM_BLEND);
     // Set poisition 
-    AEGfxSetFullTransform(position.x, position.y, AERadToDeg(rotation), scale.x, scale.y);
+    AEGfxSetFullTransform(position.x - Camera_xPos(), position.y - Camera_yPos(), AERadToDeg(rotation) - Camera_rot(), scale.x * Camera_xScl(), scale.y * Camera_yScl());
     // Set texture for object 2
     AEGfxTextureSet(texture, 0.0f, 0.0f);
     AEGfxSetBlendColor(0.0f, 0.0f, 0.0f, 0.0f);
