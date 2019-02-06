@@ -26,6 +26,15 @@ void ImageHandler_initializeTextures()
 	TEXTURES.titleScreen_exitButton = AEGfxTextureLoad("./Assets/TempExitButton.png");
 	AE_ASSERT_MESG(TEXTURES.titleScreen_exitButton, "Failed to load/create TEXTURE: titleScreen_exitButton");
 
+	TEXTURES.endScreen_youDied = AEGfxTextureLoad("./Assets/TempYouDied.png");
+	AE_ASSERT_MESG(TEXTURES.endScreen_youDied, "Failed to load/create TEXTURE: endScreen_youDied");
+
+	TEXTURES.endScreen_tryAgainButton = AEGfxTextureLoad("./Assets/TempTryAgainButton.png");
+	AE_ASSERT_MESG(TEXTURES.endScreen_tryAgainButton, "Failed to load/create TEXTURE: endScreen_tryAgainButton");
+
+	TEXTURES.endScreen_mainMenuButton = AEGfxTextureLoad("./Assets/TempMainMenuButton.png");
+	AE_ASSERT_MESG(TEXTURES.endScreen_mainMenuButton, "Failed to load/create TEXTURE: endScreen_mainMenuButton");
+
     TEXTURES.test = AEGfxTextureLoad("./Assets/PlanetTexture.png");
     AE_ASSERT_MESG(TEXTURES.test, "Failed to load/create TEXTURE: test");
 
