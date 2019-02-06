@@ -18,12 +18,17 @@ AEGfxVertexList* youDiedMesh;
 AEGfxVertexList* buttonMesh;
 
 static void tryAgainEffect() {
-	LevelManager_setNextLevel(Level1);
+	LevelManager_setNextLevel(Level2);
 }
 
 static void titleScreenEffect() {
 	LevelManager_setNextLevel(TitleScreen);
 }
+
+static void quitEffect() {
+	LevelManager_setNextLevel(LevelQuit);
+}
+
 
 void EndScreen_onLoad()
 {
@@ -34,11 +39,11 @@ void EndScreen_onInit()
 	youDiedMesh = MeshHandler_createSquareMesh(600, 100);
 	buttonMesh = MeshHandler_createSquareMesh(600, 50);
 
-	Object *tryAgainButton = Button_new(tryAgainEffect, TEXTURES.endScreen_tryAgainButton, TEXTURES.endScreen_tryAgainButton, TEXTURES.endScreen_tryAgainButton,
+	Object *tryAgainButton = Button_new(tryAgainEffect, TEXTURES.endScreen_tryAgainButton, TEXTURES.buttonSelected, TEXTURES.endScreen_tryAgainButton,
 		buttonMesh, 0, 0, 600, 50);
-	Object *mainMenuButton = Button_new(titleScreenEffect, TEXTURES.endScreen_titleScreenButton, TEXTURES.endScreen_titleScreenButton, TEXTURES.endScreen_titleScreenButton,
+	Object *mainMenuButton = Button_new(titleScreenEffect, TEXTURES.endScreen_titleScreenButton, TEXTURES.buttonSelected, TEXTURES.endScreen_titleScreenButton,
 		buttonMesh, 0, -100, 600, 50);
-	Object *exitButton = Button_new(NULL, TEXTURES.titleScreen_exitButton, TEXTURES.titleScreen_exitButton, TEXTURES.titleScreen_exitButton,
+	Object *exitButton = Button_new(quitEffect, TEXTURES.titleScreen_exitButton, TEXTURES.buttonSelected, TEXTURES.titleScreen_exitButton,
 		buttonMesh, 0, -200, 600, 50);
 
 	ObjectManager_addObj(tryAgainButton);

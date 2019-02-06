@@ -8,6 +8,7 @@
 #include "stdafx.h"
 #include "AEEngine.h"
 #include "Level2.h"
+#include "LevelManager.h"
 #include "ObjectManager.h"
 #include "Button.h"
 #include "ImageHandler.h"
@@ -65,6 +66,9 @@ void Level2_onUpdate(float dt)
         cam->worldScale *= 0.9f;
     if (AEInputCheckCurr('E'))
         cam->worldScale *= 1.1f;
+	
+	if (AEInputCheckCurr('R'))
+		LevelManager_setNextLevel(EndScreen);
 }
 
 void Level2_onShutdown()

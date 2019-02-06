@@ -22,6 +22,10 @@ static void singleplayerButtonEffect() {
 	LevelManager_setNextLevel(Level2);
 }
 
+static void quitEffect() {
+		LevelManager_setNextLevel(LevelQuit);
+}
+
 static void titleDraw(Object *obj, void *data) {
     UNREFERENCED_PARAMETER(obj);
     UNREFERENCED_PARAMETER(data);
@@ -40,13 +44,13 @@ void TitleScreen_onInit()
 
     ObjectManager_addObj(Object_new(NULL, NULL, titleDraw, NULL, NULL));
 
-	Object *singlePlayerButton = Button_new(singleplayerButtonEffect, TEXTURES.titleScreen_startButton, TEXTURES.titleScreen_startButton, TEXTURES.titleScreen_startButton,
+	Object *singlePlayerButton = Button_new(singleplayerButtonEffect, TEXTURES.titleScreen_startButton, TEXTURES.buttonSelected, TEXTURES.titleScreen_startButton,
         longButtonMesh, 0, 0, 600, 50);
-	Object *multiPlayerButton = Button_new(NULL, TEXTURES.titleScreen_startButton, TEXTURES.titleScreen_startButton, TEXTURES.titleScreen_startButton,
+	Object *multiPlayerButton = Button_new(NULL, TEXTURES.titleScreen_startButton, TEXTURES.buttonSelected, TEXTURES.titleScreen_startButton,
 		longButtonMesh, 0, -100, 600, 50);
-	Object *exitButton = Button_new(NULL, TEXTURES.titleScreen_exitButton, TEXTURES.titleScreen_startButton, TEXTURES.titleScreen_startButton,
+	Object *exitButton = Button_new(quitEffect, TEXTURES.titleScreen_exitButton, TEXTURES.buttonSelected, TEXTURES.titleScreen_exitButton,
 		longButtonMesh, 0, -200, 600, 50);
-	Object *settingsButton = Button_new(NULL, TEXTURES.titleScreen_button, TEXTURES.titleScreen_startButton, TEXTURES.titleScreen_startButton,
+	Object *settingsButton = Button_new(NULL, TEXTURES.titleScreen_button, TEXTURES.buttonSelected, TEXTURES.titleScreen_startButton,
 		squareButtonMesh, -375, 275, 600, 50);
 
     ObjectManager_addObj(singlePlayerButton);

@@ -26,6 +26,7 @@ struct LOADEDTEXTURES
 	AEGfxTexture *endScreen_youDied; ///< button for the endscreen
 	AEGfxTexture *endScreen_tryAgainButton; ///< button for the endscreen
 	AEGfxTexture *endScreen_titleScreenButton; ///< button for the titlescreen
+	AEGfxTexture *buttonSelected;
 
 	
 }typedef LOADEDTEXTURES;

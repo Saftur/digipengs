@@ -36,6 +36,9 @@ void ImageHandler_initializeTextures()
 	TEXTURES.endScreen_titleScreenButton = AEGfxTextureLoad("./Assets/TempTitleScreenButton.png");
 	AE_ASSERT_MESG(TEXTURES.endScreen_titleScreenButton, "Failed to load/create TEXTURE: endScreen_titleScreenButton");
 
+	TEXTURES.buttonSelected = AEGfxTextureLoad("./Assets/TempButtonSelected.png");
+	AE_ASSERT_MESG(TEXTURES.buttonSelected, "Failed to load/create TEXTURE: buttonSelected");
+
     TEXTURES.test = AEGfxTextureLoad("./Assets/PlanetTexture.png");
     AE_ASSERT_MESG(TEXTURES.test, "Failed to load/create TEXTURE: test");
 
