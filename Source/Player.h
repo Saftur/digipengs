@@ -21,20 +21,18 @@ typedef struct PlayerData
 	AEGfxVertexList *mesh;    ///< Mesh
 	AEGfxTexture    *texture; ///< Texture
 
+    unsigned camNum; ///< Camera id
+
 	float alpha; ///< Transparency
 }PlayerData;
 
 /**
- * @brief Frees all allocated memory and calls any ending functions
- */
-void Player_shutdown();
-
-/**
  * @brief Create new Player
- * @param pos Position to create player at
+ * @param pos    Position to create player at
+ * @param camNum Id of the camera that follows this player
  * @return New player
  */
-Object * Player_new(AEVec2 pos);
+Object * Player_new(AEVec2 pos, unsigned camNum);
 
 /**
  * @brief Returns the direction of a player

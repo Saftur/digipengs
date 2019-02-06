@@ -12,11 +12,10 @@
 #include "MeshHandler.h"
 #include "Object.h"
 
-void Player_onShutdown(PlayerData *data)
-{
+void Player_onShutdown(PlayerData *data) {
+    AEGfxMeshFree(data->mesh);
     free(data);
 }
-
 
 void Player_onInit(Object *obj, PlayerData *data)
 {
@@ -49,11 +48,12 @@ void Player_onDraw(Object *obj, PlayerData *data)
 }
 
 
-Object *Player_new(AEVec2 pos)
+Object *Player_new(AEVec2 pos, unsigned camNum)
 {
     PlayerData * data = calloc(1, sizeof(PlayerData));
     Object *player = Object_new(Player_onInit, Player_onUpdate, Player_onDraw, data, Player_onShutdown);
     Object_setPos(player, pos);
+    data->camNum = camNum;
     return player;
 }
 

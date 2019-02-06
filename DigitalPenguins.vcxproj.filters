@@ -67,6 +67,9 @@
     <ClCompile Include="source\Player.c">
       <Filter>Game\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Map.c">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
