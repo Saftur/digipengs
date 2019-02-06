@@ -30,6 +30,11 @@ void ImageHandler_initializeTextures()
     TEXTURES.test = AEGfxTextureLoad("./Assets/PlanetTexture.png");
     AE_ASSERT_MESG(TEXTURES.test, "Failed to load/create TEXTURE: test");
 
+	TEXTURES.map = AEGfxTextureLoad("./Assets/Map.png");
+	AE_ASSERT_MESG(TEXTURES.map, "Failed to load/create TEXTURE: map");
+
+    TEXTURES.player = AEGfxTextureLoad("./Assets/Player.png");
+    AE_ASSERT_MESG(TEXTURES.player, "Failed to load/create TEXTURE: Player");
 }
 
 void ImageHandler_shutdown() {
@@ -38,15 +43,19 @@ void ImageHandler_shutdown() {
 	AEGfxTextureUnload(TEXTURES.titleScreen_startButton);
 	AEGfxTextureUnload(TEXTURES.titleScreen_button);
 	AEGfxTextureUnload(TEXTURES.titleScreen_exitButton);
+	AEGfxTextureUnload(TEXTURES.map);
+    AEGfxTextureUnload(TEXTURES.player);
 }
 
 void ImageHandler_drawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float rotation)
 {
     AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
+    AEGfxSetBlendMode(AE_GFX_BM_BLEND);
     // Set poisition 
     AEGfxSetFullTransform(position.x - Camera_xPos(), position.y - Camera_yPos(), AERadToDeg(rotation) - Camera_rot(), Camera_xScl(), Camera_yScl());
     // Set texture for object 2
     AEGfxTextureSet(texture, 0.0f, 0.0f);
+    AEGfxSetBlendColor(0.0f, 0.0f, 0.0f, 0.0f);
     AEGfxSetTransparency(1.0f);
     // Drawing the mesh (list of triangles)
     AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
@@ -55,10 +64,12 @@ void ImageHandler_drawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVe
 void ImageHandler_fullDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, AEVec2 scale, float rotation, float alpha)
 {
     AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
+    AEGfxSetBlendMode(AE_GFX_BM_BLEND);
     // Set poisition 
     AEGfxSetFullTransform(position.x - Camera_xPos(), position.y - Camera_yPos(), AERadToDeg(rotation) - Camera_rot(), scale.x * Camera_xScl(), scale.y * Camera_yScl());
     // Set texture for object 2
     AEGfxTextureSet(texture, 0.0f, 0.0f);
+    AEGfxSetBlendColor(0.0f, 0.0f, 0.0f, 0.0f);
     AEGfxSetTransparency(alpha);
     // Drawing the mesh (list of triangles)
     AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
