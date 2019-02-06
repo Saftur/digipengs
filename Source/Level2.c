@@ -12,6 +12,11 @@
 #include "Button.h"
 #include "ImageHandler.h"
 #include "MeshHandler.h"
+#include "Player.h"
+#include "Object.h"
+
+
+static Object * Player;
 
 void Level2_onLoad()
 {
@@ -24,12 +29,16 @@ void Level2_onInit()
 	
 	// Map Texture: From file
 	ObjectManager_addObj(Button_new(TEXTURES.map, mapMesh, (AEVec2) { 0, 0 }));
+	Player = Player_new((AEVec2) { 0, 0 });
+	ObjectManager_addObj(Player);
 }
 
 void Level2_onUpdate(float dt)
 {
     UNREFERENCED_PARAMETER(dt);
 
+	Player_onUpdate(Player, Object_getData(Player), dt);
+	
 	/*AEGfxVertexList     *pMeshMap;	// Pointer to Map Mesh
 	AEGfxTexture        *pTexMap;	// Pointer to Map Texture
 

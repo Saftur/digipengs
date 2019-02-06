@@ -12,16 +12,6 @@
 #include "MeshHandler.h"
 #include "Object.h"
 
-typedef struct PlayerData
-{
-    float direction;  ///< From -1 to 1;
-
-    AEGfxVertexList *mesh;    ///< Mesh
-    AEGfxTexture    *texture; ///< Texture
-
-    float alpha; ///< Transparency
-}PlayerData;
-
 void Player_onShutdown(PlayerData *data)
 {
     free(data);
@@ -34,13 +24,23 @@ void Player_onInit(Object *obj, PlayerData *data)
     data->alpha = 1.0f;
     data->mesh = MeshHandler_createSquareMesh(PLAYER_SCALE.x, PLAYER_SCALE.y);
     data->texture = PLAYER_STANDARD_TEXTURE;
+	data->acceleration = 0.046875f;
+	data->speedcap = 6.0f;
 }
 
-void Player_onUpdate(Object *obj, void *data, float dt)
+void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 {
     UNREFERENCED_PARAMETER(obj);
     UNREFERENCED_PARAMETER(data);
     UNREFERENCED_PARAMETER(dt);
+
+	data->speed += data->acceleration;
+	data->speed = fminf(data->speed, data->speedcap);
+
+	AEVec2 Pos = Object_getPos(obj);
+	Pos.x += (data->speed * cosf(data->direction));
+	Pos.y += (data->speed * sinf(data->direction));
+	Object_setPos(obj, Pos);
 }
 
 void Player_onDraw(Object *obj, PlayerData *data)
@@ -80,4 +80,9 @@ float Player_getAlpha(Object * player)
 void Player_setAlpha(Object * player, float alpha)
 {
     ((PlayerData*)Object_getData(player))->alpha = alpha;
+}
+
+void Player_resetSpeed(PlayerData *data)
+{
+	data->speed = 0.0f;
 }
