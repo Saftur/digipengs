@@ -7,6 +7,14 @@
 
 #include <AEEngine.h>
 
+typedef struct Camera {
+	AEVec2 worldPos;
+	float worldRot;
+	AEVec2 worldScale;
+	AEVec2 viewportPos;
+	AEVec2 viewportSize;
+} Camera;
+
 /**
  * @brief Initialize Cameras
  */
@@ -43,6 +51,12 @@ void Camera_new(AEVec2 worldPos, AEVec2 worldScale, float worldRot, AEVec2 viewp
  * @param camNum Camera number
  */
 void Camera_set(unsigned camNum);
+
+unsigned Camera_getCurrNum();
+
+Camera *Camera_getCurr();
+
+Camera *Camera_get(unsigned camNum);
 
 /**
  * @brief Get current Camera X pos

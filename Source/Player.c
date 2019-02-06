@@ -11,6 +11,7 @@
 #include "ImageHandler.h"
 #include "MeshHandler.h"
 #include "Object.h"
+#include "Camera.h"
 
 void Player_onShutdown(PlayerData *data) {
     AEGfxMeshFree(data->mesh);
@@ -36,10 +37,12 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 	data->speed += data->acceleration;
 	data->speed = fminf(data->speed, data->speedcap);
 
-	AEVec2 Pos = Object_getPos(obj);
-	Pos.x += (data->speed * cosf(data->direction));
-	Pos.y += (data->speed * sinf(data->direction));
-	Object_setPos(obj, Pos);
+	AEVec2 pos = Object_getPos(obj);
+	pos.x += (data->speed * cosf(data->direction));
+	pos.y += (data->speed * sinf(data->direction));
+	Object_setPos(obj, pos);
+
+    //Camera *cam = Camera_get(data->camNum);
 }
 
 void Player_onDraw(Object *obj, PlayerData *data)

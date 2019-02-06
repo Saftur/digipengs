@@ -75,6 +75,11 @@ void Map_worldPosToTilePos(unsigned *tx, unsigned *ty, float wx, float wy) {
     *ty = (unsigned)(-wy / TILE_SIZE);
 }
 
+void Map_tilePosToWorldPos(float *wx, float *wy, unsigned tx, unsigned ty) {
+    *wx = ((float)tx + 0.5f) * TILE_SIZE;
+    *wy = -((float)ty + 0.5f) * TILE_SIZE;
+}
+
 Tile Map_getTile(unsigned x, unsigned y) {
     return tiles[y][x];
 }

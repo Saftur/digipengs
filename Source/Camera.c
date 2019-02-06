@@ -7,16 +7,17 @@
 #include "Camera.h"
 #include "vector.h"
 
-typedef struct Camera {
+/*typedef struct Camera {
 	AEVec2 worldPos;
 	float worldRot;
 	AEVec2 worldScale;
 	AEVec2 viewportPos;
 	AEVec2 viewportSize;
-} Camera;
+} Camera;*/
 
 static vector *cams;
 static Camera *currCam;
+static unsigned currCamNum;
 
 void Camera_init() {
 	cams = vector_new(2, NULL, free);
@@ -48,8 +49,21 @@ void Camera_set(unsigned camNum) {
 	if (camNum >= Camera_count())
 		return;
 	currCam = vector_at(cams, camNum);
+    currCamNum = camNum;
 	AEGfxSetViewportPositionAndDimensions((int)currCam->viewportPos.x, (int)currCam->viewportPos.y, (int)currCam->viewportSize.x, (int)currCam->viewportSize.y);
     AEGfxSetCamPosition(currCam->worldPos.x, currCam->worldPos.y);
+}
+
+unsigned Camera_getCurrNum() {
+    return currCamNum;
+}
+
+Camera *Camera_getCurr() {
+    return currCam;
+}
+
+Camera *Camera_get(unsigned camNum) {
+    return vector_at(cams, camNum);
 }
 
 float Camera_xPos() {
