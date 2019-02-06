@@ -15,6 +15,7 @@
 #include "Player.h"
 #include "Object.h"
 #include "Map.h"
+#include "ObstacleManager.h"
 
 
 static Object * Player;
@@ -34,6 +35,8 @@ void Level2_onInit()
 
 	Player = Player_new((AEVec2) { 0, 0 }, 0);
 	ObjectManager_addObj(Player);
+
+    ObstacleManager_generateObstacles((AEVec2) { 0, 0 });
 }
 
 void Level2_onUpdate(float dt)
