@@ -32,7 +32,7 @@ void ImageHandler_initializeTextures()
 	TEXTURES.endScreen_tryAgainButton = AEGfxTextureLoad("./Assets/TempTryAgainButton.png");
 	AE_ASSERT_MESG(TEXTURES.endScreen_tryAgainButton, "Failed to load/create TEXTURE: endScreen_tryAgainButton");
 
-	TEXTURES.endScreen_titleScreenButton = AEGfxTextureLoad("./Assets/TempTitleScreen.png");
+	TEXTURES.endScreen_titleScreenButton = AEGfxTextureLoad("./Assets/TempTitleScreenButton.png");
 	AE_ASSERT_MESG(TEXTURES.endScreen_titleScreenButton, "Failed to load/create TEXTURE: endScreen_titleScreenButton");
 
     TEXTURES.test = AEGfxTextureLoad("./Assets/PlanetTexture.png");

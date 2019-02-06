@@ -22,7 +22,7 @@ static void tryAgainEffect() {
 }
 
 static void titleScreenEffect() {
-	LevelManager_setNextLevel(titleScreen);
+	LevelManager_setNextLevel(TitleScreen);
 }
 
 void EndScreen_onLoad()
