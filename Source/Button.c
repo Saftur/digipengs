@@ -47,10 +47,15 @@ void Button_onUpdate(Object *obj, Button *data, float dt) {
 	objWidth = data->width;
 	objHeight = data->height;
 
-	s32 mouseX, mouseY;
-	AEInputGetCursorPosition(&mouseX, &mouseY);
+	s32 screenX, screenY;
+	AEInputGetCursorPosition(&screenX, &screenY);
 
-	if (objX + objWidth / 2 > mouseX && mouseX > objX - objWidth / 2 && objY + objHeight / 2 > mouseY && mouseY > objY - objHeight / 2)
+	//Convert mouse screen position to world position.
+	float mouseX;
+	float mouseY;
+	AEGfxConvertScreenCoordinatesToWorld((float)screenX, (float)screenY, &mouseX, &mouseY);
+
+	if (objX - objWidth / 2 < mouseX && mouseX < objX + objWidth / 2 && objY - objHeight / 2 < mouseY && mouseY < objY + objHeight / 2)
 	{
 		if (AEInputCheckTriggered(VK_LBUTTON))
 		{
