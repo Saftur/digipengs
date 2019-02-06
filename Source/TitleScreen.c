@@ -10,12 +10,17 @@
 #include "ImageHandler.h"
 #include "MeshHandler.h"
 #include "ObjectManager.h"
+#include "LevelManager.h"
 
 #include "Button.h"
 
 AEGfxVertexList* titleMesh;
 AEGfxVertexList* longButtonMesh;
 AEGfxVertexList* squareButtonMesh;
+
+static void singleplayerButtonEffect() {
+	LevelManager_setNextLevel(Level1);
+}
 
 void TitleScreen_onLoad()
 {
@@ -27,14 +32,14 @@ void TitleScreen_onInit()
 	longButtonMesh = MeshHandler_createSquareMesh(600, 50);
 	squareButtonMesh = MeshHandler_createSquareMesh(50, 50);
 
-	Object *singlePlayerButton = Button_new(TEXTURES.titleScreen_startButton, TEXTURES.titleScreen_startButton, TEXTURES.titleScreen_startButton, 
-        longButtonMesh, (AEVec2) { 0, 0 });
-	Object *multiPlayerButton = Button_new(TEXTURES.titleScreen_startButton, TEXTURES.titleScreen_startButton, TEXTURES.titleScreen_startButton,
-		longButtonMesh, (AEVec2) { 0, -100 });
-	Object *exitButton = Button_new(TEXTURES.titleScreen_exitButton, TEXTURES.titleScreen_startButton, TEXTURES.titleScreen_startButton,
-		longButtonMesh, (AEVec2) { 0, -200 });
-	Object *settingsButton = Button_new(TEXTURES.titleScreen_button, TEXTURES.titleScreen_startButton, TEXTURES.titleScreen_startButton,
-		squareButtonMesh, (AEVec2) { 0, 275 });
+	Object *singlePlayerButton = Button_new(singleplayerButtonEffect, TEXTURES.titleScreen_startButton, TEXTURES.titleScreen_startButton, TEXTURES.titleScreen_startButton,
+        longButtonMesh, 0, 0, 600, 50);
+	Object *multiPlayerButton = Button_new(NULL, TEXTURES.titleScreen_startButton, TEXTURES.titleScreen_startButton, TEXTURES.titleScreen_startButton,
+		longButtonMesh, 0, -100, 600, 50);
+	Object *exitButton = Button_new(NULL, TEXTURES.titleScreen_exitButton, TEXTURES.titleScreen_startButton, TEXTURES.titleScreen_startButton,
+		longButtonMesh, 0, -200, 600, 50);
+	Object *settingsButton = Button_new(NULL, TEXTURES.titleScreen_button, TEXTURES.titleScreen_startButton, TEXTURES.titleScreen_startButton,
+		squareButtonMesh, -375, 275, 600, 50);
 
     ObjectManager_addObj(singlePlayerButton);
     ObjectManager_addObj(multiPlayerButton);
@@ -46,7 +51,7 @@ void TitleScreen_onUpdate(float dt)
 {
 	UNREFERENCED_PARAMETER(dt); // don't think we need this for the title screen but it's here just in case
 	
-	//ImageHandler_drawTexture(titleMesh, TEXTURES.titleScreen_title, (AEVec2) { 0, 200 }, 0);
+	ImageHandler_drawTexture(titleMesh, TEXTURES.titleScreen_title, (AEVec2) { 0, 150 }, 0);
 
 	//ImageHandler_drawTexture(StartMesh, TEXTURES.titleScreen_startButton, (AEVec2) { 0, 0 });
 	//ImageHandler_drawTexture(StartMesh, TEXTURES.titleScreen_startButton, (AEVec2) { 0, -100});
