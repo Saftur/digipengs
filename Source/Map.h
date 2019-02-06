@@ -10,21 +10,29 @@
 
 #define MAP_MAX_SIZE 8
 
-#define TILE_SIZE 320
+#define TILE_SIZE 341
 
 /**
  * @brief A side of a tile
  */
 typedef enum {
-    SLeft, SRight, SUp, SDown
+    SNone, SLeft, SRight, SUp, SDown
 } Side;
+
+/**
+ * @brief Type of tile
+ */
+typedef enum {
+    TTNone, TTVert, TTHoriz, TTTurn
+} TileType;
 
 /**
  * @brief A Tile
  */
 typedef struct Tile {
-    Side from; ///< Side path comes from
-    Side to;   ///< Side path goes to
+    Side from;     ///< Side path comes from
+    Side to;       ///< Side path goes to
+    TileType type; ///< Tile type
 } Tile;
 
 /**

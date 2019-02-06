@@ -8,6 +8,8 @@
 #include <AEEngine.h>
 #include "Object.h"
 
+#include "InputHandler.h"
+
 #define PLAYER_STANDARD_TEXTURE TEXTURES.player
 #define PLAYER_SCALE (AEVec2){30,36}
 
@@ -17,6 +19,8 @@ typedef struct PlayerData
 	float speed;
 	float acceleration;
 	float speedcap;
+
+    Controls controls; ///< Player's controls
 
 	AEGfxVertexList *mesh;    ///< Mesh
 	AEGfxTexture    *texture; ///< Texture
@@ -28,11 +32,12 @@ typedef struct PlayerData
 
 /**
  * @brief Create new Player
- * @param pos    Position to create player at
- * @param camNum Id of the camera that follows this player
+ * @param pos      Position to create player at
+ * @param controls Player controls
+ * @param camNum   Id of the camera that follows this player
  * @return New player
  */
-Object * Player_new(AEVec2 pos, unsigned camNum);
+Object * Player_new(AEVec2 pos, Controls controls, unsigned camNum);
 
 /**
  * @brief Returns the direction of a player

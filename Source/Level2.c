@@ -17,8 +17,6 @@
 #include "Map.h"
 
 
-static Object * Player;
-
 void Level2_onLoad()
 {
 }
@@ -26,21 +24,27 @@ void Level2_onLoad()
 void Level2_onInit()
 {
 	AEGfxVertexList* mapMesh;
-	mapMesh = MeshHandler_createSquareMesh(1280, 1408);
+	mapMesh = MeshHandler_createSquareMesh(1024, 1024);
 	// Map Texture: From file
-	ObjectManager_addObj(Button_new(TEXTURES.map, mapMesh, (AEVec2) { 640, -704 }));
+	ObjectManager_addObj(Button_new(TEXTURES.map, mapMesh, (AEVec2) { 512, -512 }));
 
     Map_init("Assets\\Map.txt");
 
-	Player = Player_new((AEVec2) { 0, 0 }, 0);
-	ObjectManager_addObj(Player);
+    AEVec2 pos1;
+    Map_tilePosToWorldPos(&pos1.x, &pos1.y, 1, 2);
+    ObjectManager_addObj(Player_new(pos1, (Controls) {'A', 'D', 'W', 'S'}, 0));
+    pos1.y += 32;
+    AEVec2 pos2;
+    Map_tilePosToWorldPos(&pos2.x, &pos2.y, 1, 2);
+    pos2.y -= 32;
+	ObjectManager_addObj(Player_new(pos2, (Controls) {VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN}, 1));
 }
 
 void Level2_onUpdate(float dt)
 {
     UNREFERENCED_PARAMETER(dt);
 
-	Player_onUpdate(Player, Object_getData(Player), dt);
+	//Player_onUpdate(Player, Object_getData(Player), dt);
 	
 	/*AEGfxVertexList     *pMeshMap;	// Pointer to Map Mesh
 	AEGfxTexture        *pTexMap;	// Pointer to Map Texture

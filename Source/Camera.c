@@ -51,7 +51,7 @@ void Camera_set(unsigned camNum) {
 	currCam = vector_at(cams, camNum);
     currCamNum = camNum;
 	AEGfxSetViewportPositionAndDimensions((int)currCam->viewportPos.x, (int)currCam->viewportPos.y, (int)currCam->viewportSize.x, (int)currCam->viewportSize.y);
-    AEGfxSetCamPosition(currCam->worldPos.x, currCam->worldPos.y);
+    //AEGfxSetCamPosition(currCam->worldPos.x, currCam->worldPos.y);
 }
 
 unsigned Camera_getCurrNum() {
