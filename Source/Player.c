@@ -26,6 +26,7 @@ void Player_onInit(Object *obj, PlayerData *data)
     data->mesh = MeshHandler_createSquareMesh(PLAYER_SCALE.x, PLAYER_SCALE.y);
     data->texture = PLAYER_STANDARD_TEXTURE;
 	data->acceleration = 0.046875f;
+	data->deceleration = 0.05f;
     data->speedcap = 6.0f;
 }
 
@@ -47,7 +48,10 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 	}
 	
 	if (Input_downCheck(data->controls))
-		Player_resetSpeed(data);
+	{
+		data->speed -= (data->acceleration + data->deceleration);
+		data->speed = fmaxf(data->speed, 0);
+	}
 
 	AEVec2 pos = Object_getPos(obj);
 	pos.x += (data->speed * cosf(data->direction));
@@ -115,7 +119,7 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 
 void Player_onDraw(Object *obj, PlayerData *data)
 {
-    ImageHandler_fullDrawTexture(data->mesh, data->texture, Object_getPos(obj), (AEVec2) { 1.0f , 1.0f }, data->direction, data->alpha);
+    ImageHandler_fullDrawTexture(data->mesh, data->texture, Object_getPos(obj), (AEVec2) { 1.0f , 1.0f }, data->direction - AEDegToRad(90), data->alpha);
 }
 
 

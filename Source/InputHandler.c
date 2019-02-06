@@ -10,6 +10,36 @@
 
 #include "AEEngine.h"
 #include "InputHandler.h"
+#include <xinput.h>
+
+static int Input_gamepadInit(Controls *ctrls, int Directions)
+{
+	XINPUT_STATE state;
+	ZeroMemory(&state, sizeof(XINPUT_STATE));
+
+	if (XInputGetState(ctrls->gamepad, &state) == ERROR_SUCCESS)
+	{
+		float normLX = fmaxf(-1, (float)state.Gamepad.sThumbLX / 32767);
+		float normLY = fmaxf(-1, (float)state.Gamepad.sThumbLY / 32767);
+		
+		if (Directions == -1 && normLX < -0.25)
+		{
+			return 1;
+		}
+
+		if (Directions == 1 && normLX > 0.25)
+		{
+			return 1;
+		}
+
+		if (Directions == -10 && normLY < -0.25)
+		{
+			return 1;
+		}
+	}
+
+	return 0;
+}
 //------------------------------------------------------------------------------
 // Public Functions:
 //------------------------------------------------------------------------------
@@ -25,7 +55,7 @@ Description: Checks to see if the left key is held down or not.
 **************************************************************************/
 int Input_leftCheck(Controls ctrls)
 {
-  return AEInputCheckCurr(ctrls.left);
+  return AEInputCheckCurr(ctrls.left) || Input_gamepadInit(&ctrls, -1);
 }
 
 /**************************************************************************
@@ -69,7 +99,7 @@ Description: Checks to see if the Right key is held down or not.
 **************************************************************************/
 int Input_rightCheck(Controls ctrls)
 {
-  return AEInputCheckCurr(ctrls.right);
+  return AEInputCheckCurr(ctrls.right) || Input_gamepadInit(&ctrls, 1);
 }
 
 /**************************************************************************
@@ -157,7 +187,7 @@ Description: Checks to see if the Down key is held down or not.
 **************************************************************************/
 int Input_downCheck(Controls ctrls)
 {
-  return AEInputCheckCurr(ctrls.down);
+  return AEInputCheckCurr(ctrls.down) || Input_gamepadInit(&ctrls, -10);
 }
 
 /**************************************************************************

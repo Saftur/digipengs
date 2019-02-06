@@ -18,6 +18,7 @@ typedef struct PlayerData
 	float direction;  ///< From -1 to 1;
 	float speed;
 	float acceleration;
+	float deceleration;
 	float speedcap;
 
     Controls controls; ///< Player's controls
