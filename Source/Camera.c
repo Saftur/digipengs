@@ -7,14 +7,6 @@
 #include "Camera.h"
 #include "vector.h"
 
-/*typedef struct Camera {
-	AEVec2 worldPos;
-	float worldRot;
-	AEVec2 worldScale;
-	AEVec2 viewportPos;
-	AEVec2 viewportSize;
-} Camera;*/
-
 static vector *cams;
 static Camera *currCam;
 static unsigned currCamNum;
@@ -35,7 +27,7 @@ unsigned Camera_count() {
 	return vector_size(cams);
 }
 
-void Camera_new(AEVec2 worldPos, AEVec2 worldScale, float worldRot, AEVec2 viewportPos, AEVec2 viewportSize) {
+void Camera_new(AEVec2 worldPos, float worldScale, float worldRot, AEVec2 viewportPos, AEVec2 viewportSize) {
 	Camera *cam = malloc(sizeof(Camera));
 	cam->worldPos = worldPos;
 	cam->worldScale = worldScale;
@@ -51,7 +43,6 @@ void Camera_set(unsigned camNum) {
 	currCam = vector_at(cams, camNum);
     currCamNum = camNum;
 	AEGfxSetViewportPositionAndDimensions((int)currCam->viewportPos.x, (int)currCam->viewportPos.y, (int)currCam->viewportSize.x, (int)currCam->viewportSize.y);
-    AEGfxSetCamPosition(currCam->worldPos.x, currCam->worldPos.y);
 }
 
 unsigned Camera_getCurrNum() {
@@ -74,12 +65,8 @@ float Camera_yPos() {
     return currCam->worldPos.y;
 }
 
-float Camera_xScl() {
-    return currCam->worldScale.x;
-}
-
-float Camera_yScl() {
-    return currCam->worldScale.y;
+float Camera_scl() {
+    return currCam->worldScale;
 }
 
 float Camera_rot() {

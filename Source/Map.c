@@ -25,6 +25,14 @@ void Map_init(const char *filename) {
     int which = 0;
     while ((c = fgetc(file)) != EOF) {
         if (which > 1) {
+            Tile *t = &tiles[y][x];
+            if (t->from == SLeft && t->to == SRight ||
+                t->from == SRight && t->to == SLeft)
+                t->type = TTHoriz;
+            else if (t->from == SUp && t->to == SDown ||
+                t->from == SDown && t->to == SUp)
+                t->type = TTVert;
+            else t->type = TTTurn;
             x++;
             which = 0;
             if (x > width)
@@ -55,6 +63,12 @@ void Map_init(const char *filename) {
             else tiles[y][x].from = SDown;
             which++;
             break;
+        case 'N':
+            if (which)
+                tiles[y][x].to = SNone;
+            else tiles[y][x].from = SNone;
+            which++;
+            break;
         case '\n':
             if (x > 0) {
                 y++;
@@ -65,6 +79,16 @@ void Map_init(const char *filename) {
         }
     }
     fclose(file);
+    if (which > 1) {
+        Tile *t = &tiles[y][x];
+        if (t->from == SLeft && t->to == SRight ||
+            t->from == SRight && t->to == SLeft)
+            t->type = TTHoriz;
+        else if (t->from == SUp && t->to == SDown ||
+            t->from == SDown && t->to == SUp)
+            t->type = TTVert;
+        else t->type = TTTurn;
+    }
     if (x > 0)
         y++;
     height = y;
@@ -81,6 +105,8 @@ void Map_tilePosToWorldPos(float *wx, float *wy, unsigned tx, unsigned ty) {
 }
 
 Tile Map_getTile(unsigned x, unsigned y) {
+    if (x >= width || y >= height)
+        return (Tile) { SNone, SNone, TTNone };
     return tiles[y][x];
 }
 
