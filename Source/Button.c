@@ -38,12 +38,12 @@ void Button_onUpdate(Object *obj, Button *data, float dt) {
 	UNREFERENCED_PARAMETER(data);
 	UNREFERENCED_PARAMETER(dt);
 	
-	s32 objX, objY;
+	f32 objX, objY;
 	AEVec2 pos = Object_getPos(obj);
 	objX = pos.x;
 	objY = pos.y;
 
-	s32 objWidth, objHeight;
+	f32 objWidth, objHeight;
 	objWidth = data->width;
 	objHeight = data->height;
 
