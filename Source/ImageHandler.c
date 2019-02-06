@@ -35,6 +35,9 @@ void ImageHandler_initializeTextures()
 
     TEXTURES.player = AEGfxTextureLoad("./Assets/Player.png");
     AE_ASSERT_MESG(TEXTURES.player, "Failed to load/create TEXTURE: Player");
+
+    TEXTURES.boulder = AEGfxTextureLoad("./Assets/Boulder.png");
+    AE_ASSERT_MESG(TEXTURES.boulder, "Failed to load/create TEXTURE: Boulder");
 }
 
 void ImageHandler_shutdown() {
