@@ -16,6 +16,8 @@
 #include "Object.h"
 #include "Map.h"
 #include "ObstacleManager.h"
+#include "CollisionHandler.h"
+#include "CollisionEvents.h"
 
 #include "Camera.h"
 
@@ -35,7 +37,10 @@ void Level2_onInit()
 
     AEVec2 pos1;
     Map_tilePosToWorldPos(&pos1.x, &pos1.y, 1, 2);
-    ObjectManager_addObj(Player_new(pos1, (Controls) {'A', 'D', 'W', 'S'}, 0));
+    Object *player = Player_new(pos1, (Controls) { 'A', 'D', 'W', 'S' }, 0);
+    ObjectManager_addObj(player);
+    CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, PlayerOnCollision);
+
     pos1.y += 32;
     /*AEVec2 pos2;
     Map_tilePosToWorldPos(&pos2.x, &pos2.y, 1, 2);

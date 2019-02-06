@@ -67,7 +67,7 @@ void Boulder_onDraw(Object *obj, BoulderInfo * data)
 
 Object * Boulder_new(BoulderInfo * type, AEVec2 pos)
 {
-    Object *boulder = Object_new(Boulder_onInit, Boulder_onUpdate, Boulder_onDraw, type, NULL);
+    Object *boulder = Object_new(Boulder_onInit, Boulder_onUpdate, Boulder_onDraw, type, NULL, "Boulder");
     Object_setPos(boulder, pos);
     return boulder;
 }

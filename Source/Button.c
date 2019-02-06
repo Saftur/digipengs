@@ -41,7 +41,7 @@ Object *Button_new(AEGfxTexture *texture, AEGfxVertexList *mesh, AEVec2 pos) {
 	Button *buttonData = malloc(sizeof(Button));
 	buttonData->texture = texture;
 	buttonData->mesh = mesh;
-	Object *buttonObj = Object_new(Button_onInit, Button_onUpdate, Button_onDraw, buttonData, free);
+	Object *buttonObj = Object_new(Button_onInit, Button_onUpdate, Button_onDraw, buttonData, free, "Button");
 	Object_setPos(buttonObj, pos);
 	return buttonObj;
 }

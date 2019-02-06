@@ -50,6 +50,9 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 	UNREFERENCED_PARAMETER(command_line);
 	UNREFERENCED_PARAMETER(prevInstanceH);
 
+    //srand((int)time(NULL));
+    srand(20);
+
 	// Initialize the system 
 	AESysInitInfo sysInitInfo;
 	sysInitInfo.mCreateWindow = 1;
@@ -106,6 +109,8 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
         currentTime = GetTickCount();
         if (lastTime > 0) dt = (float) (currentTime - lastTime)/1000;
         lastTime = currentTime;
+
+        CollisionHandler_Update(dt);
 
         LevelManager_update(dt);
 

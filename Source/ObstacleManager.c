@@ -12,14 +12,16 @@
 #include "Map.h"
 #include "Boulder.h"
 #include "objectmanager.h"
+#include "CollisionHandler.h"
+#include "Object.h"
+#include "CollisionEvents.h"
 
 #define MAX_OBSTACLES_PER_TILE 1
 
-int randomInt(int lower, int upper);
+static int randomInt(int lower, int upper);
 
 void ObstacleManager_generateObstacles(AEVec2 startPos)
 {
-    srand((int)time(NULL));
     AEVec2 tileWorldPos;
     unsigned tileX, tileY;
 
@@ -51,7 +53,8 @@ void ObstacleManager_generateObstacles(AEVec2 startPos)
 
                 //Get the type of boulder to create.
                 BoulderInfo *boulderType = NULL;
-                switch (randomInt(1, 4)) {
+                int boulderSize = randomInt(1, 4);
+                switch (boulderSize) {
                 case 1:
                     boulderType = BOULDER_TYPES.tiny;
                     break;
@@ -68,6 +71,8 @@ void ObstacleManager_generateObstacles(AEVec2 startPos)
 
                 Object *boulder = Boulder_new(boulderType, obstaclesPos);
                 ObjectManager_addObj(boulder);
+                
+                CollisionHandler_Create_Circle_Collider(boulder, LANE_WIDTH * (float)boulderSize / 2, NULL);
             }
         }
 
@@ -78,6 +83,6 @@ void ObstacleManager_generateObstacles(AEVec2 startPos)
     } while (tileX!= initialTileX || tileY != initialTileY);
 }
 
-int randomInt(int lower, int upper) {
+static int randomInt(int lower, int upper) {
     return (rand() % (upper - lower + 1)) + lower;
 }

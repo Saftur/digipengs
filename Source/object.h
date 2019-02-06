@@ -26,7 +26,7 @@ typedef void(*ObjDataDestructor)(void *data);				 ///< Object data destructor fu
  * @param dataDestructor Upvalue destructor
  * @return New Object
  */
-Object *Object_new(ObjInit init, ObjUpdate update, ObjDraw draw, void *data, ObjDataDestructor dataDestructor);
+Object *Object_new(ObjInit init, ObjUpdate update, ObjDraw draw, void *data, ObjDataDestructor dataDestructor, char *name);
 
 /**
  * @brief Delete Object
@@ -59,6 +59,13 @@ void Object_draw(Object *obj);
  * @return Data pointer
  */
 void *Object_getData(Object *obj);
+
+/**
+ * @brief Get name from Object
+ * @param obj Object to get from
+ * @return Char Pointer.
+ */
+char *Object_getName(Object *obj);
 
 /**
  * @brief Get Object position

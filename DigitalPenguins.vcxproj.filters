@@ -143,6 +143,7 @@
     <ClInclude Include="Source\ObstacleManager.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="Source\CollisionEvents.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">

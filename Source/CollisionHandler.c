@@ -18,13 +18,35 @@ void CollisionHandler_Init()
     colliders = vector_new(10, NULL, DestroyCollider);
 }
 
+void CollisionHandler_Update(float dt)
+{
+    for (unsigned i = 0; i < vector_size(colliders); i++) {
+        Collider *collider = (Collider*)vector_at(colliders, i);
+        if (collider->phase > 0) collider->phase -= dt;
+    }
+    CollisionHandler_Check_Collisions();
+}
+
+void CollisionHandler_SetPhaseDuration(Object * obj, float duration)
+{
+    for (unsigned i = 0; i < vector_size(colliders); i++) {
+        Collider *collider = (Collider*)vector_at(colliders, i);
+        if (collider->gameObject == obj) {
+            collider->phase = duration;
+            return;
+        }
+    }
+}
+
 void CollisionHandler_Check_Collisions()
 {
-    for (unsigned i = 0; i < vector_size(colliders) - 1; i++) {
-        for (unsigned j = i + 1; j < vector_size(colliders); i++) {
+    for (unsigned i = 0; i < vector_size(colliders); i++) {
+        for (unsigned j = i + 1; j < vector_size(colliders); j++) {
             //Colliders.
             Collider *collider1 = (Collider*)vector_at(colliders, i);
             Collider *collider2 = (Collider*)vector_at(colliders, j);
+
+            if (collider1->phase > 0 || collider2->phase > 0) continue;
 
             //If both colliders are circles.
             if (collider1->type == Circle && collider2->type == Circle) {

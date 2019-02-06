@@ -43,6 +43,7 @@
     <ClInclude Include="Source\Button.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="source\Boulder.h" />
+    <ClInclude Include="Source\CollisionEvents.h" />
     <ClInclude Include="source\Ice.h" />
     <ClInclude Include="Source\CollisionHandler.h" />
     <ClInclude Include="Source\InputHandler.h" />
