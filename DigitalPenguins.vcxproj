@@ -26,6 +26,7 @@
     <ClCompile Include="Source\ExampleObj.c" />
     <ClCompile Include="Source\ImageHandler.c" />
     <ClCompile Include="Source\Main.c" />
+    <ClCompile Include="Source\Map.c" />
     <ClCompile Include="Source\Object.c" />
     <ClCompile Include="Source\ObjectManager.c" />
     <ClCompile Include="Source\MeshHandler.c" />
