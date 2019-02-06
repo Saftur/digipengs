@@ -62,4 +62,4 @@ void ImageHandler_drawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVe
  * @param rotation Rotation of the image
  * @param alpha Alpha of the image
  */
-void ImageHandler_fullDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, AEVec2 scale, float rotation, float alpha);
+void ImageHandler_fullDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float scale, float rotation, float alpha);

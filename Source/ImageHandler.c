@@ -52,10 +52,10 @@ void ImageHandler_shutdown() {
 
 void ImageHandler_drawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float rotation)
 {
-    ImageHandler_fullDrawTexture(mesh, texture, position, (AEVec2) { 1.f, 1.f }, rotation, 1.f);
+    ImageHandler_fullDrawTexture(mesh, texture, position, 1.f, rotation, 1.f);
 }
 
-void ImageHandler_fullDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, AEVec2 scale, float rotation, float alpha)
+void ImageHandler_fullDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float scale, float rotation, float alpha)
 {
     AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
     AEGfxSetBlendMode(AE_GFX_BM_BLEND);
@@ -66,7 +66,9 @@ void ImageHandler_fullDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, 
     AEVec2 newPos;
     newPos.x = cosf(rotRad) * localPos.x - sinf(rotRad) * localPos.y;
     newPos.y = sinf(rotRad) * localPos.x + cosf(rotRad) * localPos.y;
-    AEGfxSetFullTransform(newPos.x, newPos.y, AERadToDeg(rotation) + Camera_rot(), scale.x * Camera_xScl(), scale.y * Camera_yScl());
+    newPos.x *= Camera_scl();
+    newPos.y *= Camera_scl();
+    AEGfxSetFullTransform(newPos.x, newPos.y, AERadToDeg(rotation) + Camera_rot(), scale * Camera_scl(), scale * Camera_scl());
     // Set texture for object 2
     AEGfxTextureSet(texture, 0.0f, 0.0f);
     AEGfxSetBlendColor(0.0f, 0.0f, 0.0f, 0.0f);

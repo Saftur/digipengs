@@ -37,9 +37,13 @@ void Boulder_intialize()
 
 void Boulder_shutdown()
 {
+    AEGfxMeshFree(BOULDER_TYPES.tiny->mesh);
     free(BOULDER_TYPES.tiny);
+    AEGfxMeshFree(BOULDER_TYPES.normal->mesh);
     free(BOULDER_TYPES.normal);
+    AEGfxMeshFree(BOULDER_TYPES.big->mesh);
     free(BOULDER_TYPES.big);
+    AEGfxMeshFree(BOULDER_TYPES.giant->mesh);
     free(BOULDER_TYPES.giant);
 }
 

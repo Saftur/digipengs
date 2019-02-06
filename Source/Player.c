@@ -33,22 +33,34 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 {
     UNREFERENCED_PARAMETER(dt);
 
-	//data->speed += data->acceleration;
+	data->speed += data->acceleration;
 	data->speed = fminf(data->speed, data->speedcap);
 
+	if (Input_leftCheck(data->controls))
+	{
+		data->direction += 0.05f;
+	}
+
+	if (Input_rightCheck(data->controls))
+	{
+		data->direction -= 0.05f;
+	}
+	
+	if (Input_downCheck(data->controls))
+		Player_resetSpeed(data);
+
 	AEVec2 pos = Object_getPos(obj);
-    if (AEInputCheckCurr(VK_SPACE)) {
-        pos.x += (data->speed * cosf(data->direction));
-        pos.y += (data->speed * sinf(data->direction));
-    }
-    if (Input_upCheck(data->controls))
+	pos.x += (data->speed * cosf(data->direction));
+	pos.y += (data->speed * sinf(data->direction));
+
+    /*if (Input_upCheck(data->controls))
         pos.y += 2.f;
     if (Input_downCheck(data->controls))
         pos.y -= 2.f;
     if (Input_leftCheck(data->controls))
         pos.x -= 2.f;
     if (Input_rightCheck(data->controls))
-        pos.x += 2.f;
+        pos.x += 2.f;*/
 	Object_setPos(obj, pos);
 
     Camera *cam = Camera_get(data->camNum);
@@ -103,7 +115,7 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 
 void Player_onDraw(Object *obj, PlayerData *data)
 {
-    ImageHandler_fullDrawTexture(data->mesh, data->texture, Object_getPos(obj), (AEVec2) { 1.0f , 1.0f }, data->direction, data->alpha);
+    ImageHandler_fullDrawTexture(data->mesh, data->texture, Object_getPos(obj), 1.0f, data->direction, data->alpha);
 }
 
 
