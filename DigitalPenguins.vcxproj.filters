@@ -70,6 +70,9 @@
     <ClCompile Include="Source\Map.c">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ObstacleManager.c">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
@@ -134,12 +137,13 @@
     <ClInclude Include="Source\CollisionHandler.h">
       <Filter>Engine\Collisions</Filter>
     </ClInclude>
-    <ClInclude Include="ObstacleManager.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Player.h">
       <Filter>Game\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ObstacleManager.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CollisionEvents.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">

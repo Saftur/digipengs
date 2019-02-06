@@ -6,11 +6,13 @@
  */
 #pragma once
 
-#define LANE_WIDTH 64
+
 
 #define MAP_MAX_SIZE 8
 
-#define TILE_SIZE 341
+#define TILE_SIZE 350
+
+#define LANE_WIDTH TILE_SIZE / 7
 
 /**
  * @brief A side of a tile

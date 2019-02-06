@@ -20,6 +20,7 @@ typedef struct Collider {
     AEVec2 size; ///< Size of the collider when type is Square.
     float radius; ///< Radius of the collider when type is Circle.
     ColliderType type; ///< The type of the collider.
+    float phase; ///< If greater than 0 phase for this amount of time.
 
     void(*OnCollision)(Collider *self, Collider *other); ///< Function to be called when a collision is detected.
 
@@ -30,6 +31,19 @@ typedef struct Collider {
  * @brief Initialize the collision handler.
  */
 void CollisionHandler_Init();
+
+/**
+ * @brief Update the collision handler.
+ * @param dt DeltaTime
+ */
+void CollisionHandler_Update(float dt);
+
+/**
+ * @brief Set colliders phase duration.
+ * @param obj Object to phase.
+ * @param duration How long to phase the object for.
+ */
+void CollisionHandler_SetPhaseDuration(Object *obj, float duration);
 
 /**
  * @brief Check collisions between all colliders.

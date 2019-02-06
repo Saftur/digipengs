@@ -30,6 +30,7 @@
     <ClCompile Include="Source\Object.c" />
     <ClCompile Include="Source\ObjectManager.c" />
     <ClCompile Include="Source\MeshHandler.c" />
+    <ClCompile Include="Source\ObstacleManager.c" />
     <ClCompile Include="source\Player.c" />
     <ClCompile Include="Source\stdafx.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -39,10 +40,10 @@
     <ClCompile Include="Source\Vector.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ObstacleManager.h" />
     <ClInclude Include="Source\Button.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="source\Boulder.h" />
+    <ClInclude Include="Source\CollisionEvents.h" />
     <ClInclude Include="source\Ice.h" />
     <ClInclude Include="Source\CollisionHandler.h" />
     <ClInclude Include="Source\InputHandler.h" />
@@ -58,6 +59,7 @@
     <ClInclude Include="Source\ObjectManager.h" />
     <ClInclude Include="Source\ImageHandler.h" />
     <ClInclude Include="Source\MeshHandler.h" />
+    <ClInclude Include="Source\ObstacleManager.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\stdafx.h" />
     <ClInclude Include="Source\TitleScreen.h" />

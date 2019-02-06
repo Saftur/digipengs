@@ -10,7 +10,7 @@
 typedef struct Camera {
 	AEVec2 worldPos;
 	float worldRot;
-	AEVec2 worldScale;
+	float worldScale;
 	AEVec2 viewportPos;
 	AEVec2 viewportSize;
 } Camera;
@@ -44,7 +44,7 @@ unsigned Camera_count();
  * @param viewportPos  Position in window
  * @param viewportSize Size in window
  */
-void Camera_new(AEVec2 worldPos, AEVec2 worldScale, float worldRot, AEVec2 viewportPos, AEVec2 viewportSize);
+void Camera_new(AEVec2 worldPos, float worldScale, float worldRot, AEVec2 viewportPos, AEVec2 viewportSize);
 
 /**
  * @brief Set current Camera
@@ -71,16 +71,10 @@ float Camera_xPos();
 float Camera_yPos();
 
 /**
- * @brief Get current Camera X scale
- * @return Camera X scale
+ * @brief Get current Camera scale
+ * @return Camera scale
  */
-float Camera_xScl();
-
-/**
- * @brief Get current Camera Y scale
- * @return Camera Y scale
- */
-float Camera_yScl();
+float Camera_scl();
 
 /**
  * @brief Get current Camera rotation

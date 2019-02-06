@@ -37,9 +37,13 @@ void Boulder_intialize()
 
 void Boulder_shutdown()
 {
+    AEGfxMeshFree(BOULDER_TYPES.tiny->mesh);
     free(BOULDER_TYPES.tiny);
+    AEGfxMeshFree(BOULDER_TYPES.normal->mesh);
     free(BOULDER_TYPES.normal);
+    AEGfxMeshFree(BOULDER_TYPES.big->mesh);
     free(BOULDER_TYPES.big);
+    AEGfxMeshFree(BOULDER_TYPES.giant->mesh);
     free(BOULDER_TYPES.giant);
 }
 
@@ -63,7 +67,7 @@ void Boulder_onDraw(Object *obj, BoulderInfo * data)
 
 Object * Boulder_new(BoulderInfo * type, AEVec2 pos)
 {
-    Object *boulder = Object_new(Boulder_onInit, Boulder_onUpdate, Boulder_onDraw, type, NULL);
+    Object *boulder = Object_new(Boulder_onInit, Boulder_onUpdate, Boulder_onDraw, type, NULL, "Boulder");
     Object_setPos(boulder, pos);
     return boulder;
 }

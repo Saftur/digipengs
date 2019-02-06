@@ -50,6 +50,9 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 	UNREFERENCED_PARAMETER(command_line);
 	UNREFERENCED_PARAMETER(prevInstanceH);
 
+    //srand((int)time(NULL));
+    srand(20);
+
 	// Initialize the system 
 	AESysInitInfo sysInitInfo;
 	sysInitInfo.mCreateWindow = 1;
@@ -88,11 +91,9 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
     //ObjectManager_addObj(Boulder_new(BOULDER_TYPES.giant, (AEVec2) { 0, 0 }));
     //ObjectManager_addObj(Player_new((AEVec2) { 0, 0 }));
     
-    //Camera_new((AEVec2) { 0, 0 }, (AEVec2) { 1, 1 }, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 600 });
-    //Camera_new((AEVec2) { 0, 0 }, (AEVec2) { 1, 1 }, 0, (AEVec2) { 0, 300 }, (AEVec2) { 800, 300 });
-	//Camera_new((AEVec2) { 100, 0 }, (AEVec2) { 1, 1 }, 45, (AEVec2) { 0, 0 }, (AEVec2) { 800, 300 });
-    Camera_new((AEVec2) { 0, 0 }, (AEVec2) { 1, 1 }, 0, (AEVec2) { 0, 0 }, (AEVec2) { 400, 600 });
-    Camera_new((AEVec2) { 0, 0 }, (AEVec2) { 1, 1 }, 0, (AEVec2) { 400, 0 }, (AEVec2) { 400, 600 });
+    //Camera_new((AEVec2) { 0, 0 }, (AEVec2) { 1, 1 }, 0, (AEVec2) { 0, 0 }, (AEVec2) { 400, 600 });
+    //Camera_new((AEVec2) { 0, 0 }, (AEVec2) { 1, 1 }, 0, (AEVec2) { 400, 0 }, (AEVec2) { 400, 600 });
+    Camera_new((AEVec2) { 300, -350 }, 1.f, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 600 });
 
 	// Game Loop
 	while (LevelManager_isRunning())
@@ -108,6 +109,8 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
         currentTime = GetTickCount();
         if (lastTime > 0) dt = (float) (currentTime - lastTime)/1000;
         lastTime = currentTime;
+
+        CollisionHandler_Update(dt);
 
         LevelManager_update(dt);
 
