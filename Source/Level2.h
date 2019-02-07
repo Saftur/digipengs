@@ -6,6 +6,9 @@
  */
 
 #pragma once
+
+extern int splitScreen;
+
 /**
  * @brief Load Level.
  */

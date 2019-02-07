@@ -27,6 +27,18 @@ void ImageHandler_initializeTextures()
 	TEXTURES.titleScreen_exitButton = AEGfxTextureLoad("./Assets/TempExitButton.png");
 	AE_ASSERT_MESG(TEXTURES.titleScreen_exitButton, "Failed to load/create TEXTURE: titleScreen_exitButton");
 
+	TEXTURES.endScreen_youDied = AEGfxTextureLoad("./Assets/TempYouDied.png");
+	AE_ASSERT_MESG(TEXTURES.endScreen_youDied, "Failed to load/create TEXTURE: endScreen_youDied");
+
+	TEXTURES.endScreen_tryAgainButton = AEGfxTextureLoad("./Assets/TempTryAgainButton.png");
+	AE_ASSERT_MESG(TEXTURES.endScreen_tryAgainButton, "Failed to load/create TEXTURE: endScreen_tryAgainButton");
+
+	TEXTURES.endScreen_titleScreenButton = AEGfxTextureLoad("./Assets/TempTitleScreenButton.png");
+	AE_ASSERT_MESG(TEXTURES.endScreen_titleScreenButton, "Failed to load/create TEXTURE: endScreen_titleScreenButton");
+
+	TEXTURES.buttonSelected = AEGfxTextureLoad("./Assets/TempButtonSelected.png");
+	AE_ASSERT_MESG(TEXTURES.buttonSelected, "Failed to load/create TEXTURE: buttonSelected");
+
     TEXTURES.test = AEGfxTextureLoad("./Assets/PlanetTexture.png");
     AE_ASSERT_MESG(TEXTURES.test, "Failed to load/create TEXTURE: test");
 
@@ -35,6 +47,9 @@ void ImageHandler_initializeTextures()
 
     TEXTURES.player = AEGfxTextureLoad("./Assets/Player.png");
     AE_ASSERT_MESG(TEXTURES.player, "Failed to load/create TEXTURE: Player");
+
+    TEXTURES.boulder = AEGfxTextureLoad("./Assets/Boulder.png");
+    AE_ASSERT_MESG(TEXTURES.boulder, "Failed to load/create TEXTURE: Boulder");
 }
 
 void ImageHandler_shutdown() {

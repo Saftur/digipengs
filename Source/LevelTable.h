@@ -21,6 +21,7 @@ typedef enum
     Level1,
 	Level2,
 	TitleScreen,
+	EndScreen,
 
     //Extra info
     LevelNum,

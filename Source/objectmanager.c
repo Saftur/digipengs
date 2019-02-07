@@ -35,6 +35,10 @@ void ObjectManager_addObj(Object *obj) {
 	vector_push_back(objs, obj);
 }
 
+void ObjectManager_reset() {
+    vector_clear(objs);
+}
+
 void ObjectManager_shutdown() {
 	vector_delete(objs);
 }
