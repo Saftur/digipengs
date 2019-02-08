@@ -81,7 +81,7 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
     LevelManager_init();
 	ObjectManager_init();
 	ImageHandler_initializeTextures();
-	//LevelManager_setNextLevel(TitleScreen);
+	LevelManager_setNextLevel(TitleScreen);
 	Camera_init();
 
     Boulder_intialize();
@@ -93,7 +93,7 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
     
     //Camera_new((AEVec2) { 0, 0 }, (AEVec2) { 1, 1 }, 0, (AEVec2) { 0, 0 }, (AEVec2) { 400, 600 });
     //Camera_new((AEVec2) { 0, 0 }, (AEVec2) { 1, 1 }, 0, (AEVec2) { 400, 0 }, (AEVec2) { 400, 600 });
-    Camera_new((AEVec2) { 300, -350 }, 1.f, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 600 });
+    Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 600 });
 
 	// Game Loop
 	while (LevelManager_isRunning())

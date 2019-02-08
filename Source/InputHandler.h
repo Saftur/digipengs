@@ -17,6 +17,7 @@ unsigned char left;
 unsigned char right;
 unsigned char up;
 unsigned char down;
+unsigned int gamepad;
 } Controls;
 
 //------------------------------------------------------------------------------

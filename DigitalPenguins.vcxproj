@@ -16,6 +16,7 @@
     <ClCompile Include="Source\Camera.c" />
     <ClCompile Include="Source\CollisionEvents.c" />
     <ClCompile Include="Source\CollisionHandler.c" />
+    <ClCompile Include="Source\EndScreen.c" />
     <ClCompile Include="Source\InputHandler.c" />
     <ClCompile Include="Source\Leaderboard.c" />
     <ClCompile Include="Source\Level1.c" />
@@ -44,6 +45,7 @@
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="source\Boulder.h" />
     <ClInclude Include="Source\CollisionEvents.h" />
+    <ClInclude Include="Source\EndScreen.h" />
     <ClInclude Include="source\Ice.h" />
     <ClInclude Include="Source\CollisionHandler.h" />
     <ClInclude Include="Source\InputHandler.h" />
@@ -122,6 +124,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Xinput9_1_0.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy .\AE\lib\Alpha_Engine_D.dll "$(OutDir)" /Y

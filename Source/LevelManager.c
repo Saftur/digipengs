@@ -7,6 +7,7 @@
 
 #include "stdafx.h"
 #include "LevelManager.h"
+#include "ObjectManager.h"
 
 typedef struct {
     Levels current;
@@ -29,6 +30,7 @@ void LevelManager_update(float dt)
 {
     if (LevelIsChanging()) {
         Level_shutdown(level.current);
+        ObjectManager_reset();
 
         if (!LevelManager_isRestarting()) Level_unload(level.current);
 

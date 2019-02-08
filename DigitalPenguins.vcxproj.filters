@@ -58,6 +58,9 @@
     <ClCompile Include="Source\Level2.c">
       <Filter>Game\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="Source\EndScreen.c">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
     <ClCompile Include="Source\CollisionEvents.c">
       <Filter>Engine\Collisions</Filter>
     </ClCompile>
@@ -132,6 +135,9 @@
     </ClInclude>
     <ClInclude Include="Source\CollisionHandler.h" />
     <ClInclude Include="Source\Level2.h">
+      <Filter>Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EndScreen.h">
       <Filter>Game\Levels</Filter>
     </ClInclude>
     <ClInclude Include="Source\CollisionHandler.h">
