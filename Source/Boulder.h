@@ -8,53 +8,29 @@
 #pragma once
 
 #include <AEEngine.h>
-#include "object.h"
-#include "Map.h"
+#include "Object.h"
 
-#define BOULDER_TINY_SIZE   LANE_WIDTH
-#define BOULDER_NORMAL_SIZE LANE_WIDTH * 2
-#define BOULDER_BIG_SIZE    LANE_WIDTH * 3
-#define BOULDER_GIANT_SIZE  LANE_WIDTH * 4
-
-#define BOULDER_TINY_TEXTURE   TEXTURES.boulder
-#define BOULDER_NORMAL_TEXTURE TEXTURES.boulder
-#define BOULDER_BIG_TEXTURE    TEXTURES.boulder
-#define BOULDER_GIANT_TEXTURE  TEXTURES.boulder
-
-typedef struct BoulderInfo BoulderInfo;
-
- /**
-  * @struct _boulderTypes
-  * @brief All of the different types of boulders that can be created
-  */
-struct _boulderTypes
-{
-    BoulderInfo *tiny,   ///< Covers one lane
-                *normal, ///< Covers two lanes
-                *big,    ///< Covers three lanes
-                *giant;  ///< Covers four lanes
-};
+#define BOULDER_DEFAULT_SIZE 64
+#define BOULDER_INCREMENT    (BOULDER_DEFAULT_SIZE / 4)
+#define BOULDER_DECREMENT    (BOULDER_DEFAULT_SIZE / 8)
 
 /**
- * @var extern _boulderTypes BOULDER_TYPES
- * @brief Global struct to access all of the different boulders
+ * @brief Increments the size of the boulder
+ *
+ * @param boulder The boulder to increase the size of
  */
-extern struct _boulderTypes BOULDER_TYPES;
+void Boulder_incrementSize(Object* boulder);
 
 /**
- * @brief Initializes boulder data
+ * @brief Decrements the size of the boulder
+ *
+ * @param boulder The boulder to decrement the size of
  */
-void Boulder_intialize();
-
-/**
- * @brief Frees all allocated memory and calls any ending functions
- */
-void Boulder_shutdown();
+void Boulder_decrementSize(Object* boulder);
 
 /**
  * @brief Create new boulder
- * @param type Type of boulder to create
  * @param pos Position to create boulder at
  * @return New boulder
  */
-Object *Boulder_new(BoulderInfo * type, AEVec2 pos);
+Object *Boulder_new(AEVec2 pos);

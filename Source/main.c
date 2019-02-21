@@ -23,6 +23,7 @@
 #include "Camera.h"
 #include "CollisionHandler.h"
 #include "Player.h"
+#include "MeshHandler.h"
 
 // ---------------------------------------------------------------------------
 
@@ -84,8 +85,6 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 	LevelManager_setNextLevel(TitleScreen);
 	Camera_init();
 
-    Boulder_intialize();
-
     AEGfxSetBackgroundColor(0.4f, 0.4f, 0.4f);
 
     //ObjectManager_addObj(Boulder_new(BOULDER_TYPES.giant, (AEVec2) { 0, 0 }));
@@ -132,7 +131,7 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 	ObjectManager_shutdown();
 	ImageHandler_shutdown();
 	Camera_shutdown();
-    Boulder_shutdown();
+    AEGfxMeshFree(MeshHandler_getSquareMesh());
 
 	// free the system
 	AESysExit();

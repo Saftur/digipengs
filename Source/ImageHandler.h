@@ -49,13 +49,11 @@ void ImageHandler_shutdown();
  * @param mesh The mesh to draw onto
  * @param texture The texture to draw onto the mesh
  * @param position Where to draw
- * @param rotation rotation of image
- * @par Example: 
- * @code
- * ImageHandler_drawTexture(squareMesh, TEXTURES.test, (AEVec2) { 0, 0 }, 0);
- * @endcode
+ * @param scale Scale to draw the image at
+ * @param rotation Rotation of the image
+ * @param alpha Alpha of the image
  */
-void ImageHandler_drawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float rotation);
+void ImageHandler_screenDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float scale, float rotation, float alpha);
 
 /**
  * @brief Draws a texture onto a given mesh (Assumes mesh is a composite of triangles)

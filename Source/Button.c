@@ -76,15 +76,15 @@ void Button_onUpdate(Object *obj, Button *data, float dt) {
 void Button_onDraw(Object *obj, Button *data) {
 	if (data->texture == DEFAULT)
 	{
-		ImageHandler_drawTexture(data->mesh, data->defaultTexture, Object_getPos(obj), 0);
+		ImageHandler_fullDrawTexture(data->mesh, data->defaultTexture, Object_getPos(obj), 1, 0, 1);
 	}
 	else if (data->texture == HOVER)
 	{
-		ImageHandler_drawTexture(data->mesh, data->mouseHoverTexture, Object_getPos(obj), 0);
+        ImageHandler_fullDrawTexture(data->mesh, data->mouseHoverTexture, Object_getPos(obj), 1, 0, 1);
 	}
 	else if (data->texture == ON_CLICK)
 	{
-		ImageHandler_drawTexture(data->mesh, data->onClickTexture, Object_getPos(obj), 0);
+        ImageHandler_fullDrawTexture(data->mesh, data->onClickTexture, Object_getPos(obj), 1, 0, 1);
 	}
 }
 

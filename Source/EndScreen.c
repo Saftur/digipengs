@@ -55,7 +55,7 @@ void EndScreen_onUpdate(float dt)
 {
 	UNREFERENCED_PARAMETER(dt);
 
-	ImageHandler_drawTexture(youDiedMesh, TEXTURES.endScreen_youDied, (AEVec2) { 0, 150 }, 0);
+	ImageHandler_fullDrawTexture(youDiedMesh, TEXTURES.endScreen_youDied, (AEVec2) { 0, 150 }, 1, 0, 1);
 }
 
 void EndScreen_onShutdown()

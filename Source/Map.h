@@ -12,7 +12,7 @@
 
 #define TILE_SIZE 350
 
-#define LANE_WIDTH TILE_SIZE / 7
+#define LANE_WIDTH (TILE_SIZE / 7)
 
 /**
  * @brief A side of a tile

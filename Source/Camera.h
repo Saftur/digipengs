@@ -81,3 +81,16 @@ float Camera_scl();
  * @return Camera rotation
  */
 float Camera_rot();
+
+/**
+ * @brief Applies camera transform to a position
+ *
+ * @param cam Camera to ascertain transform from
+ *
+ * @param pos Position to use for calculations
+ *
+ * @return New position
+ */
+AEVec2 Camera_apply(Camera * cam, AEVec2 pos);
+
+AEVec2 Camera_applyInverse(Camera * cam, AEVec2 pos);

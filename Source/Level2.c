@@ -16,10 +16,8 @@
 #include "Player.h"
 #include "Object.h"
 #include "Map.h"
-#include "ObstacleManager.h"
 #include "CollisionHandler.h"
 #include "CollisionEvents.h"
-
 #include "Camera.h"
 
 int splitScreen = 0;
@@ -29,7 +27,7 @@ static AEGfxVertexList* mapMesh;
 static void mapDraw(Object *obj, void *data) {
     UNREFERENCED_PARAMETER(obj);
     UNREFERENCED_PARAMETER(data);
-    ImageHandler_drawTexture(mapMesh, TEXTURES.map, (AEVec2) { 512, -512 }, 0);
+    ImageHandler_fullDrawTexture(mapMesh, TEXTURES.map, (AEVec2) { 512, -512 }, 1, 0, 1);
 }
 
 void Level2_onLoad()
@@ -67,8 +65,6 @@ void Level2_onInit()
 		ObjectManager_addObj(player);
         CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, PlayerOnCollision);
 	}
-
-    ObstacleManager_generateObstacles((AEVec2) { 0, 0 });
 }
 
 void Level2_onUpdate(float dt)
@@ -83,6 +79,7 @@ void Level2_onUpdate(float dt)
 	
 	if (AEInputCheckCurr('R'))
 		LevelManager_setNextLevel(EndScreen);
+
 }
 
 void Level2_onShutdown()

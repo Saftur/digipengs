@@ -72,3 +72,26 @@ float Camera_scl() {
 float Camera_rot() {
     return currCam->worldRot;
 }
+
+AEVec2 Camera_apply(Camera * cam, AEVec2 pos)
+{
+    float rotRad = AEDegToRad(cam->worldRot);
+    AEVec2Sub(&pos, &pos, &cam->worldPos);
+    AEVec2 newPos;
+    newPos.x = cosf(rotRad) * pos.x - sinf(rotRad) * pos.y;
+    newPos.y = sinf(rotRad) * pos.x + cosf(rotRad) * pos.y;
+    AEVec2Scale(&newPos, &newPos, cam->worldScale);
+
+    return newPos;
+}
+
+AEVec2 Camera_applyInverse(Camera * cam, AEVec2 pos) {
+    float rotRad = -AEDegToRad(cam->worldRot);
+    AEVec2Scale(&pos, &pos, 1.f / cam->worldScale);
+    AEVec2 newPos;
+    newPos.x = cosf(rotRad) * pos.x - sinf(rotRad) * pos.y;
+    newPos.y = sinf(rotRad) * pos.x + cosf(rotRad) * pos.y;
+    AEVec2Add(&newPos, &newPos, &cam->worldPos);
+
+    return newPos;
+}
