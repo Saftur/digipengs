@@ -76,6 +76,9 @@
     <ClCompile Include="Source\ObstacleManager.c">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Utils.c">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
@@ -150,6 +153,9 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Source\CollisionEvents.h" />
+    <ClInclude Include="Source\Utils.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
