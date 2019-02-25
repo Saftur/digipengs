@@ -9,6 +9,16 @@
 
 #include "MeshHandler.h"
 
+AEGfxVertexList *SquareMesh = NULL;
+
+AEGfxVertexList *MeshHandler_getSquareMesh()
+{
+    if (!SquareMesh)
+        SquareMesh = MeshHandler_createSquareMesh(1, 1);
+
+    return SquareMesh;
+}
+
 AEGfxVertexList* MeshHandler_createSquareMesh(float width, float height)
 {
     AEGfxVertexList* squareMesh;

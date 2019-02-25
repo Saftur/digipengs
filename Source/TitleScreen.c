@@ -37,7 +37,7 @@ static void quitEffect() {
 static void titleDraw(Object *obj, void *data) {
     UNREFERENCED_PARAMETER(obj);
     UNREFERENCED_PARAMETER(data);
-	ImageHandler_drawTexture(titleMesh, TEXTURES.titleScreen_title, (AEVec2) { 0, 150 }, 0);
+	ImageHandler_fullDrawTexture(titleMesh, TEXTURES.titleScreen_title, (AEVec2) { 0, 150 }, 1, 0, 1);
 }
 
 void TitleScreen_onLoad()

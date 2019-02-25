@@ -50,6 +50,15 @@ void ImageHandler_initializeTextures()
 
     TEXTURES.boulder = AEGfxTextureLoad("./Assets/Boulder.png");
     AE_ASSERT_MESG(TEXTURES.boulder, "Failed to load/create TEXTURE: Boulder");
+
+    TEXTURES.map_rightCornerTile = AEGfxTextureLoad("./Assets/RightTurnTile.png");
+    AE_ASSERT_MESG(TEXTURES.map_rightCornerTile, "Failed to load/create TEXTURE: RightTurnTile");
+
+    TEXTURES.map_leftCornerTile = AEGfxTextureLoad("./Assets/leftTurnTile.png");
+    AE_ASSERT_MESG(TEXTURES.map_leftCornerTile, "Failed to load/create TEXTURE: leftTurnTile");
+
+    TEXTURES.map_straightTile = AEGfxTextureLoad("./Assets/StraightTile.png");
+    AE_ASSERT_MESG(TEXTURES.map_straightTile, "Failed to load/create TEXTURE: StraightTile");
 }
 
 void ImageHandler_shutdown() {
@@ -62,9 +71,18 @@ void ImageHandler_shutdown() {
     AEGfxTextureUnload(TEXTURES.player);
 }
 
-void ImageHandler_drawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float rotation)
+void ImageHandler_screenDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float scale, float rotation, float alpha)
 {
-    ImageHandler_fullDrawTexture(mesh, texture, position, 1.f, rotation, 1.f);
+    AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
+    AEGfxSetBlendMode(AE_GFX_BM_BLEND);
+    // Set poisition 
+    AEGfxSetFullTransform(position.x, position.y, AERadToDeg(rotation), scale, scale);
+    // Set texture for object 2
+    AEGfxTextureSet(texture, 0.0f, 0.0f);
+    AEGfxSetBlendColor(0.0f, 0.0f, 0.0f, 0.0f);
+    AEGfxSetTransparency(alpha);
+    // Drawing the mesh (list of triangles)
+    AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
 }
 
 void ImageHandler_fullDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float scale, float rotation, float alpha)

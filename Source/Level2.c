@@ -10,13 +10,11 @@
 #include "Level2.h"
 #include "LevelManager.h"
 #include "ObjectManager.h"
-#include "Button.h"
 #include "ImageHandler.h"
 #include "MeshHandler.h"
 #include "Player.h"
 #include "Object.h"
 #include "Map.h"
-#include "ObstacleManager.h"
 #include "CollisionHandler.h"
 #include "CollisionEvents.h"
 
@@ -29,7 +27,7 @@ static AEGfxVertexList* mapMesh;
 static void mapDraw(Object *obj, void *data) {
     UNREFERENCED_PARAMETER(obj);
     UNREFERENCED_PARAMETER(data);
-    ImageHandler_drawTexture(mapMesh, TEXTURES.map, (AEVec2) { 512, -512 }, 0);
+    //ImageHandler_drawTexture(mapMesh, TEXTURES.map, (AEVec2) { 512, -512 }, 0);
 }
 
 void Level2_onLoad()
@@ -67,14 +65,12 @@ void Level2_onInit()
 		ObjectManager_addObj(player);
         CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, PlayerOnCollision);
 	}
-
-    ObstacleManager_generateObstacles((AEVec2) { 0, 0 });
 }
 
 void Level2_onUpdate(float dt)
 {
     UNREFERENCED_PARAMETER(dt);
-    
+
     Camera *cam = Camera_getCurr();
     if (AEInputCheckCurr('Q'))
         cam->worldScale *= 0.9f;
@@ -83,6 +79,8 @@ void Level2_onUpdate(float dt)
 	
 	if (AEInputCheckCurr('R'))
 		LevelManager_setNextLevel(EndScreen);
+
+    if (cam) Map_draw();
 }
 
 void Level2_onShutdown()

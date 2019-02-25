@@ -8,9 +8,14 @@
 #pragma once
 
 #include "AEEngine.h"
+ /**
+  * @brief Returns a pre-created mesh or creates it (the first time)
+  * @return A pointer to a mesh
+  */
+AEGfxVertexList *MeshHandler_getSquareMesh();
 
 /**
- * @brief
+ * @brief creates a mesh
  * @param width Width of the mesh
  * @param height Height of the mesh
  * @return A pointer to a mesh

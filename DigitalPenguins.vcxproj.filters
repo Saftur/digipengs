@@ -76,6 +76,12 @@
     <ClCompile Include="Source\ObstacleManager.c">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Source\LevelEditor.c">
+      <Filter>Engine\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LevelEditorLevel.c">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
@@ -150,6 +156,12 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Source\CollisionEvents.h" />
+    <ClInclude Include="Source\LevelEditor.h">
+      <Filter>Engine\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LevelEditorLevel.h">
+      <Filter>Game\Levels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
