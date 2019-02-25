@@ -36,6 +36,47 @@ typedef struct PolarbearData
     float maxDistanceSquared;
 }PolarbearData;
 
+void Polarbear_onDraw(Object *obj, PolarbearData *data)
+{
+    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.player, Object_getPos(obj), data->size, 0, 1.0f);
+}
+
+
+void Polarbear_onInit(Object *obj, PolarbearData *data)
+{
+    UNREFERENCED_PARAMETER(obj);
+    data->state = IDLE;
+    data->rotation = 0;
+    data->targetRotation = 0;
+}
+
+void Polarbear_onUpdate(Object *obj, PolarbearData *data, float dt)
+{
+    UNREFERENCED_PARAMETER(dt);
+    switch (data->state)
+    {
+    case IDLE:
+    {
+        unsigned i;
+        for (i = 0; i < ObjectManager_numObjs(); i++)
+        {
+            Object *player = ObjectManager_getObj(i);
+            if (strcmp(Object_getName(player), "Player")) continue;
+            AEVec2 playerPos = Object_getPos(player);
+            AEVec2 objPos = Object_getPos(obj);
+            if (AEVec2SquareDistance(&playerPos, &objPos) > data->rangeSquared) continue;
+            data->state = CHASING;
+        }
+        break;
+    }
+    case CHASING:
+    {
+
+        break;
+    }
+    } /*Switch Statement*/
+}
+
 Object *Polarbear_new(AEVec2 pos)
 {
     PolarbearData *pData = malloc(sizeof(PolarbearData));
@@ -51,45 +92,6 @@ Object *Polarbear_new(AEVec2 pos)
     Object *polarbear = Object_new(Polarbear_onInit, Polarbear_onUpdate, Polarbear_onDraw, pData, free, "Polarbear");
     Object_setPos(polarbear, pos);
     return polarbear;
-}
-
-void Polarbear_onDraw(Object *obj, PolarbearData *data)
-{
-    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.player, Object_getPos(obj), data->size, 0, 1.0f);
-}
-
-
-void Polarbear_onInit(Object *obj, PolarbearData *data)
-{
-    data->state = IDLE;
-    data->rotation = 0;
-    data->targetRotation = 0;
-}
-
-void Polarbear_onUpdate(Object *obj, PolarbearData *data, float dt)
-{
-    switch (data->state)
-    {
-    case IDLE:
-    {
-        int i;
-        for (i = 0; i < ObjectManager_numObjs(); i++)
-        {
-            Object *player = ObjectManager_getObj(i);
-            if (Object_getName(player) != "Player") continue;
-            AEVec2 playerPos = Object_getPos(player);
-            AEVec2 objPos = Object_getPos(obj);
-            if (AEVec2SquareDistance(&playerPos, &objPos) > data->rangeSquared) continue;
-            data->state = CHASING;
-        }
-        break;
-    }
-    case CHASING:
-    {
-
-        break;
-    }
-    } /*Switch Statement*/
 }
 
 void Polarbear_decrementSize(Object* polarbear)

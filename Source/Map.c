@@ -7,8 +7,12 @@
 #include "stdafx.h"
 #include "Map.h"
 
+#include <AEEngine.h>
 #include <stdio.h>
 #include "vector.h"
+#include "Utils.h"
+
+#define CAM_ROT_LERP_PERCENT 0.4f
 
 static Tile tiles[MAP_MAX_SIZE][MAP_MAX_SIZE];
 
@@ -92,6 +96,77 @@ void Map_init(const char *filename) {
     if (x > 0)
         y++;
     height = y;
+}
+
+static void _updateCamera(Camera *cam, AEVec2 pos, int lerp) {
+    unsigned tx, ty;
+    Map_worldPosToTilePos(&tx, &ty, pos.x, pos.y);
+    float twx, twy;
+    Map_tilePosToWorldPos(&twx, &twy, tx, ty);
+    Tile tile = Map_getTile(tx, ty);
+
+    switch (tile.type) {
+    case TTHoriz:
+        cam->worldPos.x = pos.x;
+        cam->worldPos.y = twy;
+        if (lerp)
+            cam->worldRot = deg_lerpf(cam->worldRot, (tile.from == SLeft ? 90.f : -90.f), CAM_ROT_LERP_PERCENT);
+        else
+            cam->worldRot = (tile.from == SLeft ? 90.f : -90.f);
+        break;
+    case TTVert:
+        cam->worldPos.x = twx;
+        cam->worldPos.y = pos.y;
+        if (lerp)
+            cam->worldRot = deg_lerpf(cam->worldRot, (tile.from == SDown ? 0.f : 180.f), CAM_ROT_LERP_PERCENT);
+        else
+            cam->worldRot = (tile.from == SDown ? 0.f : 180.f);
+        break;
+    case TTTurn: {
+        AEVec2 localPos;
+        AEVec2 point;
+        if (tile.from == SRight && tile.to == SDown ||
+            tile.from == SDown && tile.to == SRight) {
+            point.x = twx + TILE_SIZE / 2.f;
+            point.y = twy - TILE_SIZE / 2.f;
+        }
+        if (tile.from == SLeft && tile.to == SDown ||
+            tile.from == SDown && tile.to == SLeft) {
+            point.x = twx - TILE_SIZE / 2.f;
+            point.y = twy - TILE_SIZE / 2.f;
+        }
+        if (tile.from == SRight && tile.to == SUp ||
+            tile.from == SUp && tile.to == SRight) {
+            point.x = twx + TILE_SIZE / 2.f;
+            point.y = twy + TILE_SIZE / 2.f;
+        }
+        if (tile.from == SLeft && tile.to == SUp ||
+            tile.from == SUp && tile.to == SLeft) {
+            point.x = twx - TILE_SIZE / 2.f;
+            point.y = twy + TILE_SIZE / 2.f;
+        }
+        AEVec2Sub(&localPos, &pos, &point);
+        AEVec2Scale(&localPos, &localPos, (TILE_SIZE / 2.f) / AEVec2Length(&localPos));
+        AEVec2Add(&point, &localPos, &point);
+        //AEVec2Lerp(&point, &cam->worldPos, &point, 0.1f);
+        cam->worldPos = point;
+        //AEVec2Add(&cam->worldPos, &localPos, &point);
+        float rot = -AERadToDeg(AEVec2AngleFromVec2(&localPos));
+        if (lerp)
+            cam->worldRot = deg_lerpf(cam->worldRot, rot, CAM_ROT_LERP_PERCENT);
+        else
+            cam->worldRot = rot;
+        break;
+    }
+    }
+}
+
+void Map_initCamera(Camera *cam, AEVec2 pos) {
+    _updateCamera(cam, pos, 0);
+}
+
+void Map_updateCamera(Camera *cam, AEVec2 pos) {
+    _updateCamera(cam, pos, 1);
 }
 
 void Map_worldPosToTilePos(unsigned *tx, unsigned *ty, float wx, float wy) {
