@@ -29,6 +29,10 @@ void ObjectManager_draw();
  */
 void ObjectManager_addObj(Object *obj);
 
+size_t ObjectManager_numObjs();
+
+Object *ObjectManager_getObj(unsigned i);
+
 /**
  * @brief Reset ObjectManager
  */

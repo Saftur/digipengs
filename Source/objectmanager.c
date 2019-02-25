@@ -35,6 +35,14 @@ void ObjectManager_addObj(Object *obj) {
 	vector_push_back(objs, obj);
 }
 
+size_t ObjectManager_numObjs() {
+    return vector_size(objs);
+}
+
+Object *ObjectManager_getObj(unsigned i) {
+    return vector_at(objs, i);
+}
+
 void ObjectManager_reset() {
     vector_clear(objs);
 }

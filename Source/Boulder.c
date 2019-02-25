@@ -22,9 +22,9 @@ void Boulder_onDraw(Object *obj, BoulderSize *size)
 Object *Boulder_new(AEVec2 pos)
 {
     BoulderSize *pSize = malloc(sizeof(BoulderSize));
-    *pSize = (float)BOULDER_DEFAULT_SIZE;
     if (!pSize)
         return NULL;
+    *pSize = (float)BOULDER_DEFAULT_SIZE;
     Object *boulder = Object_new(NULL, NULL, Boulder_onDraw, pSize, free, "Boulder");
     Object_setPos(boulder, pos);
     return boulder;

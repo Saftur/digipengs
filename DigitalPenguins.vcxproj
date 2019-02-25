@@ -33,6 +33,7 @@
     <ClCompile Include="Source\MeshHandler.c" />
     <ClCompile Include="Source\objectmanager.c" />
     <ClCompile Include="source\Player.c" />
+    <ClCompile Include="Source\Polarbear.c" />
     <ClCompile Include="Source\Pothole.c" />
     <ClCompile Include="Source\stdafx.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -63,6 +64,7 @@
     <ClInclude Include="Source\MeshHandler.h" />
     <ClInclude Include="Source\objectmanager.h" />
     <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\Polarbear.h" />
     <ClInclude Include="Source\Pothole.h" />
     <ClInclude Include="Source\stdafx.h" />
     <ClInclude Include="Source\TitleScreen.h" />

@@ -79,6 +79,9 @@
     <ClCompile Include="Source\Pothole.c">
       <Filter>Game\Objects\Obstacles</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Polarbear.c">
+      <Filter>Game\Objects\Obstacles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
@@ -151,6 +154,9 @@
       <Filter>Engine\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Source\Pothole.h">
+      <Filter>Game\Objects\Obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Polarbear.h">
       <Filter>Game\Objects\Obstacles</Filter>
     </ClInclude>
   </ItemGroup>

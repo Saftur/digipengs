@@ -21,9 +21,9 @@ void Pothole_onDraw(Object *obj, PotholeSize *size)
 Object *Pothole_new(AEVec2 pos)
 {
     PotholeSize *pSize = malloc(sizeof(PotholeSize));
-    *pSize = (float)POTHOLE_DEFAULT_SIZE;
     if (!pSize)
         return NULL;
+    *pSize = (float)POTHOLE_DEFAULT_SIZE;
     Object *pothole = Object_new(NULL, NULL, Pothole_onDraw, pSize, free, "Pothole");
     Object_setPos(pothole, pos);
     return pothole;

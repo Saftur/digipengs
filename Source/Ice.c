@@ -22,9 +22,9 @@ void Ice_onDraw(Object *obj, IceSize *size)
 Object *Ice_new(AEVec2 pos)
 {
     IceSize *pSize = malloc(sizeof(IceSize));
-    *pSize = (float)ICE_DEFAULT_SIZE;
     if (!pSize)
         return NULL;
+    *pSize = (float)ICE_DEFAULT_SIZE;
     Object *ice = Object_new(NULL, NULL, Ice_onDraw, pSize, free, "Ice");
     Object_setPos(ice, pos);
     return ice;
