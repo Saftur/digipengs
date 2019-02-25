@@ -1,2 +1,3 @@
+RD RL DL
 UD NN DU
 UR LR LU
