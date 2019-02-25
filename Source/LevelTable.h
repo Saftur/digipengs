@@ -22,13 +22,14 @@ typedef enum
 	Level2,
 	TitleScreen,
 	EndScreen,
+    LevelEditor,
 
     //Extra info
     LevelNum,
     LastLevel = LevelNum - 1,
 
     //Initial level.
-    InitialLevel = Level2
+    InitialLevel = LevelEditor
 } Levels;
 
 /**

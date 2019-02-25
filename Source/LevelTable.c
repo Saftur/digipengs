@@ -13,6 +13,7 @@
 #include "Level2.h"
 #include "TitleScreen.h"
 #include "EndScreen.h"
+#include "LevelEditorLevel.h"
 
  /**
   * @struct TableEntry
@@ -31,7 +32,8 @@ static const TableEntry LevelTable[LevelNum] = {
     {Level1_onLoad, Level1_onInit, Level1_onUpdate, Level1_onShutdown, Level1_onUnload},
 	{Level2_onLoad, Level2_onInit, Level2_onUpdate, Level2_onShutdown, Level2_onUnload},
 	{TitleScreen_onLoad, TitleScreen_onInit, TitleScreen_onUpdate, TitleScreen_onShutdown, TitleScreen_onUnload},
-	{EndScreen_onLoad, EndScreen_onInit, EndScreen_onUpdate, EndScreen_onShutdown, EndScreen_onUnload}
+	{EndScreen_onLoad, EndScreen_onInit, EndScreen_onUpdate, EndScreen_onShutdown, EndScreen_onUnload},
+    {LevelEditorLevel_onLoad, LevelEditorLevel_onInit, LevelEditorLevel_onUpdate, LevelEditorLevel_onShutdown, LevelEditorLevel_onUnload}
 };
 
 int Level_isValid(Levels level)

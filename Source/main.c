@@ -82,7 +82,6 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
     LevelManager_init();
 	ObjectManager_init();
 	ImageHandler_initializeTextures();
-	LevelManager_setNextLevel(TitleScreen);
 	Camera_init();
 
     AEGfxSetBackgroundColor(0.4f, 0.4f, 0.4f);

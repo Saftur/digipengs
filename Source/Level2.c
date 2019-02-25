@@ -10,7 +10,6 @@
 #include "Level2.h"
 #include "LevelManager.h"
 #include "ObjectManager.h"
-#include "Button.h"
 #include "ImageHandler.h"
 #include "MeshHandler.h"
 #include "Player.h"
@@ -27,7 +26,7 @@ static AEGfxVertexList* mapMesh;
 static void mapDraw(Object *obj, void *data) {
     UNREFERENCED_PARAMETER(obj);
     UNREFERENCED_PARAMETER(data);
-    ImageHandler_fullDrawTexture(mapMesh, TEXTURES.map, (AEVec2) { 512, -512 }, 1, 0, 1);
+    //ImageHandler_fullDrawTexture(mapMesh, TEXTURES.map, (AEVec2) { 512, -512 }, 1, 0, 1);
 }
 
 void Level2_onLoad()
@@ -70,7 +69,7 @@ void Level2_onInit()
 void Level2_onUpdate(float dt)
 {
     UNREFERENCED_PARAMETER(dt);
-    
+
     Camera *cam = Camera_getCurr();
     if (AEInputCheckCurr('Q'))
         cam->worldScale *= 0.9f;
@@ -80,6 +79,7 @@ void Level2_onUpdate(float dt)
 	if (AEInputCheckCurr('R'))
 		LevelManager_setNextLevel(EndScreen);
 
+    if (cam) Map_draw();
 }
 
 void Level2_onShutdown()

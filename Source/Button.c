@@ -74,6 +74,7 @@ void Button_onUpdate(Object *obj, Button *data, float dt) {
 }
 
 void Button_onDraw(Object *obj, Button *data) {
+    UNREFERENCED_PARAMETER(obj);
 	if (data->texture == DEFAULT)
 	{
 		ImageHandler_fullDrawTexture(data->mesh, data->defaultTexture, Object_getPos(obj), 1, 0, 1);

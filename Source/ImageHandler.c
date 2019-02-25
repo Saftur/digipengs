@@ -50,6 +50,15 @@ void ImageHandler_initializeTextures()
 
     TEXTURES.boulder = AEGfxTextureLoad("./Assets/Boulder.png");
     AE_ASSERT_MESG(TEXTURES.boulder, "Failed to load/create TEXTURE: Boulder");
+
+    TEXTURES.map_rightCornerTile = AEGfxTextureLoad("./Assets/RightTurnTile.png");
+    AE_ASSERT_MESG(TEXTURES.map_rightCornerTile, "Failed to load/create TEXTURE: RightTurnTile");
+
+    TEXTURES.map_leftCornerTile = AEGfxTextureLoad("./Assets/leftTurnTile.png");
+    AE_ASSERT_MESG(TEXTURES.map_leftCornerTile, "Failed to load/create TEXTURE: leftTurnTile");
+
+    TEXTURES.map_straightTile = AEGfxTextureLoad("./Assets/StraightTile.png");
+    AE_ASSERT_MESG(TEXTURES.map_straightTile, "Failed to load/create TEXTURE: StraightTile");
 }
 
 void ImageHandler_shutdown() {
