@@ -18,16 +18,9 @@
 #include "CollisionHandler.h"
 #include "CollisionEvents.h"
 #include "Camera.h"
+#include "ObstacleManager.h"
 
 int splitScreen = 0;
-
-static AEGfxVertexList* mapMesh;
-
-static void mapDraw(Object *obj, void *data) {
-    UNREFERENCED_PARAMETER(obj);
-    UNREFERENCED_PARAMETER(data);
-    //ImageHandler_fullDrawTexture(mapMesh, TEXTURES.map, (AEVec2) { 512, -512 }, 1, 0, 1);
-}
 
 void Level2_onLoad()
 {
@@ -42,12 +35,8 @@ void Level2_onInit()
 		Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 400, 0 }, (AEVec2) { 400, 600 });
 	}
 
-	mapMesh = MeshHandler_createSquareMesh(1050, 1050);
-	// Map Texture: From file
-	//ObjectManager_addObj(Button_new(TEXTURES.map, mapMesh, (AEVec2) { 512, -512 }));
-    ObjectManager_addObj(Object_new(NULL, NULL, mapDraw, NULL, NULL, "Map"));
-
     Map_init("Assets\\Map.txt");
+    ObstacleManager_loadObstacles();
 
     AEVec2 pos1;
     Map_tilePosToWorldPos(&pos1.x, &pos1.y, 1, 2);
@@ -84,7 +73,6 @@ void Level2_onUpdate(float dt)
 
 void Level2_onShutdown()
 {
-    AEGfxMeshFree(mapMesh);
 	if (splitScreen) {
 		Camera_clear();
 		Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 600 });

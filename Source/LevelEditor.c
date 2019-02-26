@@ -15,6 +15,7 @@
 #include "Map.h"
 #include "Camera.h"
 #include "LevelManager.h"
+#include "ObstacleManager.h"
 
 static int PlacementMode = 0;
 static int ObstacleScale = 32;
@@ -25,24 +26,13 @@ static unsigned TileX, TileY;
 
 static vector *Obstacles;
 
-typedef enum ObstacleType {
-    None,
-    Boulder
-} ObstacleType;
-
-typedef struct {
-    ObstacleType type;
-    float radius;
-    AEVec2 pos;
-    void *(*clickEffect)();
-} Obstacle;
-
 static void DrawIcons();
 static void DrawObstacles();
 static void EditMap();
 static void LoadMap(const char *filename);
 static void SaveMap();
 static void ClearMap();
+static void LoadObstacles();
 
 void LevelEditor_init()
 {
@@ -61,6 +51,7 @@ void LevelEditor_init()
     Obstacles = vector_new(5, NULL, free);
 
     LoadMap("./Assets/Map.txt");
+    LoadObstacles();
 }
 
 
@@ -71,10 +62,9 @@ void LevelEditor_update(float dt)
     ///TODO: Remove/change this key.
     if (AEInputCheckTriggered('L')) LevelManager_setNextLevel(Level2);
 
+    if (Camera_getCurr()) Map_customDraw(Map, Height, Width);
     DrawIcons();
     if (Camera_getCurr()) DrawObstacles();
-
-    if (Camera_getCurr()) Map_customDraw(Map, Height, Width);
 
     for (u8 i = '0'; i < '9'; i++) {
         if (AEInputCheckTriggered(i)) PlacementMode = i - '0';
@@ -95,29 +85,20 @@ void LevelEditor_update(float dt)
     AEVec2 placementLoc = mouseLoc;
     if (Camera_getCurr()) placementLoc = Camera_applyInverse(Camera_getCurr(), mouseLoc);
 
-    /*if (Camera_getCurr()) AEVec2Sub(&placementLoc, &mouseLoc, &Camera_getCurr()->worldPos);
-
-
-    placementLoc.x = cosf(0) * mouseLoc.x - sinf(0) * mouseLoc.y;
-    placementLoc.y = sinf(0) * mouseLoc.x + cosf(0) * mouseLoc.y;
-
-    if (Camera_getCurr()) AEVec2Scale(&placementLoc, &placementLoc, Camera_scl());
-    if (Camera_getCurr()) AEVec2Add(&placementLoc, &placementLoc, &Camera_getCurr()->worldPos);*/
-
-    if (AEInputCheckCurr(VK_ADD)) ObstacleScale++;
-    if (AEInputCheckCurr(VK_SUBTRACT)) ObstacleScale--;
+    if (AEInputCheckCurr(VK_RSHIFT)) ObstacleScale++;
+    if (AEInputCheckCurr(VK_LSHIFT)) ObstacleScale--;
 
     switch (PlacementMode) {
     //Boulder
     case 1:
-        ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.boulder, mouseLoc, (float)ObstacleScale, 0, 1);
+        ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.boulder, mouseLoc, (float)ObstacleScale * Camera_getCurr()->worldScale, 0, 1);
 
         if (AEInputCheckTriggered(VK_LBUTTON)) {
             Obstacle *boulder = malloc(sizeof(Obstacle));
             boulder->type = Boulder;
             boulder->radius = ObstacleScale / 2.f;
             boulder->pos = placementLoc;
-            boulder->clickEffect = NULL;
+            boulder->rotation = 0;
 
             vector_push_back(Obstacles, boulder);
         }
@@ -242,15 +223,7 @@ static void EditMap() {
 }
 
 static void LoadMap(const char *filename) {
-    for (int y = 0; y < MAP_MAX_SIZE; y++) {
-        for (int x = 0; x < MAP_MAX_SIZE; x++) {
-            Map[y][x] = (Tile) { SNone, SNone, TTNone };
-        }
-    }
-    Width = 1;
-    Height = 1;
-    TileX = 0;
-    TileY = 0;
+    ClearMap();
 
     FILE *file;
     fopen_s(&file, filename, "rt");
@@ -333,7 +306,33 @@ static void LoadMap(const char *filename) {
     TileX = x;
 }
 
+void LoadObstacles() {
+    FILE *file;
+    fopen_s(&file, "./Assets/ObstacleMap.txt", "rt");
+    if (!file) return;
 
+    Obstacle *obstacle;
+    char obstacleType;
+    while ((obstacleType = (char)fgetc(file)) != EOF) {
+        obstacle = malloc(sizeof(Obstacle));
+        char locString[6];
+        locString[5] = '\0';
+
+        obstacle->radius = (float)atoi(fgets(locString, 6, file));
+        obstacle->pos.x = (float)atoi(fgets(locString, 6, file));
+        obstacle->pos.y = (float)atoi(fgets(locString, 6, file));
+        obstacle->rotation = (float)atoi(fgets(locString, 6, file));
+
+        switch (obstacleType) {
+        case 'B':
+            obstacle->type = Boulder;
+            break;
+        }
+
+        vector_push_back(Obstacles, obstacle);
+    }
+    fclose(file);
+}
 
 static void SaveMap() {
     FILE *file;
@@ -364,9 +363,25 @@ static void SaveMap() {
     }
 
     fclose(file);
+
+    fopen_s(&file, "./Assets/ObstacleMap.txt", "w");
+
+    for (unsigned i = 0; i < vector_size(Obstacles); i++) {
+        Obstacle *obstacle = vector_at(Obstacles, i);
+        switch (obstacle->type) {
+        case Boulder:
+            fputc('B', file);
+            break;
+        }
+
+        fprintf(file, "%5d%5d%5d%5d", (int)obstacle->radius, (int)obstacle->pos.x, (int)obstacle->pos.y, (int)obstacle->rotation);
+    }
+    fclose(file);
 }
 
 static void ClearMap() {
+    vector_clear(Obstacles);
+
     for (int y = 0; y < MAP_MAX_SIZE; y++) {
         for (int x = 0; x < MAP_MAX_SIZE; x++) {
             Map[y][x] = (Tile) { SNone, SNone, TTNone };

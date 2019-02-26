@@ -34,6 +34,7 @@
     <ClCompile Include="Source\Object.c" />
     <ClCompile Include="Source\MeshHandler.c" />
     <ClCompile Include="Source\objectmanager.c" />
+    <ClCompile Include="Source\ObstacleManager.c" />
     <ClCompile Include="source\Player.c" />
     <ClCompile Include="Source\Polarbear.c" />
     <ClCompile Include="Source\Pothole.c" />
@@ -68,6 +69,7 @@
     <ClInclude Include="Source\ImageHandler.h" />
     <ClInclude Include="Source\MeshHandler.h" />
     <ClInclude Include="Source\objectmanager.h" />
+    <ClInclude Include="Source\ObstacleManager.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Polarbear.h" />
     <ClInclude Include="Source\Pothole.h" />

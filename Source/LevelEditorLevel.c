@@ -42,6 +42,7 @@ void LevelEditorLevel_onUpdate(float dt)
 
 void LevelEditorLevel_onShutdown()
 {
+    LevelEditor_shutdown();
 }
 
 void LevelEditorLevel_onUnload()
