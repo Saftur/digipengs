@@ -82,7 +82,6 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
     LevelManager_init();
 	ObjectManager_init();
 	ImageHandler_initializeTextures();
-	LevelManager_setNextLevel(TitleScreen);
 	Camera_init();
 
     AEGfxSetBackgroundColor(0.4f, 0.4f, 0.4f);
@@ -122,10 +121,9 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 
 		// Informing the system about the loop's end
 		AESysFrameEnd();
-
+        if (AEInputCheckTriggered(VK_ESCAPE)) LevelManager_setNextLevel(TitleScreen);
 		// check if forcing the application to quit
-        if (AEInputCheckTriggered(VK_ESCAPE) || 0 == AESysDoesWindowExist())
-            LevelManager_setNextLevel(LevelQuit);
+        if (0 == AESysDoesWindowExist()) LevelManager_setNextLevel(LevelQuit);
 	}
 
 	ObjectManager_shutdown();

@@ -27,8 +27,11 @@ struct LOADEDTEXTURES
 	AEGfxTexture *endScreen_tryAgainButton; ///< button for the endscreen
 	AEGfxTexture *endScreen_titleScreenButton; ///< button for the titlescreen
 	AEGfxTexture *buttonSelected;
+    AEGfxTexture *map_straightTile; ///< Straight tile segment for the map.
+    AEGfxTexture *map_rightCornerTile; ///< Right corner tile segment for the map.
+    AEGfxTexture *map_leftCornerTile; ///< Left corner tile segment for the map.
+    AEGfxTexture *titleScreen_levelEditorButton; ///< Button for loading the level editor.
 
-	
 }typedef LOADEDTEXTURES;
 
 /**

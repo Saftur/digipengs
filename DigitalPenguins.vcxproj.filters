@@ -82,6 +82,18 @@
     <ClCompile Include="Source\Polarbear.c">
       <Filter>Game\Objects\Obstacles</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Utils.c">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LevelEditor.c">
+      <Filter>Engine\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LevelEditorLevel.c">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ObstacleManager.c">
+      <Filter>Engine\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
@@ -150,6 +162,15 @@
       <Filter>Game\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Source\CollisionEvents.h" />
+    <ClInclude Include="Source\LevelEditor.h">
+      <Filter>Engine\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LevelEditorLevel.h">
+      <Filter>Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
     <ClInclude Include="Source\objectmanager.h">
       <Filter>Engine\Objects</Filter>
     </ClInclude>
@@ -158,6 +179,9 @@
     </ClInclude>
     <ClInclude Include="Source\Polarbear.h">
       <Filter>Game\Objects\Obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ObstacleManager.h">
+      <Filter>Engine\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

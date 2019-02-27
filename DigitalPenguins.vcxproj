@@ -22,6 +22,8 @@
     <ClCompile Include="Source\Leaderboard.c" />
     <ClCompile Include="Source\Level1.c" />
     <ClCompile Include="Source\Level2.c" />
+    <ClCompile Include="Source\LevelEditor.c" />
+    <ClCompile Include="Source\LevelEditorLevel.c" />
     <ClCompile Include="Source\LevelManager.c" />
     <ClCompile Include="Source\LevelStub.c" />
     <ClCompile Include="Source\LevelTable.c" />
@@ -32,6 +34,7 @@
     <ClCompile Include="Source\Object.c" />
     <ClCompile Include="Source\MeshHandler.c" />
     <ClCompile Include="Source\objectmanager.c" />
+    <ClCompile Include="Source\ObstacleManager.c" />
     <ClCompile Include="source\Player.c" />
     <ClCompile Include="Source\Polarbear.c" />
     <ClCompile Include="Source\Pothole.c" />
@@ -40,6 +43,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\TitleScreen.c" />
+    <ClCompile Include="Source\Utils.c" />
     <ClCompile Include="Source\Vector.c" />
   </ItemGroup>
   <ItemGroup>
@@ -54,6 +58,8 @@
     <ClInclude Include="Source\Leaderboard.h" />
     <ClInclude Include="Source\Level1.h" />
     <ClInclude Include="Source\Level2.h" />
+    <ClInclude Include="Source\LevelEditor.h" />
+    <ClInclude Include="Source\LevelEditorLevel.h" />
     <ClInclude Include="Source\LevelManager.h" />
     <ClInclude Include="Source\LevelStub.h" />
     <ClInclude Include="Source\LevelTable.h" />
@@ -63,11 +69,13 @@
     <ClInclude Include="Source\ImageHandler.h" />
     <ClInclude Include="Source\MeshHandler.h" />
     <ClInclude Include="Source\objectmanager.h" />
+    <ClInclude Include="Source\ObstacleManager.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Polarbear.h" />
     <ClInclude Include="Source\Pothole.h" />
     <ClInclude Include="Source\stdafx.h" />
     <ClInclude Include="Source\TitleScreen.h" />
+    <ClInclude Include="Source\Utils.h" />
     <ClInclude Include="Source\Vector.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

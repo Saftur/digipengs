@@ -83,7 +83,7 @@ float Camera_scl();
 float Camera_rot();
 
 /**
- * @brief Applies camera transform to a position
+ * @brief Converts world position to screen position related to given camera.
  *
  * @param cam Camera to ascertain transform from
  *
@@ -93,4 +93,13 @@ float Camera_rot();
  */
 AEVec2 Camera_apply(Camera * cam, AEVec2 pos);
 
+/**
+ * @brief Turns screen position into world position related to given camera.
+ *
+ * @param cam Camera to ascertain transform from
+ *
+ * @param pos Position to use for calculations
+ *
+ * @return New position
+ */
 AEVec2 Camera_applyInverse(Camera * cam, AEVec2 pos);

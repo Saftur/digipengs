@@ -6,6 +6,8 @@
  */
 #pragma once
 
+#include "Camera.h"
+#include <AEVec2.h>
 
 
 #define MAP_MAX_SIZE 8
@@ -42,6 +44,23 @@ typedef struct Tile {
  * @param filename Name of map file
  */
 void Map_init(const char *filename);
+
+void Map_initCamera(Camera *cam, AEVec2 pos);
+
+void Map_updateCamera(Camera *cam, AEVec2 pos);
+
+/**
+ * @brief Draw the map.
+ */
+void Map_draw();
+
+/**
+ * @brief Draw a custom tilemap.
+ * @param tilemap The map to draw.
+ * @param tilemap_height The height of the map.
+ * @param tilemap_width The width of the map.
+ */
+void Map_customDraw(Tile tilemap[MAP_MAX_SIZE][MAP_MAX_SIZE], unsigned tilemap_height, unsigned tilemap_width);
 
 /**
  * @brief Convert from world to map tile coordinates

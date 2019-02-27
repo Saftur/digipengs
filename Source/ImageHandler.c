@@ -50,18 +50,35 @@ void ImageHandler_initializeTextures()
 
     TEXTURES.boulder = AEGfxTextureLoad("./Assets/Boulder.png");
     AE_ASSERT_MESG(TEXTURES.boulder, "Failed to load/create TEXTURE: Boulder");
+
+    TEXTURES.map_rightCornerTile = AEGfxTextureLoad("./Assets/RightTurnTile.png");
+    AE_ASSERT_MESG(TEXTURES.map_rightCornerTile, "Failed to load/create TEXTURE: RightTurnTile");
+
+    TEXTURES.map_leftCornerTile = AEGfxTextureLoad("./Assets/leftTurnTile.png");
+    AE_ASSERT_MESG(TEXTURES.map_leftCornerTile, "Failed to load/create TEXTURE: leftTurnTile");
+
+    TEXTURES.map_straightTile = AEGfxTextureLoad("./Assets/StraightTile.png");
+    AE_ASSERT_MESG(TEXTURES.map_straightTile, "Failed to load/create TEXTURE: StraightTile");
+
+    TEXTURES.titleScreen_levelEditorButton = AEGfxTextureLoad("./Assets/dad.png");
+    AE_ASSERT_MESG(TEXTURES.titleScreen_levelEditorButton, "Failed to load/create TEXTURE: TempLevelEditorButton");
 }
 
 void ImageHandler_shutdown() {
-	AEGfxTextureUnload(TEXTURES.test);
-	AEGfxTextureUnload(TEXTURES.titleScreen_title);
-	AEGfxTextureUnload(TEXTURES.titleScreen_startButton);
-	AEGfxTextureUnload(TEXTURES.titleScreen_button);
-	AEGfxTextureUnload(TEXTURES.titleScreen_exitButton);
-	AEGfxTextureUnload(TEXTURES.map);
+    AEGfxTextureUnload(TEXTURES.test);
+    AEGfxTextureUnload(TEXTURES.titleScreen_title);
+    AEGfxTextureUnload(TEXTURES.titleScreen_startButton);
+    AEGfxTextureUnload(TEXTURES.titleScreen_button);
+    AEGfxTextureUnload(TEXTURES.titleScreen_exitButton);
+    AEGfxTextureUnload(TEXTURES.map);
     AEGfxTextureUnload(TEXTURES.player);
-}
 
+    AEGfxTextureUnload(TEXTURES.map_leftCornerTile);
+    AEGfxTextureUnload(TEXTURES.map_rightCornerTile);
+    AEGfxTextureUnload(TEXTURES.map_straightTile);
+
+    AEGfxTextureUnload(TEXTURES.titleScreen_levelEditorButton);
+}
 void ImageHandler_screenDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float scale, float rotation, float alpha)
 {
     AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);

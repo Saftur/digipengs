@@ -57,8 +57,8 @@ void Polarbear_onUpdate(Object *obj, PolarbearData *data, float dt)
     {
     case IDLE:
     {
-        int i;
-        for (i = 0; i < (int)ObjectManager_numObjs(); i++)
+        unsigned i;
+        for (i = 0; i < ObjectManager_numObjs(); i++)
         {
             Object *player = ObjectManager_getObj(i);
             if (strcmp(Object_getName(player), "Player")) continue;

@@ -40,6 +40,10 @@ static void titleDraw(Object *obj, void *data) {
 	ImageHandler_fullDrawTexture(titleMesh, TEXTURES.titleScreen_title, (AEVec2) { 0, 150 }, 1, 0, 1);
 }
 
+static void LevelEditorButton() {
+    LevelManager_setNextLevel(LevelEditor);
+}
+
 void TitleScreen_onLoad()
 {
 }
@@ -57,14 +61,17 @@ void TitleScreen_onInit()
 	Object *multiPlayerButton = Button_new(multiplayerButtonEffect, TEXTURES.titleScreen_startButton, TEXTURES.buttonSelected, TEXTURES.titleScreen_startButton,
 		longButtonMesh, 0, -100, 600, 50);
 	Object *exitButton = Button_new(quitEffect, TEXTURES.titleScreen_exitButton, TEXTURES.buttonSelected, TEXTURES.titleScreen_exitButton,
-		longButtonMesh, 0, -200, 600, 50);
+		longButtonMesh, 0, -300, 600, 50);
 	Object *settingsButton = Button_new(NULL, TEXTURES.titleScreen_button, TEXTURES.buttonSelected, TEXTURES.titleScreen_startButton,
 		squareButtonMesh, -375, 275, 600, 50);
+
+    Object *levelEditorButton = Button_new(LevelEditorButton, TEXTURES.titleScreen_levelEditorButton, TEXTURES.buttonSelected, NULL, longButtonMesh, 0, -200, 600, 50);
 
     ObjectManager_addObj(singlePlayerButton);
     ObjectManager_addObj(multiPlayerButton);
     ObjectManager_addObj(exitButton);
     ObjectManager_addObj(settingsButton);
+    ObjectManager_addObj(levelEditorButton);
 }
 
 void TitleScreen_onUpdate(float dt)
