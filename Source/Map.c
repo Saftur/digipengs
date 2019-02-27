@@ -127,33 +127,40 @@ static void _updateCamera(Camera *cam, AEVec2 pos, int lerp) {
     case TTTurn: {
         AEVec2 localPos;
         AEVec2 point;
+        float addAngle = 0;
         if (tile.from == SRight && tile.to == SDown ||
             tile.from == SDown && tile.to == SRight) {
             point.x = twx + TILE_SIZE / 2.f;
             point.y = twy - TILE_SIZE / 2.f;
+            if (tile.from == SDown)
+                addAngle = 180;
         }
         if (tile.from == SLeft && tile.to == SDown ||
             tile.from == SDown && tile.to == SLeft) {
             point.x = twx - TILE_SIZE / 2.f;
             point.y = twy - TILE_SIZE / 2.f;
+            if (tile.from == SLeft)
+                addAngle = 180;
         }
         if (tile.from == SRight && tile.to == SUp ||
             tile.from == SUp && tile.to == SRight) {
             point.x = twx + TILE_SIZE / 2.f;
             point.y = twy + TILE_SIZE / 2.f;
+            if (tile.from == SRight)
+                addAngle = 180;
         }
         if (tile.from == SLeft && tile.to == SUp ||
             tile.from == SUp && tile.to == SLeft) {
             point.x = twx - TILE_SIZE / 2.f;
             point.y = twy + TILE_SIZE / 2.f;
+            if (tile.from == SUp)
+                addAngle = 180;
         }
         AEVec2Sub(&localPos, &pos, &point);
         AEVec2Scale(&localPos, &localPos, (TILE_SIZE / 2.f) / AEVec2Length(&localPos));
         AEVec2Add(&point, &localPos, &point);
-        //AEVec2Lerp(&point, &cam->worldPos, &point, 0.1f);
         cam->worldPos = point;
-        //AEVec2Add(&cam->worldPos, &localPos, &point);
-        float rot = -AERadToDeg(AEVec2AngleFromVec2(&localPos));
+        float rot = addAngle - AERadToDeg(AEVec2AngleFromVec2(&localPos));
         if (lerp)
             cam->worldRot = deg_lerpf(cam->worldRot, rot, CAM_ROT_LERP_PERCENT);
         else
