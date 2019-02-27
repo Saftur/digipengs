@@ -59,9 +59,6 @@ void LevelEditor_update(float dt)
 {
     UNREFERENCED_PARAMETER(dt);
 
-    ///TODO: Remove/change this key.
-    if (AEInputCheckTriggered('L')) LevelManager_setNextLevel(Level2);
-
     if (Camera_getCurr()) Map_customDraw(Map, Height, Width);
     DrawIcons();
     if (Camera_getCurr()) DrawObstacles();

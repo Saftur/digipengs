@@ -30,7 +30,8 @@ struct LOADEDTEXTURES
     AEGfxTexture *map_straightTile; ///< Straight tile segment for the map.
     AEGfxTexture *map_rightCornerTile; ///< Right corner tile segment for the map.
     AEGfxTexture *map_leftCornerTile; ///< Left corner tile segment for the map.
-	
+    AEGfxTexture *titleScreen_levelEditorButton; ///< Button for loading the level editor.
+
 }typedef LOADEDTEXTURES;
 
 /**

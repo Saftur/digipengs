@@ -39,16 +39,16 @@ void Level2_onInit()
     ObstacleManager_loadObstacles();
 
     AEVec2 pos1;
-    Map_tilePosToWorldPos(&pos1.x, &pos1.y, 1, 2);
-    pos1.y += 32;
+    Map_tilePosToWorldPos(&pos1.x, &pos1.y, 0, 0);
+    pos1.x += 32;
     Object *player = Player_new(pos1, (Controls) { 'A', 'D', 'W', 'S', 0 }, 0);
     ObjectManager_addObj(player);
     CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, PlayerOnCollision);
 
 	if (splitScreen) {
 		AEVec2 pos2;
-		Map_tilePosToWorldPos(&pos2.x, &pos2.y, 1, 2);
-        pos2.y -= 32;
+		Map_tilePosToWorldPos(&pos2.x, &pos2.y, 0, 0);
+        pos2.x -= 32;
         player = Player_new(pos2, (Controls) { VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN }, 1);
 		ObjectManager_addObj(player);
         CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, PlayerOnCollision);
@@ -73,10 +73,8 @@ void Level2_onUpdate(float dt)
 
 void Level2_onShutdown()
 {
-	if (splitScreen) {
-		Camera_clear();
-		Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 600 });
-	}
+	Camera_clear();
+	Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 600 });
 }
 
 void Level2_onUnload()

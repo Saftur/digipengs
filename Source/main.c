@@ -121,10 +121,9 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 
 		// Informing the system about the loop's end
 		AESysFrameEnd();
-
+        if (AEInputCheckTriggered(VK_ESCAPE)) LevelManager_setNextLevel(TitleScreen);
 		// check if forcing the application to quit
-        if (AEInputCheckTriggered(VK_ESCAPE) || 0 == AESysDoesWindowExist())
-            LevelManager_setNextLevel(LevelQuit);
+        if (0 == AESysDoesWindowExist()) LevelManager_setNextLevel(LevelQuit);
 	}
 
 	ObjectManager_shutdown();

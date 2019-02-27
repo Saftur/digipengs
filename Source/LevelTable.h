@@ -29,7 +29,7 @@ typedef enum
     LastLevel = LevelNum - 1,
 
     //Initial level.
-    InitialLevel = LevelEditor
+    InitialLevel = TitleScreen
 } Levels;
 
 /**
