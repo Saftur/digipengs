@@ -130,7 +130,9 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy .\AE\lib\Alpha_Engine_D.dll "$(OutDir)" /Y
-xcopy .\AE\lib\glew32.dll "$(OutDir)" /Y</Command>
+xcopy .\AE\lib\glew32.dll "$(OutDir)" /Y
+xcopy .\FMOD\lib\fmod.dll "$(OutDir)" /Y
+xcopy .\FMOD\lib\fmodL.dll "$(OutDir)" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
