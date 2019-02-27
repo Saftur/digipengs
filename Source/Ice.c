@@ -19,6 +19,27 @@ void Ice_onDraw(Object *obj, IceSize *size)
     ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.test, Object_getPos(obj), *size, 0, 1.0f);
 }
 
+void Ice_decrementSize(Object* ice)
+{
+    *((IceSize*)Object_getData(ice)) -= (float)ICE_DECREMENT;
+}
+
+void Ice_incrementSize(Object* ice)
+{
+    *((IceSize*)Object_getData(ice)) += (float)ICE_INCREMENT;
+}
+
+void Ice_setSize(Object * ice, float value)
+{
+    *((IceSize*)Object_getData(ice)) = value;
+}
+
+float Ice_getSize(Object * ice)
+{
+    return *((IceSize*)Object_getData(ice));
+}
+
+
 Object *Ice_new(AEVec2 pos)
 {
     IceSize *pSize = malloc(sizeof(IceSize));
@@ -28,15 +49,4 @@ Object *Ice_new(AEVec2 pos)
     Object *ice = Object_new(NULL, NULL, Ice_onDraw, pSize, free, "Ice");
     Object_setPos(ice, pos);
     return ice;
-}
-
-
-void Ice_decrementSize(Object* ice)
-{
-    *((IceSize*)Object_getData(ice)) -= (float)ICE_DECREMENT;
-}
-
-void Ice_incrementSize(Object* ice)
-{
-    *((IceSize*)Object_getData(ice)) += (float)ICE_INCREMENT;
 }

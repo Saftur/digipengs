@@ -29,6 +29,24 @@ void Ice_incrementSize(Object* ice);
 void Ice_decrementSize(Object* ice);
 
 /**
+ * @brief Sets the size of the ice
+ *
+ * @param value The new size
+ *
+ * @param ice The ice to set the size of
+ */
+void Ice_setSize(Object * ice, float value);
+
+/**
+ * @brief Gets the size of the ice
+ *
+ * @param ice The ice to get the size of
+ *
+ * @return The size
+ */
+float Ice_getSize(Object * ice);
+
+/**
  * @brief Create new boulder
  * @param pos Position to create ice at
  * @return New ice

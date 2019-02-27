@@ -29,6 +29,25 @@ void Pothole_incrementSize(Object* pothole);
 void Pothole_decrementSize(Object* pothole);
 
 /**
+ * @brief Sets the size of the pothole
+ *
+ * @param value The new size
+ *
+ * @param pothole The pothole to set the size of
+ */
+void Pothole_setSize(Object * pothole, float value);
+
+/**
+ * @brief Gets the size of the pothole
+ *
+ * @param pothole The pothole to get the size of
+ *
+ * @return The size
+ */
+float Pothole_getSize(Object * pothole);
+
+
+/**
  * @brief Create new pothole
  * @param pos Position to create pothole at
  * @return New pothole

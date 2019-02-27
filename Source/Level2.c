@@ -19,6 +19,7 @@
 #include "CollisionHandler.h"
 #include "CollisionEvents.h"
 #include "Camera.h"
+#include "Polarbear.h"
 
 int splitScreen = 0;
 
@@ -79,6 +80,19 @@ void Level2_onUpdate(float dt)
 	
 	if (AEInputCheckCurr('R'))
 		LevelManager_setNextLevel(EndScreen);
+
+    if (AEInputCheckTriggered('O'))
+    {
+        s32 mX, mY;
+        AEInputGetCursorPosition(&mX, &mY);
+        float wX, wY;
+        AEGfxConvertScreenCoordinatesToWorld((float)mX, (float)mY, &wX, &wY);
+        AEVec2 loc;
+        loc.x = wX;
+        loc.y = wY;
+        AEVec2 pos = Camera_applyInverse(Camera_getCurr(), loc);
+        ObjectManager_addObj(Polarbear_new(pos));
+    }
 
 }
 

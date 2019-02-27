@@ -18,6 +18,26 @@ void Pothole_onDraw(Object *obj, PotholeSize *size)
     ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.player, Object_getPos(obj), *size, 0, 1.0f);
 }
 
+void Pothole_decrementSize(Object* pothole)
+{
+    *((PotholeSize*)Object_getData(pothole)) -= (float)POTHOLE_DECREMENT;
+}
+
+void Pothole_incrementSize(Object* pothole)
+{
+    *((PotholeSize*)Object_getData(pothole)) += (float)POTHOLE_INCREMENT;
+}
+
+void Pothole_setSize(Object * pothole, float value)
+{
+    *((PotholeSize*)Object_getData(pothole)) = value;
+}
+
+float Pothole_getSize(Object * pothole)
+{
+    return *((PotholeSize*)Object_getData(pothole));
+}
+
 Object *Pothole_new(AEVec2 pos)
 {
     PotholeSize *pSize = malloc(sizeof(PotholeSize));
@@ -27,15 +47,4 @@ Object *Pothole_new(AEVec2 pos)
     Object *pothole = Object_new(NULL, NULL, Pothole_onDraw, pSize, free, "Pothole");
     Object_setPos(pothole, pos);
     return pothole;
-}
-
-
-void Pothole_decrementSize(Object* pothole)
-{
-    *((PotholeSize*)Object_getData(pothole)) -= (float)POTHOLE_DECREMENT;
-}
-
-void Pothole_incrementSize(Object* pothole)
-{
-    *((PotholeSize*)Object_getData(pothole)) += (float)POTHOLE_INCREMENT;
 }
