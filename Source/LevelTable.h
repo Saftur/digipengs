@@ -66,6 +66,12 @@ void Level_init(Levels level);
 void Level_update(Levels level, float dt);
 
 /**
+ * @brief Draw a level.
+ * @param level Level to draw.
+ */
+void Level_draw(Levels level);
+
+/**
  * @brief Shutdown a level.
  * @param level to shutdown.
 */

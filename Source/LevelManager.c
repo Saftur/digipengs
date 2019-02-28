@@ -49,6 +49,11 @@ void LevelManager_update(float dt)
     Level_update(level.current, dt);
 }
 
+void LevelManager_draw()
+{
+    Level_draw(level.current);
+}
+
 void LevelManager_shutdown()
 {
 }

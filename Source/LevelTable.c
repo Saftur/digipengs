@@ -23,17 +23,18 @@ typedef struct {
     void(*levelLoad)();             ///< Pointer to level load function.
     void(*levelInit)();             ///< Pointer to level init function.
     void(*levelUpdate)(float dt);   ///< Pointer to level update function.
+    void(*levelDraw)();             ///< Pointer to level draw function.
     void(*levelShutdown)();         ///< Pointer to level shutdown function.
     void(*levelUnload)();           ///< Pointer to level unload function.
 } TableEntry;
 
 ///< Table of all levels and functions for said levels.
 static const TableEntry LevelTable[LevelNum] = {
-    {Level1_onLoad, Level1_onInit, Level1_onUpdate, Level1_onShutdown, Level1_onUnload},
-	{Level2_onLoad, Level2_onInit, Level2_onUpdate, Level2_onShutdown, Level2_onUnload},
-	{TitleScreen_onLoad, TitleScreen_onInit, TitleScreen_onUpdate, TitleScreen_onShutdown, TitleScreen_onUnload},
-	{EndScreen_onLoad, EndScreen_onInit, EndScreen_onUpdate, EndScreen_onShutdown, EndScreen_onUnload},
-    {LevelEditorLevel_onLoad, LevelEditorLevel_onInit, LevelEditorLevel_onUpdate, LevelEditorLevel_onShutdown, LevelEditorLevel_onUnload}
+    {Level1_onLoad, Level1_onInit, Level1_onUpdate, NULL, Level1_onShutdown, Level1_onUnload},
+	{Level2_onLoad, Level2_onInit, Level2_onUpdate, NULL, Level2_onShutdown, Level2_onUnload},
+	{TitleScreen_onLoad, TitleScreen_onInit, TitleScreen_onUpdate, NULL, TitleScreen_onShutdown, TitleScreen_onUnload},
+	{EndScreen_onLoad, EndScreen_onInit, EndScreen_onUpdate, NULL, EndScreen_onShutdown, EndScreen_onUnload},
+    {LevelEditorLevel_onLoad, LevelEditorLevel_onInit, LevelEditorLevel_onUpdate, NULL, LevelEditorLevel_onShutdown, LevelEditorLevel_onUnload}
 };
 
 int Level_isValid(Levels level)
@@ -59,6 +60,10 @@ void Level_init(Levels level)
 void Level_update(Levels level, float dt)
 {
     if (Level_isValid(level) && ((*LevelTable[level].levelUpdate) != NULL)) (*LevelTable[level].levelUpdate)(dt);
+}
+
+void Level_draw(Levels level) {
+    if (Level_isValid(level) && ((*LevelTable[level].levelDraw) != NULL)) (*LevelTable[level].levelDraw)();
 }
 
 void Level_shutdown(Levels level)

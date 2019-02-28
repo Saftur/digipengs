@@ -66,7 +66,7 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 
 void Player_onDraw(Object *obj, PlayerData *data)
 {
-    ImageHandler_fullDrawTexture(data->mesh, data->texture, Object_getPos(obj), 1.0f, data->direction - AEDegToRad(90), data->alpha);
+    ImageHandler_fullDrawTexture(data->mesh, data->texture, Object_getPos(obj), 1.0f, data->direction, data->alpha);
 }
 
 

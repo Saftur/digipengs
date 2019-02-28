@@ -42,7 +42,9 @@ void LevelEditorLevel_onUpdate(float dt)
 
 void LevelEditorLevel_onShutdown()
 {
-    LevelEditor_shutdown();
+    LevelEditor_shutdown(); 
+    Camera_clear();
+    Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 600 });
 }
 
 void LevelEditorLevel_onUnload()

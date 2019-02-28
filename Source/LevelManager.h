@@ -20,6 +20,11 @@ void LevelManager_init();
 void LevelManager_update(float dt);
 
 /**
+ * @brief Draw the current level.
+ */
+void LevelManager_draw();
+
+/**
  * @brief Shutdown the level manager.
  */
 void LevelManager_shutdown();

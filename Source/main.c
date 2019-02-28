@@ -93,10 +93,11 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
     //Camera_new((AEVec2) { 0, 0 }, (AEVec2) { 1, 1 }, 0, (AEVec2) { 400, 0 }, (AEVec2) { 400, 600 });
     Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 600 });
 
+    //AEInputShowCursor(0); //Hide the cursor.
+
 	// Game Loop
 	while (LevelManager_isRunning())
 	{
-
 		// Informing the system about the loop's start
 		AESysFrameStart();
 
@@ -117,6 +118,7 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 		for (unsigned i = 0; i < Camera_count(); i++) {
 			Camera_set(i);
 			ObjectManager_draw();
+            LevelManager_draw();
 		}
 
 		// Informing the system about the loop's end

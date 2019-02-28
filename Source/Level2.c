@@ -70,6 +70,7 @@ void Level2_onUpdate(float dt)
 		LevelManager_setNextLevel(EndScreen);
 
     if (cam) Map_draw();
+
     if (AEInputCheckTriggered('O'))
     {
         s32 mX, mY;
