@@ -19,7 +19,7 @@
 #include "ObstacleManager.h"
 #include "CollisionHandler.h"
 #include "CollisionEvents.h"
-
+#include "AudioHandler.h"
 #include "Camera.h"
 
 int splitScreen = 0;
@@ -34,11 +34,12 @@ static void mapDraw(Object *obj, void *data) {
 
 void Level2_onLoad()
 {
+  Audio_playGameplay();
 }
 
 void Level2_onInit()
 {
-	if (splitScreen)
+  if (splitScreen)
 	{
 		Camera_clear();
 		Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, (AEVec2) { 400, 600 });

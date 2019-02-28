@@ -23,6 +23,7 @@
 #include "Camera.h"
 #include "CollisionHandler.h"
 #include "Player.h"
+#include "AudioHandler.h"
 
 // ---------------------------------------------------------------------------
 
@@ -79,11 +80,11 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 
     CollisionHandler_Init();
     LevelManager_init();
-	ObjectManager_init();
-	ImageHandler_initializeTextures();
-	LevelManager_setNextLevel(TitleScreen);
-	Camera_init();
-
+	  ObjectManager_init();
+	  ImageHandler_initializeTextures();
+	  LevelManager_setNextLevel(TitleScreen);
+	  Camera_init();
+    Audio_init();
     Boulder_intialize();
 
     AEGfxSetBackgroundColor(0.4f, 0.4f, 0.4f);
@@ -132,7 +133,8 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 	ObjectManager_shutdown();
 	ImageHandler_shutdown();
 	Camera_shutdown();
-    Boulder_shutdown();
+  Boulder_shutdown();
+  Audio_cleanup();
 
 	// free the system
 	AESysExit();

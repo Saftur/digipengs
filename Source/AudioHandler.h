@@ -8,6 +8,7 @@
 
 #pragma once
 
-void AudioInit();
-void AudioUpdate();
-void AudioCleanup();
+void Audio_init();
+void Audio_cleanup();
+
+void Audio_playGameplay();

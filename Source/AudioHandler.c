@@ -14,12 +14,15 @@
 #include <stdbool.h>	// FALSE
 
 FMOD_SYSTEM *soundSystem;
-FMOD_SOUND *sound;
 FMOD_CHANNEL *channel = 0;
 FMOD_RESULT result;
 
+// Contains all the music/soundeffects in the game
+FMOD_SOUND *bgmGameplay;
+FMOD_SOUND *sfxPlayerSlide;
+
 // Helper function to check for errors
-void ERRCHECK(FMOD_RESULT checkResult)
+static void ERRCHECK(const FMOD_RESULT checkResult)
 {
 	if (checkResult != FMOD_OK)
 	{
@@ -28,7 +31,7 @@ void ERRCHECK(FMOD_RESULT checkResult)
 }
 
 // Initialize the Audio System
-void AudioInit()
+void Audio_init()
 {
 	// Create and Initialize the FMOD System
 	result = FMOD_System_Create(&soundSystem);
@@ -37,15 +40,6 @@ void AudioInit()
 	void *extradriverdata = 0;
 	result = FMOD_System_Init(soundSystem, 32, FMOD_INIT_NORMAL, extradriverdata);
 	ERRCHECK(result);
-
-	// Create and Play the sound
-	// Note: this should be generalized for multiple sounds and
-	//       be placed in a function to be used outside of init.
-	//result = FMOD_System_CreateStream(soundSystem, "sample_beep.wav", FMOD_LOOP_NORMAL | FMOD_2D, 0, &sound);
-	//ERRCHECK(result);
-
-	//result = FMOD_System_PlaySound(soundSystem, sound, 0, false, &channel);
-	//ERRCHECK(result);
 }
 
 // Update the Audio System
@@ -58,10 +52,10 @@ void AudioUpdate()
 }
 
 // Cleanup the Audio System
-void AudioCleanup()
+void Audio_cleanup()
 {
 	// Release all sounds that have been created
-	result = FMOD_Sound_Release(sound);
+	result = FMOD_Sound_Release(bgmGameplay);
 	ERRCHECK(result);
 
 	// Close and Release the FMOD system
@@ -69,4 +63,17 @@ void AudioCleanup()
 	ERRCHECK(result);
 	result = FMOD_System_Release(soundSystem);
 	ERRCHECK(result);
+}
+
+////////////////////////////////////////////////////////////////////
+void Audio_playGameplay()
+{
+  // Create and Play the sound
+  // Note: this should be generalized for multiple sounds and
+  //       be placed in a function to be used outside of init.
+  result = FMOD_System_CreateStream(soundSystem, "./Assets/Audio/First_Test_Mix.mp3", FMOD_LOOP_NORMAL | FMOD_2D, 0, &bgmGameplay);
+  ERRCHECK(result);
+
+  result = FMOD_System_PlaySound(soundSystem, bgmGameplay, 0, false, &channel);
+  ERRCHECK(result);
 }
