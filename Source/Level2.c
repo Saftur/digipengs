@@ -69,8 +69,6 @@ void Level2_onUpdate(float dt)
 	if (AEInputCheckCurr('R'))
 		LevelManager_setNextLevel(EndScreen);
 
-    if (cam) Map_draw();
-
     if (AEInputCheckTriggered('O'))
     {
         s32 mX, mY;
@@ -84,6 +82,11 @@ void Level2_onUpdate(float dt)
         ObjectManager_addObj(Polarbear_new(pos));
     }
 
+}
+
+void Level2_onDraw()
+{
+    Map_draw();
 }
 
 void Level2_onShutdown()

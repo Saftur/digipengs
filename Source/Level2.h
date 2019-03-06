@@ -26,6 +26,11 @@ void Level2_onInit();
 void Level2_onUpdate(float dt);
 
 /**
+ * @brief Draw Level.
+ */
+void Level2_onDraw();
+
+/**
  * @brief Shutdown Level.
  */
 void Level2_onShutdown();

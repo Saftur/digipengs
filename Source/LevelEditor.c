@@ -85,9 +85,23 @@ void LevelEditor_update(float dt)
     if (AEInputCheckCurr(VK_RSHIFT)) ObstacleScale++;
     if (AEInputCheckCurr(VK_LSHIFT)) ObstacleScale--;
 
+    //Remove obstacles when they are clicked.
+    if (AEInputCheckTriggered(VK_LBUTTON)) {
+        for (unsigned i = 0; i < vector_size(Obstacles); i++) {
+            Obstacle *obstacle = vector_at(Obstacles, i);
+
+            float distance = AEVec2Distance(&placementLoc, &(obstacle->pos));
+            if (distance < obstacle->radius) {
+                PlacementMode = obstacle->type;
+                ObstacleScale = (int)obstacle->radius * 2;
+                vector_erase(Obstacles, i);
+                return;
+            }
+        }
+    }
+
     switch (PlacementMode) {
-    //Boulder
-    case 1:
+    case Boulder:
         ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.boulder, mouseLoc, (float)ObstacleScale * Camera_getCurr()->worldScale, 0, 1);
 
         if (AEInputCheckTriggered(VK_LBUTTON)) {
@@ -101,7 +115,7 @@ void LevelEditor_update(float dt)
         }
         break;
 
-    case 0:
+    case None:
         EditMap();
         break;
         

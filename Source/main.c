@@ -117,8 +117,8 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 
 		for (unsigned i = 0; i < Camera_count(); i++) {
 			Camera_set(i);
-			ObjectManager_draw();
             LevelManager_draw();
+			ObjectManager_draw();
 		}
 
 		// Informing the system about the loop's end

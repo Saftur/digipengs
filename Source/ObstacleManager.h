@@ -9,7 +9,7 @@
 #include "AEVec2.h"
 
 typedef enum ObstacleType { 
-    None,
+    None = 0,
     Boulder 
 } ObstacleType;
 
