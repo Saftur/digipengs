@@ -22,6 +22,8 @@ struct LOADEDTEXTURES
 	AEGfxTexture *titleScreen_exitButton;  ///< the title for the titlescreen 
 	AEGfxTexture *map;                     ///< A test map
     AEGfxTexture *player;                  ///< THE PLAYER
+    AEGfxTexture *playerRed; ///< red player
+    AEGfxTexture *playerGreen; ///< green player
     AEGfxTexture *boulder;                 ///< Boulder
 	AEGfxTexture *endScreen_youDied; ///< button for the endscreen
 	AEGfxTexture *endScreen_tryAgainButton; ///< button for the endscreen

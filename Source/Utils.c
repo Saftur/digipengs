@@ -7,9 +7,16 @@
 #include "stdafx.h"
 
 #include "Utils.h"
+#include <AEEngine.h>
+
 
 float lerpf(float val1, float val2, float percent) {
     return val1 + (val2 - val1) * percent;
+}
+
+float rad_lerpf(float val1, float val2, float percent)
+{
+    return AEDegToRad(deg_lerpf(AERadToDeg(val1), AERadToDeg(val2), percent));
 }
 
 float deg_lerpf(float val1, float val2, float percent) {

@@ -11,7 +11,9 @@
 #include "InputHandler.h"
 
 #define PLAYER_STANDARD_TEXTURE TEXTURES.player
-#define PLAYER_SCALE (AEVec2){30,36}
+#define PLAYER_RED_TEXTURE TEXTURES.playerRed
+#define PLAYER_GREEN_TEXTURE TEXTURES.playerGreen
+#define PLAYER_SCALE (AEVec2){36,30}
 
 typedef struct PlayerData
 {
