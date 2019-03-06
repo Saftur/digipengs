@@ -20,6 +20,7 @@ struct LOADEDTEXTURES
 	AEGfxTexture *titleScreen_startButton; ///< the title for the titlescreen 
 	AEGfxTexture *titleScreen_button;      ///< the title for the titlescreen 
 	AEGfxTexture *titleScreen_exitButton;  ///< the title for the titlescreen 
+    AEGfxTexture *titleScreen_levelEditorButton; ///< Button for loading the level editor.
 	AEGfxTexture *map;                     ///< A test map
     AEGfxTexture *player;                  ///< THE PLAYER
     AEGfxTexture *boulder;                 ///< Boulder
@@ -30,7 +31,7 @@ struct LOADEDTEXTURES
     AEGfxTexture *map_straightTile; ///< Straight tile segment for the map.
     AEGfxTexture *map_rightCornerTile; ///< Right corner tile segment for the map.
     AEGfxTexture *map_leftCornerTile; ///< Left corner tile segment for the map.
-    AEGfxTexture *titleScreen_levelEditorButton; ///< Button for loading the level editor.
+    AEGfxTexture *screen_separator;
 
 }typedef LOADEDTEXTURES;
 

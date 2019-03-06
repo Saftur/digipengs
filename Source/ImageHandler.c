@@ -61,7 +61,10 @@ void ImageHandler_initializeTextures()
     AE_ASSERT_MESG(TEXTURES.map_straightTile, "Failed to load/create TEXTURE: StraightTile");
 
     TEXTURES.titleScreen_levelEditorButton = AEGfxTextureLoad("./Assets/dad.png");
-    AE_ASSERT_MESG(TEXTURES.titleScreen_levelEditorButton, "Failed to load/create TEXTURE: TempLevelEditorButton");
+    AE_ASSERT_MESG(TEXTURES.titleScreen_levelEditorButton, "Failed to load/create TEXTURE: dad");
+
+    TEXTURES.screen_separator = AEGfxTextureLoad("./Assets/ScreenSeparator.png");
+    AE_ASSERT_MESG(TEXTURES.screen_separator, "Failed to load/create TEXTURE: ScreenSeparator");
 }
 
 void ImageHandler_shutdown() {
@@ -70,14 +73,23 @@ void ImageHandler_shutdown() {
     AEGfxTextureUnload(TEXTURES.titleScreen_startButton);
     AEGfxTextureUnload(TEXTURES.titleScreen_button);
     AEGfxTextureUnload(TEXTURES.titleScreen_exitButton);
+    AEGfxTextureUnload(TEXTURES.titleScreen_levelEditorButton);
+
     AEGfxTextureUnload(TEXTURES.map);
     AEGfxTextureUnload(TEXTURES.player);
+    AEGfxTextureUnload(TEXTURES.boulder);
+
+    AEGfxTextureUnload(TEXTURES.endScreen_youDied);
+    AEGfxTextureUnload(TEXTURES.endScreen_tryAgainButton);
+    AEGfxTextureUnload(TEXTURES.endScreen_titleScreenButton);
+
+    AEGfxTextureUnload(TEXTURES.buttonSelected);
 
     AEGfxTextureUnload(TEXTURES.map_leftCornerTile);
     AEGfxTextureUnload(TEXTURES.map_rightCornerTile);
     AEGfxTextureUnload(TEXTURES.map_straightTile);
 
-    AEGfxTextureUnload(TEXTURES.titleScreen_levelEditorButton);
+    AEGfxTextureUnload(TEXTURES.screen_separator);
 }
 void ImageHandler_screenDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float scale, float rotation, float alpha)
 {

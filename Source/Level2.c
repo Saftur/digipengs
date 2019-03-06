@@ -21,10 +21,15 @@
 #include "Polarbear.h"
 #include "ObstacleManager.h"
 
+#define SCREEN_SEPARATOR_WIDTH 10
+
 int splitScreen = 0;
+
+static AEGfxVertexList *separatorMesh;
 
 void Level2_onLoad()
 {
+    separatorMesh = MeshHandler_createSquareMesh(SCREEN_SEPARATOR_WIDTH, AEGfxGetWinMaxY() - AEGfxGetWinMinY());
 }
 
 void Level2_onInit()
@@ -87,6 +92,14 @@ void Level2_onUpdate(float dt)
 void Level2_onDraw()
 {
     Map_draw();
+    if (splitScreen) {
+        Camera *cam = Camera_getCurr();
+        float xPos = cam->viewportSize.x / 2.f - SCREEN_SEPARATOR_WIDTH / 2.f;
+        AEVec2 pos;
+        pos.x = (Camera_getCurrNum() == 0 ? xPos : -xPos);
+        pos.y = 0;
+        ImageHandler_screenDrawTexture(separatorMesh, TEXTURES.screen_separator, pos, 1, 0, 1.0f);
+    }
 }
 
 void Level2_onShutdown()
@@ -97,4 +110,5 @@ void Level2_onShutdown()
 
 void Level2_onUnload()
 {
+    AEGfxMeshFree(separatorMesh);
 }
