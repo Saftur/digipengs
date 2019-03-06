@@ -8,6 +8,9 @@
 #include "stdafx.h"
 #include "ObstacleManager.h"
 #include "Boulder.h"
+#include "Polarbear.h"
+#include "Ice.h"
+#include "Pothole.h"
 #include "objectmanager.h"
 #include "CollisionHandler.h"
 #include "Object.h"
@@ -38,9 +41,18 @@ void ObstacleManager_loadObstacles()
 
         switch (obstacleType) {
         case 'B':
-            obstacleData->type = Boulder;
-            obstacle = Object_new(NULL, NULL, ObstacleDraw, obstacleData, free, "Boulder");
-            Object_setPos(obstacle, obstacleData->pos);
+            obstacle = Boulder_new(obstacleData->pos);
+            Boulder_setSize(obstacle, obstacleData->radius * 2);
+            CollisionHandler_Create_Circle_Collider(obstacle, obstacleData->radius, NULL);
+            break;
+        case 'P':
+            obstacle = Polarbear_new(obstacleData->pos);
+            Polarbear_setSize(obstacle, obstacleData->radius * 2);
+            CollisionHandler_Create_Circle_Collider(obstacle, obstacleData->radius, NULL);
+            break;
+        case 'I':
+            obstacle = Ice_new(obstacleData->pos);
+            Ice_setSize(obstacle, obstacleData->radius * 2);
             CollisionHandler_Create_Circle_Collider(obstacle, obstacleData->radius, NULL);
             break;
         }
@@ -48,15 +60,4 @@ void ObstacleManager_loadObstacles()
         ObjectManager_addObj(obstacle);
     }
     fclose(file);
-}
-
-void ObstacleDraw(Object *object, Obstacle *data)
-{
-    UNREFERENCED_PARAMETER(object);
-
-    switch (data->type) {
-    case Boulder:
-        ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.boulder, data->pos, data->radius * 2, data->rotation, 1);
-        break;
-    }
 }

@@ -17,6 +17,10 @@
 #include "LevelManager.h"
 #include "ObstacleManager.h"
 
+#define BOULDER_TEXTURE TEXTURES.boulder
+#define POLARBEAR_TEXTURE TEXTURES.test
+#define ICE_TEXTURE TEXTURES.test
+
 static int PlacementMode = 0;
 static int ObstacleScale = 32;
 
@@ -102,7 +106,7 @@ void LevelEditor_update(float dt)
 
     switch (PlacementMode) {
     case Boulder:
-        ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.boulder, mouseLoc, (float)ObstacleScale * Camera_getCurr()->worldScale, 0, 1);
+        ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), BOULDER_TEXTURE, mouseLoc, (float)ObstacleScale * Camera_getCurr()->worldScale, 0, 1);
 
         if (AEInputCheckTriggered(VK_LBUTTON)) {
             Obstacle *boulder = malloc(sizeof(Obstacle));
@@ -112,6 +116,32 @@ void LevelEditor_update(float dt)
             boulder->rotation = 0;
 
             vector_push_back(Obstacles, boulder);
+        }
+        break;
+    case Polarbear:
+        ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), POLARBEAR_TEXTURE, mouseLoc, (float)ObstacleScale * Camera_getCurr()->worldScale, 0, 1);
+
+        if (AEInputCheckTriggered(VK_LBUTTON)) {
+            Obstacle *polarbear = malloc(sizeof(Obstacle));
+            polarbear->type = Polarbear;
+            polarbear->radius = ObstacleScale / 2.f;
+            polarbear->pos = placementLoc;
+            polarbear->rotation = 0;
+
+            vector_push_back(Obstacles, polarbear);
+        }
+        break;
+    case Ice:
+        ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), ICE_TEXTURE, mouseLoc, (float)ObstacleScale * Camera_getCurr()->worldScale, 0, 1);
+
+        if (AEInputCheckTriggered(VK_LBUTTON)) {
+            Obstacle *ice = malloc(sizeof(Obstacle));
+            ice->type = Ice;
+            ice->radius = ObstacleScale / 2.f;
+            ice->pos = placementLoc;
+            ice->rotation = 0;
+
+            vector_push_back(Obstacles, ice);
         }
         break;
 
@@ -338,6 +368,12 @@ void LoadObstacles() {
         case 'B':
             obstacle->type = Boulder;
             break;
+        case 'P':
+            obstacle->type = Polarbear;
+            break;
+        case 'I':
+            obstacle->type = Ice;
+            break;
         }
 
         vector_push_back(Obstacles, obstacle);
@@ -383,6 +419,12 @@ static void SaveMap() {
         case Boulder:
             fputc('B', file);
             break;
+        case Polarbear:
+            fputc('P', file);
+            break;
+        case Ice:
+            fputc('I', file);
+            break;
         }
 
         fprintf(file, "%5d%5d%5d%5d", (int)obstacle->radius, (int)obstacle->pos.x, (int)obstacle->pos.y, (int)obstacle->rotation);
@@ -412,8 +454,11 @@ static void DrawIcons() {
     iconPos.x = AEGfxGetWinMinX() + 50;
     iconPos.y = AEGfxGetWinMaxY() - 50;
 
-    ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.boulder, iconPos, 32, 0, 1);
-
+    ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), BOULDER_TEXTURE, iconPos, 32, 0, 1);
+    AEVec2Add(&iconPos, &iconPos, &distBetweenIcons);
+    ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), POLARBEAR_TEXTURE, iconPos, 32, 0, 1);
+    AEVec2Add(&iconPos, &iconPos, &distBetweenIcons);
+    ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), ICE_TEXTURE, iconPos, 32, 0, 1);
     AEVec2Add(&iconPos, &iconPos, &distBetweenIcons);
 }
 
@@ -424,7 +469,13 @@ void DrawObstacles()
 
         switch (obstacle.type) {
         case Boulder:
-            ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.boulder, obstacle.pos, obstacle.radius * 2, 0, 1);
+            ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), BOULDER_TEXTURE, obstacle.pos, obstacle.radius * 2, 0, 1);
+            break;
+        case Polarbear:
+            ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), POLARBEAR_TEXTURE, obstacle.pos, obstacle.radius * 2, 0, 1);
+            break;
+        case Ice:
+            ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), ICE_TEXTURE, obstacle.pos, obstacle.radius * 2, 0, 1);
             break;
         }
     }

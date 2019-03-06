@@ -10,7 +10,9 @@
 
 typedef enum ObstacleType { 
     None = 0,
-    Boulder 
+    Boulder,
+    Polarbear,
+    Ice
 } ObstacleType;
 
 typedef struct Obstacle {
