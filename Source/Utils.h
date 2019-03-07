@@ -15,6 +15,17 @@
  */
 float lerpf(float val1, float val2, float percent);
 
+
+/**
+ * @brief Lerp float angle
+ * Will go the shortest way
+ * @param val1    Angle to start at
+ * @param val2    Angle to go to
+ * @param percent Percent of the way to go to val2
+ * @return Result
+ */
+float rad_lerpf(float val1, float val2, float percent);
+
 /**
  * @brief Lerp float angle
  * Will go the shortest way

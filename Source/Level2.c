@@ -52,11 +52,13 @@ void Level2_onInit()
     CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, PlayerOnCollision);
 
 	if (splitScreen) {
+        Player_changeTexture(player, PLAYER_RED_TEXTURE);
 		AEVec2 pos2;
 		Map_tilePosToWorldPos(&pos2.x, &pos2.y, 0, 0);
         pos2.x -= 32;
         player = Player_new(pos2, (Controls) { VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN }, 1);
-		ObjectManager_addObj(player);
+        ObjectManager_addObj(player);
+        Player_changeTexture(player, PLAYER_GREEN_TEXTURE);
         CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, PlayerOnCollision);
 	}
 }

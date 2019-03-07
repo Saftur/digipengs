@@ -10,6 +10,30 @@
 #include "ImageHandler.h"
 #include "MeshHandler.h"
 #include "objectmanager.h"
+#include "Utils.h"
+
+#define POLARBEAR_DEFAULT_SIZE LANE_WIDTH
+#define POLARBEAR_INCREMENT    (POLARBEAR_DEFAULT_SIZE / 4)
+#define POLARBEAR_DECREMENT    (POLARBEAR_DEFAULT_SIZE / 8)
+
+#define POLARBEAR_ACCEL_MIN                100.0f
+#define POLARBEAR_ACCEL_MAX                200.0f
+
+#define POLARBEAR_SPEED_MAX 200.0f
+
+#define POLARBEAR_RANGE_MIN        100
+#define POLARBEAR_RANGE_MAX        450
+#define POLARBEAR_MAX_DISTANCE_MIN 300
+#define POLARBEAR_MAX_DISTANCE_MAX 500
+
+#define POLARBEAR_HOME_DISTANCE_EPISLON 100
+
+#define POLARBEAR_RANGE_SQUARED_MIN        (POLARBEAR_RANGE_MIN * POLARBEAR_RANGE_MIN)
+#define POLARBEAR_RANGE_SQUARED_MAX        (POLARBEAR_RANGE_MAX * POLARBEAR_RANGE_MAX)
+#define POLARBEAR_MAX_DISTANCE_SQUARED_MIN (POLARBEAR_MAX_DISTANCE_MIN * POLARBEAR_MAX_DISTANCE_MIN)
+#define POLARBEAR_MAX_DISTANCE_SQUARED_MAX (POLARBEAR_MAX_DISTANCE_MAX * POLARBEAR_MAX_DISTANCE_MAX)
+
+#define POLARBEAR_ROTATION_SPEED(size) (5 * POLARBEAR_DEFAULT_SIZE / size)
 
 static float float_rand(float min, float max);
 
@@ -24,13 +48,15 @@ typedef struct PolarbearData
 {
     PolarbearStates state;
 
-    float speed;
+    float acceleration;
     float size;
     float rangeSquared;
 
     float rotation;
-    float targetRotation;
     float rotationSpeed;
+
+    Object *target;
+    float velocity;
 
     AEVec2 home;
     float maxDistanceSquared;
@@ -38,16 +64,16 @@ typedef struct PolarbearData
 
 void Polarbear_onDraw(Object *obj, PolarbearData *data)
 {
-    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.player, Object_getPos(obj), data->size, 0, 1.0f);
+    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.player, Object_getPos(obj), data->size, data->rotation, 1.0f);
 }
-
 
 void Polarbear_onInit(Object *obj, PolarbearData *data)
 {
     UNREFERENCED_PARAMETER(obj);
     data->state = IDLE;
     data->rotation = 0;
-    data->targetRotation = 0;
+    data->target = NULL;
+    data->velocity = 0;
 }
 
 void Polarbear_onUpdate(Object *obj, PolarbearData *data, float dt)
@@ -66,16 +92,56 @@ void Polarbear_onUpdate(Object *obj, PolarbearData *data, float dt)
             AEVec2 objPos = Object_getPos(obj);
             if (AEVec2SquareDistance(&playerPos, &objPos) > data->rangeSquared) continue;
             data->state = CHASING;
-            AEVec2 dir;
-            AEVec2Sub(&dir, &playerPos, &objPos);
-            AEVec2Normalize(&dir, &dir);
-            data->targetRotation = AEVec2AngleFromVec2(&dir);
+            data->target = player;
         }
         break;
     }
     case CHASING:
     {
+        AEVec2 objPos = Object_getPos(obj);
+        
+        if (AEVec2SquareDistance(&objPos, &data->home) > data->maxDistanceSquared) data->state = RETURNING;
 
+        AEVec2 dir;
+        AEVec2 targetPos = Object_getPos(data->target);
+        AEVec2Sub(&dir, &targetPos, &objPos);
+        AEVec2Normalize(&dir, &dir);
+
+        data->rotation = rad_lerpf(data->rotation, AEVec2AngleFromVec2(&dir), data->rotationSpeed * dt);
+
+
+        data->velocity += data->acceleration * dt;
+
+        data->velocity = AEMin(data->velocity, POLARBEAR_SPEED_MAX);
+
+        AEVec2Scale(&dir, &dir, data->velocity * dt);
+
+        AEVec2Add(&objPos, &objPos, &dir);
+        Object_setPos(obj, objPos); 
+
+        break;
+    }
+    case RETURNING:
+    {
+        AEVec2 objPos = Object_getPos(obj);
+
+        if (AEVec2SquareDistance(&objPos, &data->home) < POLARBEAR_HOME_DISTANCE_EPISLON) data->state = IDLE;
+
+        AEVec2 dir;
+        AEVec2Sub(&dir, &data->home, &objPos);
+        AEVec2Normalize(&dir, &dir);
+
+        data->rotation = rad_lerpf(data->rotation, AEVec2AngleFromVec2(&dir), data->rotationSpeed * dt);
+
+
+        data->velocity += data->acceleration * dt;
+
+        data->velocity = AEMin(data->velocity, POLARBEAR_SPEED_MAX);
+
+        AEVec2Scale(&dir, &dir, data->velocity * dt);
+
+        AEVec2Add(&objPos, &objPos, &dir);
+        Object_setPos(obj, objPos);
         break;
     }
     } /*Switch Statement*/
@@ -107,7 +173,7 @@ Object *Polarbear_new(AEVec2 pos)
     PolarbearData *pData = malloc(sizeof(PolarbearData));
     if (!pData) return NULL;
 
-    pData->speed = float_rand(POLARBEAR_SPEED_MIN, POLARBEAR_SPEED_MAX);
+    pData->acceleration = float_rand(POLARBEAR_ACCEL_MIN, POLARBEAR_ACCEL_MAX);
     pData->size = (float)POLARBEAR_DEFAULT_SIZE;
     pData->rangeSquared = float_rand(POLARBEAR_RANGE_SQUARED_MIN, POLARBEAR_RANGE_SQUARED_MAX);
     pData->rotationSpeed = POLARBEAR_ROTATION_SPEED(pData->size);

@@ -48,6 +48,14 @@ void ImageHandler_initializeTextures()
     TEXTURES.player = AEGfxTextureLoad("./Assets/Player.png");
     AE_ASSERT_MESG(TEXTURES.player, "Failed to load/create TEXTURE: Player");
 
+    TEXTURES.playerRed = AEGfxTextureLoad("./Assets/PlayerRed.png");
+    AE_ASSERT_MESG(TEXTURES.playerRed, "Failed to load/create TEXTURE: PlayerRed");
+
+
+    TEXTURES.playerGreen = AEGfxTextureLoad("./Assets/PlayerGreen.png");
+    AE_ASSERT_MESG(TEXTURES.playerGreen, "Failed to load/create TEXTURE: PlayerGreen");
+
+
     TEXTURES.boulder = AEGfxTextureLoad("./Assets/Boulder.png");
     AE_ASSERT_MESG(TEXTURES.boulder, "Failed to load/create TEXTURE: Boulder");
 
@@ -77,6 +85,8 @@ void ImageHandler_shutdown() {
 
     AEGfxTextureUnload(TEXTURES.map);
     AEGfxTextureUnload(TEXTURES.player);
+    AEGfxTextureUnload(TEXTURES.playerGreen);
+    AEGfxTextureUnload(TEXTURES.playerRed);
     AEGfxTextureUnload(TEXTURES.boulder);
 
     AEGfxTextureUnload(TEXTURES.endScreen_youDied);

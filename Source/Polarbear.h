@@ -10,18 +10,6 @@
 #include "Object.h"
 #include "Map.h"
 
-#define POLARBEAR_DEFAULT_SIZE LANE_WIDTH
-#define POLARBEAR_INCREMENT    (POLARBEAR_DEFAULT_SIZE / 4)
-#define POLARBEAR_DECREMENT    (POLARBEAR_DEFAULT_SIZE / 8)
-
-#define POLARBEAR_SPEED_MIN                1.0f
-#define POLARBEAR_SPEED_MAX                1.5f
-#define POLARBEAR_RANGE_SQUARED_MIN        60.0f
-#define POLARBEAR_RANGE_SQUARED_MAX        80.0f
-#define POLARBEAR_MAX_DISTANCE_SQUARED_MIN 40.0f
-#define POLARBEAR_MAX_DISTANCE_SQUARED_MAX 60.0f
-
-#define POLARBEAR_ROTATION_SPEED(size) (POLARBEAR_DEFAULT_SIZE / size)
 
  /**
   * @brief Increments the size of the polarbear
