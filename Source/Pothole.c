@@ -15,7 +15,7 @@ typedef float PotholeSize;
 
 void Pothole_onDraw(Object *obj, PotholeSize *size)
 {
-    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.player, Object_getPos(obj), *size, 0, 1.0f);
+    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.player, Object_getPos(obj), *size, *size, 0, 1.0f);
 }
 
 Object *Pothole_new(AEVec2 pos)

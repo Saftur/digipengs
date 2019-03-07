@@ -110,7 +110,7 @@ void LevelEditor_update(float dt)
     switch (PlacementMode) {
     //Boulder
     case 1:
-        ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.boulder, mouseLoc, (float)ObstacleScale, 0, 1);
+        ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.boulder, mouseLoc, (float)ObstacleScale, (float)ObstacleScale, 0, 1);
 
         if (AEInputCheckTriggered(VK_LBUTTON)) {
             Obstacle *boulder = malloc(sizeof(Obstacle));
@@ -386,7 +386,7 @@ static void DrawIcons() {
     iconPos.x = AEGfxGetWinMinX() + 50;
     iconPos.y = AEGfxGetWinMaxY() - 50;
 
-    ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.boulder, iconPos, 32, 0, 1);
+    ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.boulder, iconPos, 32, 32, 0, 1);
 
     AEVec2Add(&iconPos, &iconPos, &distBetweenIcons);
 }
@@ -398,7 +398,7 @@ void DrawObstacles()
 
         switch (obstacle.type) {
         case Boulder:
-            ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.boulder, obstacle.pos, obstacle.radius * 2, 0, 1);
+            ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.boulder, obstacle.pos, obstacle.radius * 2, obstacle.radius * 2, 0, 1);
             break;
         }
     }

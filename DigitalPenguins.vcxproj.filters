@@ -91,6 +91,9 @@
     <ClCompile Include="Source\LevelEditorLevel.c">
       <Filter>Game\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="Source\TextHandler.c">
+      <Filter>Engine\Handlers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
@@ -176,6 +179,9 @@
     </ClInclude>
     <ClInclude Include="Source\Polarbear.h">
       <Filter>Game\Objects\Obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TextHandler.h">
+      <Filter>Engine\Handlers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

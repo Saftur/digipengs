@@ -59,6 +59,9 @@ void ImageHandler_initializeTextures()
 
     TEXTURES.map_straightTile = AEGfxTextureLoad("./Assets/StraightTile.png");
     AE_ASSERT_MESG(TEXTURES.map_straightTile, "Failed to load/create TEXTURE: StraightTile");
+
+	TEXTURES.font = AEGfxTextureLoad("./Assets/Comic_Sans.png");
+	AE_ASSERT_MESG(TEXTURES.font, "Failed to load/create TEXTURE: font");
 }
 
 void ImageHandler_shutdown() {
@@ -69,14 +72,15 @@ void ImageHandler_shutdown() {
 	AEGfxTextureUnload(TEXTURES.titleScreen_exitButton);
 	AEGfxTextureUnload(TEXTURES.map);
     AEGfxTextureUnload(TEXTURES.player);
+	AEGfxTextureUnload(TEXTURES.font);
 }
 
-void ImageHandler_screenDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float scale, float rotation, float alpha)
+void ImageHandler_screenDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float scaleX, float scaleY, float rotation, float alpha)
 {
     AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
     AEGfxSetBlendMode(AE_GFX_BM_BLEND);
     // Set poisition 
-    AEGfxSetFullTransform(position.x, position.y, AERadToDeg(rotation), scale, scale);
+    AEGfxSetFullTransform(position.x, position.y, AERadToDeg(rotation), scaleX, scaleY);
     // Set texture for object 2
     AEGfxTextureSet(texture, 0.0f, 0.0f);
     AEGfxSetBlendColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -85,17 +89,46 @@ void ImageHandler_screenDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture
     AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
 }
 
-void ImageHandler_fullDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float scale, float rotation, float alpha)
+void ImageHandler_screenDrawTextureWithOffset(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float scaleX, float scaleY, float rotation, float alpha, f32 offsetX, f32 offsetY)
+{
+	AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
+	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
+	// Set poisition 
+	AEGfxSetFullTransform(position.x, position.y, AERadToDeg(rotation), scaleX, scaleY);
+	// Set texture for object 2
+	AEGfxTextureSet(texture, offsetX, offsetY);
+	AEGfxSetBlendColor(0.0f, 0.0f, 0.0f, 0.0f);
+	AEGfxSetTransparency(alpha);
+	// Drawing the mesh (list of triangles)
+	AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
+}
+
+void ImageHandler_fullDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float scaleX, float scaleY, float rotation, float alpha)
 {
     AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
     AEGfxSetBlendMode(AE_GFX_BM_BLEND);
     // Set poisition 
     AEVec2 newPos = Camera_apply(Camera_getCurr(), position);
-    AEGfxSetFullTransform(newPos.x, newPos.y, AERadToDeg(rotation) + Camera_rot(), scale * Camera_scl(), scale * Camera_scl());
+    AEGfxSetFullTransform(newPos.x, newPos.y, AERadToDeg(rotation) + Camera_rot(), scaleX * Camera_scl(), scaleY * Camera_scl());
     // Set texture for object 2
     AEGfxTextureSet(texture, 0.0f, 0.0f);
     AEGfxSetBlendColor(0.0f, 0.0f, 0.0f, 0.0f);
     AEGfxSetTransparency(alpha);
     // Drawing the mesh (list of triangles)
     AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
+}
+
+void ImageHandler_fullDrawTextureWithOffset(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float scaleX, float scaleY, float rotation, float alpha, f32 offsetX, f32 offsetY)
+{
+	AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
+	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
+	// Set poisition 
+	AEVec2 newPos = Camera_apply(Camera_getCurr(), position);
+	AEGfxSetFullTransform(newPos.x, newPos.y, AERadToDeg(rotation) + Camera_rot(), scaleX * Camera_scl(), scaleY * Camera_scl());
+	// Set texture for object 2
+	AEGfxTextureSet(texture, offsetX, offsetY);
+	AEGfxSetBlendColor(0.0f, 0.0f, 0.0f, 0.0f);
+	AEGfxSetTransparency(alpha);
+	// Drawing the mesh (list of triangles)
+	AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
 }

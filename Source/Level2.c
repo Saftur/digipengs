@@ -42,7 +42,7 @@ void Level2_onInit()
 		Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 400, 0 }, (AEVec2) { 400, 600 });
 	}
 
-	mapMesh = MeshHandler_createSquareMesh(1050, 1050);
+	mapMesh = MeshHandler_createSquareMesh(1050, 1050, 1, 1);
 	// Map Texture: From file
 	//ObjectManager_addObj(Button_new(TEXTURES.map, mapMesh, (AEVec2) { 512, -512 }));
     ObjectManager_addObj(Object_new(NULL, NULL, mapDraw, NULL, NULL, "Map"));

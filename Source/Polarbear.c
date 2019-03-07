@@ -38,7 +38,7 @@ typedef struct PolarbearData
 
 void Polarbear_onDraw(Object *obj, PolarbearData *data)
 {
-    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.player, Object_getPos(obj), data->size, 0, 1.0f);
+    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.player, Object_getPos(obj), data->size, data->size, 0, 1.0f);
 }
 
 

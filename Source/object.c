@@ -23,6 +23,7 @@ typedef struct Object {
 Object *Object_new(ObjInit init, ObjUpdate update, ObjDraw draw, void *data, ObjDataDestructor dataDestructor, char *name) {
 	Object *obj = malloc(sizeof(Object));
 
+	if (!obj) return NULL;
 	obj->init = init;
 	obj->update = update;
 	obj->draw = draw;

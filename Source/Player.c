@@ -23,7 +23,7 @@ void Player_onInit(Object *obj, PlayerData *data)
 {
     UNREFERENCED_PARAMETER(obj);
     data->alpha = 1.0f;
-    data->mesh = MeshHandler_createSquareMesh(PLAYER_SCALE.x, PLAYER_SCALE.y);
+    data->mesh = MeshHandler_createSquareMesh(PLAYER_SCALE.x, PLAYER_SCALE.y, 0, 1);
     data->texture = PLAYER_STANDARD_TEXTURE;
 	data->acceleration = 0.046875f;
 	data->deceleration = 0.05f;
@@ -66,7 +66,7 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 
 void Player_onDraw(Object *obj, PlayerData *data)
 {
-    ImageHandler_fullDrawTexture(data->mesh, data->texture, Object_getPos(obj), 1.0f, data->direction - AEDegToRad(90), data->alpha);
+    ImageHandler_fullDrawTexture(data->mesh, data->texture, Object_getPos(obj), 1.0f, 1.0f, data->direction - AEDegToRad(90), data->alpha);
 }
 
 
