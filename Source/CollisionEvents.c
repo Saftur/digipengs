@@ -26,6 +26,7 @@ void PlayerOnCollision(Collider *self, Collider *other) {
     if(!strcmp("Wall", Object_getName(other->gameObject)))
     {
         //Call Player Slow Down Function.
+        Player_resetSpeed(data);
 
         AEVec2 playerPos = Object_getPos(self->gameObject);
         AEVec2 wallPos = Object_getPos(other->gameObject);
@@ -33,14 +34,14 @@ void PlayerOnCollision(Collider *self, Collider *other) {
         AEVec2 direction;
         direction.x = playerPos.x - wallPos.x;
         direction.y = playerPos.y - wallPos.y;
+        AEVec2Normalize(&direction, &direction);
 
-        float repelDistance = 10;
+        float repelDistance = 1;
+        AEVec2Scale(&direction, &direction, repelDistance);
 
         AEVec2 newPlayerPos;
-        newPlayerPos.x = playerPos.x + direction.x * repelDistance;
-        newPlayerPos.y = playerPos.y + direction.y * repelDistance;
+        AEVec2Add(&newPlayerPos, &playerPos, &direction);
 
-        AEVec2Normalize(&direction, &direction);
-        Object_setPos(other->gameObject, newPlayerPos);
+        Object_setPos(self->gameObject, newPlayerPos);
     }
 }

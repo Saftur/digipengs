@@ -21,6 +21,7 @@ typedef struct Collider {
     float radius; ///< Radius of the collider when type is Circle.
     ColliderType type; ///< The type of the collider.
     float phase; ///< If greater than 0 phase for this amount of time.
+    float angle; ///< Rotation for the collider.
 
     void(*OnCollision)(Collider *self, Collider *other); ///< Function to be called when a collision is detected.
 

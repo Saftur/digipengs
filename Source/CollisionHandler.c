@@ -80,20 +80,19 @@ void CollisionHandler_Check_Collisions()
                 AEVec2 squarePos = Object_getPos(square->gameObject);
                 AEVec2 circlePos = Object_getPos(circle->gameObject);
 
-                //Get direction towards the square collider.
                 AEVec2 direction;
-                direction.x = squarePos.x - circlePos.x;
-                direction.y = squarePos.y - circlePos.y;
-                AEVec2Normalize(&direction, &direction);
+                AEVec2Sub(&direction, &circlePos, &squarePos);
+                AEVec2 rotated;
+                rotated.x = direction.x * cosf(square->angle) - direction.y * sinf(square->angle);
+                rotated.y = direction.x * sinf(square->angle) + direction.y * cosf(square->angle);
+                
+                AEVec2 test;
+                AEVec2Add(&test, &squarePos, &rotated);
 
-                //Point to determine if is inside of the square or not.
-                AEVec2 point;
-                AEVec2Add(&point, &direction, &circlePos);
-
-                //If colliders are colliding.
-                if (point.x >= squarePos.x && point.y < squarePos.x + square->size.x && point.y >= squarePos.y && point.y < squarePos.y + square->size.y) {
-                    if(square->OnCollision) square->OnCollision(square, circle);
-                    if(circle->OnCollision) circle->OnCollision(circle, square);
+                float dist = AECalcDistCircleToRect(&circlePos, circle->radius, &test, square->size.x, square->size.y);
+                if (dist < circle->radius) {
+                    if (square->OnCollision) square->OnCollision(square, circle);
+                    if (circle->OnCollision) circle->OnCollision(circle, square);
                 }
             }
         }
