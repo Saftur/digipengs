@@ -25,6 +25,7 @@
 #include "Player.h"
 #include "MeshHandler.h"
 #include "AudioHandler.h"
+#include "Utils.h"
 
 // ---------------------------------------------------------------------------
 
@@ -55,24 +56,40 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
     //srand((int)time(NULL));
     srand(20);
 
+    RECT desktop;
+    const HWND hDesktop = GetDesktopWindow();
+    GetWindowRect(hDesktop, &desktop);
+
 	// Initialize the system 
 	AESysInitInfo sysInitInfo;
 	sysInitInfo.mCreateWindow = 1;
 	sysInitInfo.mAppInstance = instanceH;
 	sysInitInfo.mShow = show;
-	sysInitInfo.mWinWidth = 800;
-	sysInitInfo.mWinHeight = 600;
+    sysInitInfo.mWinWidth = desktop.right;// 800;
+    sysInitInfo.mWinHeight = desktop.bottom;// 600;
 	sysInitInfo.mCreateConsole = 1;
 	sysInitInfo.mMaxFrameRate = 60;
 	sysInitInfo.mpWinCallBack = NULL;//MyWinCallBack;
 	sysInitInfo.mClassStyle = CS_HREDRAW | CS_VREDRAW;
-	sysInitInfo.mWindowStyle = WS_OVERLAPPEDWINDOW;//WS_POPUP | WS_VISIBLE | WS_SYSMENU | WS_CLIPCHILDREN | WS_CLIPSIBLINGS;;	
+    sysInitInfo.mWindowStyle = WS_POPUP;//WS_OVERLAPPEDWINDOW | WS_POPUP | WS_VISIBLE | WS_SYSMENU | WS_CLIPCHILDREN | WS_CLIPSIBLINGS;;	
 	sysInitInfo.mWindowHandle = NULL;
 	sysInitInfo.mHandleWindowMessages = 1;
 	AESysInit(&sysInitInfo);
 
 	// reset the system modules
     AESysReset();
+
+    const HWND hwnd = AESysGetWindowHandle();
+
+    /*SetWindowLong(hwnd, GWL_STYLE,
+                  ~(WS_CAPTION | WS_THICKFRAME));*/
+    SetWindowLong(hwnd, GWL_EXSTYLE, 0);
+
+    /*RECT desktop;
+    const HWND hDesktop = GetDesktopWindow();
+    GetWindowRect(hDesktop, &desktop);
+    SetWindowPos(hwnd, HWND_TOP, 0, 0, desktop.right, desktop.bottom, SWP_SHOWWINDOW);*/
+    SetWindowPos(hwnd, HWND_TOP, 0, 0, desktop.right, desktop.bottom, SWP_SHOWWINDOW);
 
     //Dt variables
     float dt = 0.0167f;
@@ -87,13 +104,8 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
     Audio_init();
 
     AEGfxSetBackgroundColor(0.4f, 0.4f, 0.4f);
-
-    //ObjectManager_addObj(Boulder_new(BOULDER_TYPES.giant, (AEVec2) { 0, 0 }));
-    //ObjectManager_addObj(Player_new((AEVec2) { 0, 0 }));
     
-    //Camera_new((AEVec2) { 0, 0 }, (AEVec2) { 1, 1 }, 0, (AEVec2) { 0, 0 }, (AEVec2) { 400, 600 });
-    //Camera_new((AEVec2) { 0, 0 }, (AEVec2) { 1, 1 }, 0, (AEVec2) { 400, 0 }, (AEVec2) { 400, 600 });
-    Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 600 });
+    Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, AEGfxGetWinSize());
 
     //AEInputShowCursor(0); //Hide the cursor.
 
@@ -134,7 +146,7 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 	ImageHandler_shutdown();
 	Camera_shutdown();
     AEGfxMeshFree(MeshHandler_getSquareMesh());
-  Audio_cleanup();
+    Audio_cleanup();
 
 	// free the system
 	AESysExit();

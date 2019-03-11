@@ -10,7 +10,7 @@
 #include <AEVec2.h>
 
 
-#define MAP_MAX_SIZE 8
+#define MAP_MAX_SIZE 16
 
 #define TILE_SIZE 350
 
@@ -34,9 +34,10 @@ typedef enum {
  * @brief A Tile
  */
 typedef struct Tile {
-    Side from;     ///< Side path comes from
-    Side to;       ///< Side path goes to
-    TileType type; ///< Tile type
+    Side from;      ///< Side path comes from
+    Side to;        ///< Side path goes to
+    TileType type;  ///< Tile type
+    int isStart;    ///< Is start tile
 } Tile;
 
 /**
@@ -99,3 +100,15 @@ unsigned Map_getWidth();
  * @return Map height
  */
 unsigned Map_getHeight();
+
+/**
+ * @brief Get map start tile x
+ * @return Map start tile x
+ */
+unsigned Map_getStartX();
+
+/**
+ * @brief Get map start tile y
+ * @return Map start tile y
+ */
+unsigned Map_getStartY();
