@@ -19,6 +19,7 @@
 static Tile tiles[MAP_MAX_SIZE][MAP_MAX_SIZE];
 
 static unsigned width, height;
+static unsigned startX, startY;
 
 void Map_init(const char *filename) {
     FILE *file;
@@ -29,6 +30,23 @@ void Map_init(const char *filename) {
     int c;
     unsigned x = 0, y = 0;
     int which = 0;
+
+    char startPosStrX[8];
+    char startPosStrY[8];
+    char *spPtr = startPosStrX;
+    while ((c = fgetc(file)) != EOF) {
+        if (c == ' ') {
+            *spPtr = 0;
+            spPtr = startPosStrY;
+        } else if (c == '\n') {
+            *spPtr = 0;
+            break;
+        } else if (c >= '0' && c <= '9')
+            *(spPtr++) = (char)c;
+    }
+    startX = atoi(startPosStrX);
+    startY = atoi(startPosStrY);
+
     while ((c = fgetc(file)) != EOF) {
         if (which > 1) {
             Tile *t = &tiles[y][x];
@@ -95,6 +113,7 @@ void Map_init(const char *filename) {
             t->type = TTVert;
         else t->type = TTTurn;
     }
+    tiles[startY][startX].isStart = 1;
     if (x > 0)
         y++;
     height = y;
@@ -340,4 +359,12 @@ unsigned Map_getWidth() {
 
 unsigned Map_getHeight() {
     return height;
+}
+
+unsigned Map_getStartX() {
+    return startX;
+}
+
+unsigned Map_getStartY() {
+    return startY;
 }

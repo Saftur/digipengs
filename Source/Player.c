@@ -70,11 +70,12 @@ void Player_onDraw(Object *obj, PlayerData *data)
 }
 
 
-Object *Player_new(AEVec2 pos, Controls controls, unsigned camNum)
+Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned camNum)
 {
     PlayerData * data = calloc(1, sizeof(PlayerData));
     Object *player = Object_new(Player_onInit, Player_onUpdate, Player_onDraw, data, Player_onShutdown, "Player");
     Object_setPos(player, pos);
+    data->direction = direction;
     data->camNum = camNum;
     data->controls = controls;
     return player;

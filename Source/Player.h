@@ -35,12 +35,13 @@ typedef struct PlayerData
 
 /**
  * @brief Create new Player
- * @param pos      Position to create player at
- * @param controls Player controls
- * @param camNum   Id of the camera that follows this player
+ * @param pos       Position to create player at
+ * @param direction Direction to start player in
+ * @param controls  Player controls
+ * @param camNum    Id of the camera that follows this player
  * @return New player
  */
-Object * Player_new(AEVec2 pos, Controls controls, unsigned camNum);
+Object * Player_new(AEVec2 pos, float direction, Controls controls, unsigned camNum);
 
 /**
  * @brief Returns the direction of a player

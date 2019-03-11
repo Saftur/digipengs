@@ -146,7 +146,7 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 	ImageHandler_shutdown();
 	Camera_shutdown();
     AEGfxMeshFree(MeshHandler_getSquareMesh());
-  Audio_cleanup();
+    Audio_cleanup();
 
 	// free the system
 	AESysExit();
