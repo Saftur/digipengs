@@ -21,6 +21,7 @@
 #include "Camera.h"
 #include "Polarbear.h"
 #include "ObstacleManager.h"
+#include "Utils.h"
 
 #define SCREEN_SEPARATOR_WIDTH 10
 
@@ -39,8 +40,13 @@ void Level2_onInit()
 	if (splitScreen)
 	{
 		Camera_clear();
-		Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, (AEVec2) { 400, 600 });
-		Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 400, 0 }, (AEVec2) { 400, 600 });
+        AEVec2 size = AEGfxGetWinSize();
+        size.x /= 2.f;
+        AEVec2 posL = {0, 0};
+        AEVec2 posR = {0, 0};
+        posR.x = size.x;
+		Camera_new((AEVec2) { 0, 0 }, 1.f, 0, posL, size);
+		Camera_new((AEVec2) { 0, 0 }, 1.f, 0, posR, size);
 	}
 
     Map_init("Assets\\Map.txt");
@@ -109,7 +115,7 @@ void Level2_onDraw()
 void Level2_onShutdown()
 {
 	Camera_clear();
-	Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 600 });
+	Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, AEGfxGetWinSize());
 }
 
 void Level2_onUnload()

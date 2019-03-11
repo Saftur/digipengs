@@ -9,6 +9,7 @@
 #include "LevelEditorLevel.h"
 #include "LevelEditor.h"
 #include "Camera.h"
+#include "Utils.h"
 
 void LevelEditorLevel_onLoad()
 {
@@ -44,7 +45,7 @@ void LevelEditorLevel_onShutdown()
 {
     LevelEditor_shutdown(); 
     Camera_clear();
-    Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 600 });
+    Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, AEGfxGetWinSize());
 }
 
 void LevelEditorLevel_onUnload()
