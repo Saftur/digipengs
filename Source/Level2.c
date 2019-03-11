@@ -17,6 +17,7 @@
 #include "Map.h"
 #include "CollisionHandler.h"
 #include "CollisionEvents.h"
+#include "AudioHandler.h"
 #include "Camera.h"
 #include "Polarbear.h"
 #include "ObstacleManager.h"
@@ -30,6 +31,7 @@ static AEGfxVertexList *separatorMesh;
 void Level2_onLoad()
 {
     separatorMesh = MeshHandler_createSquareMesh(SCREEN_SEPARATOR_WIDTH, AEGfxGetWinMaxY() - AEGfxGetWinMinY(), 1, 1);
+  Audio_playGameplay();
 }
 
 void Level2_onInit()
@@ -113,4 +115,5 @@ void Level2_onShutdown()
 void Level2_onUnload()
 {
     AEGfxMeshFree(separatorMesh);
+    Audio_stopGameplay();
 }

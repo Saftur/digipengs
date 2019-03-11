@@ -24,6 +24,7 @@
 #include "CollisionHandler.h"
 #include "Player.h"
 #include "MeshHandler.h"
+#include "AudioHandler.h"
 
 // ---------------------------------------------------------------------------
 
@@ -83,6 +84,7 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 	ObjectManager_init();
 	ImageHandler_initializeTextures();
 	Camera_init();
+    Audio_init();
 
     AEGfxSetBackgroundColor(0.4f, 0.4f, 0.4f);
 
@@ -132,6 +134,7 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 	ImageHandler_shutdown();
 	Camera_shutdown();
     AEGfxMeshFree(MeshHandler_getSquareMesh());
+  Audio_cleanup();
 
 	// free the system
 	AESysExit();

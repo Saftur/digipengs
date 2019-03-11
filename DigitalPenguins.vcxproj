@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\AudioHandler.c" />
     <ClCompile Include="source\Boulder.c" />
     <ClCompile Include="Source\Button.c" />
     <ClCompile Include="Source\Camera.c" />
@@ -48,6 +49,7 @@
     <ClCompile Include="Source\Vector.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\AudioHandler.h" />
     <ClInclude Include="Source\Button.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="source\Boulder.h" />
@@ -132,16 +134,18 @@
       <SDLCheck>true</SDLCheck>
       <CompileAs>CompileAsC</CompileAs>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>.\AE\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\FMOD\inc;.\AE\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Xinput9_1_0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>.\FMOD\lib\fmod_vc.lib;.\FMOD\lib\fmodL_vc.lib;Xinput9_1_0.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy .\AE\lib\Alpha_Engine_D.dll "$(OutDir)" /Y
-xcopy .\AE\lib\glew32.dll "$(OutDir)" /Y</Command>
+xcopy .\AE\lib\glew32.dll "$(OutDir)" /Y
+xcopy .\FMOD\lib\fmod.dll "$(OutDir)" /Y
+xcopy .\FMOD\lib\fmodL.dll "$(OutDir)" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

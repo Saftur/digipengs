@@ -73,7 +73,7 @@
     <ClCompile Include="Source\Ice.c">
       <Filter>Game\Objects\Obstacles</Filter>
     </ClCompile>
-    <ClCompile Include="Source\objectmanager.c">
+    <ClCompile Include="Source\ObjectManager.c">
       <Filter>Engine\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Source\Pothole.c">
@@ -92,7 +92,10 @@
       <Filter>Game\Levels</Filter>
     </ClCompile>
     <ClCompile Include="Source\ObstacleManager.c">
-      <Filter>Engine\Objects</Filter>
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AudioHandler.c">
+      <Filter>Engine\Handlers</Filter>
     </ClCompile>
     <ClCompile Include="Source\TextHandler.c">
       <Filter>Engine\Handlers</Filter>
@@ -184,7 +187,10 @@
       <Filter>Game\Objects\Obstacles</Filter>
     </ClInclude>
     <ClInclude Include="Source\ObstacleManager.h">
-      <Filter>Engine\Objects</Filter>
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AudioHandler.h">
+      <Filter>Engine\Handlers</Filter>
     </ClInclude>
     <ClInclude Include="Source\TextHandler.h">
       <Filter>Engine\Handlers</Filter>
