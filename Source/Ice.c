@@ -16,7 +16,7 @@ typedef float IceSize;
 
 void Ice_onDraw(Object *obj, IceSize *size)
 {
-    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.test, Object_getPos(obj), *size, 0, 1.0f);
+    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.test, Object_getPos(obj), *size, *size, 0, 1.0f);
 }
 
 void Ice_decrementSize(Object* ice)

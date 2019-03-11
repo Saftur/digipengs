@@ -16,7 +16,7 @@ typedef float BoulderSize;
 
 void Boulder_onDraw(Object *obj, BoulderSize *size)
 {
-    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.boulder, Object_getPos(obj), *size, 0, 1.0f);
+    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.boulder, Object_getPos(obj), *size, *size, 0, 1.0f);
 }
 
 void Boulder_decrementSize(Object* boulder)

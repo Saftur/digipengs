@@ -16,12 +16,10 @@ AEGfxVertexList *MeshHandler_getSquareMesh();
 
 /**
  * @brief creates a mesh
- * @param width Width of the mesh
- * @param height Height of the mesh
+ * @param xHalfSize Half width of the mesh
+ * @param yHalfSize Half height of the mesh
+ * @param uSize U value for spritesheet
+ * @param vSize V value for spritesheet
  * @return A pointer to a mesh
- * @par Example: 
- * @code 
- * AEGfxVertexList *squareMesh = MeshHandler_createSquareMesh(200, 200); 
- * @endcode
  */
-AEGfxVertexList* MeshHandler_createSquareMesh(float width, float height);
+AEGfxVertexList* MeshHandler_createSquareMesh (float xHalfSize, float yHalfSize, float uSize, float vSize);

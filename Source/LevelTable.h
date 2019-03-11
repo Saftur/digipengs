@@ -13,20 +13,20 @@
  */
 typedef enum
 {
-    LevelQuit = -3,
-    LevelRestart = -2,
-    LevelInvalid = -1,
+	LevelQuit = -3,
+	LevelRestart = -2,
+	LevelInvalid = -1,
 
-    //Game levels.
-    Level1,
+	//Game levels.
+	Level1,
 	Level2,
 	TitleScreen,
 	EndScreen,
-    LevelEditor,
+	LevelEditor,
 
-    //Extra info
-    LevelNum,
-    LastLevel = LevelNum - 1,
+	//Extra info
+	LevelNum,
+	LastLevel = LevelNum - 1,
 
     //Initial level.
     InitialLevel = TitleScreen

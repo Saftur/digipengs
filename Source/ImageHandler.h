@@ -35,6 +35,8 @@ struct LOADEDTEXTURES
     AEGfxTexture *map_leftCornerTile; ///< Left corner tile segment for the map.
     AEGfxTexture *screen_separator;
 
+	AEGfxTexture *font;
+	
 }typedef LOADEDTEXTURES;
 
 /**
@@ -59,15 +61,20 @@ void ImageHandler_shutdown();
  * @param rotation Rotation of the image
  * @param alpha Alpha of the image
  */
-void ImageHandler_screenDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float scale, float rotation, float alpha);
+void ImageHandler_screenDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float scaleX, float scaleY, float rotation, float alpha);
+
+void ImageHandler_screenDrawTextureWithOffset(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float scaleX, float scaleY, float rotation, float alpha, f32 offsetX, f32 offsetY);
 
 /**
  * @brief Draws a texture onto a given mesh (Assumes mesh is a composite of triangles)
  * @param mesh The mesh to draw onto
  * @param texture The texture to draw onto the mesh
  * @param position Where to draw
- * @param scale Scale to draw the image at
+ * @param scaleX Scale to draw the image at
+ * @param scaleY Scale to draw the image at
  * @param rotation Rotation of the image
- * @param alpha Alpha of the image
+ * @param alpha Alpha of the imageas
  */
-void ImageHandler_fullDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float scale, float rotation, float alpha);
+void ImageHandler_fullDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float scaleX, float scaleY, float rotation, float alpha);
+
+void ImageHandler_fullDrawTextureWithOffset(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float scaleX, float scaleY, float rotation, float alpha, f32 offsetX, f32 offsetY);

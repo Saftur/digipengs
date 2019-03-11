@@ -5,6 +5,7 @@
  */
 #include "stdafx.h"
 #include "ImageHandler.h"
+#include "MeshHandler.h"
 #include "Button.h"
 #include <AEEngine.h>
 #include "ImageHandler.h"
@@ -13,7 +14,6 @@ typedef struct Button {
 	AEGfxTexture *defaultTexture;
 	AEGfxTexture *mouseHoverTexture;
 	AEGfxTexture *onClickTexture;
-	AEGfxVertexList *mesh;
 	float width;
 	float height;
 	int texture;
@@ -34,8 +34,6 @@ void Button_onInit(Object *obj, void *data) {
  */
 void Button_onUpdate(Object *obj, Button *data, float dt) {
 	printf("Button update\n");
-	UNREFERENCED_PARAMETER(obj);
-	UNREFERENCED_PARAMETER(data);
 	UNREFERENCED_PARAMETER(dt);
 	
 	f32 objX, objY;
@@ -74,29 +72,28 @@ void Button_onUpdate(Object *obj, Button *data, float dt) {
 }
 
 void Button_onDraw(Object *obj, Button *data) {
-    UNREFERENCED_PARAMETER(obj);
+    
 	if (data->texture == DEFAULT)
 	{
-		ImageHandler_fullDrawTexture(data->mesh, data->defaultTexture, Object_getPos(obj), 1, 0, 1);
+		ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), data->defaultTexture, Object_getPos(obj), data->width, data->height, 0, 1);
 	}
 	else if (data->texture == HOVER)
 	{
-        ImageHandler_fullDrawTexture(data->mesh, data->mouseHoverTexture, Object_getPos(obj), 1, 0, 1);
+        ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), data->mouseHoverTexture, Object_getPos(obj), data->width, data->height, 0, 1);
 	}
 	else if (data->texture == ON_CLICK)
 	{
-        ImageHandler_fullDrawTexture(data->mesh, data->onClickTexture, Object_getPos(obj), 1, 0, 1);
+        ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), data->onClickTexture, Object_getPos(obj), data->width, data->height, 0, 1);
 	}
 }
 
 Object *Button_new(ButtonEffectFunc buttonEffect, AEGfxTexture *defaultTexture, AEGfxTexture *mouseHoverTexture, AEGfxTexture *onClickTexture, 
-				   AEGfxVertexList *mesh, float x, float y, float width, float height) {
+				   float x, float y, float width, float height) {
 	Button *buttonData = malloc(sizeof(Button));
 	buttonData->buttonEffect = buttonEffect;
 	buttonData->defaultTexture = defaultTexture;
 	buttonData->mouseHoverTexture = mouseHoverTexture;
 	buttonData->onClickTexture = onClickTexture;
-	buttonData->mesh = mesh;
 	Object *buttonObj = Object_new(Button_onInit, Button_onUpdate, Button_onDraw, buttonData, free, "Button");
 	AEVec2 pos;
 	pos.x = x;
