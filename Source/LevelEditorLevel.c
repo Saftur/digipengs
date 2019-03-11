@@ -27,9 +27,9 @@ void LevelEditorLevel_onUpdate(float dt)
 
     Camera *cam = Camera_getCurr();
     if (AEInputCheckCurr('Q'))
-        cam->worldScale *= 0.9f;
+        cam->worldScale *= 0.99f;
     if (AEInputCheckCurr('E'))
-        cam->worldScale *= 1.1f;
+        cam->worldScale *= 1.01f;
 
     float camSpeed = 2.f;
     AEVec2 camMov = { 0,0 };

@@ -50,11 +50,13 @@ void Map_init(const char *filename) {
     while ((c = fgetc(file)) != EOF) {
         if (which > 1) {
             Tile *t = &tiles[y][x];
-            if (t->from == SLeft && t->to == SRight ||
-                t->from == SRight && t->to == SLeft)
+            if (t->from == SNone)
+                t->type = TTNone;
+            else if (t->from == SLeft && t->to == SRight ||
+                     t->from == SRight && t->to == SLeft)
                 t->type = TTHoriz;
             else if (t->from == SUp && t->to == SDown ||
-                t->from == SDown && t->to == SUp)
+                     t->from == SDown && t->to == SUp)
                 t->type = TTVert;
             else t->type = TTTurn;
             x++;

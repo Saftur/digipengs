@@ -31,9 +31,13 @@ static unsigned TileX, TileY;
 
 static vector *Obstacles;
 
+const static float EditKeyTimerOffset = 0.25f;
+static float EditKeyTimer = 0.f;
+
 static void DrawIcons();
 static void DrawObstacles();
-static void EditMap();
+static int CheckEditKey(u8 key, float dt);
+static void EditMap(float dt);
 static void AddTile(Side dir);
 static void LoadMap(const char *filename);
 static void SaveMap();
@@ -136,7 +140,7 @@ void LevelEditor_update(float dt)
         break;
 
     case None:
-        EditMap();
+        EditMap(dt);
         break;
         
     default:
@@ -149,12 +153,22 @@ void LevelEditor_shutdown()
     vector_delete(Obstacles);
 }
 
-static void EditMap() {
+static int CheckEditKey(u8 key, float dt) {
+    EditKeyTimer -= dt;
+    if (AEInputCheckCurr(VK_LSHIFT) && EditKeyTimer <= 0.f) {
+        if (AEInputCheckCurr(key)) {
+            EditKeyTimer = EditKeyTimerOffset;
+            return 1;
+        } else return 0;
+    } else return AEInputCheckTriggered(key);
+}
+
+static void EditMap(float dt) {
     Tile currTile = Map[TileY][TileX];
     
-    if (AEInputCheckTriggered(VK_BACK) && !currTile.isStart) {
+    if (CheckEditKey(VK_BACK, dt) && !currTile.isStart) {
         Side from = Map[TileY][TileX].from;
-        Map[TileY][TileX] = (Tile) { SNone, SNone, TTNone };
+        Map[TileY][TileX] = (Tile) { SNone, SNone, TTNone, 0 };
         if (from == SLeft) TileX--;
         if (from == SRight) TileX++;
         if (from == SUp) TileY--;
@@ -170,10 +184,10 @@ static void EditMap() {
         SaveMap();
     }
 
-    AddTile(AEInputCheckTriggered(VK_UP) ? SUp :
-            AEInputCheckTriggered(VK_DOWN) ? SDown :
-            AEInputCheckTriggered(VK_LEFT) ? SLeft :
-            AEInputCheckTriggered(VK_RIGHT) ? SRight :
+    AddTile(CheckEditKey(VK_UP, dt) ? SUp :
+            CheckEditKey(VK_DOWN, dt) ? SDown :
+            CheckEditKey(VK_LEFT, dt) ? SLeft :
+            CheckEditKey(VK_RIGHT, dt) ? SRight :
             SNone);
 }
 
@@ -250,7 +264,7 @@ static void AddTile(Side dir) {
 
     if (dir == SUp) {
         Tile to = Map[newTileY - 1][newTileX];
-        if (!(to.isStart && to.from == SDown) && to.type != TTNone)
+        if ((newTileY - 1 < 0 && Height == MAP_MAX_SIZE) || !((to.isStart && to.from == SDown) || to.type == TTNone))
             return;
         switch (currTile.to) {
         case SUp:
@@ -266,7 +280,7 @@ static void AddTile(Side dir) {
     }
     if (dir == SDown) {
         Tile to = Map[newTileY + 1][newTileX];
-        if (!(to.isStart && to.from == SUp) && to.type != TTNone)
+        if ((newTileY + 1 >= (int)Height && Height == MAP_MAX_SIZE) || !((to.isStart && to.from == SUp) || to.type == TTNone))
             return;
         switch (currTile.to) {
         case SDown:
@@ -282,7 +296,7 @@ static void AddTile(Side dir) {
     }
     if (dir == SLeft) {
         Tile to = Map[newTileY][newTileX - 1];
-        if (!(to.isStart && to.from == SRight) && to.type != TTNone)
+        if ((newTileX - 1 < 0 && Width == MAP_MAX_SIZE) || !((to.isStart && to.from == SRight) || to.type == TTNone))
             return;
         switch (currTile.to) {
         case SUp:
@@ -298,7 +312,7 @@ static void AddTile(Side dir) {
     }
     if (dir == SRight) {
         Tile to = Map[newTileY][newTileX + 1];
-        if (!(to.isStart && to.from == SLeft) && to.type != TTNone)
+        if ((newTileX + 1 >= (int)Width && Width == MAP_MAX_SIZE) || !((to.isStart && to.from == SLeft) || to.type == TTNone))
             return;
         switch (currTile.to) {
         case SUp:
@@ -346,11 +360,13 @@ static void LoadMap(const char *filename) {
     while ((c = fgetc(file)) != EOF) {
         if (which > 1) {
             Tile *t = &Map[y][x];
-            if (t->from == SLeft && t->to == SRight ||
-                t->from == SRight && t->to == SLeft)
+            if (t->from == SNone)
+                t->type = TTNone;
+            else if (t->from == SLeft && t->to == SRight ||
+                     t->from == SRight && t->to == SLeft)
                 t->type = TTHoriz;
             else if (t->from == SUp && t->to == SDown ||
-                t->from == SDown && t->to == SUp)
+                     t->from == SDown && t->to == SUp)
                 t->type = TTVert;
             else t->type = TTTurn;
             x++;
