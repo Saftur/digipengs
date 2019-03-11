@@ -30,7 +30,6 @@ void Char_onInit(Object *obj, void *data)
 	UNREFERENCED_PARAMETER(data);
 }
 
-
 void Char_onUpdate(Object *obj, Character *data, float dt) 
 {
 	printf("Char update\n");
