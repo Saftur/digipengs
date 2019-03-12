@@ -12,11 +12,11 @@
 #define CHAR_HEIGHT 42
 #define CHAR_WIDTH 23
 
-#define TEXT_ROWS 6
-#define TEXT_COLUMNS 16
+#define SPRITESOURCE_ROWS 6
+#define SPRITESOURCE_COLUMNS 16
 
-AEGfxVertexList* createCharMesh();
+AEGfxVertexList* getCharMesh();
 
 AEVec2 asciiValueToOffset(char character);
 
-void createCharacters(char *text, AEGfxTexture *font, AEVec2 textPos, float width, float height);
+Object* Text_new(char *text, AEGfxTexture *font, AEVec2 textPos, float width, float height);
