@@ -42,6 +42,7 @@ void Background_shutdown(Object *obj)
 {
     UNREFERENCED_PARAMETER(obj);
     AEGfxMeshFree(mesh_);
+    mesh_ = NULL;
 }
 
 void Background_onUpdate(Object *obj, void *data, float dt)

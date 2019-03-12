@@ -80,6 +80,10 @@ void ImageHandler_initializeTextures()
 
     TEXTURES.background = AEGfxTextureLoad("./Assets/background.png");
     AE_ASSERT_MESG(TEXTURES.background, "Failed to load/create TEXTURE: background");
+
+
+    TEXTURES.polarbear = AEGfxTextureLoad("./Assets/PolarBear.png");
+    AE_ASSERT_MESG(TEXTURES.polarbear, "Failed to load/create TEXTURE: polarbear");
 }
 
 void ImageHandler_shutdown() {
@@ -110,6 +114,7 @@ void ImageHandler_shutdown() {
 	AEGfxTextureUnload(TEXTURES.font);
 
     AEGfxTextureUnload(TEXTURES.background);
+    AEGfxTextureUnload(TEXTURES.polarbear);
 }
 
 void ImageHandler_screenDrawTexture(AEGfxVertexList *mesh, AEGfxTexture *texture, AEVec2 position, float scaleX, float scaleY, float rotation, float alpha)

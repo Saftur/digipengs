@@ -12,7 +12,7 @@
 #include "objectmanager.h"
 #include "Utils.h"
 
-#define POLARBEAR_DEFAULT_SIZE LANE_WIDTH
+#define POLARBEAR_DEFAULT_SIZE 1
 #define POLARBEAR_INCREMENT    (POLARBEAR_DEFAULT_SIZE / 4)
 #define POLARBEAR_DECREMENT    (POLARBEAR_DEFAULT_SIZE / 8)
 
@@ -26,6 +26,8 @@
 #define POLARBEAR_MAX_DISTANCE_MIN 300
 #define POLARBEAR_MAX_DISTANCE_MAX 500
 
+#define POLARBEAR_ASPECT_RATIO 1.7f
+
 #define POLARBEAR_HOME_DISTANCE_EPISLON 100
 
 #define POLARBEAR_RANGE_SQUARED_MIN        (POLARBEAR_RANGE_MIN * POLARBEAR_RANGE_MIN)
@@ -34,6 +36,8 @@
 #define POLARBEAR_MAX_DISTANCE_SQUARED_MAX (POLARBEAR_MAX_DISTANCE_MAX * POLARBEAR_MAX_DISTANCE_MAX)
 
 #define POLARBEAR_ROTATION_SPEED(size) (5 * POLARBEAR_DEFAULT_SIZE / size)
+
+#define POLARBEAR_TEXTURE TEXTURES.polarbear
 
 static float float_rand(float min, float max);
 
@@ -64,7 +68,7 @@ typedef struct PolarbearData
 
 void Polarbear_onDraw(Object *obj, PolarbearData *data)
 {
-    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.player, Object_getPos(obj), data->size, data->size, data->rotation, 1.0f);
+    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), POLARBEAR_TEXTURE, Object_getPos(obj), data->size * POLARBEAR_ASPECT_RATIO, data->size, data->rotation, 1.0f);
 }
 
 void Polarbear_onInit(Object *obj, PolarbearData *data)
@@ -189,4 +193,10 @@ static float float_rand(float min, float max)
 {
     float scale = rand() / (float)RAND_MAX; /* [0, 1.0] */
     return min + scale * (max - min);      /* [min, max] */
+}
+
+
+void Polarbear_setReturn(Object* polarbear)
+{
+    ((PolarbearData*)Object_getData(polarbear))->state = RETURNING;
 }
