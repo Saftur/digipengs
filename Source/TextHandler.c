@@ -24,14 +24,14 @@ typedef struct Text {
 
 Object* Text_new(char *text, AEGfxTexture *font, AEVec2 textPos, float charWidth, float charHeight)
 {
-	Text *textData = malloc(sizeof(Text));
+	Text* textData = malloc(sizeof(Text));
 	textData->text = text;
 	textData->font = font;
 	textData->textPos = textPos;
 	textData->charWidth = charWidth;
 	textData->charHeight = charHeight;
 	
-	Object *textObj = Object_new(Text_onInit, Text_onUpdate, Text_onDraw, textData, free, "Text");
+	Object* textObj = Object_new(Text_onInit, Text_onUpdate, Text_onDraw, textData, free, "Text");
 	Object_setPos(textObj, textPos);
 	ObjectManager_addObj(textObj);
 	return textObj;

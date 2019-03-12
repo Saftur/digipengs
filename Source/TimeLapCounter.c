@@ -22,12 +22,17 @@ Object* Timer_new(AEGfxTexture* font, AEVec2 textPos, AEVec2 charScale, float in
 {
 	Timer* timerData = malloc(sizeof(Timer));
 	timerData->time = initialTime;
-	timerData->intTime = -1;
+	timerData->intTime = (int) initialTime;
 	timerData->textData = Text_new(timerData->timeAsString, font, textPos, charScale.x, charScale.y);
 
 	Object *timerObj = Object_new(Timer_onInit, Timer_onUpdate, Timer_onDraw, timerData, free, "Timer");
 	Object_setPos(timerObj, textPos);
 	return timerObj;
+}
+
+void Timer_Reset(Timer *data, float newTime)
+{
+	data->time = newTime;
 }
 
 void Timer_onInit(Object *obj, Timer *data)
@@ -78,6 +83,7 @@ void Timer_updateString(Timer* data)
 
 void Timer_onDraw(Object *obj, Timer *data)
 {
+	// Nothing to draw except text, which is drawn by the text object
 	UNREFERENCED_PARAMETER(obj);
 	UNREFERENCED_PARAMETER(data);
 }
