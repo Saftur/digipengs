@@ -1,12 +1,12 @@
 /**
- * @file Level1.c
+ * @file Timer.c
  * @author Parker Friedland
  * @date 1/23/2019
- * @brief TitleScreen
+ * @brief Timer
  */
 
 #include "stdafx.h"
-#include "TimeLapCounter.h"
+#include "Timer.h"
 #include "TextHandler.h"
 #include "objectmanager.h"
 

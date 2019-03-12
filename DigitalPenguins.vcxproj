@@ -44,7 +44,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\TextHandler.c" />
-    <ClCompile Include="Source\TimeLapCounter.c" />
+    <ClCompile Include="Source\Timer.c" />
     <ClCompile Include="Source\TitleScreen.c" />
     <ClCompile Include="Source\Utils.c" />
     <ClCompile Include="Source\Vector.c" />
@@ -79,7 +79,7 @@
     <ClInclude Include="Source\Pothole.h" />
     <ClInclude Include="Source\stdafx.h" />
     <ClInclude Include="Source\TextHandler.h" />
-    <ClInclude Include="Source\TimeLapCounter.h" />
+    <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\TitleScreen.h" />
     <ClInclude Include="Source\Utils.h" />
     <ClInclude Include="Source\Vector.h" />

@@ -22,6 +22,7 @@
 #include "Polarbear.h"
 #include "ObstacleManager.h"
 #include "Utils.h"
+#include "Timer.h"
 
 #define SCREEN_SEPARATOR_WIDTH 10
 
@@ -101,6 +102,9 @@ void Level2_onInit()
 
     if (splitScreen)
         ObjectManager_addObj(Object_new(NULL, NULL, separatorDraw, NULL, NULL, "Separator"));
+
+    Object *timer = Timer_new(TEXTURES.font, (AEVec2) { 0, 0 }, (AEVec2) {50, 100}, 0);
+    ObjectManager_addObj(timer);
 }
 
 static void initPlayers() {
