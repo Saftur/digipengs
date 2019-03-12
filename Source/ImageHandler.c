@@ -30,6 +30,12 @@ void ImageHandler_initializeTextures()
 	TEXTURES.endScreen_youDied = AEGfxTextureLoad("./Assets/TempYouDied.png");
 	AE_ASSERT_MESG(TEXTURES.endScreen_youDied, "Failed to load/create TEXTURE: endScreen_youDied");
 
+	TEXTURES.endScreen_player1Wins = AEGfxTextureLoad("./Assets/Player1Wins.png");
+	AE_ASSERT_MESG(TEXTURES.endScreen_player1Wins, "Failed to load/create TEXTURE: Player1Wins");
+
+	TEXTURES.endScreen_player2Wins = AEGfxTextureLoad("./Assets/Player2Wins.png");
+	AE_ASSERT_MESG(TEXTURES.endScreen_player2Wins, "Failed to load/create TEXTURE: Player2Wins");
+
 	TEXTURES.endScreen_tryAgainButton = AEGfxTextureLoad("./Assets/TempTryAgainButton.png");
 	AE_ASSERT_MESG(TEXTURES.endScreen_tryAgainButton, "Failed to load/create TEXTURE: endScreen_tryAgainButton");
 

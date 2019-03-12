@@ -30,7 +30,7 @@ typedef struct PlayerData
 	AEGfxVertexList *mesh;    ///< Mesh
 	AEGfxTexture    *texture; ///< Texture
 
-    unsigned camNum; ///< Camera id
+    unsigned playerNum; ///< Player number
 
 	float alpha; ///< Transparency
 }PlayerData;
@@ -40,10 +40,10 @@ typedef struct PlayerData
  * @param pos       Position to create player at
  * @param direction Direction to start player in
  * @param controls  Player controls
- * @param camNum    Id of the camera that follows this player
+ * @param playerNum Player number
  * @return New player
  */
-Object * Player_new(AEVec2 pos, float direction, Controls controls, unsigned camNum);
+Object * Player_new(AEVec2 pos, float direction, Controls controls, unsigned playerNum);
 
 /**
  * @brief Returns the direction of a player

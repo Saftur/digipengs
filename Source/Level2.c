@@ -32,6 +32,7 @@ int splitScreen = 0;
 static AEGfxVertexList *separatorMesh;
 
 static void initPlayers();
+static void separatorDraw(Object *obj, void *data);
 
 void Level2_onLoad()
 {
@@ -97,6 +98,9 @@ void Level2_onInit()
     ObjectManager_addObj(obj);
 
     initPlayers();
+
+    if (splitScreen)
+        ObjectManager_addObj(Object_new(NULL, NULL, separatorDraw, NULL, NULL, "Separator"));
 }
 
 static void initPlayers() {
@@ -178,14 +182,17 @@ void Level2_onUpdate(float dt)
 void Level2_onDraw()
 {
     Map_draw();
-    if (splitScreen) {
-        Camera *cam = Camera_getCurr();
-        float xPos = cam->viewportSize.x / 2.f - SCREEN_SEPARATOR_WIDTH / 2.f;
-        AEVec2 pos;
-        pos.x = (Camera_getCurrNum() == 0 ? xPos : -xPos);
-        pos.y = 0;
-        ImageHandler_screenDrawTexture(separatorMesh, TEXTURES.screen_separator, pos, 1, 1, 0, 1.0f);
-    }
+}
+
+static void separatorDraw(Object *obj, void *data) {
+    UNREFERENCED_PARAMETER(obj);
+    UNREFERENCED_PARAMETER(data);
+    Camera *cam = Camera_getCurr();
+    float xPos = cam->viewportSize.x / 2.f - SCREEN_SEPARATOR_WIDTH / 2.f;
+    AEVec2 pos;
+    pos.x = (Camera_getCurrNum() == 0 ? xPos : -xPos);
+    pos.y = 0;
+    ImageHandler_screenDrawTexture(separatorMesh, TEXTURES.screen_separator, pos, 1, 1, 0, 1.0f);
 }
 
 void Level2_onShutdown()

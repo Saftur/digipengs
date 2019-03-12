@@ -17,6 +17,8 @@
 AEGfxVertexList* youDiedMesh;
 AEGfxVertexList* buttonMesh;
 
+int EndScreen_winner = 0;
+
 static void tryAgainEffect() {
 	LevelManager_setNextLevel(Level2);
 }
@@ -52,7 +54,18 @@ void EndScreen_onUpdate(float dt)
 {
 	UNREFERENCED_PARAMETER(dt);
 
-	ImageHandler_fullDrawTexture(youDiedMesh, TEXTURES.endScreen_youDied, (AEVec2) { 0, 150 }, 600, 50, 0, 1);
+    AEGfxTexture *topTexture = NULL;
+
+    switch (EndScreen_winner) {
+    case 1:
+        topTexture = TEXTURES.endScreen_player1Wins;
+        break;
+    case 2:
+        topTexture = TEXTURES.endScreen_player2Wins;
+        break;
+    }
+
+    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), topTexture, (AEVec2) { 0, 150 }, 600, 50, 0, 1);
 }
 
 void EndScreen_onShutdown()

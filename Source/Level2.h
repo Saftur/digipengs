@@ -7,6 +7,8 @@
 
 #pragma once
 
+#define NUM_LAPS 3
+
 extern int splitScreen;
 
 /**

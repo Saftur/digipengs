@@ -27,6 +27,8 @@ struct LOADEDTEXTURES
     AEGfxTexture *playerGreen; ///< green player
     AEGfxTexture *boulder;                 ///< Boulder
 	AEGfxTexture *endScreen_youDied; ///< button for the endscreen
+	AEGfxTexture *endScreen_player1Wins; ///< Player 1 wins banner
+	AEGfxTexture *endScreen_player2Wins; ///< Player 2 wins banner
 	AEGfxTexture *endScreen_tryAgainButton; ///< button for the endscreen
 	AEGfxTexture *endScreen_titleScreenButton; ///< button for the titlescreen
 	AEGfxTexture *buttonSelected;
