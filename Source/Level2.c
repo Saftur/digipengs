@@ -22,6 +22,7 @@
 #include "Polarbear.h"
 #include "ObstacleManager.h"
 #include "Utils.h"
+#include "Background.h"
 
 #define SCREEN_SEPARATOR_WIDTH 10
 
@@ -39,6 +40,10 @@ void Level2_onLoad()
 
 void Level2_onInit()
 {
+
+    //Draw Background
+    ObjectManager_addObj(Background_create());
+
 	if (splitScreen)
 	{
 		Camera_clear();
@@ -131,6 +136,7 @@ void Level2_onUpdate(float dt)
 
 void Level2_onDraw()
 {
+    Background_onDraw();
     Map_draw();
     if (splitScreen) {
         Camera *cam = Camera_getCurr();
