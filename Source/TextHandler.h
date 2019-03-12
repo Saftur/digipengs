@@ -8,6 +8,7 @@
 #pragma once
 
 #include "ImageHandler.h"
+#include "Object.h"
 
 #define CHAR_HEIGHT 42
 #define CHAR_WIDTH 23

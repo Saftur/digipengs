@@ -18,31 +18,21 @@ typedef struct Timer {
 	int intTime;
 } Timer;
 
-Object* Timer_new(AEGfxTexture* font, AEVec2 textPos, AEVec2 charScale, float initialTime)
-{
-	Timer* timerData = malloc(sizeof(Timer));
-	timerData->time = initialTime;
-	timerData->intTime = (int) initialTime;
-	timerData->textData = Text_new(timerData->timeAsString, font, textPos, charScale.x, charScale.y);
-
-	Object *timerObj = Object_new(Timer_onInit, Timer_onUpdate, Timer_onDraw, timerData, free, "Timer");
-	Object_setPos(timerObj, textPos);
-	return timerObj;
-}
+static void Timer_updateString(Timer* data);
 
 void Timer_Reset(Timer *data, float newTime)
 {
 	data->time = newTime;
 }
 
-void Timer_onInit(Object *obj, Timer *data)
+static void Timer_onInit(Object *obj, Timer *data)
 {
 	printf("Timer init\n");
 	Timer_updateString(data);
 	UNREFERENCED_PARAMETER(obj);
 }
 
-void Timer_onUpdate(Object* obj, Timer* data, float dt)
+static void Timer_onUpdate(Object* obj, Timer* data, float dt)
 {
 	printf("Timer update\n");
 
@@ -58,7 +48,7 @@ void Timer_onUpdate(Object* obj, Timer* data, float dt)
 	UNREFERENCED_PARAMETER(obj);
 }
 
-void Timer_updateString(Timer* data)
+static void Timer_updateString(Timer* data)
 {
 	int currentMinutes = data->intTime / 60;
 	int currentSeconds = data->intTime % 60;
@@ -81,9 +71,21 @@ void Timer_updateString(Timer* data)
 	data->timeAsString[stringIndex] = '\0';
 }
 
-void Timer_onDraw(Object *obj, Timer *data)
+static void Timer_onDraw(Object *obj, Timer *data)
 {
 	// Nothing to draw except text, which is drawn by the text object
 	UNREFERENCED_PARAMETER(obj);
 	UNREFERENCED_PARAMETER(data);
+}
+
+Object* Timer_new(AEGfxTexture* font, AEVec2 textPos, AEVec2 charScale, float initialTime)
+{
+	Timer* timerData = malloc(sizeof(Timer));
+	timerData->time = initialTime;
+	timerData->intTime = (int) initialTime;
+	timerData->textData = Text_new(timerData->timeAsString, font, textPos, charScale.x, charScale.y);
+
+	Object *timerObj = Object_new(Timer_onInit, Timer_onUpdate, Timer_onDraw, timerData, free, "Timer");
+	Object_setPos(timerObj, textPos);
+	return timerObj;
 }

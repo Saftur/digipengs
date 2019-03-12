@@ -22,29 +22,14 @@ typedef struct Text {
 	float charHeight;
 } Text;
 
-Object* Text_new(char *text, AEGfxTexture *font, AEVec2 textPos, float charWidth, float charHeight)
-{
-	Text* textData = malloc(sizeof(Text));
-	textData->text = text;
-	textData->font = font;
-	textData->textPos = textPos;
-	textData->charWidth = charWidth;
-	textData->charHeight = charHeight;
-	
-	Object* textObj = Object_new(Text_onInit, Text_onUpdate, Text_onDraw, textData, free, "Text");
-	Object_setPos(textObj, textPos);
-	ObjectManager_addObj(textObj);
-	return textObj;
-}
-
-void Text_onInit(Object *obj, Text *data)
+static void Text_onInit(Object *obj, Text *data)
 {
 	printf("Text init\n");
 	UNREFERENCED_PARAMETER(obj);
 	UNREFERENCED_PARAMETER(data);
 }
 
-void Text_onUpdate(Object *obj, Text *data, float dt)
+static void Text_onUpdate(Object *obj, Text *data, float dt)
 {
 	printf("Text update\n");
 	UNREFERENCED_PARAMETER(obj);
@@ -52,8 +37,9 @@ void Text_onUpdate(Object *obj, Text *data, float dt)
 	UNREFERENCED_PARAMETER(dt);
 }
 
-void Text_onDraw(Object *obj, Text *data)
+static void Text_onDraw(Object *obj, Text *data)
 {
+    UNREFERENCED_PARAMETER(obj);
 	AEVec2 charPos, charOffset;
 	charPos.x = data->textPos.x;
 	charPos.y = data->textPos.y;
@@ -72,6 +58,21 @@ void Text_onDraw(Object *obj, Text *data)
 			charPos.x += CHAR_WIDTH;
 		}
 	}
+}
+
+Object* Text_new(char *text, AEGfxTexture *font, AEVec2 textPos, float charWidth, float charHeight)
+{
+	Text* textData = malloc(sizeof(Text));
+	textData->text = text;
+	textData->font = font;
+	textData->textPos = textPos;
+	textData->charWidth = charWidth;
+	textData->charHeight = charHeight;
+	
+	Object* textObj = Object_new(Text_onInit, Text_onUpdate, Text_onDraw, textData, free, "Text");
+	Object_setPos(textObj, textPos);
+	ObjectManager_addObj(textObj);
+	return textObj;
 }
 
 AEVec2 asciiValueToOffset(char character)
