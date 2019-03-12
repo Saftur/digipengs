@@ -67,7 +67,7 @@ void TitleScreen_onInit()
 
 	//testing text
 
-	createCharacters("Testing! 1 2 3 !@#$%^&*()", TEXTURES.font, (AEVec2){ -250, 250 }, 50, 100);
+	Text_new("Testing! 1 2 3 !@#$%^&*()", TEXTURES.font, (AEVec2){ -250, 250 }, 50, 100);
 }
 
 void TitleScreen_onUpdate(float dt)

@@ -37,7 +37,7 @@ Object* Text_new(char *text, AEGfxTexture *font, AEVec2 textPos, float charWidth
 	return textObj;
 }
 
-void Text_onInit(Object *obj, void *data)
+void Text_onInit(Object *obj, Text *data)
 {
 	printf("Text init\n");
 	UNREFERENCED_PARAMETER(obj);

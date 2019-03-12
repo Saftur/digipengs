@@ -8,64 +8,77 @@
 #include "stdafx.h"
 #include "TimeLapCounter.h"
 #include "TextHandler.h"
+#include "objectmanager.h"
 
-char timeAsString[MAX_TIME_STRING_SIZE];
-int decimalMinutes[MAX_MINUTE_DIGITS];
-float time;
-float charWidth;
-float charHeight;
-int digits;
-int intTime;
-int minutes;
-int seconds;
+typedef struct Timer {
+	Object* textData;
+	char timeAsString[MAX_TIME_STRING_SIZE];
+	int decimalMinutes[MAX_MINUTE_DIGITS];
+	float time;
+	int intTime;
+} Timer;
 
-void SetTimeStringFormat()
+Object* Timer_new(AEGfxTexture* font, AEVec2 textPos, AEVec2 charScale, float initialTime)
 {
-	
+	Timer* timerData = malloc(sizeof(Timer));
+	timerData->time = initialTime;
+	timerData->intTime = -1;
+	timerData->textData = Text_new(timerData->timeAsString, font, textPos, charScale.x, charScale.y);
+
+	Object *timerObj = Object_new(Timer_onInit, Timer_onUpdate, Timer_onDraw, timerData, free, "Timer");
+	Object_setPos(timerObj, textPos);
+	return timerObj;
 }
 
-void ResetTime()
+void Timer_onInit(Object *obj, Timer *data)
 {
-	time = 0;
+	printf("Timer init\n");
+	Timer_updateString(data);
+	UNREFERENCED_PARAMETER(obj);
 }
 
-void UpdateTime(float dt)
+void Timer_onUpdate(Object* obj, Timer* data, float dt)
 {
-	time += dt;
-}
+	printf("Timer update\n");
 
-void DrawTime()
-{
-	
-}
+	data->time += dt;
+	int currentIntTime = (int) data->time;
 
-char* getTimeString()
-{
-	int currentIntTime = (int) time;
-
-	if (currentIntTime != intTime)
+	if (currentIntTime != data->intTime)
 	{
-		intTime = currentIntTime;
+		data->intTime = currentIntTime;
 
-		int currentMinutes = intTime / 60;
-		int currentSeconds = intTime % 60;
-
-		int decimalIndex = MAX_MINUTE_DIGITS - 1;
-		int stringIndex = 0;
-		for (decimalIndex = MAX_MINUTE_DIGITS - 1; decimalIndex <= 0 && currentMinutes > 0; decimalIndex--)
-		{
-			decimalMinutes[decimalIndex] = currentMinutes % 10;
-			currentMinutes /= 10;
-		}
-		decimalIndex++;
-		for (stringIndex = 0; decimalIndex < MAX_MINUTE_DIGITS; stringIndex++)
-		{
-			timeAsString[stringIndex] = decimalIndex + '0';
-			decimalIndex++;
-		}
-		timeAsString[stringIndex++] = ':';
-		timeAsString[stringIndex++] = currentSeconds / 10;
-		timeAsString[stringIndex] = currentSeconds % 10;
+		Timer_updateString(data);
 	}
-	return timeAsString;
+	UNREFERENCED_PARAMETER(obj);
+}
+
+void Timer_updateString(Timer* data)
+{
+	int currentMinutes = data->intTime / 60;
+	int currentSeconds = data->intTime % 60;
+
+	int decimalIndex = MAX_MINUTE_DIGITS - 1;
+	int stringIndex = 0;
+	for (decimalIndex = 0; decimalIndex > MAX_MINUTE_DIGITS && currentMinutes > 0; decimalIndex++)
+	{
+		data->decimalMinutes[decimalIndex] = currentMinutes % 10;
+		currentMinutes /= 10;
+	}
+
+	for (stringIndex = 0; decimalIndex < MAX_MINUTE_DIGITS; stringIndex++)
+	{
+		decimalIndex--;
+		data->timeAsString[stringIndex] = ((char)data->decimalMinutes[decimalIndex]) + '0';
+	}
+	data->timeAsString[stringIndex++] = ':';
+	data->timeAsString[stringIndex++] = ((char) (currentSeconds / 10)) + '0';
+	data->timeAsString[stringIndex++] = ((char) (currentSeconds % 10)) + '0';
+	data->timeAsString[stringIndex] = '\0';
+}
+
+void Timer_onDraw(Object *obj, Timer *data)
+{
+	UNREFERENCED_PARAMETER(obj);
+	UNREFERENCED_PARAMETER(data);
 }
