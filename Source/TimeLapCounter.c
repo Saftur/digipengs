@@ -60,16 +60,15 @@ void Timer_updateString(Timer* data)
 
 	int decimalIndex = MAX_MINUTE_DIGITS - 1;
 	int stringIndex = 0;
-	for (decimalIndex = 0; decimalIndex > MAX_MINUTE_DIGITS && currentMinutes > 0; decimalIndex++)
+	for (decimalIndex = 0; decimalIndex < MAX_MINUTE_DIGITS && currentMinutes > 0; decimalIndex++)
 	{
 		data->decimalMinutes[decimalIndex] = currentMinutes % 10;
 		currentMinutes /= 10;
 	}
 
-	for (stringIndex = 0; decimalIndex < MAX_MINUTE_DIGITS; stringIndex++)
+	for (stringIndex = 0; decimalIndex > 0; stringIndex++)
 	{
-		decimalIndex--;
-		data->timeAsString[stringIndex] = ((char)data->decimalMinutes[decimalIndex]) + '0';
+		data->timeAsString[stringIndex] = ((char)data->decimalMinutes[--decimalIndex]) + '0';
 	}
 	data->timeAsString[stringIndex++] = ':';
 	data->timeAsString[stringIndex++] = ((char) (currentSeconds / 10)) + '0';
