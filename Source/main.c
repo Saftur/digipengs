@@ -123,11 +123,11 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
         if (lastTime > 0) dt = (float) (currentTime - lastTime)/1000;
         lastTime = currentTime;
 
-        CollisionHandler_Update(dt);
-
         LevelManager_update(dt);
 
 		ObjectManager_update(dt);
+
+        CollisionHandler_Update(dt);
 
 		for (unsigned i = 0; i < Camera_count(); i++) {
 			Camera_set(i);

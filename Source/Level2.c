@@ -87,7 +87,7 @@ void Level2_onInit()
         AEVec2Add(&pos1, &pos1, &p1Offset);
     Object *player = Player_new(pos1, direction, (Controls) { 'A', 'D', 'W', 'S', 0 }, 0);
     ObjectManager_addObj(player);
-    CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, PlayerOnCollision);
+    CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, 0, PlayerOnCollision);
 
 	if (splitScreen) {
         Player_changeTexture(player, PLAYER_RED_TEXTURE);
@@ -97,7 +97,7 @@ void Level2_onInit()
         player = Player_new(pos2, direction, (Controls) { VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN }, 1);
         ObjectManager_addObj(player);
         Player_changeTexture(player, PLAYER_GREEN_TEXTURE);
-        CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, PlayerOnCollision);
+        CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, 0, PlayerOnCollision);
 	}
 }
 

@@ -19,6 +19,8 @@
 #include "MeshHandler.h"
 #include "Map.h"
 
+#define NUM_WALLS 8
+
 void ObstacleManager_loadObstacles()
 {
     FILE *file;
@@ -36,23 +38,23 @@ void ObstacleManager_loadObstacles()
         obstacleData->radius = (float)atoi(fgets(locString, 6, file));
         obstacleData->pos.x = (float)atoi(fgets(locString, 6, file));
         obstacleData->pos.y = (float)atoi(fgets(locString, 6, file));
-        obstacleData->rotation = (float)atoi(fgets(locString, 6, file));
+        obstacleData->rotation = AEDegToRad((float)atoi(fgets(locString, 6, file)));
 
         switch (obstacleType) {
         case 'B':
             obstacle = Boulder_new(obstacleData->pos);
             Boulder_setSize(obstacle, obstacleData->radius * 2);
-            CollisionHandler_Create_Circle_Collider(obstacle, obstacleData->radius, NULL);
+            CollisionHandler_Create_Circle_Collider(obstacle, obstacleData->radius, obstacleData->rotation, NULL);
             break;
         case 'P':
             obstacle = Polarbear_new(obstacleData->pos);
             Polarbear_setSize(obstacle, obstacleData->radius * 2);
-            CollisionHandler_Create_Circle_Collider(obstacle, obstacleData->radius, NULL);
+            CollisionHandler_Create_Circle_Collider(obstacle, obstacleData->radius, obstacleData->rotation, NULL);
             break;
         case 'I':
             obstacle = Ice_new(obstacleData->pos);
             Ice_setSize(obstacle, obstacleData->radius * 2);
-            CollisionHandler_Create_Circle_Collider(obstacle, obstacleData->radius, NULL);
+            CollisionHandler_Create_Circle_Collider(obstacle, obstacleData->radius, obstacleData->rotation, NULL);
             break;
         }
 
@@ -83,7 +85,7 @@ void ObstacleManager_loadObstacles()
                 Object *wall = Object_new(NULL, NULL, NULL, NULL, NULL, "Wall");
                 Object_setPos(wall, wallPos);
 
-                CollisionHandler_Create_Square_Collider(wall, (AEVec2) { TILE_SIZE, LANE_WIDTH }, NULL);
+                CollisionHandler_Create_Square_Collider(wall, (AEVec2) { TILE_SIZE, LANE_WIDTH / 2 }, 0, NULL);
                 ObjectManager_addObj(wall);
 
                 wallPos.y = tileWorldPos.y - (LANE_WIDTH * 3);
@@ -92,7 +94,7 @@ void ObstacleManager_loadObstacles()
                 wall = Object_new(NULL, NULL, NULL, NULL, NULL, "Wall");
                 Object_setPos(wall, wallPos);
 
-                CollisionHandler_Create_Square_Collider(wall, (AEVec2) { TILE_SIZE, LANE_WIDTH }, NULL);
+                CollisionHandler_Create_Square_Collider(wall, (AEVec2) { TILE_SIZE, LANE_WIDTH / 2 }, 0, NULL);
                 ObjectManager_addObj(wall);
             }
             else {
@@ -102,7 +104,7 @@ void ObstacleManager_loadObstacles()
                 Object *wall = Object_new(NULL, NULL, NULL, NULL, NULL, "Wall");
                 Object_setPos(wall, wallPos);
 
-                CollisionHandler_Create_Square_Collider(wall, (AEVec2) { LANE_WIDTH, TILE_SIZE }, NULL);
+                CollisionHandler_Create_Square_Collider(wall, (AEVec2) { LANE_WIDTH / 2, TILE_SIZE }, 0, NULL);
                 ObjectManager_addObj(wall);
 
                 wallPos.x = tileWorldPos.x - (LANE_WIDTH * 3);
@@ -111,75 +113,69 @@ void ObstacleManager_loadObstacles()
                 wall = Object_new(NULL, NULL, NULL, NULL, NULL, "Wall");
                 Object_setPos(wall, wallPos);
 
-                CollisionHandler_Create_Square_Collider(wall, (AEVec2) { LANE_WIDTH, TILE_SIZE }, NULL);
+                CollisionHandler_Create_Square_Collider(wall, (AEVec2) { LANE_WIDTH / 2, TILE_SIZE }, 0, NULL);
                 ObjectManager_addObj(wall);
             }
         }
         //Corner tile.
         else {
-            AEVec2 wall1Pos;
-            AEVec2 wall2Pos;
-            AEVec2 wall3Pos;
-            AEVec2 wall4Pos;
-            switch (tile.from) {
-            case SDown:
-                switch (tile.to) {
-                case SLeft:
-                    wall1Pos.x = tileWorldPos.x + (LANE_WIDTH * 3);
-                    wall1Pos.y = tileWorldPos.y;
-                    wall2Pos.x = tileWorldPos.x + (LANE_WIDTH * 3);
-                    wall2Pos.y = tileWorldPos.y;
-                    wall3Pos.x = tileWorldPos.x + (LANE_WIDTH * 3);
-                    wall3Pos.y = tileWorldPos.y;
-                    wall4Pos.x = tileWorldPos.x + (LANE_WIDTH * 3);
-                    wall4Pos.y = tileWorldPos.y;
+            AEVec2 wallPos[NUM_WALLS];
+            float wallRot[NUM_WALLS];
 
-                    Object *wall1 = Object_new(NULL, NULL, NULL, NULL, NULL, "Wall");
-                    Object *wall2 = Object_new(NULL, NULL, NULL, NULL, NULL, "Wall");
-                    Object *wall3 = Object_new(NULL, NULL, NULL, NULL, NULL, "Wall");
-                    Object *wall4 = Object_new(NULL, NULL, NULL, NULL, NULL, "Wall");
-                    Object_setPos(wall1, wall1Pos);
-                    Object_setPos(wall2, wall2Pos);
-                    Object_setPos(wall3, wall3Pos);
-                    Object_setPos(wall4, wall4Pos);
+            float angleInc = PI / 2.f / NUM_WALLS;
+            for (unsigned i = 0; i < NUM_WALLS; i++) wallRot[i] = ((float)i + 0.5f) * angleInc;
 
-                    CollisionHandler_Create_Square_Collider(wall1, (AEVec2) { LANE_WIDTH, LANE_WIDTH }, NULL);
-                    CollisionHandler_Create_Square_Collider(wall2, (AEVec2) { LANE_WIDTH, LANE_WIDTH }, NULL);
-                    CollisionHandler_Create_Square_Collider(wall3, (AEVec2) { LANE_WIDTH, LANE_WIDTH }, NULL);
-                    CollisionHandler_Create_Square_Collider(wall4, (AEVec2) { LANE_WIDTH, LANE_WIDTH }, NULL);
-                    ObjectManager_addObj(wall1);
-                    ObjectManager_addObj(wall2);
-                    ObjectManager_addObj(wall3);
-                    ObjectManager_addObj(wall4);
-                    break;
-                case SRight:
-                    break;
+            AEVec2 point = {0, 0};
+            if ((tile.from == SDown && tile.to == SRight) || (tile.from == SRight && tile.to == SDown)) {
+                point.x = tileWorldPos.x + TILE_SIZE / 2.f;
+                point.y = tileWorldPos.y - TILE_SIZE / 2.f;
+
+                for (unsigned i = 0; i < NUM_WALLS; i++) {
+                    wallRot[i] += PI / 2.f;
+                    wallPos[i].x = point.x + cosf(wallRot[i]) * (TILE_SIZE - LANE_WIDTH / 2);
+                    wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - LANE_WIDTH / 2);
                 }
-                break;
-            case SLeft:
-                switch (tile.to) {
-                case SUp:
-                    break;
-                case SDown:
-                    break;
+            }
+            else if ((tile.from == SLeft && tile.to == SDown) || (tile.from == SDown && tile.to == SLeft)) {
+                point.x = tileWorldPos.x - TILE_SIZE / 2.f;
+                point.y = tileWorldPos.y - TILE_SIZE / 2.f;
+
+                for (unsigned i = 0; i < NUM_WALLS; i++) {
+                    wallPos[i].x = point.x + cosf(wallRot[i]) * (TILE_SIZE - LANE_WIDTH / 2);
+                    wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - LANE_WIDTH / 2);
                 }
-                break;
-            case SRight:
-                switch (tile.to) {
-                case SUp:
-                    break;
-                case SDown:
-                    break;
+            }
+            else if ((tile.from == SUp && tile.to == SLeft) || (tile.from == SLeft && tile.to == SUp)) {
+                point.x = tileWorldPos.x - TILE_SIZE / 2.f;
+                point.y = tileWorldPos.y + TILE_SIZE / 2.f;
+
+                for (unsigned i = 0; i < NUM_WALLS; i++) {
+                    wallRot[i] += PI * 1.5f;
+                    wallPos[i].x = point.x + cosf(wallRot[i]) * (TILE_SIZE - LANE_WIDTH / 2);
+                    wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - LANE_WIDTH / 2);
                 }
-                break;
-            case SUp:
-                switch (tile.to) {
-                case SLeft:
-                    break;
-                case SRight:
-                    break;
+            }
+            else if ((tile.from == SRight && tile.to == SUp) || (tile.from == SUp && tile.to == SRight)) {
+                point.x = tileWorldPos.x + TILE_SIZE / 2.f;
+                point.y = tileWorldPos.y + TILE_SIZE / 2.f;
+
+                for (unsigned i = 0; i < NUM_WALLS; i++) {
+                    wallRot[i] += PI;
+                    wallPos[i].x = point.x + cosf(wallRot[i]) * (TILE_SIZE - LANE_WIDTH / 2);
+                    wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - LANE_WIDTH / 2);
                 }
-                break;
+            }
+
+            Object *wall = Object_new(NULL, NULL, NULL, NULL, NULL, "Wall");
+            Object_setPos(wall, point);
+            CollisionHandler_Create_Circle_Collider(wall, LANE_WIDTH, 0, NULL);
+            ObjectManager_addObj(wall);
+            
+            for (unsigned i = 0; i < NUM_WALLS; i++) {
+                wall = Object_new(NULL, NULL, NULL, NULL, NULL, "Wall");
+                Object_setPos(wall, wallPos[i]);
+                CollisionHandler_Create_Square_Collider(wall, (AEVec2) { LANE_WIDTH / 2, (TILE_SIZE - LANE_WIDTH / 2) / 2 * PI / NUM_WALLS }, wallRot[i], NULL);
+                ObjectManager_addObj(wall);
             }
         }
 
