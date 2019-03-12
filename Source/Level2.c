@@ -31,6 +31,8 @@ int splitScreen = 0;
 
 static AEGfxVertexList *separatorMesh;
 
+static void initPlayers();
+
 void Level2_onLoad()
 {
     separatorMesh = MeshHandler_createSquareMesh(SCREEN_SEPARATOR_WIDTH, AEGfxGetWinSizeY(), 1, 1);
@@ -54,6 +56,50 @@ void Level2_onInit()
     Map_init("Assets\\Map.txt");
     ObstacleManager_loadObstacles();
 
+    Tile tile = Map_getStartTile();
+    Tile halfwayTile = tile;
+
+    do {
+        tile = Map_getNextTile(tile);
+        if (tile.isStart)
+            break;
+        tile = Map_getNextTile(tile);
+        halfwayTile = Map_getNextTile(halfwayTile);
+    } while (!tile.isStart);
+
+    Object *obj;
+    AEVec2 pos;
+
+    obj = Object_new(NULL, NULL, NULL, NULL, NULL, "Start");
+    Map_tilePosToWorldPos(&pos.x, &pos.y, Map_getStartX(), Map_getStartY());
+    AEVec2 size = (AEVec2) { 0.f, 0.f };
+    if (tile.to == SLeft) {
+        pos.x -= LANE_WIDTH;
+        size = (AEVec2) { LANE_WIDTH * 2, TILE_SIZE };
+    } else if (tile.to == SRight) {
+        pos.x += LANE_WIDTH;
+        size = (AEVec2) { LANE_WIDTH * 2, TILE_SIZE };
+    } else if (tile.to == SUp) {
+        pos.y += LANE_WIDTH;
+        size = (AEVec2) { TILE_SIZE, LANE_WIDTH * 2 };
+    } else if (tile.to == SDown) {
+        pos.y -= LANE_WIDTH;
+        size = (AEVec2) { TILE_SIZE, LANE_WIDTH * 2 };
+    }
+    Object_setPos(obj, pos);
+    CollisionHandler_Create_Square_Collider(obj, size, 0, StartLineOnCollision);
+    ObjectManager_addObj(obj);
+
+    obj = Object_new(NULL, NULL, NULL, NULL, NULL, "Checkpoint");
+    Map_tilePosToWorldPos(&pos.x, &pos.y, halfwayTile.x, halfwayTile.y);
+    Object_setPos(obj, pos);
+    CollisionHandler_Create_Square_Collider(obj, (AEVec2) { TILE_SIZE, TILE_SIZE }, 0, CheckpointOnCollision);
+    ObjectManager_addObj(obj);
+
+    initPlayers();
+}
+
+static void initPlayers() {
     unsigned startTileX = Map_getStartX(), startTileY = Map_getStartY();
     Tile startTile = Map_getTile(startTileX, startTileY);
     float direction = 0;

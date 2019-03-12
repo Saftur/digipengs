@@ -332,106 +332,7 @@ static void AddTile(Side dir) {
 static void LoadMap(const char *filename) {
     ClearMap();
 
-    FILE *file;
-    fopen_s(&file, filename, "rt");
-    if (!file)
-        return;
-    Width = 1;
-    int c;
-    unsigned x = 0, y = 0;
-    int which = 0;
-
-    char startPosStrX[8];
-    char startPosStrY[8];
-    char *spPtr = startPosStrX;
-    while ((c = fgetc(file)) != EOF) {
-        if (c == ' ') {
-            *spPtr = 0;
-            spPtr = startPosStrY;
-        } else if (c == '\n') {
-            *spPtr = 0;
-            break;
-        } else if (c >= '0' && c <= '9')
-            *(spPtr++) = (char)c;
-    }
-    StartX = atoi(startPosStrX);
-    StartY = atoi(startPosStrY);
-
-    while ((c = fgetc(file)) != EOF) {
-        if (which > 1) {
-            Tile *t = &Map[y][x];
-            if (t->from == SNone)
-                t->type = TTNone;
-            else if (t->from == SLeft && t->to == SRight ||
-                     t->from == SRight && t->to == SLeft)
-                t->type = TTHoriz;
-            else if (t->from == SUp && t->to == SDown ||
-                     t->from == SDown && t->to == SUp)
-                t->type = TTVert;
-            else t->type = TTTurn;
-            x++;
-            which = 0;
-            if (x > Width)
-                Width = x;
-        }
-        switch (c) {
-        case 'L':
-            if (which)
-                Map[y][x].to = SLeft;
-            else Map[y][x].from = SLeft;
-            which++;
-            break;
-        case 'R':
-            if (which)
-                Map[y][x].to = SRight;
-            else Map[y][x].from = SRight;
-            which++;
-            break;
-        case 'U':
-            if (which)
-                Map[y][x].to = SUp;
-            else Map[y][x].from = SUp;
-            which++;
-            break;
-        case 'D':
-            if (which)
-                Map[y][x].to = SDown;
-            else Map[y][x].from = SDown;
-            which++;
-            break;
-        case 'N':
-            if (which)
-                Map[y][x].to = SNone;
-            else Map[y][x].from = SNone;
-            which++;
-            break;
-        case '\n':
-            if (x > 0) {
-                y++;
-                x = 0;
-                which = 0;
-            }
-            break;
-        }
-    }
-    fclose(file);
-    if (which > 1) {
-        Tile *t = &Map[y][x];
-        if (t->from == SLeft && t->to == SRight ||
-            t->from == SRight && t->to == SLeft)
-            t->type = TTHoriz;
-        else if (t->from == SUp && t->to == SDown ||
-            t->from == SDown && t->to == SUp)
-            t->type = TTVert;
-        else t->type = TTTurn;
-    }
-    Map[StartY][StartX].isStart = 1;
-    if (x > 0)
-        y++;
-    Height = y;
-
-    //TileY = y - 1;
-    //TileX = x;
+    Map_load(filename, Map, &Width, &Height, &StartX, &StartY);
 
     unsigned nextX = StartX, nextY = StartY;
     while (Map[nextY][nextX].from != SNone) {
@@ -556,6 +457,8 @@ static void ClearMap() {
     for (int y = 0; y < MAP_MAX_SIZE; y++) {
         for (int x = 0; x < MAP_MAX_SIZE; x++) {
             Map[y][x] = (Tile) { SNone, SNone, TTNone, 0 };
+            Map[y][x].x = x;
+            Map[y][x].y = y;
         }
     }
     Map[0][1] = (Tile) { SLeft, SRight, TTHoriz, 1 };

@@ -10,11 +10,6 @@
 #include "object.h"
 #include "Player.h"
 
-void DoNothingOnCollision(Collider *self, Collider *other) {
-    UNREFERENCED_PARAMETER(self);
-    UNREFERENCED_PARAMETER(other);
-}
-
 void PlayerOnCollision(Collider *self, Collider *other) {
     PlayerData *data = (PlayerData*)Object_getData(self->gameObject);
     if(!strcmp("Boulder", Object_getName(other->gameObject)))
@@ -44,4 +39,22 @@ void PlayerOnCollision(Collider *self, Collider *other) {
 
         Object_setPos(self->gameObject, newPlayerPos);
     }
+}
+
+void StartLineOnCollision(Collider *self, Collider *other) {
+    UNREFERENCED_PARAMETER(self);
+    if (strcmp(Object_getName(other->gameObject), "Player"))
+        return;
+    PlayerData *player = Object_getData(other->gameObject);
+    if (player->lap != floorf(player->lap))
+        player->lap += 0.5f;
+}
+
+void CheckpointOnCollision(Collider *self, Collider *other) {
+    UNREFERENCED_PARAMETER(self);
+    if (strcmp(Object_getName(other->gameObject), "Player"))
+        return;
+    PlayerData *player = Object_getData(other->gameObject);
+    if (player->lap == floorf(player->lap))
+        player->lap += 0.5f;
 }

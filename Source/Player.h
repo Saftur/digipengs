@@ -23,6 +23,8 @@ typedef struct PlayerData
 	float deceleration;
 	float speedcap;
 
+    float lap;
+
     Controls controls; ///< Player's controls
 
 	AEGfxVertexList *mesh;    ///< Mesh

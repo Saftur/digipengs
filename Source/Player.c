@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "ImageHandler.h"
 #include "MeshHandler.h"
+#include "LevelManager.h"
 #include "Object.h"
 #include "Camera.h"
 #include "Map.h"
@@ -28,6 +29,7 @@ void Player_onInit(Object *obj, PlayerData *data)
 	data->acceleration = 0.046875f;
 	data->deceleration = 0.05f;
     data->speedcap = 6.0f;
+    data->lap = 1.f;
 
     Map_initCamera(Camera_get(data->camNum), Object_getPos(obj));
 }
@@ -35,6 +37,11 @@ void Player_onInit(Object *obj, PlayerData *data)
 void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 {
     UNREFERENCED_PARAMETER(dt);
+
+    if (data->lap >= 4.f) {
+        LevelManager_setNextLevel(TitleScreen);
+        return;
+    }
 
 	data->speed += data->acceleration;
 	data->speed = fminf(data->speed, data->speedcap);
