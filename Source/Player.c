@@ -10,9 +10,12 @@
 #include "Player.h"
 #include "ImageHandler.h"
 #include "MeshHandler.h"
+#include "LevelManager.h"
 #include "Object.h"
 #include "Camera.h"
 #include "Map.h"
+#include "Level2.h"
+#include "EndScreen.h"
 
 void Player_onShutdown(PlayerData *data) {
     AEGfxMeshFree(data->mesh);
@@ -28,13 +31,22 @@ void Player_onInit(Object *obj, PlayerData *data)
 	data->acceleration = 0.046875f;
 	data->deceleration = 0.05f;
     data->speedcap = 6.0f;
+    data->lap = 1.f;
 
-    Map_initCamera(Camera_get(data->camNum), Object_getPos(obj));
+    Map_initCamera(Camera_get(data->playerNum), Object_getPos(obj));
 }
 
 void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 {
     UNREFERENCED_PARAMETER(dt);
+
+    if (data->lap >= NUM_LAPS+1) {
+        if (splitScreen) {
+            EndScreen_winner = data->playerNum + 1;
+        } else EndScreen_winner = 0;
+        LevelManager_setNextLevel(EndScreen);
+        return;
+    }
 
 	data->speed += data->acceleration;
 	data->speed = fminf(data->speed, data->speedcap);
@@ -61,7 +73,7 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 
 	Object_setPos(obj, pos);
 
-    Map_updateCamera(Camera_get(data->camNum), pos);
+    Map_updateCamera(Camera_get(data->playerNum), pos);
 }
 
 void Player_onDraw(Object *obj, PlayerData *data)
@@ -70,12 +82,13 @@ void Player_onDraw(Object *obj, PlayerData *data)
 }
 
 
-Object *Player_new(AEVec2 pos, Controls controls, unsigned camNum)
+Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned playerNum)
 {
     PlayerData * data = calloc(1, sizeof(PlayerData));
     Object *player = Object_new(Player_onInit, Player_onUpdate, Player_onDraw, data, Player_onShutdown, "Player");
     Object_setPos(player, pos);
-    data->camNum = camNum;
+    data->direction = direction;
+    data->playerNum = playerNum;
     data->controls = controls;
     return player;
 }

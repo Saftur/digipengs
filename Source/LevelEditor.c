@@ -26,13 +26,19 @@ static int ObstacleScale = 32;
 
 static Tile Map[MAP_MAX_SIZE][MAP_MAX_SIZE];
 static unsigned Width, Height;
+static unsigned StartX, StartY;
 static unsigned TileX, TileY;
 
 static vector *Obstacles;
 
+const static float EditKeyTimerOffset = 0.25f;
+static float EditKeyTimer = 0.f;
+
 static void DrawIcons();
 static void DrawObstacles();
-static void EditMap();
+static int CheckEditKey(u8 key, float dt);
+static void EditMap(float dt);
+static void AddTile(Side dir);
 static void LoadMap(const char *filename);
 static void SaveMap();
 static void ClearMap();
@@ -40,22 +46,10 @@ static void LoadObstacles();
 
 void LevelEditor_init()
 {
-    for (int y = 0; y < MAP_MAX_SIZE; y++) {
-        for (int x = 0; x < MAP_MAX_SIZE; x++) {
-            Map[y][x] = (Tile) { SNone, SNone, TTNone };
-        }
-    }
-    Map[0][0] = (Tile) { SDown, SRight, TTTurn };
-
-    Width = 1;
-    Height = 1;
-    TileX = 0;
-    TileY = 0;
-
     Obstacles = vector_new(5, NULL, free);
+    LoadObstacles();
 
     LoadMap("./Assets/Map.txt");
-    LoadObstacles();
 }
 
 
@@ -146,7 +140,7 @@ void LevelEditor_update(float dt)
         break;
 
     case None:
-        EditMap();
+        EditMap(dt);
         break;
         
     default:
@@ -159,20 +153,22 @@ void LevelEditor_shutdown()
     vector_delete(Obstacles);
 }
 
-static void EditMap() {
+static int CheckEditKey(u8 key, float dt) {
+    EditKeyTimer -= dt;
+    if (AEInputCheckCurr(VK_LSHIFT) && EditKeyTimer <= 0.f) {
+        if (AEInputCheckCurr(key)) {
+            EditKeyTimer = EditKeyTimerOffset;
+            return 1;
+        } else return 0;
+    } else return AEInputCheckTriggered(key);
+}
+
+static void EditMap(float dt) {
     Tile currTile = Map[TileY][TileX];
-
-    //unsigned nextTileX = TileX;
-    //unsigned nextTileY = TileY;
-
-    //if (currTile.to == SRight) nextTileX++;
-    //if (currTile.to == SLeft) nextTileX--;
-    //if (currTile.to == SUp) nextTileY--;
-    //if (currTile.to == SDown) nextTileY++;
     
-    if (AEInputCheckTriggered(VK_BACK)) {
+    if (CheckEditKey(VK_BACK, dt) && !currTile.isStart) {
         Side from = Map[TileY][TileX].from;
-        Map[TileY][TileX] = (Tile) { SNone, SNone, TTNone };
+        Map[TileY][TileX] = (Tile) { SNone, SNone, TTNone, 0 };
         if (from == SLeft) TileX--;
         if (from == SRight) TileX++;
         if (from == SUp) TileY--;
@@ -188,22 +184,88 @@ static void EditMap() {
         SaveMap();
     }
 
+    AddTile(CheckEditKey(VK_UP, dt) ? SUp :
+            CheckEditKey(VK_DOWN, dt) ? SDown :
+            CheckEditKey(VK_LEFT, dt) ? SLeft :
+            CheckEditKey(VK_RIGHT, dt) ? SRight :
+            SNone);
+}
+
+static void AddTile(Side dir) {
+    if (dir == SNone)
+        return;
+
+    Tile currTile = Map[TileY][TileX];
+
+    int newTileX = TileX, newTileY = TileY;
+
     switch (currTile.to) {
     case SUp:
-        if (Map[TileY - 1][TileX].type != TTNone) return;
+        newTileY--;
+        if (newTileY < 0) {
+            if (Height == MAP_MAX_SIZE)
+                return;
+            for (unsigned y = Height; y > 0; y--)
+                memcpy(Map[y], Map[y-1], Width * sizeof(Tile));
+            for (unsigned x = 0; x < Width; x++)
+                Map[0][x] = (Tile) { SNone, SNone, TTNone, 0 };
+            for (unsigned i = 0; i < vector_size(Obstacles); i++) {
+                Obstacle *obstacle = (Obstacle*)vector_at(Obstacles, i);
+                obstacle->pos.y -= TILE_SIZE;
+            }
+            Height++;
+            TileY++;
+            StartY++;
+            newTileY++;
+
+            Camera *cam = Camera_getCurr();
+            if (cam) {
+                cam->worldPos.y -= TILE_SIZE;
+            }
+        }
         break;
     case SDown:
-        if (Map[TileY + 1][TileX].type != TTNone) return;
+        newTileY++;
+        if (newTileY >= MAP_MAX_SIZE) return;
+        if (newTileY >= (int)Height) Height = newTileY + 1;
         break;
     case SLeft:
-        if (Map[TileY][TileX - 1].type != TTNone) return;
+        newTileX--;
+        if (newTileX < 0) {
+            if (Width == MAP_MAX_SIZE)
+                return;
+            for (unsigned y = 0; y < Height; y++) {
+                memmove(Map[y]+1, Map[y], Width * sizeof(Tile));
+                Map[y][0] = (Tile) { SNone, SNone, TTNone, 0 };
+            }
+            for (unsigned i = 0; i < vector_size(Obstacles); i++) {
+                Obstacle *obstacle = (Obstacle*)vector_at(Obstacles, i);
+                obstacle->pos.x += TILE_SIZE;
+            }
+            Width++;
+            TileX++;
+            StartX++;
+            newTileX++;
+
+            Camera *cam = Camera_getCurr();
+            if (cam) {
+                cam->worldPos.x += TILE_SIZE;
+            }
+        }
         break;
     case SRight:
-        if (Map[TileY][TileX + 1].type != TTNone) return;
+        newTileX++;
+        if (newTileX >= MAP_MAX_SIZE) return;
+        if (newTileX >= (int)Width) Width = newTileX + 1;
         break;
     }
 
-    if (AEInputCheckTriggered(VK_UP) && (int)TileY - 1 > 0) {
+    if (Map[newTileY][newTileX].type != TTNone) return;
+
+    if (dir == SUp) {
+        Tile to = Map[newTileY - 1][newTileX];
+        if ((newTileY - 1 < 0 && Height == MAP_MAX_SIZE) || !((to.isStart && to.from == SDown) || to.type == TTNone))
+            return;
         switch (currTile.to) {
         case SUp:
             Map[--TileY][TileX] = (Tile) { SDown, SUp, TTVert };
@@ -213,26 +275,29 @@ static void EditMap() {
             break;
         case SRight:
             Map[TileY][++TileX] = (Tile) { SLeft, SUp, TTTurn };
-            if(TileX > Width - 1) Width = TileX + 1;
             break;
         }
     }
-    if (AEInputCheckTriggered(VK_DOWN) && TileY + 2 < MAP_MAX_SIZE) {
+    if (dir == SDown) {
+        Tile to = Map[newTileY + 1][newTileX];
+        if ((newTileY + 1 >= (int)Height && Height == MAP_MAX_SIZE) || !((to.isStart && to.from == SUp) || to.type == TTNone))
+            return;
         switch (currTile.to) {
         case SDown:
             Map[++TileY][TileX] = (Tile) { SUp, SDown, TTVert };
-            if (TileY > Height - 1) Height = TileY + 1;
             break;
         case SLeft:
             Map[TileY][--TileX] = (Tile) { SRight, SDown, TTTurn };
             break;
         case SRight:
             Map[TileY][++TileX] = (Tile) { SLeft, SDown, TTTurn };
-            if (TileX > Width - 1) Width = TileX + 1;
             break;
         }
     }
-    if (AEInputCheckTriggered(VK_LEFT) && (int)TileX - 1 > 0) {
+    if (dir == SLeft) {
+        Tile to = Map[newTileY][newTileX - 1];
+        if ((newTileX - 1 < 0 && Width == MAP_MAX_SIZE) || !((to.isStart && to.from == SRight) || to.type == TTNone))
+            return;
         switch (currTile.to) {
         case SUp:
             Map[--TileY][TileX] = (Tile) { SDown, SLeft, TTTurn };
@@ -242,109 +307,54 @@ static void EditMap() {
             break;
         case SDown:
             Map[++TileY][TileX] = (Tile) { SUp, SLeft, TTTurn };
-            if (TileY > Height - 1) Height = TileY + 1;
             break;
         }
     }
-    if (AEInputCheckTriggered(VK_RIGHT) && TileX + 2 < MAP_MAX_SIZE) {
+    if (dir == SRight) {
+        Tile to = Map[newTileY][newTileX + 1];
+        if ((newTileX + 1 >= (int)Width && Width == MAP_MAX_SIZE) || !((to.isStart && to.from == SLeft) || to.type == TTNone))
+            return;
         switch (currTile.to) {
         case SUp:
             Map[--TileY][TileX] = (Tile) { SDown, SRight, TTVert };
             break;
         case SDown:
             Map[++TileY][TileX] = (Tile) { SUp, SRight, TTTurn };
-            if (TileY > Height - 1) Height = TileY + 1;
             break;
         case SRight:
             Map[TileY][++TileX] = (Tile) { SLeft, SRight, TTVert };
-            if (TileX > Width - 1) Width = TileX + 1;
             break;
         }
     }
+
 }
 
 static void LoadMap(const char *filename) {
     ClearMap();
 
-    FILE *file;
-    fopen_s(&file, filename, "rt");
-    if (!file)
-        return;
-    Width = 1;
-    int c;
-    unsigned x = 0, y = 0;
-    int which = 0;
-    while ((c = fgetc(file)) != EOF) {
-        if (which > 1) {
-            Tile *t = &Map[y][x];
-            if (t->from == SLeft && t->to == SRight ||
-                t->from == SRight && t->to == SLeft)
-                t->type = TTHoriz;
-            else if (t->from == SUp && t->to == SDown ||
-                t->from == SDown && t->to == SUp)
-                t->type = TTVert;
-            else t->type = TTTurn;
-            x++;
-            which = 0;
-            if (x > Width)
-                Width = x;
-        }
-        switch (c) {
-        case 'L':
-            if (which)
-                Map[y][x].to = SLeft;
-            else Map[y][x].from = SLeft;
-            which++;
+    Map_load(filename, Map, &Width, &Height, &StartX, &StartY);
+
+    unsigned nextX = StartX, nextY = StartY;
+    while (Map[nextY][nextX].from != SNone) {
+        TileX = nextX;
+        TileY = nextY;
+        switch (Map[TileY][TileX].to) {
+        case SLeft:
+            nextX--;
             break;
-        case 'R':
-            if (which)
-                Map[y][x].to = SRight;
-            else Map[y][x].from = SRight;
-            which++;
+        case SRight:
+            nextX++;
             break;
-        case 'U':
-            if (which)
-                Map[y][x].to = SUp;
-            else Map[y][x].from = SUp;
-            which++;
+        case SUp:
+            nextY--;
             break;
-        case 'D':
-            if (which)
-                Map[y][x].to = SDown;
-            else Map[y][x].from = SDown;
-            which++;
-            break;
-        case 'N':
-            if (which)
-                Map[y][x].to = SNone;
-            else Map[y][x].from = SNone;
-            which++;
-            break;
-        case '\n':
-            if (x > 0) {
-                y++;
-                x = 0;
-                which = 0;
-            }
+        case SDown:
+            nextY++;
             break;
         }
+        if (Map[nextY][nextX].isStart)
+            break;
     }
-    fclose(file);
-    if (which > 1) {
-        Tile *t = &Map[y][x];
-        if (t->from == SLeft && t->to == SRight ||
-            t->from == SRight && t->to == SLeft)
-            t->type = TTHoriz;
-        else if (t->from == SUp && t->to == SDown ||
-            t->from == SDown && t->to == SUp)
-            t->type = TTVert;
-        else t->type = TTTurn;
-    }
-    if (x > 0)
-        y++;
-    Height = y;
-    TileY = y - 1;
-    TileX = x;
 }
 
 void LoadObstacles() {
@@ -386,6 +396,15 @@ static void SaveMap() {
     fopen_s(&file, "./Assets/Map.txt", "w");
     if (!file)
         return;
+
+    char startPosStrX[8];
+    char startPosStrY[8];
+    _itoa_s(StartX, startPosStrX, 8, 10);
+    _itoa_s(StartY, startPosStrY, 8, 10);
+    fputs(startPosStrX, file);
+    fputc(' ', file);
+    fputs(startPosStrY, file);
+    fputc('\n', file);
 
     for (unsigned y = 0; y < Height; y++) {
         for (unsigned x = 0; x < Width; x++) {
@@ -437,14 +456,16 @@ static void ClearMap() {
 
     for (int y = 0; y < MAP_MAX_SIZE; y++) {
         for (int x = 0; x < MAP_MAX_SIZE; x++) {
-            Map[y][x] = (Tile) { SNone, SNone, TTNone };
+            Map[y][x] = (Tile) { SNone, SNone, TTNone, 0 };
+            Map[y][x].x = x;
+            Map[y][x].y = y;
         }
     }
-    Map[0][0] = (Tile) { SDown, SRight, TTTurn };
+    Map[0][1] = (Tile) { SLeft, SRight, TTHoriz, 1 };
 
-    Width = 1;
+    Width = 2;
     Height = 1;
-    TileX = 0;
+    TileX = 1;
     TileY = 0;
 }
 

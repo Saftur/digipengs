@@ -10,7 +10,7 @@
 #include <AEVec2.h>
 
 
-#define MAP_MAX_SIZE 8
+#define MAP_MAX_SIZE 16
 
 #define TILE_SIZE 350
 
@@ -34,10 +34,15 @@ typedef enum {
  * @brief A Tile
  */
 typedef struct Tile {
-    Side from;     ///< Side path comes from
-    Side to;       ///< Side path goes to
-    TileType type; ///< Tile type
+    Side from;      ///< Side path comes from
+    Side to;        ///< Side path goes to
+    TileType type;  ///< Tile type
+    int isStart;    ///< Is start tile
+    unsigned x, y;  ///< Tile position
 } Tile;
+
+void Map_load(const char *filename, Tile tilemap[MAP_MAX_SIZE][MAP_MAX_SIZE], 
+              unsigned *width, unsigned *height, unsigned *startX, unsigned *startY);
 
 /**
  * @brief Initialize map
@@ -89,6 +94,19 @@ void Map_tilePosToWorldPos(float *wx, float *wy, unsigned tx, unsigned ty);
 Tile Map_getTile(unsigned x, unsigned y);
 
 /**
+ * @brief Get the start tile
+ * @return Start tile
+ */
+Tile Map_getStartTile();
+
+/**
+ * @brief Get next tile in path
+ * @param tile Current tile
+ * @return Next tile
+ */
+Tile Map_getNextTile(Tile tile);
+
+/**
  * @brief Get map width
  * @return Map width
  */
@@ -99,3 +117,15 @@ unsigned Map_getWidth();
  * @return Map height
  */
 unsigned Map_getHeight();
+
+/**
+ * @brief Get map start tile x
+ * @return Map start tile x
+ */
+unsigned Map_getStartX();
+
+/**
+ * @brief Get map start tile y
+ * @return Map start tile y
+ */
+unsigned Map_getStartY();

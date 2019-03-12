@@ -9,6 +9,7 @@
 #include "LevelEditorLevel.h"
 #include "LevelEditor.h"
 #include "Camera.h"
+#include "Utils.h"
 
 void LevelEditorLevel_onLoad()
 {
@@ -26,9 +27,9 @@ void LevelEditorLevel_onUpdate(float dt)
 
     Camera *cam = Camera_getCurr();
     if (AEInputCheckCurr('Q'))
-        cam->worldScale *= 0.9f;
+        cam->worldScale *= 0.99f;
     if (AEInputCheckCurr('E'))
-        cam->worldScale *= 1.1f;
+        cam->worldScale *= 1.01f;
 
     float camSpeed = 2.f;
     AEVec2 camMov = { 0,0 };
@@ -44,7 +45,7 @@ void LevelEditorLevel_onShutdown()
 {
     LevelEditor_shutdown(); 
     Camera_clear();
-    Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 600 });
+    Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, AEGfxGetWinSize());
 }
 
 void LevelEditorLevel_onUnload()

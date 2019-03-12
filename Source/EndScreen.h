@@ -4,8 +4,10 @@
  * @date 1/10/2019
  * @brief First Level
  */
-
 #pragma once
+
+extern int EndScreen_winner;
+
  /**
   * @brief Load TitleScreen.
   */

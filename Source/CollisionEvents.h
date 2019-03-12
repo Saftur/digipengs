@@ -10,10 +10,11 @@
 #include "Player.h"
 
  /**
-  * @brief Example OnCollision function.
-  * @param self The collider for this object.
+  * @brief Player OnCollision function.
+  * @param self  The collider for this object.
   * @param other The other collider that this object hit.
   */
-void DoNothingOnCollision(Collider *self, Collider *other);
-
 void PlayerOnCollision(Collider *self, Collider *other);
+
+void StartLineOnCollision(Collider *self, Collider *other);
+void CheckpointOnCollision(Collider *self, Collider *other);

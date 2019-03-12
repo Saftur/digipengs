@@ -8,6 +8,8 @@
 #include "stdafx.h"
 #include "CollisionHandler.h"
 #include "object.h"
+#include "ImageHandler.h"
+#include "MeshHandler.h"
 
 static vector *colliders;
 
@@ -80,44 +82,47 @@ void CollisionHandler_Check_Collisions()
                 AEVec2 squarePos = Object_getPos(square->gameObject);
                 AEVec2 circlePos = Object_getPos(circle->gameObject);
 
-                //Get direction towards the square collider.
                 AEVec2 direction;
-                direction.x = squarePos.x - circlePos.x;
-                direction.y = squarePos.y - circlePos.y;
-                AEVec2Normalize(&direction, &direction);
+                AEVec2Sub(&direction, &circlePos, &squarePos);
+                AEVec2 rotated;
+                rotated.x = direction.x * cosf(-square->angle) - direction.y * sinf(-square->angle);
+                rotated.y = direction.x * sinf(-square->angle) + direction.y * cosf(-square->angle);
+                
+                AEVec2 test;
+                AEVec2Add(&test, &squarePos, &rotated);
 
-                //Point to determine if is inside of the square or not.
-                AEVec2 point;
-                AEVec2Add(&point, &direction, &circlePos);
+                //ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.screen_separator, squarePos, square->size.x, square->size.y, square->angle, 1);
 
-                //If colliders are colliding.
-                if (point.x >= squarePos.x && point.y < squarePos.x + square->size.x && point.y >= squarePos.y && point.y < squarePos.y + square->size.y) {
-                    if(square->OnCollision) square->OnCollision(square, circle);
-                    if(circle->OnCollision) circle->OnCollision(circle, square);
+                float dist = AECalcDistCircleToRect(&test, circle->radius, &squarePos, square->size.x, square->size.y);
+                if (dist < circle->radius) {
+                    if (square->OnCollision) square->OnCollision(square, circle);
+                    if (circle->OnCollision) circle->OnCollision(circle, square);
                 }
             }
         }
     }
 }
 
-void CollisionHandler_Create_Square_Collider(Object * gameObject, AEVec2 size, void(*OnCollision)(Collider *self, Collider *other))
+void CollisionHandler_Create_Square_Collider(Object * gameObject, AEVec2 size, float angle, void(*OnCollision)(Collider *self, Collider *other))
 {
     Collider *collider = malloc(sizeof(Collider));
     collider->type = Square;
     collider->gameObject = gameObject;
     collider->OnCollision = OnCollision;
     collider->size = size;
+    collider->angle = angle;
 
     vector_push_back(colliders, collider);
 }
 
-void CollisionHandler_Create_Circle_Collider(Object * gameObject, float radius, void(*OnCollision)(Collider *self, Collider *other))
+void CollisionHandler_Create_Circle_Collider(Object * gameObject, float radius, float angle, void(*OnCollision)(Collider *self, Collider *other))
 {
     Collider *collider = malloc(sizeof(Collider));
     collider->type = Circle;
     collider->gameObject = gameObject;
     collider->OnCollision = OnCollision;
     collider->radius = radius;
+    collider->angle = angle;
 
     vector_push_back(colliders, collider);
 }

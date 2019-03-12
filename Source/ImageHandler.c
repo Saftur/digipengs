@@ -30,6 +30,12 @@ void ImageHandler_initializeTextures()
 	TEXTURES.endScreen_youDied = AEGfxTextureLoad("./Assets/TempYouDied.png");
 	AE_ASSERT_MESG(TEXTURES.endScreen_youDied, "Failed to load/create TEXTURE: endScreen_youDied");
 
+	TEXTURES.endScreen_player1Wins = AEGfxTextureLoad("./Assets/Player1Wins.png");
+	AE_ASSERT_MESG(TEXTURES.endScreen_player1Wins, "Failed to load/create TEXTURE: Player1Wins");
+
+	TEXTURES.endScreen_player2Wins = AEGfxTextureLoad("./Assets/Player2Wins.png");
+	AE_ASSERT_MESG(TEXTURES.endScreen_player2Wins, "Failed to load/create TEXTURE: Player2Wins");
+
 	TEXTURES.endScreen_tryAgainButton = AEGfxTextureLoad("./Assets/TempTryAgainButton.png");
 	AE_ASSERT_MESG(TEXTURES.endScreen_tryAgainButton, "Failed to load/create TEXTURE: endScreen_tryAgainButton");
 
@@ -62,11 +68,14 @@ void ImageHandler_initializeTextures()
     TEXTURES.map_rightCornerTile = AEGfxTextureLoad("./Assets/RightTurnTile.png");
     AE_ASSERT_MESG(TEXTURES.map_rightCornerTile, "Failed to load/create TEXTURE: RightTurnTile");
 
-    TEXTURES.map_leftCornerTile = AEGfxTextureLoad("./Assets/leftTurnTile.png");
-    AE_ASSERT_MESG(TEXTURES.map_leftCornerTile, "Failed to load/create TEXTURE: leftTurnTile");
+    TEXTURES.map_leftCornerTile = AEGfxTextureLoad("./Assets/LeftTurnTile.png");
+    AE_ASSERT_MESG(TEXTURES.map_leftCornerTile, "Failed to load/create TEXTURE: LeftTurnTile");
 
     TEXTURES.map_straightTile = AEGfxTextureLoad("./Assets/StraightTile.png");
     AE_ASSERT_MESG(TEXTURES.map_straightTile, "Failed to load/create TEXTURE: StraightTile");
+
+    TEXTURES.map_startTile = AEGfxTextureLoad("./Assets/StartTile.png");
+    AE_ASSERT_MESG(TEXTURES.map_startTile, "Failed to load/create TEXTURE: StartTile");
 
     TEXTURES.titleScreen_levelEditorButton = AEGfxTextureLoad("./Assets/dad.png");
     AE_ASSERT_MESG(TEXTURES.titleScreen_levelEditorButton, "Failed to load/create TEXTURE: dad");
@@ -101,6 +110,7 @@ void ImageHandler_shutdown() {
     AEGfxTextureUnload(TEXTURES.map_leftCornerTile);
     AEGfxTextureUnload(TEXTURES.map_rightCornerTile);
     AEGfxTextureUnload(TEXTURES.map_straightTile);
+    AEGfxTextureUnload(TEXTURES.map_startTile);
 
     AEGfxTextureUnload(TEXTURES.screen_separator);
 	AEGfxTextureUnload(TEXTURES.font);

@@ -6,6 +6,8 @@
  */
 #pragma once
 
+#include <AEVec2.h>
+
 /**
  * @brief Lerp float values
  * @param val1    Value to start at
@@ -35,3 +37,8 @@ float rad_lerpf(float val1, float val2, float percent);
  * @return Result
  */
 float deg_lerpf(float val1, float val2, float percent);
+
+AEVec2 AEGfxGetWinSize();
+
+float AEGfxGetWinSizeX();
+float AEGfxGetWinSizeY();

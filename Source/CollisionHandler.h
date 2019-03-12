@@ -21,6 +21,7 @@ typedef struct Collider {
     float radius; ///< Radius of the collider when type is Circle.
     ColliderType type; ///< The type of the collider.
     float phase; ///< If greater than 0 phase for this amount of time.
+    float angle; ///< Rotation for the collider.
 
     void(*OnCollision)(Collider *self, Collider *other); ///< Function to be called when a collision is detected.
 
@@ -56,7 +57,7 @@ void CollisionHandler_Check_Collisions();
  * @param size Size of the collider.
  * @param OnCollision Function pointer to be called on collision.
  */
-void CollisionHandler_Create_Square_Collider(Object *gameObject, AEVec2 size, void(*OnCollision)(Collider *self, Collider *other));
+void CollisionHandler_Create_Square_Collider(Object *gameObject, AEVec2 size, float angle, void(*OnCollision)(Collider *self, Collider *other));
 
 /**
  * @brief Create a circle collider.
@@ -64,7 +65,7 @@ void CollisionHandler_Create_Square_Collider(Object *gameObject, AEVec2 size, vo
  * @param radius Radius of the collider.
  * @param OnCollision Function pointer to be called on collision.
  */
-void CollisionHandler_Create_Circle_Collider(Object *gameObject, float radius, void(*OnCollision)(Collider *self, Collider *other));
+void CollisionHandler_Create_Circle_Collider(Object *gameObject, float radius, float angle, void(*OnCollision)(Collider *self, Collider *other));
 
 /**
  * @brief Destroy a collider.

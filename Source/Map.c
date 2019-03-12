@@ -19,60 +19,83 @@
 static Tile tiles[MAP_MAX_SIZE][MAP_MAX_SIZE];
 
 static unsigned width, height;
+static unsigned startX, startY;
 
-void Map_init(const char *filename) {
+void Map_load(const char *filename, Tile tilemap[MAP_MAX_SIZE][MAP_MAX_SIZE], 
+                 unsigned *w, unsigned *h, unsigned *sx, unsigned *sy) {
     FILE *file;
     fopen_s(&file, filename, "rt");
     if (!file)
         return;
-    width = 1;
+    *w = 1;
     int c;
     unsigned x = 0, y = 0;
     int which = 0;
+
+    char startPosStrX[8];
+    char startPosStrY[8];
+    char *spPtr = startPosStrX;
+    while ((c = fgetc(file)) != EOF) {
+        if (c == ' ') {
+            *spPtr = 0;
+            spPtr = startPosStrY;
+        } else if (c == '\n') {
+            *spPtr = 0;
+            break;
+        } else if (c >= '0' && c <= '9')
+            *(spPtr++) = (char)c;
+    }
+    *sx = atoi(startPosStrX);
+    *sy = atoi(startPosStrY);
+
     while ((c = fgetc(file)) != EOF) {
         if (which > 1) {
-            Tile *t = &tiles[y][x];
-            if (t->from == SLeft && t->to == SRight ||
-                t->from == SRight && t->to == SLeft)
+            Tile *t = &tilemap[y][x];
+            if (t->from == SNone)
+                t->type = TTNone;
+            else if (t->from == SLeft && t->to == SRight ||
+                     t->from == SRight && t->to == SLeft)
                 t->type = TTHoriz;
             else if (t->from == SUp && t->to == SDown ||
-                t->from == SDown && t->to == SUp)
+                     t->from == SDown && t->to == SUp)
                 t->type = TTVert;
             else t->type = TTTurn;
+            t->x = x;
+            t->y = y;
             x++;
             which = 0;
-            if (x > width)
-                width = x;
+            if (x > *w)
+                *w = x;
         }
         switch (c) {
         case 'L':
             if (which)
-                tiles[y][x].to = SLeft;
-            else tiles[y][x].from = SLeft;
+                tilemap[y][x].to = SLeft;
+            else tilemap[y][x].from = SLeft;
             which++;
             break;
         case 'R':
             if (which)
-                tiles[y][x].to = SRight;
-            else tiles[y][x].from = SRight;
+                tilemap[y][x].to = SRight;
+            else tilemap[y][x].from = SRight;
             which++;
             break;
         case 'U':
             if (which)
-                tiles[y][x].to = SUp;
-            else tiles[y][x].from = SUp;
+                tilemap[y][x].to = SUp;
+            else tilemap[y][x].from = SUp;
             which++;
             break;
         case 'D':
             if (which)
-                tiles[y][x].to = SDown;
-            else tiles[y][x].from = SDown;
+                tilemap[y][x].to = SDown;
+            else tilemap[y][x].from = SDown;
             which++;
             break;
         case 'N':
             if (which)
-                tiles[y][x].to = SNone;
-            else tiles[y][x].from = SNone;
+                tilemap[y][x].to = SNone;
+            else tilemap[y][x].from = SNone;
             which++;
             break;
         case '\n':
@@ -86,18 +109,27 @@ void Map_init(const char *filename) {
     }
     fclose(file);
     if (which > 1) {
-        Tile *t = &tiles[y][x];
-        if (t->from == SLeft && t->to == SRight ||
+        Tile *t = &tilemap[y][x];
+        if (t->from == SNone)
+            t->type = TTNone;
+        else if (t->from == SLeft && t->to == SRight ||
             t->from == SRight && t->to == SLeft)
             t->type = TTHoriz;
         else if (t->from == SUp && t->to == SDown ||
             t->from == SDown && t->to == SUp)
             t->type = TTVert;
         else t->type = TTTurn;
+        t->x = x;
+        t->y = y;
     }
+    tilemap[*sy][*sx].isStart = 1;
     if (x > 0)
         y++;
-    height = y;
+    *h = y;
+}
+
+void Map_init(const char *filename) {
+    Map_load(filename, tiles, &width, &height, &startX, &startY);
 }
 
 static void _updateCamera(Camera *cam, AEVec2 pos, int lerp) {
@@ -180,72 +212,7 @@ void Map_updateCamera(Camera *cam, AEVec2 pos) {
 
 void Map_draw()
 {
-    for (unsigned y = 0; y < height; y++) {
-        for (unsigned x = 0; x < width; x++) {
-            AEVec2 worldPos;
-            float worldX;
-            float worldY;
-            Map_tilePosToWorldPos(&worldX, &worldY, x, y);
-            worldPos.x = worldX;
-            worldPos.y = worldY;
-            
-            Tile tile = Map_getTile(x, y);
-            switch (tile.from) {
-            case SDown:
-                switch (tile.to) {
-                case SUp:
-                    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.map_straightTile, worldPos, TILE_SIZE, TILE_SIZE, 0, 1);
-                    break;
-                case SRight:
-                    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.map_rightCornerTile, worldPos, TILE_SIZE, TILE_SIZE, 0, 1);
-                    break;
-                case SLeft:
-                    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.map_leftCornerTile, worldPos, TILE_SIZE, TILE_SIZE, 0, 1);
-                    break;
-                }
-                break;
-            case SLeft:
-                switch (tile.to) {
-                case SUp:
-                    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.map_leftCornerTile, worldPos, TILE_SIZE, TILE_SIZE, 270 * (PI / 180), 1);
-                    break;
-                case SRight:
-                    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.map_straightTile, worldPos, TILE_SIZE, TILE_SIZE, 270 * (PI / 180), 1);
-                    break;
-                case SDown:
-                    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.map_rightCornerTile, worldPos, TILE_SIZE, TILE_SIZE, 270 * (PI / 180), 1);
-                    break;
-                }
-                break;
-            case SUp:
-                switch (tile.to) {
-                case SLeft:
-                    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.map_rightCornerTile, worldPos, TILE_SIZE, TILE_SIZE, 180 * (PI / 180), 1);
-                    break;
-                case SRight:
-                    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.map_leftCornerTile, worldPos, TILE_SIZE, TILE_SIZE, 180 * (PI / 180), 1);
-                    break;
-                case SDown:
-                    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.map_straightTile, worldPos, TILE_SIZE, TILE_SIZE, 180 * (PI / 180), 1);
-                    break;
-                }
-                break;
-            case SRight:
-                switch (tile.to) {
-                case SLeft:
-                    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.map_straightTile, worldPos, TILE_SIZE, TILE_SIZE, 90 * (PI / 180), 1);
-                    break;
-                case SUp:
-                    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.map_rightCornerTile, worldPos, TILE_SIZE, TILE_SIZE, 90 * (PI / 180), 1);
-                    break;
-                case SDown:
-                    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.map_leftCornerTile, worldPos, TILE_SIZE, TILE_SIZE, 90 * (PI / 180), 1);
-                    break;
-                }
-                break;
-            }
-        }
-    }
+    Map_customDraw(tiles, height, width);
 }
 
 void Map_customDraw(Tile tilemap[MAP_MAX_SIZE][MAP_MAX_SIZE], unsigned tilemap_height, unsigned tilemap_width)
@@ -264,7 +231,7 @@ void Map_customDraw(Tile tilemap[MAP_MAX_SIZE][MAP_MAX_SIZE], unsigned tilemap_h
             case SDown:
                 switch (tile.to) {
                 case SUp:
-                    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.map_straightTile, worldPos, TILE_SIZE, TILE_SIZE, 0, 1);
+                    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), tile.isStart ? TEXTURES.map_startTile : TEXTURES.map_straightTile, worldPos, TILE_SIZE, TILE_SIZE, 0, 1);
                     break;
                 case SRight:
                     ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.map_rightCornerTile, worldPos, TILE_SIZE, TILE_SIZE, 0, 1);
@@ -280,7 +247,7 @@ void Map_customDraw(Tile tilemap[MAP_MAX_SIZE][MAP_MAX_SIZE], unsigned tilemap_h
                     ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.map_leftCornerTile, worldPos, TILE_SIZE, TILE_SIZE, 270 * (PI / 180), 1);
                     break;
                 case SRight:
-                    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.map_straightTile, worldPos, TILE_SIZE, TILE_SIZE, 270 * (PI / 180), 1);
+                    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), tile.isStart ? TEXTURES.map_startTile : TEXTURES.map_straightTile, worldPos, TILE_SIZE, TILE_SIZE, 270 * (PI / 180), 1);
                     break;
                 case SDown:
                     ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.map_rightCornerTile, worldPos, TILE_SIZE, TILE_SIZE, 270 * (PI / 180), 1);
@@ -296,14 +263,14 @@ void Map_customDraw(Tile tilemap[MAP_MAX_SIZE][MAP_MAX_SIZE], unsigned tilemap_h
                     ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.map_leftCornerTile, worldPos, TILE_SIZE, TILE_SIZE, 180 * (PI / 180), 1);
                     break;
                 case SDown:
-                    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.map_straightTile, worldPos, TILE_SIZE, TILE_SIZE, 180 * (PI / 180), 1);
+                    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), tile.isStart ? TEXTURES.map_startTile : TEXTURES.map_straightTile, worldPos, TILE_SIZE, TILE_SIZE, 180 * (PI / 180), 1);
                     break;
                 }
                 break;
             case SRight:
                 switch (tile.to) {
                 case SLeft:
-                    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.map_straightTile, worldPos, TILE_SIZE, TILE_SIZE, 90 * (PI / 180), 1);
+                    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), tile.isStart ? TEXTURES.map_startTile : TEXTURES.map_straightTile, worldPos, TILE_SIZE, TILE_SIZE, 90 * (PI / 180), 1);
                     break;
                 case SUp:
                     ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.map_rightCornerTile, worldPos, TILE_SIZE, TILE_SIZE, 90 * (PI / 180), 1);
@@ -334,10 +301,30 @@ Tile Map_getTile(unsigned x, unsigned y) {
     return tiles[y][x];
 }
 
+Tile Map_getStartTile() {
+    return tiles[startY][startX];
+}
+
+Tile Map_getNextTile(Tile tile) {
+    return tile.to == SLeft  ? tiles[tile.y][tile.x - 1] : 
+           tile.to == SRight ? tiles[tile.y][tile.x + 1] :
+           tile.to == SUp    ? tiles[tile.y - 1][tile.x] :
+           tile.to == SDown  ? tiles[tile.y + 1][tile.x] : 
+           tile;
+}
+
 unsigned Map_getWidth() {
     return width;
 }
 
 unsigned Map_getHeight() {
     return height;
+}
+
+unsigned Map_getStartX() {
+    return startX;
+}
+
+unsigned Map_getStartY() {
+    return startY;
 }
