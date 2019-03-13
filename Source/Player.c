@@ -28,9 +28,9 @@ void Player_onInit(Object *obj, PlayerData *data)
     data->alpha = 1.0f;
     data->mesh = MeshHandler_createSquareMesh(PLAYER_SCALE.x, PLAYER_SCALE.y, 1, 1);
     data->texture = PLAYER_STANDARD_TEXTURE;
-	data->acceleration = 0.46875f;
-	data->deceleration = 0.1f;
-    data->speedcap = 14.0f;
+	data->acceleration = 0.066875f;
+	data->deceleration = 0.07f;
+    data->speedcap = 7.0f;
 
     Map_initCamera(Camera_get(data->playerNum), Object_getPos(obj));
 }
@@ -52,12 +52,12 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 
 	if (Input_leftCheck(data->controls))
 	{
-		data->direction += 0.10f;
+		data->direction += 0.05f;
 	}
 
 	if (Input_rightCheck(data->controls))
 	{
-		data->direction -= 0.10f;
+		data->direction -= 0.05f;
 	}
 	
 	if (Input_downCheck(data->controls))
