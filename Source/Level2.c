@@ -45,6 +45,7 @@ void Level2_onLoad()
 
 void Level2_onInit()
 {
+    AEInputShowCursor(0);
 
     //Draw Background
     ObjectManager_addObj(Background_create());
@@ -227,6 +228,7 @@ static void separatorDraw(Object *obj, void *data) {
 
 void Level2_onShutdown()
 {
+    AEInputShowCursor(1);
 	Camera_clear();
 	Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, AEGfxGetWinSize());
 }

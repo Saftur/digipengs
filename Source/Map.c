@@ -14,7 +14,7 @@
 #include "MeshHandler.h"
 #include "Utils.h"
 
-#define CAM_ROT_LERP_PERCENT 0.4f
+#define CAM_ROT_LERP_PERCENT 0.2f
 
 static Tile tiles[MAP_MAX_SIZE][MAP_MAX_SIZE];
 

@@ -17,6 +17,7 @@ void LevelEditorLevel_onLoad()
 
 void LevelEditorLevel_onInit()
 {
+    AEInputShowCursor(0);
     //Camera_new((AEVec2) { 1200, -1000 }, 0.16f, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 600 });
     LevelEditor_init();
 }
@@ -43,6 +44,7 @@ void LevelEditorLevel_onUpdate(float dt)
 
 void LevelEditorLevel_onShutdown()
 {
+    AEInputShowCursor(1);
     LevelEditor_shutdown(); 
     Camera_clear();
     Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, AEGfxGetWinSize());
