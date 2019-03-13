@@ -17,6 +17,11 @@
 #include "Level2.h"
 #include "EndScreen.h"
 
+#define PLAYER_ACCEL 240.75f
+#define PLAYER_DECCEL 252.f
+#define PLAYER_MAXSPD 420.f
+#define PLAYER_ROTSPD 3.f
+
 void Player_onShutdown(PlayerData *data) {
     AEGfxMeshFree(data->mesh);
     free(data);
@@ -28,9 +33,9 @@ void Player_onInit(Object *obj, PlayerData *data)
     data->alpha = 1.0f;
     data->mesh = MeshHandler_createSquareMesh(PLAYER_SCALE.x, PLAYER_SCALE.y, 1, 1);
     data->texture = PLAYER_STANDARD_TEXTURE;
-	data->acceleration = 0.066875f;
-	data->deceleration = 0.07f;
-    data->speedcap = 7.0f;
+	data->acceleration = PLAYER_ACCEL;
+	data->deceleration = PLAYER_DECCEL;
+    data->speedcap = PLAYER_MAXSPD;
 
     Map_initCamera(Camera_get(data->playerNum), Object_getPos(obj));
 }
@@ -47,28 +52,28 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
         return;
     }
 
-	data->speed += data->acceleration;
+	data->speed += data->acceleration * dt;
 	data->speed = fminf(data->speed, data->speedcap);
 
 	if (Input_leftCheck(data->controls))
 	{
-		data->direction += 0.05f;
+		data->direction += PLAYER_ROTSPD * dt;
 	}
 
 	if (Input_rightCheck(data->controls))
 	{
-		data->direction -= 0.05f;
+		data->direction -= PLAYER_ROTSPD * dt;
 	}
 	
 	if (Input_downCheck(data->controls))
 	{
-		data->speed -= (data->acceleration + data->deceleration);
+		data->speed -= (data->acceleration + data->deceleration) * dt;
 		data->speed = fmaxf(data->speed, 0);
 	}
 
 	AEVec2 pos = Object_getPos(obj);
-	pos.x += (data->speed * cosf(data->direction));
-	pos.y += (data->speed * sinf(data->direction));
+	pos.x += data->speed * cosf(data->direction) * dt;
+	pos.y += data->speed * sinf(data->direction) * dt;
 
 	Object_setPos(obj, pos);
 

@@ -16,12 +16,11 @@
 #include "Camera.h"
 #include "LevelManager.h"
 #include "ObstacleManager.h"
+#include "Polarbear.h"
 
 #define BOULDER_TEXTURE TEXTURES.boulder
 #define POLARBEAR_TEXTURE TEXTURES.polarbear
 #define ICE_TEXTURE TEXTURES.test
-
-
 
 static int PlacementMode = 0;
 static int ObstacleScale = 32;
@@ -114,7 +113,7 @@ void LevelEditor_update(float dt)
         }
         break;
     case Polarbear:
-        ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), POLARBEAR_TEXTURE, mouseLoc, (float)ObstacleScale * Camera_getCurr()->worldScale * 1.7f, (float)ObstacleScale * Camera_getCurr()->worldScale, 0, 1);
+        ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), POLARBEAR_TEXTURE, mouseLoc, (float)ObstacleScale * Camera_getCurr()->worldScale * POLARBEAR_ASPECT_RATIO, (float)ObstacleScale * Camera_getCurr()->worldScale, 0, 1);
 
         if (AEInputCheckTriggered(VK_LBUTTON)) {
             Obstacle *polarbear = malloc(sizeof(Obstacle));
@@ -126,7 +125,7 @@ void LevelEditor_update(float dt)
             vector_push_back(Obstacles, polarbear);
         }
         break;
-    case Ice:
+    /*case Ice:
         ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), ICE_TEXTURE, mouseLoc, (float)ObstacleScale * Camera_getCurr()->worldScale, (float)ObstacleScale * Camera_getCurr()->worldScale, 0, 1);
 
         if (AEInputCheckTriggered(VK_LBUTTON)) {
@@ -138,7 +137,7 @@ void LevelEditor_update(float dt)
 
             vector_push_back(Obstacles, ice);
         }
-        break;
+        break;*/
 
     case None:
         EditMap(dt);
@@ -488,10 +487,10 @@ static void DrawIcons() {
 
     ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), BOULDER_TEXTURE, iconPos, 32, 32, 0, 1);
     AEVec2Add(&iconPos, &iconPos, &distBetweenIcons);
-    ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), POLARBEAR_TEXTURE, iconPos, 32*1.7f, 32, 0, 1);
+    ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), POLARBEAR_TEXTURE, iconPos, 32 * POLARBEAR_ASPECT_RATIO, 32, 0, 1);
     AEVec2Add(&iconPos, &iconPos, &distBetweenIcons);
-    ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), ICE_TEXTURE, iconPos, 32, 32, 0, 1);
-    AEVec2Add(&iconPos, &iconPos, &distBetweenIcons);
+    //ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), ICE_TEXTURE, iconPos, 32, 32, 0, 1);
+    //AEVec2Add(&iconPos, &iconPos, &distBetweenIcons);
 }
 
 void DrawObstacles()
@@ -504,7 +503,7 @@ void DrawObstacles()
             ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), BOULDER_TEXTURE, obstacle.pos, obstacle.radius * 2, obstacle.radius * 2, 0, 1);
             break;
         case Polarbear:
-            ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), POLARBEAR_TEXTURE, obstacle.pos, obstacle.radius * 2 * 1.7f, obstacle.radius * 2, 0, 1);
+            ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), POLARBEAR_TEXTURE, obstacle.pos, obstacle.radius * 2 * POLARBEAR_ASPECT_RATIO, obstacle.radius * 2, 0, 1);
             break;
         case Ice:
             ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), ICE_TEXTURE, obstacle.pos, obstacle.radius * 2, obstacle.radius * 2, 0, 1);
