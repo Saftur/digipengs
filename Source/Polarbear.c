@@ -19,7 +19,7 @@
 #define POLARBEAR_ACCEL_MIN                100.0f
 #define POLARBEAR_ACCEL_MAX                200.0f
 
-#define POLARBEAR_SPEED_MAX 200.0f
+#define POLARBEAR_SPEED_MAX 300.0f
 
 #define POLARBEAR_RANGE_MIN        100
 #define POLARBEAR_RANGE_MAX        450
@@ -38,6 +38,8 @@
 #define POLARBEAR_ROTATION_SPEED(size) (5 * POLARBEAR_DEFAULT_SIZE / size)
 
 #define POLARBEAR_TEXTURE TEXTURES.polarbear
+
+#define POLARBEAR_TIMER 0.25f
 
 static float float_rand(float min, float max);
 
@@ -64,6 +66,8 @@ typedef struct PolarbearData
 
     AEVec2 home;
     float maxDistanceSquared;
+
+    float timer;
 }PolarbearData;
 
 void Polarbear_onDraw(Object *obj, PolarbearData *data)
@@ -78,6 +82,7 @@ void Polarbear_onInit(Object *obj, PolarbearData *data)
     data->rotation = 0;
     data->target = NULL;
     data->velocity = 0;
+    data->timer = POLARBEAR_TIMER;
 }
 
 void Polarbear_onUpdate(Object *obj, PolarbearData *data, float dt)
@@ -88,16 +93,23 @@ void Polarbear_onUpdate(Object *obj, PolarbearData *data, float dt)
     case IDLE:
     {
         unsigned i;
-        for (i = 0; i < ObjectManager_numObjs(); i++)
+        if (data->timer <= 0)
         {
-            Object *player = ObjectManager_getObj(i);
-            if (strcmp(Object_getName(player), "Player")) continue;
-            AEVec2 playerPos = Object_getPos(player);
-            AEVec2 objPos = Object_getPos(obj);
-            if (AEVec2SquareDistance(&playerPos, &objPos) > data->rangeSquared) continue;
-            data->state = CHASING;
-            data->target = player;
+            data->timer = POLARBEAR_TIMER;
+            for (i = 0; i < ObjectManager_numObjs(); i++)
+            {
+                Object *player = ObjectManager_getObj(i);
+                if (strcmp(Object_getName(player), "Player")) continue;
+                AEVec2 playerPos = Object_getPos(player);
+                AEVec2 objPos = Object_getPos(obj);
+                if (AEVec2SquareDistance(&playerPos, &objPos) > data->rangeSquared) continue;
+                data->velocity = 0;
+                data->state = CHASING;
+                data->target = player;
+            }
         }
+        else
+            data->timer -= dt;
         break;
     }
     case CHASING:

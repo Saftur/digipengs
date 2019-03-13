@@ -9,6 +9,7 @@
 #include <AEEngine.h>
 #include "Object.h"
 #include "Map.h"
+#include "CollisionHandler.h"
 
 
  /**

@@ -18,7 +18,7 @@
 #include "ObstacleManager.h"
 
 #define BOULDER_TEXTURE TEXTURES.boulder
-#define POLARBEAR_TEXTURE TEXTURES.test
+#define POLARBEAR_TEXTURE TEXTURES.polarbear
 #define ICE_TEXTURE TEXTURES.test
 
 static int PlacementMode = 0;
@@ -150,6 +150,7 @@ void LevelEditor_update(float dt)
 void LevelEditor_shutdown()
 {
     vector_delete(Obstacles);
+    Obstacles = NULL;
 }
 
 static int CheckEditKey(u8 key, float dt) {
