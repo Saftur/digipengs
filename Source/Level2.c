@@ -23,10 +23,14 @@
 #include "ObstacleManager.h"
 #include "Utils.h"
 #include "Timer.h"
+#include "LapCounter.h"
 
 #define SCREEN_SEPARATOR_WIDTH 10
 
 #define MP_PLAYER_OFFSET 64
+
+float player1Lap;
+float player2Lap;
 
 int splitScreen = 0;
 
@@ -139,7 +143,12 @@ static void initPlayers() {
     Map_tilePosToWorldPos(&pos1.x, &pos1.y, startTileX, startTileY);
     if (splitScreen)
         AEVec2Add(&pos1, &pos1, &p1Offset);
-    Object *player = Player_new(pos1, direction, (Controls) { 'A', 'D', 'W', 'S', 0 }, 0);
+
+	player1Lap = 1.0f;
+	Object *lapCounter1 = LapCounter_new("Lap %d", TEXTURES.font, (AEVec2) { 569, 420 }, (AEVec2) { 50, 100 }, &player1Lap);
+	ObjectManager_addObj(lapCounter1);
+
+    Object *player = Player_new(pos1, direction, (Controls) { 'A', 'D', 'W', 'S', 0 }, 0, &player1Lap);
     ObjectManager_addObj(player);
     CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, 0, PlayerOnCollision);
 
@@ -148,7 +157,12 @@ static void initPlayers() {
 		AEVec2 pos2;
 		Map_tilePosToWorldPos(&pos2.x, &pos2.y, startTileX, startTileY);
         AEVec2Add(&pos2, &pos2, &p2Offset);
-        player = Player_new(pos2, direction, (Controls) { VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN }, 1);
+
+		player2Lap = 1.0f;
+		Object *lapCounter2 = LapCounter_new("Lap %d", TEXTURES.font, (AEVec2) { 569, 300 }, (AEVec2) { 50, 100 }, &player2Lap);
+		ObjectManager_addObj(lapCounter2);
+
+        player = Player_new(pos2, direction, (Controls) { VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN }, 1, &player2Lap);
         ObjectManager_addObj(player);
         Player_changeTexture(player, PLAYER_GREEN_TEXTURE);
         CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, 0, PlayerOnCollision);

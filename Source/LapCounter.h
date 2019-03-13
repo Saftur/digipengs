@@ -8,4 +8,4 @@
 
 typedef struct LapCounter LapCounter;
 
-Object* LapCounter_new(char* format, AEGfxTexture* font, AEVec2 textPos, AEVec2 charScale, int* currentLap);
+Object* LapCounter_new(char* format, AEGfxTexture* font, AEVec2 textPos, AEVec2 charScale, float* currentLap);

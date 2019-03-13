@@ -31,7 +31,6 @@ void Player_onInit(Object *obj, PlayerData *data)
 	data->acceleration = 0.046875f;
 	data->deceleration = 0.05f;
     data->speedcap = 6.0f;
-    data->lap = 1.f;
 
     Map_initCamera(Camera_get(data->playerNum), Object_getPos(obj));
 }
@@ -40,7 +39,7 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 {
     UNREFERENCED_PARAMETER(dt);
 
-    if (data->lap >= NUM_LAPS+1) {
+    if (*(data->lap) >= NUM_LAPS+1) {
         if (splitScreen) {
             EndScreen_winner = data->playerNum + 1;
         } else EndScreen_winner = 0;
@@ -82,7 +81,7 @@ void Player_onDraw(Object *obj, PlayerData *data)
 }
 
 
-Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned playerNum)
+Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned playerNum, float* lap)
 {
     PlayerData * data = calloc(1, sizeof(PlayerData));
     Object *player = Object_new(Player_onInit, Player_onUpdate, Player_onDraw, data, Player_onShutdown, "Player");
@@ -90,6 +89,7 @@ Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned play
     data->direction = direction;
     data->playerNum = playerNum;
     data->controls = controls;
+	data->lap = lap;
     return player;
 }
 

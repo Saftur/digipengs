@@ -14,7 +14,7 @@ typedef struct LapCounter {
 	Object* textData;
 	char lapAsString[MAX_LAP_STRING_SIZE];
 	char* format;
-	int* lap;
+	float* lap;
 } LapCounter;
 
 static void LapCounter_updateString(LapCounter* data);
@@ -36,7 +36,7 @@ static void LapCounter_onUpdate(Object* obj, LapCounter* data, float dt)
 
 static void LapCounter_updateString(LapCounter* data)
 {
-	sprintf_s(data->lapAsString, MAX_LAP_STRING_SIZE, data->format, *(data->lap));
+	sprintf_s(data->lapAsString, MAX_LAP_STRING_SIZE, data->format, (int) *(data->lap));
 }
 
 static void LapCounter_onDraw(Object *obj, LapCounter *data)
@@ -46,7 +46,7 @@ static void LapCounter_onDraw(Object *obj, LapCounter *data)
 	UNREFERENCED_PARAMETER(data);
 }
 
-Object* LapCounter_new(char* format, AEGfxTexture* font, AEVec2 textPos, AEVec2 charScale, int* currentLap)
+Object* LapCounter_new(char* format, AEGfxTexture* font, AEVec2 textPos, AEVec2 charScale, float* currentLap)
 {
 	LapCounter* counterData = malloc(sizeof(LapCounter));
 	counterData->lap = currentLap;

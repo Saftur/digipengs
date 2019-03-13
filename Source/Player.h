@@ -23,7 +23,7 @@ typedef struct PlayerData
 	float deceleration;
 	float speedcap;
 
-    float lap;
+    float* lap;
 
     Controls controls; ///< Player's controls
 
@@ -43,7 +43,7 @@ typedef struct PlayerData
  * @param playerNum Player number
  * @return New player
  */
-Object * Player_new(AEVec2 pos, float direction, Controls controls, unsigned playerNum);
+Object * Player_new(AEVec2 pos, float direction, Controls controls, unsigned playerNum, float* lap);
 
 /**
  * @brief Returns the direction of a player
