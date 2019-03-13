@@ -62,6 +62,7 @@ void Map_load(const char *filename, Tile tilemap[MAP_MAX_SIZE][MAP_MAX_SIZE],
             else t->type = TTTurn;
             t->x = x;
             t->y = y;
+            t->isStart = 0;
             x++;
             which = 0;
             if (x > *w)
@@ -121,6 +122,7 @@ void Map_load(const char *filename, Tile tilemap[MAP_MAX_SIZE][MAP_MAX_SIZE],
         else t->type = TTTurn;
         t->x = x;
         t->y = y;
+        t->isStart = 0;
     }
     tilemap[*sy][*sx].isStart = 1;
     if (x > 0)

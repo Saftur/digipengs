@@ -64,7 +64,7 @@ void ObstacleManager_loadObstacles()
 
     //Build walls on the map.
     AEVec2 tileWorldPos;
-    unsigned tileX = 0, tileY = 0;
+    unsigned tileX = Map_getStartX(), tileY = Map_getStartY();
 
     unsigned initialTileX = tileX, initialTileY = tileY;
 

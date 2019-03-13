@@ -204,7 +204,25 @@ static void AddTile(Side dir) {
     switch (currTile.to) {
     case SUp:
         newTileY--;
-        if (newTileY < 0) {
+        break;
+    case SDown:
+        newTileY++;
+        break;
+    case SLeft:
+        newTileX--;
+        break;
+    case SRight:
+        newTileX++;
+        break;
+    }
+
+    if (Map[newTileY][newTileX].type != TTNone) return;
+
+    int toTileX = newTileX, toTileY = newTileY;
+
+    if (dir == SUp) {
+        toTileY--;
+        if (toTileY < 0) {
             if (Height == MAP_MAX_SIZE)
                 return;
             for (unsigned y = Height; y > 0; y--)
@@ -219,54 +237,15 @@ static void AddTile(Side dir) {
             TileY++;
             StartY++;
             newTileY++;
+            toTileY++;
 
             Camera *cam = Camera_getCurr();
             if (cam) {
                 cam->worldPos.y -= TILE_SIZE;
             }
         }
-        break;
-    case SDown:
-        newTileY++;
-        if (newTileY >= MAP_MAX_SIZE) return;
-        if (newTileY >= (int)Height) Height = newTileY + 1;
-        break;
-    case SLeft:
-        newTileX--;
-        if (newTileX < 0) {
-            if (Width == MAP_MAX_SIZE)
-                return;
-            for (unsigned y = 0; y < Height; y++) {
-                memmove(Map[y]+1, Map[y], Width * sizeof(Tile));
-                Map[y][0] = (Tile) { SNone, SNone, TTNone, 0 };
-            }
-            for (unsigned i = 0; i < vector_size(Obstacles); i++) {
-                Obstacle *obstacle = (Obstacle*)vector_at(Obstacles, i);
-                obstacle->pos.x += TILE_SIZE;
-            }
-            Width++;
-            TileX++;
-            StartX++;
-            newTileX++;
-
-            Camera *cam = Camera_getCurr();
-            if (cam) {
-                cam->worldPos.x += TILE_SIZE;
-            }
-        }
-        break;
-    case SRight:
-        newTileX++;
-        if (newTileX >= MAP_MAX_SIZE) return;
-        if (newTileX >= (int)Width) Width = newTileX + 1;
-        break;
-    }
-
-    if (Map[newTileY][newTileX].type != TTNone) return;
-
-    if (dir == SUp) {
-        Tile to = Map[newTileY - 1][newTileX];
-        if ((newTileY - 1 < 0 && Height == MAP_MAX_SIZE) || !((to.isStart && to.from == SDown) || to.type == TTNone))
+        Tile to = Map[toTileY][toTileX];
+        if ((toTileY < 0 && Height == MAP_MAX_SIZE) || !((to.isStart && to.from == SDown) || to.type == TTNone))
             return;
         switch (currTile.to) {
         case SUp:
@@ -281,9 +260,11 @@ static void AddTile(Side dir) {
         }
     }
     if (dir == SDown) {
-        Tile to = Map[newTileY + 1][newTileX];
-        if ((newTileY + 1 >= (int)Height && Height == MAP_MAX_SIZE) || !((to.isStart && to.from == SUp) || to.type == TTNone))
+        toTileY++;
+        Tile to = Map[toTileY][toTileX];
+        if ((toTileY >= MAP_MAX_SIZE) || !((to.isStart && to.from == SUp) || to.type == TTNone))
             return;
+        if (toTileY >= (int)Height) Height = toTileY + 1;
         switch (currTile.to) {
         case SDown:
             Map[++TileY][TileX] = (Tile) { SUp, SDown, TTVert };
@@ -297,8 +278,31 @@ static void AddTile(Side dir) {
         }
     }
     if (dir == SLeft) {
-        Tile to = Map[newTileY][newTileX - 1];
-        if ((newTileX - 1 < 0 && Width == MAP_MAX_SIZE) || !((to.isStart && to.from == SRight) || to.type == TTNone))
+        toTileX--;
+        if (toTileX < 0) {
+            if (Width == MAP_MAX_SIZE)
+                return;
+            for (unsigned y = 0; y < Height; y++) {
+                memmove(Map[y]+1, Map[y], Width * sizeof(Tile));
+                Map[y][0] = (Tile) { SNone, SNone, TTNone, 0 };
+            }
+            for (unsigned i = 0; i < vector_size(Obstacles); i++) {
+                Obstacle *obstacle = (Obstacle*)vector_at(Obstacles, i);
+                obstacle->pos.x += TILE_SIZE;
+            }
+            Width++;
+            TileX++;
+            StartX++;
+            newTileX++;
+            toTileX++;
+
+            Camera *cam = Camera_getCurr();
+            if (cam) {
+                cam->worldPos.x += TILE_SIZE;
+            }
+        }
+        Tile to = Map[toTileY][toTileX];
+        if ((toTileX < 0 && Width == MAP_MAX_SIZE) || !((to.isStart && to.from == SRight) || to.type == TTNone))
             return;
         switch (currTile.to) {
         case SUp:
@@ -313,9 +317,11 @@ static void AddTile(Side dir) {
         }
     }
     if (dir == SRight) {
-        Tile to = Map[newTileY][newTileX + 1];
-        if ((newTileX + 1 >= (int)Width && Width == MAP_MAX_SIZE) || !((to.isStart && to.from == SLeft) || to.type == TTNone))
+        toTileX++;
+        Tile to = Map[toTileY][toTileX];
+        if ((toTileX >= MAP_MAX_SIZE) || !((to.isStart && to.from == SLeft) || to.type == TTNone))
             return;
+        if (toTileX >= (int)Width) Width = toTileX + 1;
         switch (currTile.to) {
         case SUp:
             Map[--TileY][TileX] = (Tile) { SDown, SRight, TTVert };
@@ -465,8 +471,10 @@ static void ClearMap() {
         }
     }
     Map[0][1] = (Tile) { SLeft, SRight, TTHoriz, 1 };
+    StartX = 1;
+    StartY = 0;
 
-    Width = 2;
+    Width = 3;
     Height = 1;
     TileX = 1;
     TileY = 0;
