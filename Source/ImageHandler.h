@@ -36,7 +36,10 @@ struct LOADEDTEXTURES
     AEGfxTexture *map_rightCornerTile; ///< Right corner tile segment for the map.
     AEGfxTexture *map_leftCornerTile; ///< Left corner tile segment for the map.
     AEGfxTexture *map_startTile; ///< Start tile segment for the map.
-    AEGfxTexture *screen_separator;
+    AEGfxTexture *screen_separator; ///< Screen Seperator
+    AEGfxTexture *background; ///< background art for the game
+    AEGfxTexture *polarbear; ///< background art for the game
+
 
 	AEGfxTexture *font;
 	

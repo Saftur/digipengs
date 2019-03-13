@@ -46,10 +46,9 @@ static void LoadObstacles();
 
 void LevelEditor_init()
 {
+    LoadMap("./Assets/Map.txt");
     Obstacles = vector_new(5, NULL, free);
     LoadObstacles();
-
-    LoadMap("./Assets/Map.txt");
 }
 
 
@@ -452,7 +451,8 @@ static void SaveMap() {
 }
 
 static void ClearMap() {
-    vector_clear(Obstacles);
+    if(Obstacles)
+        vector_clear(Obstacles);
 
     for (int y = 0; y < MAP_MAX_SIZE; y++) {
         for (int x = 0; x < MAP_MAX_SIZE; x++) {

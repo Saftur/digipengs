@@ -85,6 +85,9 @@
     <ClCompile Include="Source\Utils.c">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Source\LevelEditor.c">
+      <Filter>Engine\Levels</Filter>
+    </ClCompile>
     <ClCompile Include="Source\LevelEditorLevel.c">
       <Filter>Game\Levels</Filter>
     </ClCompile>
@@ -97,8 +100,8 @@
     <ClCompile Include="Source\TextHandler.c">
       <Filter>Engine\Handlers</Filter>
     </ClCompile>
-    <ClCompile Include="Source\LevelEditor.c">
-      <Filter>Game\Levels</Filter>
+    <ClCompile Include="Source\Background.c">
+      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Source\Timer.c" />
     <ClCompile Include="Source\LapCounter.c" />
@@ -170,6 +173,9 @@
       <Filter>Game\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Source\CollisionEvents.h" />
+    <ClInclude Include="Source\LevelEditor.h">
+      <Filter>Engine\Levels</Filter>
+    </ClInclude>
     <ClInclude Include="Source\LevelEditorLevel.h">
       <Filter>Game\Levels</Filter>
     </ClInclude>
@@ -194,8 +200,8 @@
     <ClInclude Include="Source\TextHandler.h">
       <Filter>Engine\Handlers</Filter>
     </ClInclude>
-    <ClInclude Include="Source\LevelEditor.h">
-      <Filter>Game\Levels</Filter>
+    <ClInclude Include="Source\Background.h">
+      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\LapCounter.h" />

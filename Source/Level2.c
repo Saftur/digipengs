@@ -24,6 +24,7 @@
 #include "Utils.h"
 #include "Timer.h"
 #include "LapCounter.h"
+#include "Background.h"
 
 #define SCREEN_SEPARATOR_WIDTH 10
 
@@ -44,6 +45,10 @@ void Level2_onLoad()
 
 void Level2_onInit()
 {
+
+    //Draw Background
+    ObjectManager_addObj(Background_create());
+
 	if (splitScreen)
 	{
 		Camera_clear();
@@ -144,7 +149,7 @@ static void initPlayers() {
     if (splitScreen)
         AEVec2Add(&pos1, &pos1, &p1Offset);
 
-	player1Lap = 1.0f;
+    player1Lap = 1.f;
     AEVec2 lapPos1;
     lapPos1.x = (splitScreen ? AEGfxGetWinMinX() / 2.f : AEGfxGetWinMinX()) + 40.f;
     lapPos1.y = AEGfxGetWinMaxY() - 40.f;
@@ -161,7 +166,7 @@ static void initPlayers() {
 		Map_tilePosToWorldPos(&pos2.x, &pos2.y, startTileX, startTileY);
         AEVec2Add(&pos2, &pos2, &p2Offset);
 
-		player2Lap = 1.0f;
+        player2Lap = 1.f;
         AEVec2 lapPos2;
         lapPos2.x = (splitScreen ? AEGfxGetWinMinX() / 2.f : AEGfxGetWinMinX()) + 40.f;
         lapPos2.y = AEGfxGetWinMaxY() - 40.f;
@@ -205,6 +210,7 @@ void Level2_onUpdate(float dt)
 
 void Level2_onDraw()
 {
+    Background_onDraw();
     Map_draw();
 }
 

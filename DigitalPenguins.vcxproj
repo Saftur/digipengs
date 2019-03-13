@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\AudioHandler.c" />
+    <ClCompile Include="Source\Background.c" />
     <ClCompile Include="source\Boulder.c" />
     <ClCompile Include="Source\Button.c" />
     <ClCompile Include="Source\Camera.c" />
@@ -52,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AudioHandler.h" />
+    <ClInclude Include="Source\Background.h" />
     <ClInclude Include="Source\Button.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="source\Boulder.h" />

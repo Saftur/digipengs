@@ -10,8 +10,7 @@
 #include <AEEngine.h>
 #include "ImageHandler.h"
 
-typedef struct Button 
-{
+typedef struct Button {
 	AEGfxTexture *defaultTexture;
 	AEGfxTexture *mouseHoverTexture;
 	AEGfxTexture *onClickTexture;
@@ -24,8 +23,7 @@ typedef struct Button
 /**
  * @brief Button init function
  */
-void Button_onInit(Object *obj, Button *data) 
-{
+void Button_onInit(Object *obj, void *data) {
 	printf("Button init\n");
 	UNREFERENCED_PARAMETER(obj);
 	UNREFERENCED_PARAMETER(data);
@@ -34,8 +32,7 @@ void Button_onInit(Object *obj, Button *data)
 /**
  * @brief Button update function
  */
-void Button_onUpdate(Object *obj, Button *data, float dt) 
-{
+void Button_onUpdate(Object *obj, Button *data, float dt) {
 	printf("Button update\n");
 	UNREFERENCED_PARAMETER(dt);
 	
@@ -74,8 +71,8 @@ void Button_onUpdate(Object *obj, Button *data, float dt)
 	}
 }
 
-void Button_onDraw(Object *obj, Button *data) 
-{
+void Button_onDraw(Object *obj, Button *data) {
+    
 	if (data->texture == DEFAULT)
 	{
 		ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), data->defaultTexture, Object_getPos(obj), data->width, data->height, 0, 1);
@@ -91,8 +88,7 @@ void Button_onDraw(Object *obj, Button *data)
 }
 
 Object *Button_new(ButtonEffectFunc buttonEffect, AEGfxTexture *defaultTexture, AEGfxTexture *mouseHoverTexture, AEGfxTexture *onClickTexture, 
-				   float x, float y, float width, float height) 
-{
+				   float x, float y, float width, float height) {
 	Button *buttonData = malloc(sizeof(Button));
 	buttonData->buttonEffect = buttonEffect;
 	buttonData->defaultTexture = defaultTexture;

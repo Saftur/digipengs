@@ -43,6 +43,8 @@ void Polarbear_setSize(Object * polarbear, float value);
  */
 float Polarbear_getSize(Object * polarbear);
 
+void Polarbear_setReturn(Object* polarbear);
+
 /**
  * @brief Create new polarbear
  * @param pos Position to create polarbear at

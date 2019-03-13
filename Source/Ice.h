@@ -47,7 +47,7 @@ void Ice_setSize(Object * ice, float value);
 float Ice_getSize(Object * ice);
 
 /**
- * @brief Create new boulder
+ * @brief Create new ice
  * @param pos Position to create ice at
  * @return New ice
  */

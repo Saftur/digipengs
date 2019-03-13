@@ -87,6 +87,14 @@ void ImageHandler_initializeTextures()
 
 	TEXTURES.font = AEGfxTextureLoad("./Assets/Comic_Sans.png");
 	AE_ASSERT_MESG(TEXTURES.font, "Failed to load/create TEXTURE: font");
+
+
+    TEXTURES.background = AEGfxTextureLoad("./Assets/background.png");
+    AE_ASSERT_MESG(TEXTURES.background, "Failed to load/create TEXTURE: background");
+
+
+    TEXTURES.polarbear = AEGfxTextureLoad("./Assets/PolarBear.png");
+    AE_ASSERT_MESG(TEXTURES.polarbear, "Failed to load/create TEXTURE: polarbear");
 }
 
 void ImageHandler_shutdown() {
@@ -118,6 +126,9 @@ void ImageHandler_shutdown() {
 
     AEGfxTextureUnload(TEXTURES.screen_separator);
 	AEGfxTextureUnload(TEXTURES.font);
+
+    AEGfxTextureUnload(TEXTURES.background);
+    AEGfxTextureUnload(TEXTURES.polarbear);
 }
 
 void ImageHandler_setBlendColor(Color color) {
