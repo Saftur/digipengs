@@ -21,6 +21,8 @@
 #define POLARBEAR_TEXTURE TEXTURES.polarbear
 #define ICE_TEXTURE TEXTURES.test
 
+
+
 static int PlacementMode = 0;
 static int ObstacleScale = 32;
 

@@ -12,6 +12,9 @@
 #include "CollisionHandler.h"
 
 
+#define POLARBEAR_ASPECT_RATIO 1.7f
+
+
  /**
   * @brief Increments the size of the polarbear
   *
