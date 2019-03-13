@@ -103,7 +103,7 @@ void Level2_onInit()
     if (splitScreen)
         ObjectManager_addObj(Object_new(NULL, NULL, separatorDraw, NULL, NULL, "Separator"));
 
-    Object *timer = Timer_new(TEXTURES.font, (AEVec2) { 0, 0 }, (AEVec2) {50, 100}, 0);
+    Object *timer = Timer_new(TEXTURES.font, (AEVec2) { -690, 420 }, (AEVec2) {50, 100}, 0);
     ObjectManager_addObj(timer);
 }
 

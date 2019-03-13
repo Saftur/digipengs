@@ -53,14 +53,20 @@ static void Timer_updateString(Timer* data)
 	int currentMinutes = data->intTime / 60;
 	int currentSeconds = data->intTime % 60;
 
-	int decimalIndex = MAX_MINUTE_DIGITS - 1;
-	int stringIndex = 0;
+	int decimalIndex;
 	for (decimalIndex = 0; decimalIndex < MAX_MINUTE_DIGITS && currentMinutes > 0; decimalIndex++)
 	{
 		data->decimalMinutes[decimalIndex] = currentMinutes % 10;
 		currentMinutes /= 10;
 	}
 
+	if (decimalIndex == 0)
+	{
+		data->decimalMinutes[0] = 0;
+		decimalIndex++;
+	}
+
+	int stringIndex;
 	for (stringIndex = 0; decimalIndex > 0; stringIndex++)
 	{
 		data->timeAsString[stringIndex] = ((char)data->decimalMinutes[--decimalIndex]) + '0';
@@ -83,6 +89,7 @@ Object* Timer_new(AEGfxTexture* font, AEVec2 textPos, AEVec2 charScale, float in
 	Timer* timerData = malloc(sizeof(Timer));
 	timerData->time = initialTime;
 	timerData->intTime = (int) initialTime;
+
 	timerData->textData = Text_new(timerData->timeAsString, font, textPos, charScale.x, charScale.y);
 
 	Object *timerObj = Object_new(Timer_onInit, Timer_onUpdate, Timer_onDraw, timerData, free, "Timer");

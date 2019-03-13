@@ -101,6 +101,7 @@
       <Filter>Game\Levels</Filter>
     </ClCompile>
     <ClCompile Include="Source\Timer.c" />
+    <ClCompile Include="Source\LapCounter.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
@@ -197,6 +198,7 @@
       <Filter>Game\Levels</Filter>
     </ClInclude>
     <ClInclude Include="Source\Timer.h" />
+    <ClInclude Include="Source\LapCounter.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
