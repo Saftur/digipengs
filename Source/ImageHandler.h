@@ -42,6 +42,10 @@ struct LOADEDTEXTURES
 	
 }typedef LOADEDTEXTURES;
 
+typedef struct Color {
+    float r, g, b, a;
+} Color;
+
 /**
  * @var extern LOADEDTEXTURES TEXTURES
  * @brief Global struct to access all of the loaded textures
@@ -54,6 +58,17 @@ extern LOADEDTEXTURES TEXTURES;
 void ImageHandler_initializeTextures();
 
 void ImageHandler_shutdown();
+
+/**
+ * @brief Set blend color
+ * @param color Blend color
+ */
+void ImageHandler_setBlendColor(Color color);
+
+/**
+ * @brief Disable blend color
+ */
+void ImageHandler_disableBlendColor();
 
 /**
  * @brief Draws a texture onto a given mesh (Assumes mesh is a composite of triangles)

@@ -8,6 +8,7 @@
 #include <AEEngine.h>
 
 typedef struct Camera {
+    unsigned camNum;
 	AEVec2 worldPos;
 	float worldRot;
 	float worldScale;
@@ -43,8 +44,9 @@ unsigned Camera_count();
  * @param worldRot     Rotation of the world
  * @param viewportPos  Position in window
  * @param viewportSize Size in window
+ * @return New Camera
  */
-void Camera_new(AEVec2 worldPos, float worldScale, float worldRot, AEVec2 viewportPos, AEVec2 viewportSize);
+Camera *Camera_new(AEVec2 worldPos, float worldScale, float worldRot, AEVec2 viewportPos, AEVec2 viewportSize);
 
 /**
  * @brief Set current Camera

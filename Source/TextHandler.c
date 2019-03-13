@@ -20,6 +20,7 @@ typedef struct Text {
 	AEVec2 textPos;
 	float charWidth;
 	float charHeight;
+    Color textColor;
 } Text;
 
 static void Text_onInit(Object *obj, Text *data)
@@ -49,18 +50,21 @@ static void Text_onDraw(Object *obj, Text *data)
 		if (data->text[i] == '\n')
 		{
 			charPos.y -= CHAR_HEIGHT;
+            charPos.x = data->textPos.x;
 		}
 		else
 		{
 			charOffset = asciiValueToOffset(data->text[i]);
+            ImageHandler_setBlendColor(data->textColor);
 			ImageHandler_screenDrawTextureWithOffset(getCharMesh(), data->font, charPos, CHAR_WIDTH, CHAR_HEIGHT, 0, 1, charOffset.x, charOffset.y);
+            ImageHandler_disableBlendColor();
 
 			charPos.x += CHAR_WIDTH;
 		}
 	}
 }
 
-Object* Text_new(char *text, AEGfxTexture *font, AEVec2 textPos, float charWidth, float charHeight)
+Object* Text_new(char *text, AEGfxTexture *font, AEVec2 textPos, float charWidth, float charHeight, Color textColor)
 {
 	Text* textData = malloc(sizeof(Text));
 	textData->text = text;
@@ -68,10 +72,10 @@ Object* Text_new(char *text, AEGfxTexture *font, AEVec2 textPos, float charWidth
 	textData->textPos = textPos;
 	textData->charWidth = charWidth;
 	textData->charHeight = charHeight;
+    textData->textColor = textColor;
 	
 	Object* textObj = Object_new(Text_onInit, Text_onUpdate, Text_onDraw, textData, free, "Text");
 	Object_setPos(textObj, textPos);
-	ObjectManager_addObj(textObj);
 	return textObj;
 }
 

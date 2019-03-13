@@ -8,6 +8,6 @@
 
 typedef struct Timer Timer;
 
-Object* Timer_new(AEGfxTexture* font, AEVec2 textPos, AEVec2 charScale, float initialTime);
+Object* Timer_new(unsigned camNum, AEGfxTexture* font, AEVec2 textPos, AEVec2 charScale, float initialTime);
 
 void Timer_Reset(Timer *data, float newTime);

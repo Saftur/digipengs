@@ -20,4 +20,4 @@ AEGfxVertexList* getCharMesh();
 
 AEVec2 asciiValueToOffset(char character);
 
-Object* Text_new(char* text, AEGfxTexture* font, AEVec2 textPos, float charWidth, float charHeight);
+Object* Text_new(char* text, AEGfxTexture* font, AEVec2 textPos, float charWidth, float charHeight, Color textColor);

@@ -49,25 +49,22 @@ void TitleScreen_onInit()
 	ObjectManager_addObj(Object_new(NULL, NULL, titleDraw, NULL, NULL, "Title"));
 
 	Object *singlePlayerButton = Button_new(singleplayerButtonEffect, TEXTURES.titleScreen_startButton, TEXTURES.buttonSelected, TEXTURES.titleScreen_startButton,
-        0, 0, 600, 50);
+        0, 0, 600, 100);
 	Object *multiPlayerButton = Button_new(multiplayerButtonEffect, TEXTURES.titleScreen_startButton, TEXTURES.buttonSelected, TEXTURES.titleScreen_startButton,
-		0, -100, 600, 50);
+		0, -100, 600, 100);
+    Object *levelEditorButton = Button_new(LevelEditorButton, TEXTURES.titleScreen_levelEditorButton, TEXTURES.buttonSelected, NULL, 
+        0, -200, 600, 100);
 	Object *exitButton = Button_new(quitEffect, TEXTURES.titleScreen_exitButton, TEXTURES.buttonSelected, TEXTURES.titleScreen_exitButton,
-		0, -300, 600, 50);
+		0, -300, 600, 100);
 	Object *settingsButton = Button_new(NULL, TEXTURES.titleScreen_button, TEXTURES.buttonSelected, TEXTURES.titleScreen_startButton,
 		-375, 275, 50, 50);
 
-    Object *levelEditorButton = Button_new(LevelEditorButton, TEXTURES.titleScreen_levelEditorButton, TEXTURES.buttonSelected, NULL, 0, -200, 600, 50);
 
     ObjectManager_addObj(singlePlayerButton);
     ObjectManager_addObj(multiPlayerButton);
     ObjectManager_addObj(exitButton);
     ObjectManager_addObj(settingsButton);
     ObjectManager_addObj(levelEditorButton);
-
-	//testing text
-
-	Text_new("Testing! 1 2 3 !@#$%^&*()", TEXTURES.font, (AEVec2){ -250, 250 }, 50, 100);
 }
 
 void TitleScreen_onUpdate(float dt)

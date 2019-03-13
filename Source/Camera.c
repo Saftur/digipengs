@@ -27,14 +27,16 @@ unsigned Camera_count() {
 	return vector_size(cams);
 }
 
-void Camera_new(AEVec2 worldPos, float worldScale, float worldRot, AEVec2 viewportPos, AEVec2 viewportSize) {
+Camera *Camera_new(AEVec2 worldPos, float worldScale, float worldRot, AEVec2 viewportPos, AEVec2 viewportSize) {
 	Camera *cam = malloc(sizeof(Camera));
+    cam->camNum = vector_size(cams);
 	cam->worldPos = worldPos;
 	cam->worldScale = worldScale;
 	cam->worldRot = worldRot;
 	cam->viewportPos = viewportPos;
 	cam->viewportSize = viewportSize;
 	vector_push_back(cams, cam);
+    return cam;
 }
 
 void Camera_set(unsigned camNum) {

@@ -33,7 +33,7 @@ static const TableEntry LevelTable[LevelNum] = {
     {Level1_onLoad, Level1_onInit, Level1_onUpdate, NULL, Level1_onShutdown, Level1_onUnload},
 	{Level2_onLoad, Level2_onInit, Level2_onUpdate, Level2_onDraw, Level2_onShutdown, Level2_onUnload},
 	{TitleScreen_onLoad, TitleScreen_onInit, TitleScreen_onUpdate, NULL, TitleScreen_onShutdown, TitleScreen_onUnload},
-	{EndScreen_onLoad, EndScreen_onInit, EndScreen_onUpdate, NULL, EndScreen_onShutdown, EndScreen_onUnload},
+	{EndScreen_onLoad, EndScreen_onInit, EndScreen_onUpdate, EndScreen_onDraw, EndScreen_onShutdown, EndScreen_onUnload},
     {LevelEditorLevel_onLoad, LevelEditorLevel_onInit, LevelEditorLevel_onUpdate, NULL, LevelEditorLevel_onShutdown, LevelEditorLevel_onUnload}
 };
 

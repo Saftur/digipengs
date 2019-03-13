@@ -9,9 +9,11 @@
 #include "Timer.h"
 #include "TextHandler.h"
 #include "objectmanager.h"
+#include "Camera.h"
 
 typedef struct Timer {
-	Object* textData;
+    unsigned camNum;
+	Object* textObj;
 	char timeAsString[MAX_TIME_STRING_SIZE];
 	int decimalMinutes[MAX_MINUTE_DIGITS];
 	float time;
@@ -82,17 +84,25 @@ static void Timer_onDraw(Object *obj, Timer *data)
 	// Nothing to draw except text, which is drawn by the text object
 	UNREFERENCED_PARAMETER(obj);
 	UNREFERENCED_PARAMETER(data);
+    if (Camera_getCurrNum() == data->camNum)
+        Object_draw(data->textObj);
 }
 
-Object* Timer_new(AEGfxTexture* font, AEVec2 textPos, AEVec2 charScale, float initialTime)
+static void Timer_onShutdown(Timer *data) {
+    Object_delete(data->textObj);
+    free(data);
+}
+
+Object* Timer_new(unsigned camNum, AEGfxTexture* font, AEVec2 textPos, AEVec2 charScale, float initialTime)
 {
 	Timer* timerData = malloc(sizeof(Timer));
+    timerData->camNum = camNum;
 	timerData->time = initialTime;
 	timerData->intTime = (int) initialTime;
 
-	timerData->textData = Text_new(timerData->timeAsString, font, textPos, charScale.x, charScale.y);
+	timerData->textObj = Text_new(timerData->timeAsString, font, textPos, charScale.x, charScale.y, (Color) { 0.75f, 0, 0, 1 });
 
-	Object *timerObj = Object_new(Timer_onInit, Timer_onUpdate, Timer_onDraw, timerData, free, "Timer");
+	Object *timerObj = Object_new(Timer_onInit, Timer_onUpdate, Timer_onDraw, timerData, Timer_onShutdown, "Timer");
 	Object_setPos(timerObj, textPos);
 	return timerObj;
 }

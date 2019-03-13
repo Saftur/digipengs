@@ -39,11 +39,11 @@ void EndScreen_onLoad()
 void EndScreen_onInit()
 {
 	Object *tryAgainButton = Button_new(tryAgainEffect, TEXTURES.endScreen_tryAgainButton, TEXTURES.buttonSelected, TEXTURES.endScreen_tryAgainButton,
-		0, 0, 600, 50);
+		0, 0, 600, 100);
 	Object *mainMenuButton = Button_new(titleScreenEffect, TEXTURES.endScreen_titleScreenButton, TEXTURES.buttonSelected, TEXTURES.endScreen_titleScreenButton,
-		0, -100, 600, 50);
+		0, -100, 600, 100);
 	Object *exitButton = Button_new(quitEffect, TEXTURES.titleScreen_exitButton, TEXTURES.buttonSelected, TEXTURES.titleScreen_exitButton,
-		0, -200, 600, 50);
+		0, -200, 600, 100);
 
 	ObjectManager_addObj(tryAgainButton);
 	ObjectManager_addObj(mainMenuButton);
@@ -53,7 +53,9 @@ void EndScreen_onInit()
 void EndScreen_onUpdate(float dt)
 {
 	UNREFERENCED_PARAMETER(dt);
+}
 
+void EndScreen_onDraw() {
     AEGfxTexture *topTexture = NULL;
 
     switch (EndScreen_winner) {
@@ -65,7 +67,7 @@ void EndScreen_onUpdate(float dt)
         break;
     }
 
-    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), topTexture, (AEVec2) { 0, 150 }, 600, 50, 0, 1);
+    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), topTexture, (AEVec2) { 0, 150 }, 600, 100, 0, 1);
 }
 
 void EndScreen_onShutdown()

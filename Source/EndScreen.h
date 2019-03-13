@@ -25,6 +25,11 @@ void EndScreen_onInit();
 void EndScreen_onUpdate(float dt);
 
 /**
+ * @brief Draw TitleScreen.
+ */
+void EndScreen_onDraw();
+
+/**
  * @brief Shutdown TitleScreen.
  */
 void EndScreen_onShutdown();

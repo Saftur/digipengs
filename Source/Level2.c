@@ -34,14 +34,11 @@ float player2Lap;
 
 int splitScreen = 0;
 
-static AEGfxVertexList *separatorMesh;
-
 static void initPlayers();
 static void separatorDraw(Object *obj, void *data);
 
 void Level2_onLoad()
 {
-    separatorMesh = MeshHandler_createSquareMesh(SCREEN_SEPARATOR_WIDTH, AEGfxGetWinSizeY(), 1, 1);
     //Audio_playGameplay();
 }
 
@@ -107,7 +104,10 @@ void Level2_onInit()
     if (splitScreen)
         ObjectManager_addObj(Object_new(NULL, NULL, separatorDraw, NULL, NULL, "Separator"));
 
-    Object *timer = Timer_new(TEXTURES.font, (AEVec2) { -690, 420 }, (AEVec2) {50, 100}, 0);
+    AEVec2 timerPos;
+    timerPos.x = (splitScreen ? AEGfxGetWinMaxX() / 2.f : AEGfxGetWinMaxX()) - 100.f;
+    timerPos.y = AEGfxGetWinMaxY() - 40.f;
+    Object *timer = Timer_new(0, TEXTURES.font, timerPos, (AEVec2) {50, 100}, 0);
     ObjectManager_addObj(timer);
 }
 
@@ -145,7 +145,10 @@ static void initPlayers() {
         AEVec2Add(&pos1, &pos1, &p1Offset);
 
 	player1Lap = 1.0f;
-	Object *lapCounter1 = LapCounter_new("Lap %d", TEXTURES.font, (AEVec2) { 569, 420 }, (AEVec2) { 50, 100 }, &player1Lap);
+    AEVec2 lapPos1;
+    lapPos1.x = (splitScreen ? AEGfxGetWinMinX() / 2.f : AEGfxGetWinMinX()) + 40.f;
+    lapPos1.y = AEGfxGetWinMaxY() - 40.f;
+	Object *lapCounter1 = LapCounter_new(0, "Lap %d", TEXTURES.font, lapPos1, (AEVec2) { 50, 100 }, &player1Lap);
 	ObjectManager_addObj(lapCounter1);
 
     Object *player = Player_new(pos1, direction, (Controls) { 'A', 'D', 'W', 'S', 0 }, 0, &player1Lap);
@@ -159,7 +162,10 @@ static void initPlayers() {
         AEVec2Add(&pos2, &pos2, &p2Offset);
 
 		player2Lap = 1.0f;
-		Object *lapCounter2 = LapCounter_new("Lap %d", TEXTURES.font, (AEVec2) { 569, 300 }, (AEVec2) { 50, 100 }, &player2Lap);
+        AEVec2 lapPos2;
+        lapPos2.x = (splitScreen ? AEGfxGetWinMinX() / 2.f : AEGfxGetWinMinX()) + 40.f;
+        lapPos2.y = AEGfxGetWinMaxY() - 40.f;
+		Object *lapCounter2 = LapCounter_new(1, "Lap %d", TEXTURES.font, lapPos2, (AEVec2) { 50, 100 }, &player2Lap);
 		ObjectManager_addObj(lapCounter2);
 
         player = Player_new(pos2, direction, (Controls) { VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN }, 1, &player2Lap);
@@ -210,7 +216,7 @@ static void separatorDraw(Object *obj, void *data) {
     AEVec2 pos;
     pos.x = (Camera_getCurrNum() == 0 ? xPos : -xPos);
     pos.y = 0;
-    ImageHandler_screenDrawTexture(separatorMesh, TEXTURES.screen_separator, pos, 1, 1, 0, 1.0f);
+    ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.screen_separator, pos, SCREEN_SEPARATOR_WIDTH, AEGfxGetWinSizeY(), 0, 1.0f);
 }
 
 void Level2_onShutdown()
@@ -221,6 +227,5 @@ void Level2_onShutdown()
 
 void Level2_onUnload()
 {
-    AEGfxMeshFree(separatorMesh);
     Audio_stopGameplay();
 }
