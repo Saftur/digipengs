@@ -71,7 +71,7 @@ void Audio_playGameplay()
   // Create and Play the sound
   // Note: this should be generalized for multiple sounds and
   //       be placed in a function to be used outside of init.
-  result = FMOD_System_CreateStream(soundSystem, "./Assets/Audio/First_Test_Mix.mp3", FMOD_LOOP_NORMAL | FMOD_2D, 0, &bgmGameplay);
+  result = FMOD_System_CreateStream(soundSystem, "./Assets/Audio/OriginalMusic.mp3", FMOD_LOOP_NORMAL | FMOD_2D, 0, &bgmGameplay);
   ERRCHECK(result);
 
   result = FMOD_System_PlaySound(soundSystem, bgmGameplay, 0, false, &channel);

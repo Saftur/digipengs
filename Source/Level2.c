@@ -40,7 +40,7 @@ static void separatorDraw(Object *obj, void *data);
 
 void Level2_onLoad()
 {
-    //Audio_playGameplay();
+    Audio_playGameplay();
 }
 
 void Level2_onInit()

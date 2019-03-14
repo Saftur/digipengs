@@ -105,6 +105,9 @@
     </ClCompile>
     <ClCompile Include="Source\Timer.c" />
     <ClCompile Include="Source\LapCounter.c" />
+    <ClCompile Include="Source\SplashScreen.c">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
@@ -205,6 +208,9 @@
     </ClInclude>
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\LapCounter.h" />
+    <ClInclude Include="Source\SplashScreen.h">
+      <Filter>Game\Levels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">

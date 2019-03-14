@@ -17,6 +17,9 @@ static Color blendColor;
 
 void ImageHandler_initializeTextures()
 {
+    TEXTURES.splashScreen = AEGfxTextureLoad("./Assets/DigiPen_RED_1024px.png");
+    AE_ASSERT_MESG(TEXTURES.splashScreen, "Failed to load/create TEXTURE: splashScreen");
+
 	TEXTURES.titleScreen_title = AEGfxTextureLoad("./Assets/TempTitle.png");
 	AE_ASSERT_MESG(TEXTURES.titleScreen_title, "Failed to load/create TEXTURE: titleScreen_title");
 
