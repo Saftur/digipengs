@@ -1,8 +1,8 @@
 /**
- * @file Level1.c
- * @author Parker Friedland
- * @date 1/23/2019
- * @brief TitleScreen
+ * @file EndScreen.h
+ * @author Arthur Bouvier
+ * @date 3/10/2019
+ * @brief End screen implementation
  */
 
 #include "stdafx.h"

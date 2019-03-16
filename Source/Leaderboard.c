@@ -1,3 +1,9 @@
+/**
+ * @file Leaderboard.c
+ * @author Parker Friedland
+ * @date 1/24/2019
+ * @brief Leaderboard
+ */
 
 #include "stdafx.h"
 #include "Leaderboard.h"

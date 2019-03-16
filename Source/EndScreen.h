@@ -1,8 +1,8 @@
 /**
- * @file Level1.h
- * @author Parker Friedland
- * @date 1/10/2019
- * @brief First Level
+ * @file EndScreen.h
+ * @author Arthur Bouvier
+ * @date 3/10/2019
+ * @brief End screen
  */
 #pragma once
 

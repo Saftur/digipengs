@@ -1,6 +1,6 @@
 ﻿/**
  * @file LevelStub.c
- * @author Brand
+ * @author Brand Knutson
  * @date Monday, January 14, 2019
  * @brief Level Description
  */

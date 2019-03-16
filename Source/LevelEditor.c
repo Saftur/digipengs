@@ -1,6 +1,7 @@
 /**
  * @file LevelEditor.c
  * @author Brand Knutson
+ * @author Arthur Bouvier
  * @date 2/20/2019
  * @brief Manage and create levels with a GUI.
  */

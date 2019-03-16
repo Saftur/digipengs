@@ -1,8 +1,8 @@
 /**
- * @file Level1.c
- * @author Parker Friedland
+ * @file SplashScreen.c
+ * @author Arthur Bouvier
  * @date 1/23/2019
- * @brief SplashScreen
+ * @brief Splash Screen implementation
  */
 
 #include "stdafx.h"

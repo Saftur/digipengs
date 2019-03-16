@@ -1,8 +1,8 @@
 /**
- * @file Level1.h
+ * @file SplashScreen.h
  * @author Brand Knutson
  * @date 1/10/2019
- * @brief First Level
+ * @brief Splash Screen
  */
 
 #pragma once

@@ -2,7 +2,7 @@
  * @file ImageHandler.h
  * @author Connor Meyers
  * @date 2019/01/10
- * @brief Imports images from a filename. The file should be located in the 'Assets' folder.
+ * @brief Handles image loading & drawing.
  */
 
 #pragma once

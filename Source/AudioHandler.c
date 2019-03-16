@@ -2,7 +2,7 @@
  * @file AudioHandler.c
  * @author Richard Folorunso
  * @date 2019/01/09
- * @brief Handles user input durring gameplay.
+ * @brief Handles audio output during gameplay.
  */
 // Copyright © 2019 DigiPen (USA) Corporation.
 
