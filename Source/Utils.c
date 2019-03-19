@@ -23,6 +23,22 @@ float deg_lerpf(float val1, float val2, float percent) {
     return lerpf((val2 - val1 > 180) ? (val1 + 360) : ((val1 - val2 > 180) ? (val1 - 360) : val1), val2, percent);
 }
 
+int randrange(int r1, int r2) {
+    return rand() % (r2 - r1 + 1) + r1;
+}
+
+float randrangef(float r1, float r2) {
+    return ((float)rand() / RAND_MAX) * (r2 - r1) + r1;
+}
+
+int randrange_exc(int r1, int r2) {
+    return rand() % (r2 - r1) + r1;
+}
+
+float randrangef_exc(float r1, float r2) {
+    return ((float)rand() / (RAND_MAX+1)) * (r2 - r1) + r1;
+}
+
 AEVec2 AEGfxGetWinSize() {
     AEVec2 size;
     size.x = AEGfxGetWinSizeX();
@@ -36,4 +52,11 @@ float AEGfxGetWinSizeX() {
 
 float AEGfxGetWinSizeY() {
     return AEGfxGetWinMaxY() - AEGfxGetWinMinY();
+}
+
+void AEVec2Rotate(AEVec2 *pResult, AEVec2 *pVec0, f32 rot) {
+    AEVec2 tmpResult;
+    tmpResult.x = cosf(rot) * pVec0->x - sinf(rot) * pVec0->y;
+    tmpResult.y = sinf(rot) * pVec0->x + cosf(rot) * pVec0->y;
+    *pResult = tmpResult;
 }

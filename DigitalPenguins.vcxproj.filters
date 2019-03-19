@@ -108,6 +108,9 @@
     <ClCompile Include="Source\SplashScreen.c">
       <Filter>Game\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ParticleHandler.c">
+      <Filter>Engine\Handlers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
@@ -210,6 +213,9 @@
     <ClInclude Include="Source\LapCounter.h" />
     <ClInclude Include="Source\SplashScreen.h">
       <Filter>Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ParticleHandler.h">
+      <Filter>Engine\Handlers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

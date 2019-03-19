@@ -16,28 +16,28 @@
 #include "Map.h"
 #include "Level2.h"
 #include "EndScreen.h"
+#include "Utils.h"
 
 #define PLAYER_ACCEL 240.75f
 #define PLAYER_DECCEL 252.f
 #define PLAYER_MAXSPD 420.f
 #define PLAYER_ROTSPD 3.f
 
-void Player_onShutdown(PlayerData *data) {
-    AEGfxMeshFree(data->mesh);
-    free(data);
-}
+static Particle *particleSpawnFunc();
+static float particleSpawnTimeFunc();
 
 void Player_onInit(Object *obj, PlayerData *data)
 {
     UNREFERENCED_PARAMETER(obj);
-    data->alpha = 1.0f;
-    data->mesh = MeshHandler_createSquareMesh(PLAYER_SCALE.x, PLAYER_SCALE.y, 1, 1);
-    data->texture = PLAYER_STANDARD_TEXTURE;
-	data->acceleration = PLAYER_ACCEL;
-	data->deceleration = PLAYER_DECCEL;
-    data->speedcap = PLAYER_MAXSPD;
+    data->speed = 0.f;
 
     Map_initCamera(Camera_get(data->playerNum), Object_getPos(obj));
+}
+
+void Player_onShutdown(PlayerData *data) {
+    AEGfxMeshFree(data->mesh);
+    ParticleEmitter_delete(data->particleEmitter);
+    free(data);
 }
 
 void Player_onUpdate(Object *obj, PlayerData *data, float dt)
@@ -78,10 +78,15 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 	Object_setPos(obj, pos);
 
     Map_updateCamera(Camera_get(data->playerNum), pos);
+
+    data->particleEmitter->pos = pos;
+    data->particleEmitter->rot = data->direction;
+    ParticleEmitter_update(data->particleEmitter, dt);
 }
 
 void Player_onDraw(Object *obj, PlayerData *data)
 {
+    ParticleEmitter_draw(data->particleEmitter);
     ImageHandler_fullDrawTexture(data->mesh, data->texture, Object_getPos(obj), 1.0f, 1.0f, data->direction, data->alpha);
 }
 
@@ -92,9 +97,23 @@ Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned play
     Object *player = Object_new(Player_onInit, Player_onUpdate, Player_onDraw, data, Player_onShutdown, "Player");
     Object_setPos(player, pos);
     data->direction = direction;
-    data->playerNum = playerNum;
-    data->controls = controls;
+	data->acceleration = PLAYER_ACCEL;
+	data->deceleration = PLAYER_DECCEL;
+    data->speedcap = PLAYER_MAXSPD;
+
 	data->lap = lap;
+
+    data->controls = controls;
+
+    data->mesh = MeshHandler_createSquareMesh(PLAYER_SCALE.x, PLAYER_SCALE.y, 1, 1);
+    data->texture = PLAYER_STANDARD_TEXTURE;
+
+    data->playerNum = playerNum;
+
+    data->alpha = 1.0f;
+
+    data->particleEmitter = ParticleEmitter_new(pos, direction, 1, 16, particleSpawnFunc, particleSpawnTimeFunc);
+
     return player;
 }
 
@@ -126,4 +145,31 @@ void Player_setAlpha(Object * player, float alpha)
 void Player_resetSpeed(PlayerData *data)
 {
 	data->speed = 0.0f;
+}
+
+static Particle *particleSpawnFunc() {
+    Particle *p = Particle_new();
+
+    p->pos.x = -PLAYER_SCALE.x / 4.f;
+
+    float rot = randrangef(0.5f * PI, 1.5f * PI);
+    AEVec2FromAngle(&p->vel, rot);
+    AEVec2Scale(&p->vel, &p->vel, randrangef(100, 150));
+
+    p->rotVel = 2.f * PI;
+
+    p->life = 0.25f;
+
+    p->scl.x = 15.f;
+    p->scl.y = 15.f;
+    p->sclChange.x = -p->scl.x / p->life;
+    p->sclChange.y = -p->scl.y / p->life;
+
+    p->texture = TEXTURES.particle;
+
+    return p;
+}
+
+static float particleSpawnTimeFunc() {
+    return 0.05f;
 }

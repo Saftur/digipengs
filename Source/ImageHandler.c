@@ -11,127 +11,61 @@
 #include "Boulder.h"
 #include "Camera.h"
 
+#define BUFFER_SIZE 100
+
 LOADEDTEXTURES TEXTURES;
 
 static Color blendColor;
 
+static void loadTexture(AEGfxTexture **texture, const char *name) {
+    char filename[BUFFER_SIZE];
+    sprintf_s(filename, BUFFER_SIZE, "./Assets/%s.png", name);
+    *texture = AEGfxTextureLoad(filename);
+    AE_ASSERT_MESG(*texture, "Failed to load/create TEXTURE: %s", name);
+}
+
 void ImageHandler_initializeTextures()
 {
-    TEXTURES.splashScreen = AEGfxTextureLoad("./Assets/DigiPen_RED_1024px.png");
-    AE_ASSERT_MESG(TEXTURES.splashScreen, "Failed to load/create TEXTURE: splashScreen");
+    loadTexture(&TEXTURES.test, "PlanetTexture");
 
-	TEXTURES.titleScreen_title = AEGfxTextureLoad("./Assets/TempTitle.png");
-	AE_ASSERT_MESG(TEXTURES.titleScreen_title, "Failed to load/create TEXTURE: titleScreen_title");
+    loadTexture(&TEXTURES.titleScreen_title, "TempTitle");
+    loadTexture(&TEXTURES.titleScreen_startButton, "TempStartButton");
+    loadTexture(&TEXTURES.titleScreen_button, "TempButton");
+    loadTexture(&TEXTURES.titleScreen_exitButton, "TempExitButton");
+    loadTexture(&TEXTURES.titleScreen_levelEditorButton, "dad");
 
-	TEXTURES.titleScreen_startButton = AEGfxTextureLoad("./Assets/TempStartButton.png");
-	AE_ASSERT_MESG(TEXTURES.titleScreen_startButton, "Failed to load/create TEXTURE: titleScreen_title");
-	
-	TEXTURES.titleScreen_button = AEGfxTextureLoad("./Assets/TempButton.png");
-	AE_ASSERT_MESG(TEXTURES.titleScreen_button, "Failed to load/create TEXTURE: titleScreen_button");
+    loadTexture(&TEXTURES.map, "Map");
+    loadTexture(&TEXTURES.player, "Player");
+    loadTexture(&TEXTURES.playerRed, "PlayerRed");
+    loadTexture(&TEXTURES.playerGreen, "PlayerGreen");
+    loadTexture(&TEXTURES.particle, "Particle");
 
-	TEXTURES.titleScreen_exitButton = AEGfxTextureLoad("./Assets/TempExitButton.png");
-	AE_ASSERT_MESG(TEXTURES.titleScreen_exitButton, "Failed to load/create TEXTURE: titleScreen_exitButton");
+    loadTexture(&TEXTURES.boulder, "Boulder");
+    loadTexture(&TEXTURES.polarbear, "PolarBear");
 
-	TEXTURES.endScreen_youDied = AEGfxTextureLoad("./Assets/TempYouDied.png");
-	AE_ASSERT_MESG(TEXTURES.endScreen_youDied, "Failed to load/create TEXTURE: endScreen_youDied");
+    loadTexture(&TEXTURES.endScreen_youDied, "TempYouDied");
+    loadTexture(&TEXTURES.endScreen_player1Wins, "Player1Wins");
+    loadTexture(&TEXTURES.endScreen_player2Wins, "Player2Wins");
+    loadTexture(&TEXTURES.endScreen_tryAgainButton, "TempTryAgainButton");
+    loadTexture(&TEXTURES.endScreen_titleScreenButton, "TempTitleScreenButton");
 
-	TEXTURES.endScreen_player1Wins = AEGfxTextureLoad("./Assets/Player1Wins.png");
-	AE_ASSERT_MESG(TEXTURES.endScreen_player1Wins, "Failed to load/create TEXTURE: Player1Wins");
+    loadTexture(&TEXTURES.buttonSelected, "TempButtonSelected");
 
-	TEXTURES.endScreen_player2Wins = AEGfxTextureLoad("./Assets/Player2Wins.png");
-	AE_ASSERT_MESG(TEXTURES.endScreen_player2Wins, "Failed to load/create TEXTURE: Player2Wins");
+    loadTexture(&TEXTURES.map_straightTile, "StraightTile");
+    loadTexture(&TEXTURES.map_rightCornerTile, "RightTurnTile");
+    loadTexture(&TEXTURES.map_leftCornerTile, "LeftTurnTile");
+    loadTexture(&TEXTURES.map_startTile, "StartTile");
 
-	TEXTURES.endScreen_tryAgainButton = AEGfxTextureLoad("./Assets/TempTryAgainButton.png");
-	AE_ASSERT_MESG(TEXTURES.endScreen_tryAgainButton, "Failed to load/create TEXTURE: endScreen_tryAgainButton");
+    loadTexture(&TEXTURES.screen_separator, "ScreenSeparator");
+    loadTexture(&TEXTURES.font, "Comic_Sans");
 
-	TEXTURES.endScreen_titleScreenButton = AEGfxTextureLoad("./Assets/TempTitleScreenButton.png");
-	AE_ASSERT_MESG(TEXTURES.endScreen_titleScreenButton, "Failed to load/create TEXTURE: endScreen_titleScreenButton");
-
-	TEXTURES.buttonSelected = AEGfxTextureLoad("./Assets/TempButtonSelected.png");
-	AE_ASSERT_MESG(TEXTURES.buttonSelected, "Failed to load/create TEXTURE: buttonSelected");
-
-    TEXTURES.test = AEGfxTextureLoad("./Assets/PlanetTexture.png");
-    AE_ASSERT_MESG(TEXTURES.test, "Failed to load/create TEXTURE: test");
-
-	TEXTURES.map = AEGfxTextureLoad("./Assets/Map.png");
-	AE_ASSERT_MESG(TEXTURES.map, "Failed to load/create TEXTURE: map");
-
-    TEXTURES.player = AEGfxTextureLoad("./Assets/Player.png");
-    AE_ASSERT_MESG(TEXTURES.player, "Failed to load/create TEXTURE: Player");
-
-    TEXTURES.playerRed = AEGfxTextureLoad("./Assets/PlayerRed.png");
-    AE_ASSERT_MESG(TEXTURES.playerRed, "Failed to load/create TEXTURE: PlayerRed");
-
-
-    TEXTURES.playerGreen = AEGfxTextureLoad("./Assets/PlayerGreen.png");
-    AE_ASSERT_MESG(TEXTURES.playerGreen, "Failed to load/create TEXTURE: PlayerGreen");
-
-
-    TEXTURES.boulder = AEGfxTextureLoad("./Assets/Boulder.png");
-    AE_ASSERT_MESG(TEXTURES.boulder, "Failed to load/create TEXTURE: Boulder");
-
-    TEXTURES.map_rightCornerTile = AEGfxTextureLoad("./Assets/RightTurnTile.png");
-    AE_ASSERT_MESG(TEXTURES.map_rightCornerTile, "Failed to load/create TEXTURE: RightTurnTile");
-
-    TEXTURES.map_leftCornerTile = AEGfxTextureLoad("./Assets/LeftTurnTile.png");
-    AE_ASSERT_MESG(TEXTURES.map_leftCornerTile, "Failed to load/create TEXTURE: LeftTurnTile");
-
-    TEXTURES.map_straightTile = AEGfxTextureLoad("./Assets/StraightTile.png");
-    AE_ASSERT_MESG(TEXTURES.map_straightTile, "Failed to load/create TEXTURE: StraightTile");
-
-    TEXTURES.map_startTile = AEGfxTextureLoad("./Assets/StartTile.png");
-    AE_ASSERT_MESG(TEXTURES.map_startTile, "Failed to load/create TEXTURE: StartTile");
-
-    TEXTURES.titleScreen_levelEditorButton = AEGfxTextureLoad("./Assets/dad.png");
-    AE_ASSERT_MESG(TEXTURES.titleScreen_levelEditorButton, "Failed to load/create TEXTURE: dad");
-
-    TEXTURES.screen_separator = AEGfxTextureLoad("./Assets/ScreenSeparator.png");
-    AE_ASSERT_MESG(TEXTURES.screen_separator, "Failed to load/create TEXTURE: ScreenSeparator");
-
-	TEXTURES.font = AEGfxTextureLoad("./Assets/Comic_Sans.png");
-	AE_ASSERT_MESG(TEXTURES.font, "Failed to load/create TEXTURE: font");
-
-
-    TEXTURES.background = AEGfxTextureLoad("./Assets/background.png");
-    AE_ASSERT_MESG(TEXTURES.background, "Failed to load/create TEXTURE: background");
-
-
-    TEXTURES.polarbear = AEGfxTextureLoad("./Assets/PolarBear.png");
-    AE_ASSERT_MESG(TEXTURES.polarbear, "Failed to load/create TEXTURE: polarbear");
+    loadTexture(&TEXTURES.splashScreen, "DigiPen_RED_1024px");
+    loadTexture(&TEXTURES.background, "background");
 }
 
 void ImageHandler_shutdown() {
-    AEGfxTextureUnload(TEXTURES.test);
-    AEGfxTextureUnload(TEXTURES.titleScreen_title);
-    AEGfxTextureUnload(TEXTURES.titleScreen_startButton);
-    AEGfxTextureUnload(TEXTURES.titleScreen_button);
-    AEGfxTextureUnload(TEXTURES.titleScreen_exitButton);
-    AEGfxTextureUnload(TEXTURES.titleScreen_levelEditorButton);
-
-    AEGfxTextureUnload(TEXTURES.map);
-    AEGfxTextureUnload(TEXTURES.player);
-    AEGfxTextureUnload(TEXTURES.playerRed);
-    AEGfxTextureUnload(TEXTURES.playerGreen);
-    AEGfxTextureUnload(TEXTURES.boulder);
-
-    AEGfxTextureUnload(TEXTURES.endScreen_youDied);
-    AEGfxTextureUnload(TEXTURES.endScreen_player1Wins);
-    AEGfxTextureUnload(TEXTURES.endScreen_player2Wins);
-    AEGfxTextureUnload(TEXTURES.endScreen_tryAgainButton);
-    AEGfxTextureUnload(TEXTURES.endScreen_titleScreenButton);
-
-    AEGfxTextureUnload(TEXTURES.buttonSelected);
-
-    AEGfxTextureUnload(TEXTURES.map_straightTile);
-    AEGfxTextureUnload(TEXTURES.map_leftCornerTile);
-    AEGfxTextureUnload(TEXTURES.map_rightCornerTile);
-    AEGfxTextureUnload(TEXTURES.map_startTile);
-
-    AEGfxTextureUnload(TEXTURES.screen_separator);
-	AEGfxTextureUnload(TEXTURES.font);
-
-    AEGfxTextureUnload(TEXTURES.background);
-    AEGfxTextureUnload(TEXTURES.polarbear);
+    for (unsigned i = 0; i < sizeof(LOADEDTEXTURES) / sizeof(void*); i++)
+        AEGfxTextureUnload(((AEGfxTexture**)(&TEXTURES))[i]);
 }
 
 void ImageHandler_setBlendColor(Color color) {

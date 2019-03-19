@@ -9,6 +9,7 @@
 #include "Object.h"
 
 #include "InputHandler.h"
+#include "ParticleHandler.h"
 
 #define PLAYER_STANDARD_TEXTURE TEXTURES.player
 #define PLAYER_RED_TEXTURE TEXTURES.playerRed
@@ -33,6 +34,8 @@ typedef struct PlayerData
     unsigned playerNum; ///< Player number
 
 	float alpha; ///< Transparency
+
+    ParticleEmitter *particleEmitter;
 }PlayerData;
 
 /**

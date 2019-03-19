@@ -38,7 +38,41 @@ float rad_lerpf(float val1, float val2, float percent);
  */
 float deg_lerpf(float val1, float val2, float percent);
 
+/**
+ * @brief Generate a random integer in given range (inclusive) 
+ * @param r1 Left bound
+ * @param r2 Right bound
+ */
+int randrange(int r1, int r2);
+/**
+ * @brief Generate a random float in given range (inclusive) 
+ * @param r1 Left bound
+ * @param r2 Right bound
+ */
+float randrangef(float r1, float r2);
+
+/**
+ * @brief Generate a random integer in given range (exclusive) 
+ * @param r1 Left bound
+ * @param r2 Right bound
+ */
+int randrange_exc(int r1, int r2);
+/**
+ * @brief Generate a random float in given range (exclusive) 
+ * @param r1 Left bound
+ * @param r2 Right bound
+ */
+float randrangef_exc(float r1, float r2);
+
 AEVec2 AEGfxGetWinSize();
 
 float AEGfxGetWinSizeX();
 float AEGfxGetWinSizeY();
+
+/**
+ * @brief Rotate AEVec2 by given angle
+ * @param[out] pResult Where to store result
+ * @param pVec0        AEVec2 to rotate
+ * @param rot          Angle to rotate by in radians
+ */
+void AEVec2Rotate(AEVec2 *pResult, AEVec2 *pVec0, f32 rot);

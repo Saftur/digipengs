@@ -13,38 +13,46 @@
  * @struct LOADEDTEXTURES
  * @brief All of the different sprite textures in the game.
  */
+#pragma pack(push,1)
 struct LOADEDTEXTURES
 {
     AEGfxTexture *test;                    ///< For testing purposes
-    AEGfxTexture *splashScreen;
+
 	AEGfxTexture *titleScreen_title;       ///< the title for the titlescreen 
 	AEGfxTexture *titleScreen_startButton; ///< the title for the titlescreen 
 	AEGfxTexture *titleScreen_button;      ///< the title for the titlescreen 
 	AEGfxTexture *titleScreen_exitButton;  ///< the title for the titlescreen 
     AEGfxTexture *titleScreen_levelEditorButton; ///< Button for loading the level editor.
+
 	AEGfxTexture *map;                     ///< A test map
     AEGfxTexture *player;                  ///< THE PLAYER
     AEGfxTexture *playerRed; ///< red player
     AEGfxTexture *playerGreen; ///< green player
+    AEGfxTexture *particle;
+
     AEGfxTexture *boulder;                 ///< Boulder
+    AEGfxTexture *polarbear; ///< background art for the game
+
 	AEGfxTexture *endScreen_youDied; ///< button for the endscreen
 	AEGfxTexture *endScreen_player1Wins; ///< Player 1 wins banner
 	AEGfxTexture *endScreen_player2Wins; ///< Player 2 wins banner
 	AEGfxTexture *endScreen_tryAgainButton; ///< button for the endscreen
 	AEGfxTexture *endScreen_titleScreenButton; ///< button for the titlescreen
+
 	AEGfxTexture *buttonSelected;
+
     AEGfxTexture *map_straightTile; ///< Straight tile segment for the map.
     AEGfxTexture *map_rightCornerTile; ///< Right corner tile segment for the map.
     AEGfxTexture *map_leftCornerTile; ///< Left corner tile segment for the map.
     AEGfxTexture *map_startTile; ///< Start tile segment for the map.
+
     AEGfxTexture *screen_separator; ///< Screen Seperator
-    AEGfxTexture *background; ///< background art for the game
-    AEGfxTexture *polarbear; ///< background art for the game
-
-
 	AEGfxTexture *font;
-	
+
+    AEGfxTexture *splashScreen;
+    AEGfxTexture *background; ///< background art for the game
 }typedef LOADEDTEXTURES;
+#pragma pack(pop)
 
 typedef struct Color {
     float r, g, b, a;
