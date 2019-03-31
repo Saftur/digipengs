@@ -1,5 +1,6 @@
 ﻿/**
  * @file LevelEditorLevel.c
+ * @author Connor Meyers
  * @author Brand Knutson
  * @date Wednesday, February 20, 2019
  * @brief Level editor level.
@@ -10,6 +11,7 @@
 #include "LevelEditor.h"
 #include "Camera.h"
 #include "Utils.h"
+#include "LevelEditor_HelpMenu.h"
 
 void LevelEditorLevel_onLoad()
 {
@@ -20,6 +22,7 @@ void LevelEditorLevel_onInit()
     AEInputShowCursor(0);
     //Camera_new((AEVec2) { 1200, -1000 }, 0.16f, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 600 });
     LevelEditor_init();
+	LevelEditor_HelpMenu_init();
 }
 
 void LevelEditorLevel_onUpdate(float dt)
@@ -38,14 +41,15 @@ void LevelEditorLevel_onUpdate(float dt)
     if (AEInputCheckCurr('A')) camMov.x = floorf(-camSpeed * (1 / cam->worldScale));
     if (AEInputCheckCurr('S')) camMov.y = floorf(-camSpeed * (1 / cam->worldScale));
     if (AEInputCheckCurr('D')) camMov.x = ceilf(camSpeed * (1 / cam->worldScale));
+	if (AEInputCheckTriggered('H')) LevelEditor_HelpMenu_toggle();
 
     if(cam) AEVec2Add(&cam->worldPos, &cam->worldPos, &camMov);
 }
 
 void LevelEditorLevel_onShutdown()
 {
-    AEInputShowCursor(1);
-    LevelEditor_shutdown(); 
+    AEInputShowCursor(1); 
+    LevelEditor_shutdown();  
     Camera_clear();
     Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, AEGfxGetWinSize());
 }

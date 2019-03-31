@@ -50,7 +50,7 @@ void vector_reserve(vector *vec, size_t max) {
 		void *data = vec->data;
 		vec->data = malloc(sizeof(void*) * max);
 		memcpy(vec->data, data, sizeof(void*) * vec->size);
-		free(data);
+ 		free(data);
 	}
 }
 
@@ -74,6 +74,6 @@ void vector_erase(vector *vec, unsigned i) {
 
 void vector_clear(vector *vec) {
 	for (unsigned i = 0; i < vec->size; i++)
-		vec->delfunc(vec->data[i]);
+   		vec->delfunc(vec->data[i]);
 	vec->size = 0;
 }

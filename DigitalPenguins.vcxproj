@@ -27,6 +27,7 @@
     <ClCompile Include="Source\Level2.c" />
     <ClCompile Include="Source\LevelEditor.c" />
     <ClCompile Include="Source\LevelEditorLevel.c" />
+    <ClCompile Include="Source\LevelEditor_HelpMenu.c" />
     <ClCompile Include="Source\LevelManager.c" />
     <ClCompile Include="Source\LevelStub.c" />
     <ClCompile Include="Source\LevelTable.c" />
@@ -70,6 +71,7 @@
     <ClInclude Include="Source\Level2.h" />
     <ClInclude Include="Source\LevelEditor.h" />
     <ClInclude Include="Source\LevelEditorLevel.h" />
+    <ClInclude Include="Source\LevelEditor_HelpMenu.h" />
     <ClInclude Include="Source\LevelManager.h" />
     <ClInclude Include="Source\LevelStub.h" />
     <ClInclude Include="Source\LevelTable.h" />

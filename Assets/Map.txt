@@ -1,5 +1,3 @@
-1 0
-DR LR LR LD 
-DU NN NN UD 
-DU NN NN UD 
-RU RL RL UL 
+0 0
+UD NN DU 
+UR LR LU 
