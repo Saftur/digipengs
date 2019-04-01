@@ -18,6 +18,7 @@
 #include "EndScreen.h"
 #include "Utils.h"
 #include "GameStartTimer.h"
+#include "FinalLap.h"
 
 #define PLAYER_ACCEL 240.75f
 #define PLAYER_DECCEL 252.f
@@ -46,6 +47,12 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 	if (!GameStartTimer_started())
 		return;
     UNREFERENCED_PARAMETER(dt);
+
+	if (*(data->lap) == NUM_LAPS && !data->finalLap)
+	{
+		FinalLap_display(data->playerNum);
+		data->finalLap = 1;
+	}
 
     if (*(data->lap) >= NUM_LAPS+1) {
         if (splitScreen) {
@@ -114,6 +121,8 @@ Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned play
     data->playerNum = playerNum;
 
     data->alpha = 1.0f;
+
+	data->finalLap = false;
 
     data->particleEmitter = ParticleEmitter_new(pos, direction, 1, 16, particleSpawnFunc, particleSpawnTimeFunc);
 

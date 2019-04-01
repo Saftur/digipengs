@@ -19,6 +19,7 @@
     <ClCompile Include="Source\CollisionEvents.c" />
     <ClCompile Include="Source\CollisionHandler.c" />
     <ClCompile Include="Source\EndScreen.c" />
+    <ClCompile Include="Source\FinalLap.c" />
     <ClCompile Include="Source\GameStartTimer.c" />
     <ClCompile Include="Source\Ice.c" />
     <ClCompile Include="Source\InputHandler.c" />
@@ -36,6 +37,7 @@
     <ClCompile Include="Source\ImageHandler.c" />
     <ClCompile Include="Source\Main.c" />
     <ClCompile Include="Source\Map.c" />
+    <ClCompile Include="Source\MapSavedText.c" />
     <ClCompile Include="Source\Object.c" />
     <ClCompile Include="Source\MeshHandler.c" />
     <ClCompile Include="Source\objectmanager.c" />
@@ -63,6 +65,7 @@
     <ClInclude Include="source\Boulder.h" />
     <ClInclude Include="Source\CollisionEvents.h" />
     <ClInclude Include="Source\EndScreen.h" />
+    <ClInclude Include="Source\FinalLap.h" />
     <ClInclude Include="Source\GameStartTimer.h" />
     <ClInclude Include="source\Ice.h" />
     <ClInclude Include="Source\CollisionHandler.h" />
@@ -79,6 +82,7 @@
     <ClInclude Include="Source\LevelTable.h" />
     <ClInclude Include="Source\ExampleObj.h" />
     <ClInclude Include="source\Map.h" />
+    <ClInclude Include="Source\MapSavedText.h" />
     <ClInclude Include="Source\Object.h" />
     <ClInclude Include="Source\ImageHandler.h" />
     <ClInclude Include="Source\MeshHandler.h" />

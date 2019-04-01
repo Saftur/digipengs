@@ -18,6 +18,7 @@
 #include "LevelManager.h"
 #include "ObstacleManager.h"
 #include "Polarbear.h"
+#include "MapSavedText.h"
 
 #define BOULDER_TEXTURE TEXTURES.boulder
 #define POLARBEAR_TEXTURE TEXTURES.polarbear
@@ -439,6 +440,8 @@ static void SaveMap() {
             fputc(' ', file);
         }
         if (y < Height - 1) fputc('\n', file);
+
+		MapSavedText_display();
     }
 
     fclose(file);

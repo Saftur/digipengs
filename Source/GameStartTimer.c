@@ -13,10 +13,10 @@
 
 #define ASP_RAT 2.48214286f
 
-#define SCL 128
-#define ALPHA 0.75
+
+#define SCL 256
 #define POS_X 0
-#define POS_Y 0
+#define POS_Y 200
 
 #define TIME_PER_STATE 1.0f
 
@@ -33,14 +33,13 @@ void GameStartTimer_onDraw(Object *obj, void *data)
 	UNREFERENCED_PARAMETER(data);
 	AEVec2 pos;
 	AEVec2Set(&pos, POS_X, POS_Y);
-	ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), textures[state], pos, SCL * ASP_RAT, SCL, 0, ALPHA);
+	ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), textures[state], pos, SCL * ASP_RAT, SCL, 0, 1.0f);
 }
 
 void GameStartTimer_free(void *data)
 {
 	UNREFERENCED_PARAMETER(data);
 	text = NULL;
-	started = true;
 }
 
 void GameStartTimer_update(Object* obj, void *data, float dt)
@@ -49,12 +48,16 @@ void GameStartTimer_update(Object* obj, void *data, float dt)
 	time -= dt;
 	if (time <= 0)
 	{
+		
 		if (++state > sGO)
 		{
-			Object_delete(obj);
+			ObjectManager_delObj(obj);
+			
 		}
-		else
-			time = TIME_PER_STATE;
+		else if (state == sGO)
+			started = true;
+		
+		time = TIME_PER_STATE;
 	}
 }
 
@@ -62,12 +65,10 @@ void GameStartTimer_init()
 {
 	if (text)return;
 
-	if (!textures)
-	{
-		textures[0] = TEXTURES.text_ready;
-		textures[1] = TEXTURES.text_set;
-		textures[2] = TEXTURES.text_go;
-	}
+	textures[0] = TEXTURES.text_ready;
+	textures[1] = TEXTURES.text_set;
+	textures[2] = TEXTURES.text_go;
+	
 
 	AEVec2 pos;
 	AEVec2Set(&pos, POS_X, POS_Y);

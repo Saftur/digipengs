@@ -51,7 +51,6 @@ void Level2_onInit()
     //Draw Background
     ObjectManager_addObj(Background_create());
 
-	GameStartTimer_init();
 
 	if (splitScreen)
 	{
@@ -114,10 +113,12 @@ void Level2_onInit()
         ObjectManager_addObj(Object_new(NULL, NULL, separatorDraw, NULL, NULL, "Separator"));
 
     AEVec2 timerPos;
-    timerPos.x = (splitScreen ? AEGfxGetWinMaxX() / 2.f : AEGfxGetWinMaxX()) - 100.f;
-    timerPos.y = AEGfxGetWinMaxY() - 40.f;
+    timerPos.x = (splitScreen ? AEGfxGetWinMinX() / 2.f : AEGfxGetWinMinX()) + 30.f;
+    timerPos.y = AEGfxGetWinMaxY() - 80.f;
     Object *timer = Timer_new(0, TEXTURES.font, timerPos, (AEVec2) {50, 100}, 0);
     ObjectManager_addObj(timer);
+
+	GameStartTimer_init();
 }
 
 static void initPlayers() {
@@ -175,6 +176,7 @@ static void initPlayers() {
         lapPos2.x = (splitScreen ? AEGfxGetWinMinX() / 2.f : AEGfxGetWinMinX()) + 40.f;
         lapPos2.y = AEGfxGetWinMaxY() - 40.f;
 		Object *lapCounter2 = LapCounter_new(1, "Lap %d", TEXTURES.font, lapPos2, (AEVec2) { 50, 100 }, &player2Lap);
+
 		ObjectManager_addObj(lapCounter2);
 
         player = Player_new(pos2, direction, (Controls) { VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN }, 1, &player2Lap);

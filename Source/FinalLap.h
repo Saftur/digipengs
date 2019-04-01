@@ -1,7 +1,7 @@
 /**
- * @file GameStartTimer.h
+ * @file FinalLap.h
  * @author Connor Meyers
- * @brief 
+ * @brief
  */
 
 #pragma once
@@ -10,7 +10,5 @@
 #include "Object.h"
 #include "Map.h"
 
-void GameStartTimer_init();
 
-bool GameStartTimer_started();
-
+void FinalLap_display(unsigned camNum);

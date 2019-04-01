@@ -29,7 +29,7 @@ void PlayerOnCollision(Collider *self, Collider *other) {
     if(!strcmp("Wall", Object_getName(other->gameObject)))
     {
         //Call Player Slow Down Function.
-        //Player_resetSpeed(data);
+        Player_resetSpeed(data);
 
         AEVec2 playerPos = Object_getPos(self->gameObject);
         AEVec2 wallPos = Object_getPos(other->gameObject);
