@@ -113,7 +113,7 @@ void Level2_onInit()
     AEVec2 timerPos;
     timerPos.x = (splitScreen ? AEGfxGetWinMaxX() / 2.f : AEGfxGetWinMaxX()) - 100.f;
     timerPos.y = AEGfxGetWinMaxY() - 40.f;
-    Object *timer = Timer_new(0, TEXTURES.font, timerPos, (AEVec2) {50, 100}, 0);
+    Object *timer = Timer_new(0, TEXTURES.font, timerPos, (AEVec2) {23, 42}, 0);
     ObjectManager_addObj(timer);
 }
 
@@ -154,7 +154,7 @@ static void initPlayers() {
     AEVec2 lapPos1;
     lapPos1.x = (splitScreen ? AEGfxGetWinMinX() / 2.f : AEGfxGetWinMinX()) + 40.f;
     lapPos1.y = AEGfxGetWinMaxY() - 40.f;
-	Object *lapCounter1 = LapCounter_new(0, "Lap %d", TEXTURES.font, lapPos1, (AEVec2) { 50, 100 }, &player1Lap);
+	Object *lapCounter1 = LapCounter_new(0, "Lap %d", TEXTURES.font, lapPos1, (AEVec2) { 23, 42 }, &player1Lap);
 	ObjectManager_addObj(lapCounter1);
 
     Object *player = Player_new(pos1, direction, (Controls) { 'A', 'D', 'W', 'S', 0 }, 0, &player1Lap);
@@ -171,7 +171,7 @@ static void initPlayers() {
         AEVec2 lapPos2;
         lapPos2.x = (splitScreen ? AEGfxGetWinMinX() / 2.f : AEGfxGetWinMinX()) + 40.f;
         lapPos2.y = AEGfxGetWinMaxY() - 40.f;
-		Object *lapCounter2 = LapCounter_new(1, "Lap %d", TEXTURES.font, lapPos2, (AEVec2) { 50, 100 }, &player2Lap);
+		Object *lapCounter2 = LapCounter_new(1, "Lap %d", TEXTURES.font, lapPos2, (AEVec2) { 23, 42 }, &player2Lap);
 		ObjectManager_addObj(lapCounter2);
 
         player = Player_new(pos2, direction, (Controls) { VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN }, 1, &player2Lap);

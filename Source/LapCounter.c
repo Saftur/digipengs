@@ -1,7 +1,7 @@
 /**
  * @file LapCounter.c
  * @author Parker Friedland
- * @date 1/23/2019
+ * @date 3/7/2019
  * @brief LapCounter
  */
 
@@ -33,7 +33,6 @@ static void LapCounter_onUpdate(Object* obj, LapCounter* data, float dt)
 	printf("LapCounter update\n");
 	LapCounter_updateString(data);
 	UNREFERENCED_PARAMETER(obj);
-	UNREFERENCED_PARAMETER(data);
 	UNREFERENCED_PARAMETER(dt);
 }
 
@@ -44,14 +43,13 @@ static void LapCounter_updateString(LapCounter* data)
 
 static void LapCounter_onDraw(Object *obj, LapCounter *data)
 {
-	// Nothing to draw except text, which is drawn by the text object
 	UNREFERENCED_PARAMETER(obj);
-	UNREFERENCED_PARAMETER(data);
     if (Camera_getCurrNum() == data->camNum)
         Object_draw(data->textObj);
 }
 
-static void LapCounter_onShutdown(LapCounter *data) {
+static void LapCounter_onShutdown(LapCounter *data) 
+{
     Object_delete(data->textObj);
     free(data);
 }
@@ -65,7 +63,7 @@ Object* LapCounter_new(unsigned camNum, char* format, AEGfxTexture* font, AEVec2
 
     counterData->textObj = Text_new(counterData->lapAsString, font, textPos, charScale.x, charScale.y, (Color) { 0.75f, 0, 0, 1 });
 
-	Object *timerObj = Object_new(LapCounter_onInit, LapCounter_onUpdate, LapCounter_onDraw, counterData, LapCounter_onShutdown, "Lap Counter");
-	Object_setPos(timerObj, textPos);
-	return timerObj;
+	Object* counterObj = Object_new(LapCounter_onInit, LapCounter_onUpdate, LapCounter_onDraw, counterData, LapCounter_onShutdown, "Lap Counter");
+	Object_setPos(counterObj, textPos);
+	return counterObj;
 }

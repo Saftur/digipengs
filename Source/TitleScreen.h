@@ -1,8 +1,8 @@
 /**
- * @file Level1.h
- * @author Brand Knutson
+ * @file TitleScreen.h
+ * @author Parker Friedland
  * @date 1/10/2019
- * @brief First Level
+ * @brief Title Screen
  */
 
 #pragma once

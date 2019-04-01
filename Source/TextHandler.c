@@ -49,17 +49,17 @@ static void Text_onDraw(Object *obj, Text *data)
 	{
 		if (data->text[i] == '\n')
 		{
-			charPos.y -= CHAR_HEIGHT;
+			charPos.y -= data->charHeight;
             charPos.x = data->textPos.x;
 		}
 		else
 		{
 			charOffset = asciiValueToOffset(data->text[i]);
             ImageHandler_setBlendColor(data->textColor);
-			ImageHandler_screenDrawTextureWithOffset(getCharMesh(), data->font, charPos, CHAR_WIDTH, CHAR_HEIGHT, 0, 1, charOffset.x, charOffset.y);
+			ImageHandler_screenDrawTextureWithOffset(getCharMesh(), data->font, charPos, data->charWidth, data->charHeight, 0, 1, charOffset.x, charOffset.y);
             ImageHandler_disableBlendColor();
 
-			charPos.x += CHAR_WIDTH;
+			charPos.x += data->charWidth;
 		}
 	}
 }

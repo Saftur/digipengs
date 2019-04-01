@@ -22,6 +22,7 @@ typedef enum
 	Level2,
     SplashScreen,
 	TitleScreen,
+	HighscoreScreen,
 	EndScreen,
 	LevelEditor,
 
@@ -30,7 +31,7 @@ typedef enum
 	LastLevel = LevelNum - 1,
 
     //Initial level.
-    InitialLevel = SplashScreen
+    InitialLevel = SplashScreen,
 } Levels;
 
 /**

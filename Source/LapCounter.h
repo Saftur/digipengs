@@ -1,3 +1,10 @@
+/**
+ * @file LapCounter.h
+ * @author Parker Friedland
+ * @date 1/23/2019
+ * @brief LapCounter
+ */
+
 #pragma once
 
 #include <AEEngine.h>
