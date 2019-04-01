@@ -25,6 +25,7 @@
 #include "Timer.h"
 #include "LapCounter.h"
 #include "Background.h"
+#include "GameStartTimer.h"
 
 #define SCREEN_SEPARATOR_WIDTH 10
 
@@ -49,6 +50,8 @@ void Level2_onInit()
 
     //Draw Background
     ObjectManager_addObj(Background_create());
+
+	GameStartTimer_init();
 
 	if (splitScreen)
 	{

@@ -55,6 +55,9 @@ struct LOADEDTEXTURES
 	AEGfxTexture *le_helpMenu;
 	AEGfxTexture *le_fullMenu; 
 
+	AEGfxTexture *text_ready;
+	AEGfxTexture *text_set;
+	AEGfxTexture *text_go;
 }typedef LOADEDTEXTURES;
 #pragma pack(pop)
 

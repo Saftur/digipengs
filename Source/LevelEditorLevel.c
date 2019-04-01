@@ -1,4 +1,4 @@
-﻿/**
+﻿   /**
  * @file LevelEditorLevel.c
  * @author Connor Meyers
  * @author Brand Knutson
@@ -19,7 +19,6 @@ void LevelEditorLevel_onLoad()
 
 void LevelEditorLevel_onInit()
 {
-    AEInputShowCursor(0);
     //Camera_new((AEVec2) { 1200, -1000 }, 0.16f, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 600 });
     LevelEditor_init();
 	LevelEditor_HelpMenu_init();

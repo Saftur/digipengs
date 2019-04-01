@@ -63,7 +63,12 @@ void LevelEditor_update(float dt)
     if (Camera_getCurr()) DrawObstacles();
 
     for (u8 i = '0'; i < '9'; i++) {
-        if (AEInputCheckTriggered(i)) PlacementMode = i - '0';
+		if (AEInputCheckTriggered(i)) {
+			PlacementMode = i - '0';
+			if (i == '0')
+				AEInputShowCursor(1);
+			else AEInputShowCursor(0);
+		}
     }
 
     s32 screenX, screenY;

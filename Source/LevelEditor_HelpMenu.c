@@ -23,8 +23,8 @@
 #define SCL_X 64
 #define SCL_Y 64
 #define ALPHA 0.75
-#define POS_X -770
-#define POS_Y 430
+#define POS_X 770
+#define POS_Y 500
 
 static bool visible = false;
 static Object *menu = NULL;

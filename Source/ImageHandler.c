@@ -64,6 +64,10 @@ void ImageHandler_initializeTextures()
 
 	loadTexture(&TEXTURES.le_helpMenu, "LEControls_Help");
 	loadTexture(&TEXTURES.le_fullMenu, "LEControls");
+
+	loadTexture(&TEXTURES.text_ready, "Text_Ready");
+	loadTexture(&TEXTURES.text_set, "Text_Set");
+	loadTexture(&TEXTURES.text_go, "Text_Go");
 }
 
 void ImageHandler_shutdown() {

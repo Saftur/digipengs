@@ -17,6 +17,7 @@
 #include "Level2.h"
 #include "EndScreen.h"
 #include "Utils.h"
+#include "GameStartTimer.h"
 
 #define PLAYER_ACCEL 240.75f
 #define PLAYER_DECCEL 252.f
@@ -42,6 +43,8 @@ void Player_onShutdown(PlayerData *data) {
 
 void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 {
+	if (!GameStartTimer_started())
+		return;
     UNREFERENCED_PARAMETER(dt);
 
     if (*(data->lap) >= NUM_LAPS+1) {

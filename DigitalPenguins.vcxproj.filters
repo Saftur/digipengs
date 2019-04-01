@@ -114,6 +114,9 @@
     <ClCompile Include="Source\LevelEditor_HelpMenu.c">
       <Filter>Game\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GameStartTimer.c">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
@@ -221,6 +224,9 @@
       <Filter>Engine\Handlers</Filter>
     </ClInclude>
     <ClInclude Include="Source\LevelEditor_HelpMenu.h">
+      <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStartTimer.h">
       <Filter>Game\Objects</Filter>
     </ClInclude>
   </ItemGroup>

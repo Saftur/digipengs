@@ -19,6 +19,7 @@
     <ClCompile Include="Source\CollisionEvents.c" />
     <ClCompile Include="Source\CollisionHandler.c" />
     <ClCompile Include="Source\EndScreen.c" />
+    <ClCompile Include="Source\GameStartTimer.c" />
     <ClCompile Include="Source\Ice.c" />
     <ClCompile Include="Source\InputHandler.c" />
     <ClCompile Include="Source\LapCounter.c" />
@@ -62,6 +63,7 @@
     <ClInclude Include="source\Boulder.h" />
     <ClInclude Include="Source\CollisionEvents.h" />
     <ClInclude Include="Source\EndScreen.h" />
+    <ClInclude Include="Source\GameStartTimer.h" />
     <ClInclude Include="source\Ice.h" />
     <ClInclude Include="Source\CollisionHandler.h" />
     <ClInclude Include="Source\InputHandler.h" />
