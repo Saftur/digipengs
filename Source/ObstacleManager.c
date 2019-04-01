@@ -70,7 +70,7 @@ void ObstacleManager_loadObstacles()
 
     do {
         Map_tilePosToWorldPos(&tileWorldPos.x, &tileWorldPos.y, tileX, tileY);
-        Tile tile = Map_getTile(tileX, tileY);
+        Tile tile = *Map_getTile(tileX, tileY);
 
         //If the tile is a straight segment.
         if (tile.from == SDown && tile.to == SUp || tile.from == SUp && tile.to == SDown

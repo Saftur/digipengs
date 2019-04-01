@@ -18,11 +18,14 @@
 
 static Tile tiles[MAP_MAX_SIZE][MAP_MAX_SIZE];
 
+static unsigned NumTiles;
+
 static unsigned width, height;
 static unsigned startX, startY;
 
 void Map_load(const char *filename, Tile tilemap[MAP_MAX_SIZE][MAP_MAX_SIZE], 
                  unsigned *w, unsigned *h, unsigned *sx, unsigned *sy) {
+    NumTiles = 0;
     FILE *file;
     fopen_s(&file, filename, "rt");
     if (!file)
@@ -60,6 +63,7 @@ void Map_load(const char *filename, Tile tilemap[MAP_MAX_SIZE][MAP_MAX_SIZE],
                      t->from == SDown && t->to == SUp)
                 t->type = TTVert;
             else t->type = TTTurn;
+            if (t->type != TTNone) NumTiles++;
             t->x = x;
             t->y = y;
             t->isStart = 0;
@@ -128,6 +132,17 @@ void Map_load(const char *filename, Tile tilemap[MAP_MAX_SIZE][MAP_MAX_SIZE],
     if (x > 0)
         y++;
     *h = y;
+
+    Tile *t = Map_getStartTile();
+    for (unsigned i = 1; i <= NumTiles; i++) {
+        t->tileNum = i;
+        t = Map_getNextTile(*t);
+    }
+}
+
+unsigned Map_NumTiles()
+{
+    return NumTiles;
 }
 
 void Map_init(const char *filename) {
@@ -139,7 +154,7 @@ static void _updateCamera(Camera *cam, AEVec2 pos, int lerp) {
     Map_worldPosToTilePos(&tx, &ty, pos.x, pos.y);
     float twx, twy;
     Map_tilePosToWorldPos(&twx, &twy, tx, ty);
-    Tile tile = Map_getTile(tx, ty);
+    Tile tile = *Map_getTile(tx, ty);
 
     switch (tile.type) {
     case TTHoriz:
@@ -297,22 +312,22 @@ void Map_tilePosToWorldPos(float *wx, float *wy, unsigned tx, unsigned ty) {
     *wy = -((float)ty + 0.5f) * TILE_SIZE;
 }
 
-Tile Map_getTile(unsigned x, unsigned y) {
+Tile *Map_getTile(unsigned x, unsigned y) {
     if (x >= width || y >= height)
-        return (Tile) { SNone, SNone, TTNone };
-    return tiles[y][x];
+        return NULL;
+    return &tiles[y][x];
 }
 
-Tile Map_getStartTile() {
-    return tiles[startY][startX];
+Tile *Map_getStartTile() {
+    return &tiles[startY][startX];
 }
 
-Tile Map_getNextTile(Tile tile) {
-    return tile.to == SLeft  ? tiles[tile.y][tile.x - 1] : 
-           tile.to == SRight ? tiles[tile.y][tile.x + 1] :
-           tile.to == SUp    ? tiles[tile.y - 1][tile.x] :
-           tile.to == SDown  ? tiles[tile.y + 1][tile.x] : 
-           tile;
+Tile *Map_getNextTile(Tile tile) {
+    return tile.to == SLeft  ? &tiles[tile.y][tile.x - 1] : 
+           tile.to == SRight ? &tiles[tile.y][tile.x + 1] :
+           tile.to == SUp    ? &tiles[tile.y - 1][tile.x] :
+           tile.to == SDown  ? &tiles[tile.y + 1][tile.x] : 
+           &tile;
 }
 
 unsigned Map_getWidth() {

@@ -30,6 +30,9 @@
 
 #define MP_PLAYER_OFFSET 64
 
+Object *Player1 = NULL;
+Object *Player2 = NULL;
+
 float player1Lap;
 float player2Lap;
 
@@ -65,15 +68,15 @@ void Level2_onInit()
     Map_init("Assets\\Map.txt");
     ObstacleManager_loadObstacles();
 
-    Tile tile = Map_getStartTile();
+    Tile tile = *Map_getStartTile();
     Tile halfwayTile = tile;
 
     do {
-        tile = Map_getNextTile(tile);
+        tile = *Map_getNextTile(tile);
         if (tile.isStart)
             break;
-        tile = Map_getNextTile(tile);
-        halfwayTile = Map_getNextTile(halfwayTile);
+        tile = *Map_getNextTile(tile);
+        halfwayTile = *Map_getNextTile(halfwayTile);
     } while (!tile.isStart);
 
     Object *obj;
@@ -119,7 +122,7 @@ void Level2_onInit()
 
 static void initPlayers() {
     unsigned startTileX = Map_getStartX(), startTileY = Map_getStartY();
-    Tile startTile = Map_getTile(startTileX, startTileY);
+    Tile startTile = *Map_getTile(startTileX, startTileY);
     float direction = 0;
     AEVec2 p1Offset = (AEVec2) { 0, 0 }, p2Offset = (AEVec2) { 0, 0 };
     switch (startTile.to) {
@@ -160,6 +163,7 @@ static void initPlayers() {
     Object *player = Player_new(pos1, direction, (Controls) { 'A', 'D', 'W', 'S', 0 }, 0, &player1Lap);
     ObjectManager_addObj(player);
     CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, 0, PlayerOnCollision);
+    Player1 = player;
 
 	if (splitScreen) {
         Player_changeTexture(player, PLAYER_RED_TEXTURE);
@@ -178,6 +182,7 @@ static void initPlayers() {
         ObjectManager_addObj(player);
         Player_changeTexture(player, PLAYER_GREEN_TEXTURE);
         CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, 0, PlayerOnCollision);
+        Player2 = player;
 	}
 }
 
@@ -207,6 +212,33 @@ void Level2_onUpdate(float dt)
         ObjectManager_addObj(Polarbear_new(pos));
     }
 
+    if (splitScreen) {
+        PlayerData *p1Data = (PlayerData*)Object_getData(Player1);
+        PlayerData *p2Data = (PlayerData*)Object_getData(Player2);
+
+        unsigned tileX, tileY;
+        Map_worldPosToTilePos(&tileX, &tileY, Object_getPos(Player1).x, Object_getPos(Player1).y);
+        unsigned p1Tile = Map_getTile(tileX, tileY)->tileNum + ((unsigned)floor(*p1Data->lap) * Map_NumTiles());
+        Map_worldPosToTilePos(&tileX, &tileY, Object_getPos(Player2).x, Object_getPos(Player2).y);
+        unsigned p2Tile = Map_getTile(tileX, tileY)->tileNum + ((unsigned)floor(*p2Data->lap) * Map_NumTiles());
+
+        if (AEInputCheckTriggered('F')) {
+            p1Data->speedScalar = p1Data->speedScalar;
+        }
+        int distance = abs((int)p1Tile - (int)p2Tile);
+        if (p1Tile < p2Tile) {
+            p1Data->speedScalar = 1.f + fminf(0.5, distance / 10.f);
+            p2Data->speedScalar = 1.f;
+
+            if (distance >= 8) CollisionHandler_SetPhaseDuration(Player1, 1);
+        }
+        else if (p2Tile < p1Tile) {
+            p2Data->speedScalar = 1.f + fminf(0.5, distance / 10.f);
+            p1Data->speedScalar = 1.f;
+
+            if (distance >= 8) CollisionHandler_SetPhaseDuration(Player2, 1);
+        }
+    }
 }
 
 void Level2_onDraw()

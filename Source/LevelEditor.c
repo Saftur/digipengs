@@ -98,6 +98,7 @@ void LevelEditor_update(float dt)
             }
         }
     }
+    EditMap(dt);
 
     switch (PlacementMode) {
     case Boulder:
@@ -141,7 +142,6 @@ void LevelEditor_update(float dt)
         break;*/
 
     case None:
-        EditMap(dt);
         break;
         
     default:

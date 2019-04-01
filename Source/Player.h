@@ -16,6 +16,11 @@
 #define PLAYER_GREEN_TEXTURE TEXTURES.playerGreen
 #define PLAYER_SCALE (AEVec2){36,30}
 
+#define PLAYER_ACCEL 240.75f
+#define PLAYER_DECCEL 252.f
+#define PLAYER_MAXSPD 420.f
+#define PLAYER_ROTSPD 2.5f
+
 typedef struct PlayerData
 {
 	float direction;  ///< From -1 to 1;
@@ -23,6 +28,7 @@ typedef struct PlayerData
 	float acceleration;
 	float deceleration;
 	float speedcap;
+    float speedScalar;
 
     float* lap;
 

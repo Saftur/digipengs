@@ -18,11 +18,6 @@
 #include "EndScreen.h"
 #include "Utils.h"
 
-#define PLAYER_ACCEL 240.75f
-#define PLAYER_DECCEL 252.f
-#define PLAYER_MAXSPD 420.f
-#define PLAYER_ROTSPD 3.f
-
 static Particle *particleSpawnFunc();
 static float particleSpawnTimeFunc();
 
@@ -52,17 +47,17 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
         return;
     }
 
-	data->speed += data->acceleration * dt;
-	data->speed = fminf(data->speed, data->speedcap);
+	data->speed += data->acceleration * data->speedScalar * dt;
+	data->speed = fminf(data->speed, data->speedcap * data->speedScalar);
 
 	if (Input_leftCheck(data->controls))
 	{
-		data->direction += PLAYER_ROTSPD * dt;
+		data->direction += PLAYER_ROTSPD * data->speedScalar * dt;
 	}
 
 	if (Input_rightCheck(data->controls))
 	{
-		data->direction -= PLAYER_ROTSPD * dt;
+		data->direction -= PLAYER_ROTSPD * data->speedScalar * dt;
 	}
 	
 	if (Input_downCheck(data->controls))
@@ -100,6 +95,7 @@ Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned play
 	data->acceleration = PLAYER_ACCEL;
 	data->deceleration = PLAYER_DECCEL;
     data->speedcap = PLAYER_MAXSPD;
+    data->speedScalar = 1;
 
 	data->lap = lap;
 
