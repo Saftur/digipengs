@@ -14,12 +14,17 @@
 #include <stdbool.h>	// FALSE
 
 FMOD_SYSTEM *soundSystem;
-FMOD_CHANNEL *channel = 0;
+FMOD_SYSTEM *sfxSystem;
+FMOD_CHANNEL *MusicChannel = 0;
+FMOD_CHANNEL *SFXChannel = 0;
 FMOD_RESULT result;
 
 // Contains all the music/soundeffects in the game
 FMOD_SOUND *bgmGameplay;
-FMOD_SOUND *sfxPlayerSlide;
+FMOD_SOUND *sfxPlayerHitWall;
+
+//FMOD_Channel_SetMode(MusicChannel, FMOD_LOOP_OFF);
+//FMOD_Channel_SetLoopCount(FMOD_CHANNEL *MusicChannel, int loopcount);
 
 // Helper function to check for errors
 static void ERRCHECK(const FMOD_RESULT checkResult)
@@ -37,9 +42,16 @@ void Audio_init()
 	result = FMOD_System_Create(&soundSystem);
 	ERRCHECK(result);
 
+  result = FMOD_System_Create(&sfxSystem);
+  ERRCHECK(result);
+
 	void *extradriverdata = 0;
 	result = FMOD_System_Init(soundSystem, 32, FMOD_INIT_NORMAL, extradriverdata);
-	ERRCHECK(result);
+  ERRCHECK(result);
+
+  void *extrasfxdriverdata = 0;
+  result = FMOD_System_Init(sfxSystem, 32, FMOD_INIT_NORMAL, extrasfxdriverdata);
+  ERRCHECK(result);
 }
 
 // Update the Audio System
@@ -49,6 +61,8 @@ void AudioUpdate()
 {
 	result = FMOD_System_Update(soundSystem);
 	ERRCHECK(result);
+  result = FMOD_System_Update(sfxSystem);
+  ERRCHECK(result);
 }
 
 // Cleanup the Audio System
@@ -68,16 +82,23 @@ void Audio_cleanup()
 ////////////////////////////////////////////////////////////////////
 void Audio_playGameplay()
 {
-  // Create and Play the sound
-  // Note: this should be generalized for multiple sounds and
-  //       be placed in a function to be used outside of init.
   result = FMOD_System_CreateStream(soundSystem, "./Assets/Audio/OriginalMusic.mp3", FMOD_LOOP_NORMAL | FMOD_2D, 0, &bgmGameplay);
   ERRCHECK(result);
 
-  result = FMOD_System_PlaySound(soundSystem, bgmGameplay, 0, false, &channel);
+  result = FMOD_System_PlaySound(soundSystem, bgmGameplay, 0, false, &MusicChannel);
   ERRCHECK(result);
 }
 
 void Audio_stopGameplay() {
-    FMOD_Channel_Stop(channel);
+    FMOD_Channel_Stop(MusicChannel);
+    FMOD_Channel_Stop(SFXChannel);
+}
+
+void Audio_playSfxHitWall()
+{
+  result = FMOD_System_CreateStream(sfxSystem, "./Assets/Audio/sfx.wav", FMOD_LOOP_OFF | FMOD_2D, 0, &sfxPlayerHitWall);
+  ERRCHECK(result);
+
+  result = FMOD_System_PlaySound(sfxSystem, sfxPlayerHitWall, 0, false, &SFXChannel);
+  ERRCHECK(result);
 }

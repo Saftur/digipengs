@@ -40,7 +40,7 @@ static void separatorDraw(Object *obj, void *data);
 
 void Level2_onLoad()
 {
-    //Audio_playGameplay();
+    Audio_playGameplay();
 }
 
 void Level2_onInit()
@@ -174,7 +174,7 @@ static void initPlayers() {
 		Object *lapCounter2 = LapCounter_new(1, "Lap %d", TEXTURES.font, lapPos2, (AEVec2) { 50, 100 }, &player2Lap);
 		ObjectManager_addObj(lapCounter2);
 
-        player = Player_new(pos2, direction, (Controls) { VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN }, 1, &player2Lap);
+        player = Player_new(pos2, direction, (Controls) { VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN, 1 }, 1, &player2Lap);
         ObjectManager_addObj(player);
         Player_changeTexture(player, PLAYER_GREEN_TEXTURE);
         CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, 0, PlayerOnCollision);
@@ -207,6 +207,11 @@ void Level2_onUpdate(float dt)
         ObjectManager_addObj(Polarbear_new(pos));
     }
 
+
+    if (AEInputCheckTriggered('P'))
+    {
+      Audio_playSfxHitWall();
+    }
 }
 
 void Level2_onDraw()

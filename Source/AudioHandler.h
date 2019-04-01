@@ -13,3 +13,5 @@ void Audio_cleanup();
 
 void Audio_playGameplay();
 void Audio_stopGameplay();
+
+void Audio_playSfxHitWall();
