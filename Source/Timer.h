@@ -1,3 +1,10 @@
+/**
+ * @file Timer.h
+ * @author Parker Friedland
+ * @date 3/7/2019
+ * @brief Timer
+ */
+
 #pragma once
 
 #include <AEEngine.h>

@@ -1,39 +1,31 @@
-/**
- * @file Leaderboard.h
- * @author Parker Friedland
- * @date 1/24/2019
- * @brief Leaderboard
- */
-
 #pragma once
 
-#define NAME_SIZE 20
-#define LEADERBOARD_SIZE 10
+#include <AEEngine.h>
+#include "Object.h"
+#include "ImageHandler.h"
 
-/**
-* @brief data structure used to store leaderboard ranks. Stores the player name and their score associated with a given rank.
-*/
-typedef struct LeaderboardRank {
-	char name[NAME_SIZE];
-	int score;
-} LeaderboardRank;
+#define LEADERBOARD_COLUMNS 3
 
-/**
-* @brief retrieves leaderboard data. Should be called when the game starts or on load during the end screen level
-*/
-void Leaderboard_read();
+#define LEADERBOARD_RANK_INDEX 0
+#define LEADERBOARD_NAME_INDEX 1
+#define LEADERBOARD_TIME_INDEX 2
 
-/**
-* @brief saves leaderboard data. Should be called when the game ends or on unload during the end screen level
-*/
-void Leaderboard_write();
+#define LEADERBOARD_RANK_LENGTH 5
+#define LEADERBOARD_NAME_LENGTH 21
+#define LEADERBOARD_TIME_LENGTH 6
 
-/**
-* @brief gets the player name and score data associated with a given name;
-*/
-LeaderboardRank Leaderboard_getEntry(unsigned rank);
+#define LEADERBOARD_PALETTE_ROWS 3
+#define LEADERBOARD_PALETTE_COLUMNS 3
 
-/**
-* @brief adds a new score to the leaderboard. If the leaderboard is full, it will only add the score if it is >= one of the scores already on the leaderboard.
-*/
-void Leaderboard_addEntry(LeaderboardRank entry);
+#define LEADERBOARD_PALETTE_RANK_INDEX 0
+#define LEADERBOARD_PALETTE_NAME_INDEX 1
+#define LEADERBOARD_PALETTE_TIME_INDEX 2
+
+#define LEADERBOARD_PALETTE_HEADER_INDEX 0
+#define LEADERBOARD_PALETTE_LEADERBOARD_INDEX 1
+#define LEADERBOARD_PALETTE_YOUR_RANK_INDEX 2
+
+typedef struct Leaderboard Leaderboard;
+
+Object* Leaderboard_new(AEGfxTexture* font, AEVec2 pos, AEVec2 posDiff, AEVec2 charScale,
+	Color palatte[LEADERBOARD_PALETTE_ROWS][LEADERBOARD_PALETTE_COLUMNS], int yourRank, int ranksToDisplay, float addRankTime);

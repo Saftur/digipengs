@@ -13,6 +13,7 @@
 #include "Level2.h"
 #include "SplashScreen.h"
 #include "TitleScreen.h"
+#include "HighscoreScreen.h"
 #include "EndScreen.h"
 #include "LevelEditorLevel.h"
 
@@ -35,6 +36,7 @@ static const TableEntry LevelTable[LevelNum] = {
 	{Level2_onLoad, Level2_onInit, Level2_onUpdate, Level2_onDraw, Level2_onShutdown, Level2_onUnload},
     {SplashScreen_onLoad, SplashScreen_onInit, SplashScreen_onUpdate, NULL, SplashScreen_onShutdown, SplashScreen_onUnload},
 	{TitleScreen_onLoad, TitleScreen_onInit, TitleScreen_onUpdate, NULL, TitleScreen_onShutdown, TitleScreen_onUnload},
+	{HighscoreScreen_onLoad, HighscoreScreen_onInit, HighscoreScreen_onUpdate, NULL, HighscoreScreen_onShutdown, HighscoreScreen_onUnload},
 	{EndScreen_onLoad, EndScreen_onInit, EndScreen_onUpdate, EndScreen_onDraw, EndScreen_onShutdown, EndScreen_onUnload},
     {LevelEditorLevel_onLoad, LevelEditorLevel_onInit, LevelEditorLevel_onUpdate, NULL, LevelEditorLevel_onShutdown, LevelEditorLevel_onUnload}
 };

@@ -32,9 +32,6 @@
     <ClCompile Include="Source\InputHandler.c">
       <Filter>Engine\Handlers</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Leaderboard.c">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="Source\TitleScreen.c">
       <Filter>Game\Levels</Filter>
     </ClCompile>
@@ -111,6 +108,15 @@
     <ClCompile Include="Source\ParticleHandler.c">
       <Filter>Engine\Handlers</Filter>
     </ClCompile>
+    <ClCompile Include="Source\LeaderboardData.c">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Leaderboard.c">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HighscoreScreen.c">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
@@ -143,9 +149,6 @@
     </ClInclude>
     <ClInclude Include="Source\InputHandler.h">
       <Filter>Engine\Handlers</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Leaderboard.h">
-      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Source\TitleScreen.h">
       <Filter>Game\Levels</Filter>
@@ -216,6 +219,15 @@
     </ClInclude>
     <ClInclude Include="Source\ParticleHandler.h">
       <Filter>Engine\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LeaderboardData.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Leaderboard.h">
+      <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HighscoreScreen.h">
+      <Filter>Game\Levels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
