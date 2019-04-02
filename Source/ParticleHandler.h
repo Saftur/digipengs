@@ -28,9 +28,9 @@ typedef struct Particle {
 } Particle;
 
 /** @brief Generates particle spawn data */
-typedef Particle*(*ParticleSpawnFunc)();
+typedef Particle*(*ParticleSpawnFunc)(void*);
 /** @brief Gives particle spawn time offset */
-typedef float(*ParticleSpawnTimeFunc)();
+typedef float(*ParticleSpawnSpeedFunc)(void*);
 
 typedef struct ParticleEmitter {
     AEVec2 pos;
@@ -39,14 +39,16 @@ typedef struct ParticleEmitter {
     unsigned maxParticles;
 
     ParticleSpawnFunc spawnFunc;
-    ParticleSpawnTimeFunc spawnTimeFunc;
+    ParticleSpawnSpeedFunc spawnSpeedFunc;
+    void *spawnFuncsData;
 
     vector *particles;
     float timer;
 } ParticleEmitter;
 
 ParticleEmitter *ParticleEmitter_new(AEVec2 pos, float rot, int enable, unsigned maxParticles,
-                                     ParticleSpawnFunc spawnFunc, ParticleSpawnTimeFunc spawnTimeFunc);
+                                     ParticleSpawnFunc spawnFunc, ParticleSpawnSpeedFunc spawnSpeedFunc,
+                                     void *spawnFuncsData);
 void ParticleEmitter_delete(ParticleEmitter *pe);
 
 void ParticleEmitter_update(ParticleEmitter *pe, float dt);

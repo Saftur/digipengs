@@ -14,14 +14,16 @@ static int Particle_update(Particle *p, float dt);
 static void Particle_draw(Particle *p);
 
 ParticleEmitter *ParticleEmitter_new(AEVec2 pos, float rot, int enable, unsigned maxParticles,
-                                     ParticleSpawnFunc spawnFunc, ParticleSpawnTimeFunc spawnTimeFunc) {
+                                     ParticleSpawnFunc spawnFunc, ParticleSpawnSpeedFunc spawnSpeedFunc,
+                                     void *spawnFuncsData) {
     ParticleEmitter *pe = malloc(sizeof(ParticleEmitter));
     pe->pos = pos;
     pe->rot = rot;
     pe->enable = enable;
     pe->maxParticles = maxParticles;
     pe->spawnFunc = spawnFunc;
-    pe->spawnTimeFunc = spawnTimeFunc;
+    pe->spawnSpeedFunc = spawnSpeedFunc;
+    pe->spawnFuncsData = spawnFuncsData;
     pe->particles = vector_new(maxParticles, NULL, free);
     pe->timer = 0.f;
     return pe;
@@ -41,19 +43,19 @@ void ParticleEmitter_update(ParticleEmitter *pe, float dt) {
         }
     }
 
-    if (pe->enable) {
-        if (pe->timer <= 0.f) {
+    if (pe->enable && pe->spawnSpeedFunc(pe->spawnFuncsData) > 0.f) {
+        if (pe->timer >= 1.f / pe->spawnSpeedFunc(pe->spawnFuncsData)) {
             if (vector_size(pe->particles) < pe->maxParticles) {
-                Particle *p = pe->spawnFunc();
+                Particle *p = pe->spawnFunc(pe->spawnFuncsData);
                 AEVec2Rotate(&p->pos, &p->pos, pe->rot);
                 AEVec2Rotate(&p->vel, &p->vel, pe->rot);
                 p->rot += pe->rot;
 
                 AEVec2Add(&p->pos, &pe->pos, &p->pos);
                 vector_push_back(pe->particles, p);
-                pe->timer = pe->spawnTimeFunc();
+                pe->timer = 0.f;//pe->spawnSpeedFunc(pe->spawnFuncsData);
             }
-        } else pe->timer -= dt;
+        } else pe->timer += dt;
     } else pe->timer = 0.f;
 }
 
