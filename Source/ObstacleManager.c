@@ -66,21 +66,23 @@ void ObstacleManager_loadObstacles()
 
     //Build walls on the map.
     AEVec2 tileWorldPos;
-    unsigned tileX = Map_getStartX(), tileY = Map_getStartY();
+    //unsigned tileX = Map_getStartX(), tileY = Map_getStartY();
 
-    unsigned initialTileX = tileX, initialTileY = tileY;
+    //unsigned initialTileX = tileX, initialTileY = tileY;
+    Tile *tile = Map_getStartTile();
+    Tile *startTile = tile;
 
     do {
-        Map_tilePosToWorldPos(&tileWorldPos.x, &tileWorldPos.y, tileX, tileY);
-        Tile tile = Map_getTile(tileX, tileY);
+        Map_tilePosToWorldPos(&tileWorldPos.x, &tileWorldPos.y, tile->x, tile->y);
+        //Tile *tile = Map_getTile(tile->x, tile->y);
 
         //If the tile is a straight segment.
-        if (tile.from == SDown && tile.to == SUp || tile.from == SUp && tile.to == SDown
-            || tile.from == SLeft && tile.to == SRight || tile.from == SRight && tile.to == SLeft) {
+        if (tile->from == SDown && tile->to == SUp || tile->from == SUp && tile->to == SDown
+            || tile->from == SLeft && tile->to == SRight || tile->from == SRight && tile->to == SLeft) {
             //Get the position to create the wall at.
             AEVec2 wallPos;
 
-            if (tile.to == SRight || tile.to == SLeft) {
+            if (tile->to == SRight || tile->to == SLeft) {
                 wallPos.y = tileWorldPos.y + (TILE_SIZE / 2.f - WALL_WIDTH / 2.f);
                 wallPos.x = tileWorldPos.x;
 
@@ -119,7 +121,7 @@ void ObstacleManager_loadObstacles()
                 ObjectManager_addObj(wall);
             }
         }
-        //Corner tile.
+        //Corner tile->
         else {
             AEVec2 wallPos[NUM_WALLS];
             float wallRot[NUM_WALLS];
@@ -128,7 +130,7 @@ void ObstacleManager_loadObstacles()
             for (unsigned i = 0; i < NUM_WALLS; i++) wallRot[i] = ((float)i + 0.5f) * angleInc;
 
             AEVec2 point = {0, 0};
-            if ((tile.from == SDown && tile.to == SRight) || (tile.from == SRight && tile.to == SDown)) {
+            if ((tile->from == SDown && tile->to == SRight) || (tile->from == SRight && tile->to == SDown)) {
                 point.x = tileWorldPos.x + TILE_SIZE / 2.f;
                 point.y = tileWorldPos.y - TILE_SIZE / 2.f;
 
@@ -138,7 +140,7 @@ void ObstacleManager_loadObstacles()
                     wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH / 2.f);
                 }
             }
-            else if ((tile.from == SLeft && tile.to == SDown) || (tile.from == SDown && tile.to == SLeft)) {
+            else if ((tile->from == SLeft && tile->to == SDown) || (tile->from == SDown && tile->to == SLeft)) {
                 point.x = tileWorldPos.x - TILE_SIZE / 2.f;
                 point.y = tileWorldPos.y - TILE_SIZE / 2.f;
 
@@ -147,7 +149,7 @@ void ObstacleManager_loadObstacles()
                     wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH / 2.f);
                 }
             }
-            else if ((tile.from == SUp && tile.to == SLeft) || (tile.from == SLeft && tile.to == SUp)) {
+            else if ((tile->from == SUp && tile->to == SLeft) || (tile->from == SLeft && tile->to == SUp)) {
                 point.x = tileWorldPos.x - TILE_SIZE / 2.f;
                 point.y = tileWorldPos.y + TILE_SIZE / 2.f;
 
@@ -157,7 +159,7 @@ void ObstacleManager_loadObstacles()
                     wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH / 2.f);
                 }
             }
-            else if ((tile.from == SRight && tile.to == SUp) || (tile.from == SUp && tile.to == SRight)) {
+            else if ((tile->from == SRight && tile->to == SUp) || (tile->from == SUp && tile->to == SRight)) {
                 point.x = tileWorldPos.x + TILE_SIZE / 2.f;
                 point.y = tileWorldPos.y + TILE_SIZE / 2.f;
 
@@ -181,9 +183,8 @@ void ObstacleManager_loadObstacles()
             }
         }
 
-        if (tile.to == SLeft) tileX--;
-        else if (tile.to == SRight) tileX++;
-        else if (tile.to == SDown) tileY++;
-        else tileY--;
-    } while (tileX != initialTileX || tileY != initialTileY);
+        Tile *next = Map_getNextTile(tile);
+        if (next == tile) break;
+        tile = next;
+    } while (tile != startTile);
 }

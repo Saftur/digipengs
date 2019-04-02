@@ -23,6 +23,7 @@ typedef struct PlayerData
 	float acceleration;
 	float deceleration;
 	float speedcap;
+    float speedScalar;
 
     float* lap;
 

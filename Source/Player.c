@@ -58,17 +58,17 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
         return;
     }
 
-	data->speed += data->acceleration * dt;
-	data->speed = fminf(data->speed, data->speedcap);
+	data->speed += data->acceleration * data->speedScalar * dt;
+	data->speed = fminf(data->speed, data->speedcap * data->speedScalar);
 
 	if (Input_leftCheck(data->controls))
 	{
-		data->direction += PLAYER_ROTSPD * dt;
+		data->direction += PLAYER_ROTSPD * data->speedScalar * dt;
 	}
 
 	if (Input_rightCheck(data->controls))
 	{
-		data->direction -= PLAYER_ROTSPD * dt;
+		data->direction -= PLAYER_ROTSPD * data->speedScalar * dt;
 	}
 	
 	if (Input_downCheck(data->controls))
@@ -93,7 +93,6 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 void Player_onDraw(Object *obj, PlayerData *data)
 {
     ParticleEmitter_draw(data->particleEmitter);
-    //ImageHandler_fullDrawTexture(data->mesh, data->texture, Object_getPos(obj), 1.0f, 1.0f, data->direction, data->alpha);
     ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), data->texture, Object_getPos(obj), PLAYER_SCALE.x, PLAYER_SCALE.y, data->direction, data->alpha);
 }
 
@@ -107,12 +106,12 @@ Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned play
 	data->acceleration = PLAYER_ACCEL;
 	data->deceleration = PLAYER_DECCEL;
     data->speedcap = PLAYER_MAXSPD;
+    data->speedScalar = 1;
 
 	data->lap = lap;
 
     data->controls = controls;
 
-    //data->mesh = MeshHandler_createSquareMesh(PLAYER_SCALE.x, PLAYER_SCALE.y, 1, 1);
     data->texture = PLAYER_STANDARD_TEXTURE;
 
     data->playerNum = playerNum;
@@ -171,11 +170,8 @@ static Particle *particleSpawnFunc(PlayerParticleData *data) {
 
     p->pos.x = data->modeSwitch / 2 < 1 ? -PLAYER_SCALE.x * 0.4f : PLAYER_SCALE.x * 0.125f;
     p->pos.y = 0.f;
-    //p->pos.y = (data->modeSwitch ? 1.f : -1.f) * PLAYER_SCALE.y / 4.f;
     p->pos.y = (data->modeSwitch % 2 == 0 ? 1.f : -1.f) * PLAYER_SCALE.y * 0.125f;
 
-    //float rot = randrangef(0.5f * PI, 1.5f * PI);
-    //float rot = data->modeSwitch ? randrangef(0.35f * PI, 0.85f * PI) : randrangef(1.15f * PI, 1.65f * PI);
     float rot = data->modeSwitch % 2 == 0 ? randrangef((ROT_START_LEFT - ROT_RANGE_UP) * PI, (ROT_START_LEFT + ROT_RANGE_DOWN) * PI) : 
                                             randrangef((ROT_START_RIGHT - ROT_RANGE_DOWN) * PI, (ROT_START_RIGHT + ROT_RANGE_UP) * PI);
     AEVec2FromAngle(&p->vel, rot);
@@ -215,7 +211,5 @@ static Particle *particleSpawnFunc(PlayerParticleData *data) {
 }
 
 static float particleSpawnTimeFunc(PlayerParticleData *data) {
-    UNREFERENCED_PARAMETER(data);
-    //return 40.f;
     return data->playerData->speed / data->playerData->speedcap * 80.f;
 }

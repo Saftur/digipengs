@@ -16,13 +16,14 @@ void PlayerOnCollision(Collider *self, Collider *other) {
     if(!strcmp("Boulder", Object_getName(other->gameObject)))
     {
         Player_resetSpeed(data);
-        CollisionHandler_SetPhaseDuration(other->gameObject, 2);
+        CollisionHandler_SetPhaseDuration(self->gameObject, 2);
     }
 
     if (!strcmp("Polarbear", Object_getName(other->gameObject)))
     {
         Player_resetSpeed(data);
         Polarbear_setReturn(other->gameObject);
+        CollisionHandler_SetPhaseDuration(self->gameObject, 2);
     }
 
     if(!strcmp("Wall", Object_getName(other->gameObject)))

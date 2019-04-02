@@ -39,10 +39,17 @@ typedef struct Tile {
     TileType type;  ///< Tile type
     int isStart;    ///< Is start tile
     unsigned x, y;  ///< Tile position
+    unsigned tileNum; ///< Number of this tile in the map.
 } Tile;
 
 void Map_load(const char *filename, Tile tilemap[MAP_MAX_SIZE][MAP_MAX_SIZE], 
               unsigned *width, unsigned *height, unsigned *startX, unsigned *startY);
+
+/**
+ * @brief Get number of tiles in the map.
+ * @return Number of tiles in the map.
+ */
+unsigned Map_NumTiles();
 
 /**
  * @brief Initialize map
@@ -91,27 +98,27 @@ void Map_tilePosToWorldPos(float *wx, float *wy, unsigned tx, unsigned ty);
  * @param y Y tile position
  * @return Tile at given position
  */
-Tile Map_getTile(unsigned x, unsigned y);
+Tile *Map_getTile(unsigned x, unsigned y);
 
 /**
  * @brief Get the start tile
  * @return Start tile
  */
-Tile Map_getStartTile();
+Tile *Map_getStartTile();
 
 /**
  * @brief Get next tile in path
  * @param tile Current tile
  * @return Next tile
  */
-Tile Map_getNextTile(Tile tile);
+Tile *Map_getNextTile(Tile *tile);
 
 /**
  * @brief Get previous tile in path
  * @param tile Current tile
  * @return Previous tile
  */
-Tile Map_getPrevTile(Tile tile);
+Tile *Map_getPrevTile(Tile *tile);
 
 /**
  * @brief Get map width
