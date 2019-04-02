@@ -107,6 +107,13 @@ Tile Map_getStartTile();
 Tile Map_getNextTile(Tile tile);
 
 /**
+ * @brief Get previous tile in path
+ * @param tile Current tile
+ * @return Previous tile
+ */
+Tile Map_getPrevTile(Tile tile);
+
+/**
  * @brief Get map width
  * @return Map width
  */

@@ -14,7 +14,9 @@
 #include "MeshHandler.h"
 #include "Utils.h"
 
-#define CAM_ROT_LERP_PERCENT 0.2f
+#define CAM_STRAIGHT_ROT_LERP 0.2f
+#define CAM_TURN_ROT_LERP 0.2f
+#define CAM_BETWEEN_ROT_LERP(percentOfStraight) (CAM_STRAIGHT_ROT_LERP * percentOfStraight + CAM_TURN_ROT_LERP * (1-percentOfStraight))
 
 static Tile tiles[MAP_MAX_SIZE][MAP_MAX_SIZE];
 
@@ -140,13 +142,18 @@ static void _updateCamera(Camera *cam, AEVec2 pos, int lerp) {
     float twx, twy;
     Map_tilePosToWorldPos(&twx, &twy, tx, ty);
     Tile tile = Map_getTile(tx, ty);
+    Tile nextTile = Map_getNextTile(tile);
+    Tile prevTile = Map_getPrevTile(tile);
+    Tile prevPrevTile = Map_getPrevTile(prevTile);
 
     switch (tile.type) {
     case TTHoriz:
         cam->worldPos.x = pos.x;
         cam->worldPos.y = twy;
         if (lerp)
-            cam->worldRot = deg_lerpf(cam->worldRot, (tile.from == SLeft ? 90.f : -90.f), CAM_ROT_LERP_PERCENT);
+            cam->worldRot = deg_lerpf(cam->worldRot, (tile.from == SLeft ? 90.f : -90.f),
+                                      prevTile.type == TTTurn ? CAM_BETWEEN_ROT_LERP(0.5f) : 
+                                      prevPrevTile.type == TTTurn ? CAM_BETWEEN_ROT_LERP(0.75f) : CAM_STRAIGHT_ROT_LERP);
         else
             cam->worldRot = (tile.from == SLeft ? 90.f : -90.f);
         break;
@@ -154,7 +161,9 @@ static void _updateCamera(Camera *cam, AEVec2 pos, int lerp) {
         cam->worldPos.x = twx;
         cam->worldPos.y = pos.y;
         if (lerp)
-            cam->worldRot = deg_lerpf(cam->worldRot, (tile.from == SDown ? 0.f : 180.f), CAM_ROT_LERP_PERCENT);
+            cam->worldRot = deg_lerpf(cam->worldRot, (tile.from == SDown ? 0.f : 180.f), 
+                                      prevTile.type == TTTurn ? CAM_BETWEEN_ROT_LERP(0.5f) : 
+                                      prevPrevTile.type == TTTurn ? CAM_BETWEEN_ROT_LERP(0.75f) : CAM_STRAIGHT_ROT_LERP);
         else
             cam->worldRot = (tile.from == SDown ? 0.f : 180.f);
         break;
@@ -196,7 +205,7 @@ static void _updateCamera(Camera *cam, AEVec2 pos, int lerp) {
         cam->worldPos = point;
         float rot = addAngle - AERadToDeg(AEVec2AngleFromVec2(&localPos));
         if (lerp)
-            cam->worldRot = deg_lerpf(cam->worldRot, rot, CAM_ROT_LERP_PERCENT);
+            cam->worldRot = deg_lerpf(cam->worldRot, rot, nextTile.type == TTTurn ? CAM_TURN_ROT_LERP : CAM_BETWEEN_ROT_LERP(0.5f));
         else
             cam->worldRot = rot;
         break;
@@ -312,6 +321,14 @@ Tile Map_getNextTile(Tile tile) {
            tile.to == SRight ? tiles[tile.y][tile.x + 1] :
            tile.to == SUp    ? tiles[tile.y - 1][tile.x] :
            tile.to == SDown  ? tiles[tile.y + 1][tile.x] : 
+           tile;
+}
+
+Tile Map_getPrevTile(Tile tile) {
+    return tile.from == SLeft  ? tiles[tile.y][tile.x - 1] : 
+           tile.from == SRight ? tiles[tile.y][tile.x + 1] :
+           tile.from == SUp    ? tiles[tile.y - 1][tile.x] :
+           tile.from == SDown  ? tiles[tile.y + 1][tile.x] : 
            tile;
 }
 

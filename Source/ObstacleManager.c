@@ -81,7 +81,7 @@ void ObstacleManager_loadObstacles()
             AEVec2 wallPos;
 
             if (tile.to == SRight || tile.to == SLeft) {
-                wallPos.y = tileWorldPos.y + (LANE_WIDTH * 3.5f);
+                wallPos.y = tileWorldPos.y + (TILE_SIZE / 2.f - WALL_WIDTH / 2.f);
                 wallPos.x = tileWorldPos.x;
 
                 Object *wall = Object_new(NULL, NULL, NULL, NULL, NULL, "Wall");
@@ -90,7 +90,7 @@ void ObstacleManager_loadObstacles()
                 CollisionHandler_Create_Square_Collider(wall, (AEVec2) { TILE_SIZE, WALL_WIDTH }, 0, NULL);
                 ObjectManager_addObj(wall);
 
-                wallPos.y = tileWorldPos.y - (LANE_WIDTH * 3.5f);
+                wallPos.y = tileWorldPos.y - (TILE_SIZE / 2.f - WALL_WIDTH / 2.f);
                 wallPos.x = tileWorldPos.x;
 
                 wall = Object_new(NULL, NULL, NULL, NULL, NULL, "Wall");
@@ -100,7 +100,7 @@ void ObstacleManager_loadObstacles()
                 ObjectManager_addObj(wall);
             }
             else {
-                wallPos.x = tileWorldPos.x + (LANE_WIDTH * 3.5f);
+                wallPos.x = tileWorldPos.x + (TILE_SIZE / 2.f - WALL_WIDTH / 2.f);
                 wallPos.y = tileWorldPos.y;
 
                 Object *wall = Object_new(NULL, NULL, NULL, NULL, NULL, "Wall");
@@ -109,7 +109,7 @@ void ObstacleManager_loadObstacles()
                 CollisionHandler_Create_Square_Collider(wall, (AEVec2) { WALL_WIDTH, TILE_SIZE }, 0, NULL);
                 ObjectManager_addObj(wall);
 
-                wallPos.x = tileWorldPos.x - (LANE_WIDTH * 3.5f);
+                wallPos.x = tileWorldPos.x - (TILE_SIZE / 2.f - WALL_WIDTH / 2.f);
                 wallPos.y = tileWorldPos.y;
 
                 wall = Object_new(NULL, NULL, NULL, NULL, NULL, "Wall");
@@ -134,8 +134,8 @@ void ObstacleManager_loadObstacles()
 
                 for (unsigned i = 0; i < NUM_WALLS; i++) {
                     wallRot[i] += PI / 2.f;
-                    wallPos[i].x = point.x + cosf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH);
-                    wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH);
+                    wallPos[i].x = point.x + cosf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH / 2.f);
+                    wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH / 2.f);
                 }
             }
             else if ((tile.from == SLeft && tile.to == SDown) || (tile.from == SDown && tile.to == SLeft)) {
@@ -143,8 +143,8 @@ void ObstacleManager_loadObstacles()
                 point.y = tileWorldPos.y - TILE_SIZE / 2.f;
 
                 for (unsigned i = 0; i < NUM_WALLS; i++) {
-                    wallPos[i].x = point.x + cosf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH);
-                    wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH);
+                    wallPos[i].x = point.x + cosf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH / 2.f);
+                    wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH / 2.f);
                 }
             }
             else if ((tile.from == SUp && tile.to == SLeft) || (tile.from == SLeft && tile.to == SUp)) {
@@ -153,8 +153,8 @@ void ObstacleManager_loadObstacles()
 
                 for (unsigned i = 0; i < NUM_WALLS; i++) {
                     wallRot[i] += PI * 1.5f;
-                    wallPos[i].x = point.x + cosf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH);
-                    wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH);
+                    wallPos[i].x = point.x + cosf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH / 2.f);
+                    wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH / 2.f);
                 }
             }
             else if ((tile.from == SRight && tile.to == SUp) || (tile.from == SUp && tile.to == SRight)) {
@@ -163,8 +163,8 @@ void ObstacleManager_loadObstacles()
 
                 for (unsigned i = 0; i < NUM_WALLS; i++) {
                     wallRot[i] += PI;
-                    wallPos[i].x = point.x + cosf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH);
-                    wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH);
+                    wallPos[i].x = point.x + cosf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH / 2.f);
+                    wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH / 2.f);
                 }
             }
 
