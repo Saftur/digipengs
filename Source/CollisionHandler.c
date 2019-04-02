@@ -94,7 +94,7 @@ void CollisionHandler_Check_Collisions()
                 //ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.screen_separator, squarePos, square->size.x, square->size.y, square->angle, 1);
 
                 float dist = AECalcDistCircleToRect(&test, circle->radius, &squarePos, square->size.x, square->size.y);
-                if (dist < circle->radius) {
+                if (dist < 0) {
                     if (square->OnCollision) square->OnCollision(square, circle);
                     if (circle->OnCollision) circle->OnCollision(circle, square);
                 }

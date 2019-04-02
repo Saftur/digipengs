@@ -23,8 +23,13 @@
 #define PLAYER_MAXSPD 420.f
 #define PLAYER_ROTSPD 3.f
 
-static Particle *particleSpawnFunc();
-static float particleSpawnTimeFunc();
+typedef struct PlayerParticleData {
+    PlayerData *playerData;
+    int modeSwitch;
+} PlayerParticleData;
+
+static Particle *particleSpawnFunc(PlayerParticleData *data);
+static float particleSpawnTimeFunc(PlayerParticleData *data);
 
 void Player_onInit(Object *obj, PlayerData *data)
 {
@@ -35,8 +40,9 @@ void Player_onInit(Object *obj, PlayerData *data)
 }
 
 void Player_onShutdown(PlayerData *data) {
-    AEGfxMeshFree(data->mesh);
+    //AEGfxMeshFree(data->mesh);
     ParticleEmitter_delete(data->particleEmitter);
+    free(data->particleData);
     free(data);
 }
 
@@ -87,7 +93,8 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 void Player_onDraw(Object *obj, PlayerData *data)
 {
     ParticleEmitter_draw(data->particleEmitter);
-    ImageHandler_fullDrawTexture(data->mesh, data->texture, Object_getPos(obj), 1.0f, 1.0f, data->direction, data->alpha);
+    //ImageHandler_fullDrawTexture(data->mesh, data->texture, Object_getPos(obj), 1.0f, 1.0f, data->direction, data->alpha);
+    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), data->texture, Object_getPos(obj), PLAYER_SCALE.x, PLAYER_SCALE.y, data->direction, data->alpha);
 }
 
 
@@ -105,14 +112,17 @@ Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned play
 
     data->controls = controls;
 
-    data->mesh = MeshHandler_createSquareMesh(PLAYER_SCALE.x, PLAYER_SCALE.y, 1, 1);
+    //data->mesh = MeshHandler_createSquareMesh(PLAYER_SCALE.x, PLAYER_SCALE.y, 1, 1);
     data->texture = PLAYER_STANDARD_TEXTURE;
 
     data->playerNum = playerNum;
 
     data->alpha = 1.0f;
 
-    data->particleEmitter = ParticleEmitter_new(pos, direction, 1, 16, particleSpawnFunc, particleSpawnTimeFunc);
+    data->particleData = malloc(sizeof(PlayerParticleData));
+    ((PlayerParticleData*)data->particleData)->playerData = data;
+    ((PlayerParticleData*)data->particleData)->modeSwitch = 0;
+    data->particleEmitter = ParticleEmitter_new(pos, direction, 1, 16, particleSpawnFunc, particleSpawnTimeFunc, data->particleData);
 
     return player;
 }
@@ -147,29 +157,65 @@ void Player_resetSpeed(PlayerData *data)
 	data->speed = 0.0f;
 }
 
-static Particle *particleSpawnFunc() {
+static Particle *particleSpawnFunc(PlayerParticleData *data) {
+#define ROT_START       0.5f
+#define ROT_START_LEFT  ROT_START
+#define ROT_START_RIGHT (ROT_START + 1.f)
+#define ROT_RANGE_UP    0.1f
+#define ROT_RANGE_DOWN  0.1f
+#define LIFE            0.25f
+#define SCALE           15.f
+
+    UNREFERENCED_PARAMETER(data);
     Particle *p = Particle_new();
 
-    p->pos.x = -PLAYER_SCALE.x / 4.f;
+    p->pos.x = data->modeSwitch / 2 < 1 ? -PLAYER_SCALE.x * 0.4f : PLAYER_SCALE.x * 0.125f;
+    p->pos.y = 0.f;
+    //p->pos.y = (data->modeSwitch ? 1.f : -1.f) * PLAYER_SCALE.y / 4.f;
+    p->pos.y = (data->modeSwitch % 2 == 0 ? 1.f : -1.f) * PLAYER_SCALE.y * 0.125f;
 
-    float rot = randrangef(0.5f * PI, 1.5f * PI);
+    //float rot = randrangef(0.5f * PI, 1.5f * PI);
+    //float rot = data->modeSwitch ? randrangef(0.35f * PI, 0.85f * PI) : randrangef(1.15f * PI, 1.65f * PI);
+    float rot = data->modeSwitch % 2 == 0 ? randrangef((ROT_START_LEFT - ROT_RANGE_UP) * PI, (ROT_START_LEFT + ROT_RANGE_DOWN) * PI) : 
+                                            randrangef((ROT_START_RIGHT - ROT_RANGE_DOWN) * PI, (ROT_START_RIGHT + ROT_RANGE_UP) * PI);
     AEVec2FromAngle(&p->vel, rot);
+
+    AEVec2 posAdd;
+    AEVec2Scale(&posAdd, &p->vel, PLAYER_SCALE.y / 4.f);
+    AEVec2Add(&p->pos, &p->pos, &posAdd);
+
     AEVec2Scale(&p->vel, &p->vel, randrangef(100, 150));
+
+    AEVec2 velAdd;
+    velAdd.x = data->playerData->speed * 0.75f;
+    velAdd.y = 0.f;
+    AEVec2Add(&p->vel, &p->vel, &velAdd);
 
     p->rotVel = 2.f * PI;
 
-    p->life = 0.25f;
+    p->life = LIFE;
 
-    p->scl.x = 15.f;
-    p->scl.y = 15.f;
+    p->scl.x = SCALE;
+    p->scl.y = SCALE;
     p->sclChange.x = -p->scl.x / p->life;
     p->sclChange.y = -p->scl.y / p->life;
 
     p->texture = TEXTURES.particle;
 
+    data->modeSwitch = (data->modeSwitch + 1) % 4;
+
     return p;
+#undef ROT_START
+#undef ROT_START_LEFT
+#undef ROT_START_RIGHT
+#undef ROT_RANGE_UP
+#undef ROT_RANGE_DOWN
+#undef LIFE
+#undef SCALE
 }
 
-static float particleSpawnTimeFunc() {
-    return 0.05f;
+static float particleSpawnTimeFunc(PlayerParticleData *data) {
+    UNREFERENCED_PARAMETER(data);
+    //return 40.f;
+    return data->playerData->speed / data->playerData->speedcap * 80.f;
 }

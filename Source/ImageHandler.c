@@ -38,7 +38,7 @@ void ImageHandler_initializeTextures()
     loadTexture(&TEXTURES.player, "Player");
     loadTexture(&TEXTURES.playerRed, "PlayerRed");
     loadTexture(&TEXTURES.playerGreen, "PlayerGreen");
-    loadTexture(&TEXTURES.particle, "Particle");
+    loadTexture(&TEXTURES.particle, "Star2");
 
     loadTexture(&TEXTURES.boulder, "Boulder");
     loadTexture(&TEXTURES.polarbear, "PolarBear");

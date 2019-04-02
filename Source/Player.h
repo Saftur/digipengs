@@ -14,7 +14,7 @@
 #define PLAYER_STANDARD_TEXTURE TEXTURES.player
 #define PLAYER_RED_TEXTURE TEXTURES.playerRed
 #define PLAYER_GREEN_TEXTURE TEXTURES.playerGreen
-#define PLAYER_SCALE (AEVec2){36,30}
+#define PLAYER_SCALE (AEVec2){72,60}
 
 typedef struct PlayerData
 {
@@ -28,7 +28,7 @@ typedef struct PlayerData
 
     Controls controls; ///< Player's controls
 
-	AEGfxVertexList *mesh;    ///< Mesh
+	//AEGfxVertexList *mesh;    ///< Mesh
 	AEGfxTexture    *texture; ///< Texture
 
     unsigned playerNum; ///< Player number
@@ -36,6 +36,7 @@ typedef struct PlayerData
 	float alpha; ///< Transparency
 
     ParticleEmitter *particleEmitter;
+    void *particleData;
 }PlayerData;
 
 /**

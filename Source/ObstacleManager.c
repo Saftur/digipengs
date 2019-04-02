@@ -21,6 +21,8 @@
 
 #define NUM_WALLS 8
 
+#define WALL_WIDTH (LANE_WIDTH * 0.75f)
+
 void ObstacleManager_loadObstacles()
 {
     FILE *file;
@@ -79,41 +81,41 @@ void ObstacleManager_loadObstacles()
             AEVec2 wallPos;
 
             if (tile.to == SRight || tile.to == SLeft) {
-                wallPos.y = tileWorldPos.y + (LANE_WIDTH * 3);
+                wallPos.y = tileWorldPos.y + (LANE_WIDTH * 3.5f);
                 wallPos.x = tileWorldPos.x;
 
                 Object *wall = Object_new(NULL, NULL, NULL, NULL, NULL, "Wall");
                 Object_setPos(wall, wallPos);
 
-                CollisionHandler_Create_Square_Collider(wall, (AEVec2) { TILE_SIZE, LANE_WIDTH / 2 }, 0, NULL);
+                CollisionHandler_Create_Square_Collider(wall, (AEVec2) { TILE_SIZE, WALL_WIDTH }, 0, NULL);
                 ObjectManager_addObj(wall);
 
-                wallPos.y = tileWorldPos.y - (LANE_WIDTH * 3);
+                wallPos.y = tileWorldPos.y - (LANE_WIDTH * 3.5f);
                 wallPos.x = tileWorldPos.x;
 
                 wall = Object_new(NULL, NULL, NULL, NULL, NULL, "Wall");
                 Object_setPos(wall, wallPos);
 
-                CollisionHandler_Create_Square_Collider(wall, (AEVec2) { TILE_SIZE, LANE_WIDTH / 2 }, 0, NULL);
+                CollisionHandler_Create_Square_Collider(wall, (AEVec2) { TILE_SIZE, WALL_WIDTH }, 0, NULL);
                 ObjectManager_addObj(wall);
             }
             else {
-                wallPos.x = tileWorldPos.x + (LANE_WIDTH * 3);
+                wallPos.x = tileWorldPos.x + (LANE_WIDTH * 3.5f);
                 wallPos.y = tileWorldPos.y;
 
                 Object *wall = Object_new(NULL, NULL, NULL, NULL, NULL, "Wall");
                 Object_setPos(wall, wallPos);
 
-                CollisionHandler_Create_Square_Collider(wall, (AEVec2) { LANE_WIDTH / 2, TILE_SIZE }, 0, NULL);
+                CollisionHandler_Create_Square_Collider(wall, (AEVec2) { WALL_WIDTH, TILE_SIZE }, 0, NULL);
                 ObjectManager_addObj(wall);
 
-                wallPos.x = tileWorldPos.x - (LANE_WIDTH * 3);
+                wallPos.x = tileWorldPos.x - (LANE_WIDTH * 3.5f);
                 wallPos.y = tileWorldPos.y;
 
                 wall = Object_new(NULL, NULL, NULL, NULL, NULL, "Wall");
                 Object_setPos(wall, wallPos);
 
-                CollisionHandler_Create_Square_Collider(wall, (AEVec2) { LANE_WIDTH / 2, TILE_SIZE }, 0, NULL);
+                CollisionHandler_Create_Square_Collider(wall, (AEVec2) { WALL_WIDTH, TILE_SIZE }, 0, NULL);
                 ObjectManager_addObj(wall);
             }
         }
@@ -132,8 +134,8 @@ void ObstacleManager_loadObstacles()
 
                 for (unsigned i = 0; i < NUM_WALLS; i++) {
                     wallRot[i] += PI / 2.f;
-                    wallPos[i].x = point.x + cosf(wallRot[i]) * (TILE_SIZE - LANE_WIDTH / 2);
-                    wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - LANE_WIDTH / 2);
+                    wallPos[i].x = point.x + cosf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH);
+                    wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH);
                 }
             }
             else if ((tile.from == SLeft && tile.to == SDown) || (tile.from == SDown && tile.to == SLeft)) {
@@ -141,8 +143,8 @@ void ObstacleManager_loadObstacles()
                 point.y = tileWorldPos.y - TILE_SIZE / 2.f;
 
                 for (unsigned i = 0; i < NUM_WALLS; i++) {
-                    wallPos[i].x = point.x + cosf(wallRot[i]) * (TILE_SIZE - LANE_WIDTH / 2);
-                    wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - LANE_WIDTH / 2);
+                    wallPos[i].x = point.x + cosf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH);
+                    wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH);
                 }
             }
             else if ((tile.from == SUp && tile.to == SLeft) || (tile.from == SLeft && tile.to == SUp)) {
@@ -151,8 +153,8 @@ void ObstacleManager_loadObstacles()
 
                 for (unsigned i = 0; i < NUM_WALLS; i++) {
                     wallRot[i] += PI * 1.5f;
-                    wallPos[i].x = point.x + cosf(wallRot[i]) * (TILE_SIZE - LANE_WIDTH / 2);
-                    wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - LANE_WIDTH / 2);
+                    wallPos[i].x = point.x + cosf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH);
+                    wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH);
                 }
             }
             else if ((tile.from == SRight && tile.to == SUp) || (tile.from == SUp && tile.to == SRight)) {
@@ -161,20 +163,20 @@ void ObstacleManager_loadObstacles()
 
                 for (unsigned i = 0; i < NUM_WALLS; i++) {
                     wallRot[i] += PI;
-                    wallPos[i].x = point.x + cosf(wallRot[i]) * (TILE_SIZE - LANE_WIDTH / 2);
-                    wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - LANE_WIDTH / 2);
+                    wallPos[i].x = point.x + cosf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH);
+                    wallPos[i].y = point.y + sinf(wallRot[i]) * (TILE_SIZE - WALL_WIDTH);
                 }
             }
 
             Object *wall = Object_new(NULL, NULL, NULL, NULL, NULL, "Wall");
             Object_setPos(wall, point);
-            CollisionHandler_Create_Circle_Collider(wall, LANE_WIDTH, 0, NULL);
+            CollisionHandler_Create_Circle_Collider(wall, WALL_WIDTH, 0, NULL);
             ObjectManager_addObj(wall);
             
             for (unsigned i = 0; i < NUM_WALLS; i++) {
                 wall = Object_new(NULL, NULL, NULL, NULL, NULL, "Wall");
                 Object_setPos(wall, wallPos[i]);
-                CollisionHandler_Create_Square_Collider(wall, (AEVec2) { LANE_WIDTH / 2, (TILE_SIZE - LANE_WIDTH / 2) / 2 * PI / NUM_WALLS }, wallRot[i], NULL);
+                CollisionHandler_Create_Square_Collider(wall, (AEVec2) { WALL_WIDTH, (TILE_SIZE - WALL_WIDTH) / 2 * PI / NUM_WALLS }, wallRot[i], NULL);
                 ObjectManager_addObj(wall);
             }
         }
