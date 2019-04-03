@@ -137,6 +137,12 @@
     <ClCompile Include="Source\Timer.c">
       <Filter>Game\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Source\OptionsScreen.c">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DragButton.c">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
@@ -267,6 +273,12 @@
       <Filter>Game\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Source\Timer.h">
+      <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\OptionsScreen.h">
+      <Filter>Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DragButton.h">
       <Filter>Game\Objects</Filter>
     </ClInclude>
   </ItemGroup>
