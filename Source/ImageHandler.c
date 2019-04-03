@@ -28,11 +28,18 @@ void ImageHandler_initializeTextures()
 {
     loadTexture(&TEXTURES.test, "PlanetTexture");
 
-    loadTexture(&TEXTURES.titleScreen_title, "TempTitle");
-    loadTexture(&TEXTURES.titleScreen_startButton, "TempStartButton");
+    loadTexture(&TEXTURES.titleScreen_title, "Logo");
+    loadTexture(&TEXTURES.titleScreen_startButton, "SinglePlayer");
+    loadTexture(&TEXTURES.titleScreen_startButtonHover, "SinglePlayerHover");
+    loadTexture(&TEXTURES.titleScreen_startMultiButton, "Multi");
+    loadTexture(&TEXTURES.titleScreen_startMultiButtonHover, "MultiHover");
     loadTexture(&TEXTURES.titleScreen_button, "TempButton");
-    loadTexture(&TEXTURES.titleScreen_exitButton, "TempExitButton");
-    loadTexture(&TEXTURES.titleScreen_levelEditorButton, "dad");
+    loadTexture(&TEXTURES.titleScreen_exitButton, "Exit");
+    loadTexture(&TEXTURES.titleScreen_exitButtonHover, "ExitHover");
+    loadTexture(&TEXTURES.titleScreen_levelEditorButton, "Level_Editor");
+    loadTexture(&TEXTURES.titleScreen_levelEditorButtonHover, "Level EditorHover");
+    loadTexture(&TEXTURES.titleScreen_leaderboardButton, "Leader");
+    loadTexture(&TEXTURES.titleScreen_leaderboardButtonHover, "LeaderHover");
 
     loadTexture(&TEXTURES.map, "Map");
     loadTexture(&TEXTURES.player, "Player");

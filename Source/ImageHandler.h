@@ -18,11 +18,18 @@ struct LOADEDTEXTURES
 {
     AEGfxTexture *test;                    ///< For testing purposes
 
-	AEGfxTexture *titleScreen_title;       ///< the title for the titlescreen 
-	AEGfxTexture *titleScreen_startButton; ///< the title for the titlescreen 
-	AEGfxTexture *titleScreen_button;      ///< the title for the titlescreen 
-	AEGfxTexture *titleScreen_exitButton;  ///< the title for the titlescreen 
+	AEGfxTexture *titleScreen_title;             ///< the title for the titlescreen 
+	AEGfxTexture *titleScreen_startButton;       ///< the title for the titlescreen 
+	AEGfxTexture *titleScreen_startButtonHover;       ///< the title for the titlescreen 
+	AEGfxTexture *titleScreen_startMultiButton;  ///< the title for the titlescreen 
+	AEGfxTexture *titleScreen_startMultiButtonHover;  ///< the title for the titlescreen 
+	AEGfxTexture *titleScreen_button;            ///< the title for the titlescreen 
+	AEGfxTexture *titleScreen_exitButton;        ///< the title for the titlescreen 
+	AEGfxTexture *titleScreen_exitButtonHover;        ///< the title for the titlescreen 
     AEGfxTexture *titleScreen_levelEditorButton; ///< Button for loading the level editor.
+    AEGfxTexture *titleScreen_levelEditorButtonHover; ///< Button for loading the level editor.
+    AEGfxTexture *titleScreen_leaderboardButton; ///< Button for loading the level editor.
+    AEGfxTexture *titleScreen_leaderboardButtonHover; ///< Button for loading the level editor.
 
 	AEGfxTexture *map;                     ///< A test map
     AEGfxTexture *player;                  ///< THE PLAYER
