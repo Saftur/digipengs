@@ -50,7 +50,9 @@ void CollisionHandler_Check_Collisions()
 
             //If both colliders are circles.
             if (collider1->type == Circle && collider2->type == Circle) {
-                if (collider1->phase > 0 || collider2->phase > 0) continue;
+                if (strcmp(Object_getName(collider1->gameObject), "Wall") && strcmp(Object_getName(collider2->gameObject), "Wall")) {
+                    if (collider1->phase > 0 || collider2->phase > 0) continue;
+                }
 
                 //Colliders positions.
                 AEVec2 pos1 = Object_getPos(collider1->gameObject);
@@ -78,7 +80,11 @@ void CollisionHandler_Check_Collisions()
                 Collider *square = collider1->type == Square ? collider1 : collider2;
                 Collider *circle = collider1->type == Circle ? collider1 : collider2;
 
-                if (strcmp(Object_getName(square->gameObject), "Wall")) if (collider1->phase > 0 || collider2->phase > 0) continue;
+                if (strcmp(Object_getName(square->gameObject), "Wall") && 
+                    strcmp(Object_getName(square->gameObject), "Start") && 
+                    strcmp(Object_getName(square->gameObject), "Checkpoint")) {
+                    if (collider1->phase > 0 || collider2->phase > 0) continue;
+                }
 
                 //Collider Positions.
                 AEVec2 squarePos = Object_getPos(square->gameObject);
