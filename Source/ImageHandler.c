@@ -67,7 +67,7 @@ void ImageHandler_initializeTextures()
     loadTexture(&TEXTURES.font, "Comic_Sans");
 
     loadTexture(&TEXTURES.splashScreen, "DigiPen_RED_1024px");
-    loadTexture(&TEXTURES.background, "background");
+    loadTexture(&TEXTURES.background, "waterstrip_strip161");
 
 	loadTexture(&TEXTURES.le_helpMenu, "LEControls_Help");
 	loadTexture(&TEXTURES.le_fullMenu, "LEControls");
