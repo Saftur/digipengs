@@ -82,7 +82,7 @@ void Audio_cleanup()
 ////////////////////////////////////////////////////////////////////
 void Audio_playGameplay()
 {
-  result = FMOD_System_CreateStream(soundSystem, "./Assets/Audio/OriginalMusic.mp3", FMOD_LOOP_NORMAL | FMOD_2D, 0, &bgmGameplay);
+  result = FMOD_System_CreateStream(soundSystem, "./Assets/Audio/Penguin.mp3", FMOD_LOOP_NORMAL | FMOD_2D, 0, &bgmGameplay);
   ERRCHECK(result);
 
   result = FMOD_System_PlaySound(soundSystem, bgmGameplay, 0, false, &MusicChannel);
