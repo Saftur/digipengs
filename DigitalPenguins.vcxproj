@@ -18,6 +18,7 @@
     <ClCompile Include="Source\Camera.c" />
     <ClCompile Include="Source\CollisionEvents.c" />
     <ClCompile Include="Source\CollisionHandler.c" />
+    <ClCompile Include="Source\DragButton.c" />
     <ClCompile Include="Source\EndScreen.c" />
     <ClCompile Include="Source\HighscoreScreen.c" />
     <ClCompile Include="Source\Leaderboard.c" />
@@ -40,6 +41,7 @@
     <ClCompile Include="Source\MeshHandler.c" />
     <ClCompile Include="Source\objectmanager.c" />
     <ClCompile Include="Source\ObstacleManager.c" />
+    <ClCompile Include="Source\OptionsScreen.c" />
     <ClCompile Include="Source\ParticleHandler.c" />
     <ClCompile Include="source\Player.c" />
     <ClCompile Include="Source\Polarbear.c" />
@@ -62,6 +64,7 @@
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="source\Boulder.h" />
     <ClInclude Include="Source\CollisionEvents.h" />
+    <ClInclude Include="Source\DragButton.h" />
     <ClInclude Include="Source\EndScreen.h" />
     <ClInclude Include="Source\HighscoreScreen.h" />
     <ClInclude Include="Source\Leaderboard.h" />
@@ -84,6 +87,7 @@
     <ClInclude Include="Source\MeshHandler.h" />
     <ClInclude Include="Source\objectmanager.h" />
     <ClInclude Include="Source\ObstacleManager.h" />
+    <ClInclude Include="Source\OptionsScreen.h" />
     <ClInclude Include="Source\ParticleHandler.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Polarbear.h" />
