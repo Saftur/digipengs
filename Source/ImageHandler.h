@@ -51,6 +51,15 @@ struct LOADEDTEXTURES
 
     AEGfxTexture *splashScreen;
     AEGfxTexture *background; ///< background art for the game
+
+	AEGfxTexture *le_helpMenu;
+	AEGfxTexture *le_fullMenu; 
+
+	AEGfxTexture *text_ready;
+	AEGfxTexture *text_set;
+	AEGfxTexture *text_go;
+	AEGfxTexture *text_fl;
+	AEGfxTexture *text_mapsaved;
 }typedef LOADEDTEXTURES;
 #pragma pack(pop)
 

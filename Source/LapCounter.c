@@ -61,7 +61,7 @@ Object* LapCounter_new(unsigned camNum, char* format, AEGfxTexture* font, AEVec2
 	counterData->lap = currentLap;
 	counterData->format = format;
 
-    counterData->textObj = Text_new(counterData->lapAsString, font, textPos, charScale.x, charScale.y, (Color) { 0.75f, 0, 0, 1 });
+    counterData->textObj = Text_new(counterData->lapAsString, font, textPos, charScale.x, charScale.y, (Color) { 1, 1, 1, 1 });
 
 	Object* counterObj = Object_new(LapCounter_onInit, LapCounter_onUpdate, LapCounter_onDraw, counterData, LapCounter_onShutdown, "Lap Counter");
 	Object_setPos(counterObj, textPos);

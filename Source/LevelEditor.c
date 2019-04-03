@@ -18,6 +18,7 @@
 #include "LevelManager.h"
 #include "ObstacleManager.h"
 #include "Polarbear.h"
+#include "MapSavedText.h"
 
 #define BOULDER_TEXTURE TEXTURES.boulder
 #define POLARBEAR_TEXTURE TEXTURES.polarbear
@@ -63,7 +64,12 @@ void LevelEditor_update(float dt)
     if (Camera_getCurr()) DrawObstacles();
 
     for (u8 i = '0'; i < '9'; i++) {
-        if (AEInputCheckTriggered(i)) PlacementMode = i - '0';
+		if (AEInputCheckTriggered(i)) {
+			PlacementMode = i - '0';
+			if (i == '0')
+				AEInputShowCursor(1);
+			else AEInputShowCursor(0);
+		}
     }
 
     s32 screenX, screenY;
@@ -434,6 +440,8 @@ static void SaveMap() {
             fputc(' ', file);
         }
         if (y < Height - 1) fputc('\n', file);
+
+		MapSavedText_display();
     }
 
     fclose(file);

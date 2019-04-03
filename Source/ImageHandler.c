@@ -61,6 +61,16 @@ void ImageHandler_initializeTextures()
 
     loadTexture(&TEXTURES.splashScreen, "DigiPen_RED_1024px");
     loadTexture(&TEXTURES.background, "background");
+
+	loadTexture(&TEXTURES.le_helpMenu, "LEControls_Help");
+	loadTexture(&TEXTURES.le_fullMenu, "LEControls");
+
+	loadTexture(&TEXTURES.text_ready, "Text_Ready");
+	loadTexture(&TEXTURES.text_set, "Text_Set");
+	loadTexture(&TEXTURES.text_go, "Text_Go");
+
+	loadTexture(&TEXTURES.text_fl, "Text_FinalLap");
+	loadTexture(&TEXTURES.text_mapsaved, "Text_MapSaved");
 }
 
 void ImageHandler_shutdown() {

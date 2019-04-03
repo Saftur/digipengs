@@ -84,8 +84,7 @@ static void Timer_onDraw(Object *obj, Timer *data)
 	// Nothing to draw except text, which is drawn by the text object
 	UNREFERENCED_PARAMETER(obj);
 	UNREFERENCED_PARAMETER(data);
-    if (Camera_getCurrNum() == data->camNum)
-        Object_draw(data->textObj);
+    Object_draw(data->textObj);
 }
 
 static void Timer_onShutdown(Timer *data) {
@@ -100,7 +99,7 @@ Object* Timer_new(unsigned camNum, AEGfxTexture* font, AEVec2 textPos, AEVec2 ch
 	timerData->time = initialTime;
 	timerData->intTime = (int) initialTime;
 
-	timerData->textObj = Text_new(timerData->timeAsString, font, textPos, charScale.x, charScale.y, (Color) { 0.75f, 0, 0, 1 });
+	timerData->textObj = Text_new(timerData->timeAsString, font, textPos, charScale.x, charScale.y, (Color) { 1, 1, 1, 1 });
 
 	Object *timerObj = Object_new(Timer_onInit, Timer_onUpdate, Timer_onDraw, timerData, Timer_onShutdown, "Timer");
 	Object_setPos(timerObj, textPos);
