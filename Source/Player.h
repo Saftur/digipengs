@@ -36,7 +36,7 @@ typedef struct PlayerData
 
 	float alpha; ///< Transparency
 
-	bool finalLap;
+	int currentLap;
 
     ParticleEmitter *particleEmitter;
     void *particleData;

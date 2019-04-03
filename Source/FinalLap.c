@@ -21,6 +21,7 @@ typedef struct FLData
 {
 	float timer;
 	unsigned camNum;
+	float alpha;
 }FLData;
 
 
@@ -28,6 +29,8 @@ void FinalLap_update(Object* obj, FLData *data, float dt) {
 	data->timer -= dt;
 	if (data->timer <= 0)
 		ObjectManager_delObj(obj);
+	if (data->timer < 1.f)
+		data->alpha -= dt;
 }
 void FinalLap_draw(Object* obj, FLData *data) {
 
@@ -35,14 +38,15 @@ void FinalLap_draw(Object* obj, FLData *data) {
 	if (Camera_getCurrNum() == data->camNum) {
 		AEVec2 pos;
 		AEVec2Set(&pos, POS_X, POS_Y);
-		ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), FLTEXTURE, pos, FLSCL * FLASP_RAT, FLSCL, 0, 1.0f);
+		ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), FLTEXTURE, pos, FLSCL * FLASP_RAT, FLSCL, 0, data->alpha);
 	}
 }
 
 void FinalLap_display(unsigned camNum)
 {
 	FLData *data = malloc(sizeof(FLData));
-	data->timer = 1.5f;
+	data->timer = 2.f;
 	data->camNum = camNum;
+	data->alpha = 1.f;
 	ObjectManager_addObj(Object_new(NULL, FinalLap_update, FinalLap_draw, data, free, "FinalLap"));
 }

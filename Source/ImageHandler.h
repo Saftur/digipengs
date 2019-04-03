@@ -60,6 +60,12 @@ struct LOADEDTEXTURES
 	AEGfxTexture *text_go;
 	AEGfxTexture *text_fl;
 	AEGfxTexture *text_mapsaved;
+
+	AEGfxTexture *text_lapleft1;
+	AEGfxTexture *text_lapleft2;
+
+	AEGfxTexture *controls_p1;
+	AEGfxTexture *controls_p2;
 }typedef LOADEDTEXTURES;
 #pragma pack(pop)
 

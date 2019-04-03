@@ -1,7 +1,7 @@
 ﻿   /**
  * @file LevelEditorLevel.c
- * @author Connor Meyers
  * @author Brand Knutson
+ * @author Connor Meyers
  * @date Wednesday, February 20, 2019
  * @brief Level editor level.
  */

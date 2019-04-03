@@ -33,7 +33,7 @@ void GameStartTimer_onDraw(Object *obj, void *data)
 	UNREFERENCED_PARAMETER(data);
 	AEVec2 pos;
 	AEVec2Set(&pos, POS_X, POS_Y);
-	ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), textures[state], pos, SCL * ASP_RAT, SCL, 0, 1.0f);
+	ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), textures[state], pos, SCL * ASP_RAT, SCL, 0, time);
 }
 
 void GameStartTimer_free(void *data)

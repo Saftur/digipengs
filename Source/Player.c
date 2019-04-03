@@ -19,6 +19,7 @@
 #include "Utils.h"
 #include "GameStartTimer.h"
 #include "FinalLap.h"
+#include "LapsLeftDisplay.h"
 
 #define PLAYER_ACCEL 240.75f
 #define PLAYER_DECCEL 252.f
@@ -37,7 +38,6 @@ void Player_onInit(Object *obj, PlayerData *data)
 {
     UNREFERENCED_PARAMETER(obj);
     data->speed = 0.f;
-
     Map_initCamera(Camera_get(data->playerNum), Object_getPos(obj));
 }
 
@@ -54,10 +54,19 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 		return;
     UNREFERENCED_PARAMETER(dt);
 
-	if (*(data->lap) == NUM_LAPS && !data->finalLap)
+	if (*(data->lap) == NUM_LAPS && data->currentLap == NUM_LAPS)
 	{
 		FinalLap_display(data->playerNum);
-		data->finalLap = 1;
+		data->currentLap++;
+	}
+	else if (*(data->lap) == NUM_LAPS - 1 && data->currentLap == NUM_LAPS - 1)
+	{
+		LapsLeftDisplay_display(data->playerNum, 2);
+		data->currentLap++;
+	}
+	else if (*(data->lap) == NUM_LAPS - 2 && data->currentLap == NUM_LAPS - 2)
+	{
+		data->currentLap++;
 	}
 
     if (*(data->lap) >= NUM_LAPS+1) {
@@ -128,7 +137,7 @@ Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned play
 
     data->alpha = 1.0f;
 
-	data->finalLap = false;
+	data->currentLap = 1;
 
     data->particleData = malloc(sizeof(PlayerParticleData));
     ((PlayerParticleData*)data->particleData)->playerData = data;
