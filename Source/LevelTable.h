@@ -23,6 +23,7 @@ typedef enum
     SplashScreen,
 	TitleScreen,
 	HighscoreScreen,
+	OptionsScreen,
 	EndScreen,
 	LevelEditor,
 

@@ -4,21 +4,11 @@
  * @brief Button implementation
  */
 #include "stdafx.h"
+#include "Button.h"
 #include "ImageHandler.h"
 #include "MeshHandler.h"
-#include "Button.h"
 #include <AEEngine.h>
 #include "ImageHandler.h"
-
-typedef struct Button {
-	AEGfxTexture *defaultTexture;
-	AEGfxTexture *mouseHoverTexture;
-	AEGfxTexture *onClickTexture;
-	float width;
-	float height;
-	int texture;
-	ButtonEffectFunc buttonEffect;
-} Button;
 
 /**
  * @brief Button init function

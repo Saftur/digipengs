@@ -13,6 +13,16 @@
 
 typedef void(*ButtonEffectFunc)();
 
+typedef struct Button {
+	AEGfxTexture *defaultTexture;
+	AEGfxTexture *mouseHoverTexture;
+	AEGfxTexture *onClickTexture;
+	float width;
+	float height;
+	int texture;
+	ButtonEffectFunc buttonEffect;
+} Button;
+
 /**
  * @brief Create new Button
  * @return New Button

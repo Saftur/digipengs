@@ -15,7 +15,8 @@
 #include "TitleScreen.h"
 #include "Button.h"
 
-static void titleScreenEffect() {
+static void titleScreenEffect() 
+{
 	LevelManager_setNextLevel(TitleScreen);
 }
 
