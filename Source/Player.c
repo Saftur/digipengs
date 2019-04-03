@@ -63,15 +63,21 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 		data->finalLap = 1;
 	}
 
-    if (*(data->lap) >= NUM_LAPS+1) {
-        if (splitScreen) {
-            EndScreen_winner = data->playerNum + 1;
-        } else EndScreen_winner = 0;
+    if (*(data->lap) >= NUM_LAPS+1) 
+	{
+		if (data->finished == false)
+		{
+			data->finished = true;
 
-		// Bad code #2
-		HighscoreScreen_onInit();
+			if (splitScreen) {
+				EndScreen_winner = data->playerNum + 1;
+			}
+			else EndScreen_winner = 0;
 
-        return;
+			// Bad code #2
+			HighscoreScreen_onInit();
+			AEInputShowCursor(true);
+		}
     }
 
 	data->speed += data->acceleration * data->speedScalar * dt;
@@ -135,6 +141,7 @@ Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned play
     data->alpha = 1.0f;
 
 	data->finalLap = false;
+	data->finished = false;
 
     data->particleData = malloc(sizeof(PlayerParticleData));
     ((PlayerParticleData*)data->particleData)->playerData = data;

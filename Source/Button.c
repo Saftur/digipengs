@@ -75,15 +75,15 @@ void Button_onDraw(Object *obj, Button *data) {
     
 	if (data->texture == DEFAULT)
 	{
-		ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), data->defaultTexture, Object_getPos(obj), data->width, data->height, 0, 1);
+		ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), data->defaultTexture, Object_getPos(obj), data->width, data->height, 0, 1);
 	}
 	else if (data->texture == HOVER)
 	{
-        ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), data->mouseHoverTexture, Object_getPos(obj), data->width, data->height, 0, 1);
+		ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), data->mouseHoverTexture, Object_getPos(obj), data->width, data->height, 0, 1);
 	}
 	else if (data->texture == ON_CLICK)
 	{
-        ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), data->onClickTexture, Object_getPos(obj), data->width, data->height, 0, 1);
+		ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), data->onClickTexture, Object_getPos(obj), data->width, data->height, 0, 1);
 	}
 }
 
