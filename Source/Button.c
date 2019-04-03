@@ -4,9 +4,9 @@
  * @brief Button implementation
  */
 #include "stdafx.h"
+#include "Button.h"
 #include "ImageHandler.h"
 #include "MeshHandler.h"
-#include "Button.h"
 #include <AEEngine.h>
 #include "ImageHandler.h"
 

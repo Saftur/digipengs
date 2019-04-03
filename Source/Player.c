@@ -20,6 +20,9 @@
 #include "GameStartTimer.h"
 #include "FinalLap.h"
 
+//Bad code #1
+#include "HighscoreScreen.h"
+
 #define PLAYER_ACCEL 240.75f
 #define PLAYER_DECCEL 252.f
 #define PLAYER_MAXSPD 420.f
@@ -64,7 +67,10 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
         if (splitScreen) {
             EndScreen_winner = data->playerNum + 1;
         } else EndScreen_winner = 0;
-        LevelManager_setNextLevel(EndScreen);
+
+		// Bad code #2
+		HighscoreScreen_onInit();
+
         return;
     }
 
