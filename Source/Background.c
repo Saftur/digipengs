@@ -69,8 +69,8 @@ void Background_onUpdate(Object *obj, void *data, float dt)
 */
 Object *Background_create()
 {
-    Object *ice = Object_new(NULL, Background_onUpdate, NULL, NULL, Background_shutdown, "Background");
-    return ice;
+    Object *bg = Object_new(NULL, Background_onUpdate, NULL, NULL, Background_shutdown, "Background");
+    return bg;
 }
 
 static AEVec2 getOffsets_(int frameIndex)

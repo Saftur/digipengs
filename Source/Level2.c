@@ -27,6 +27,8 @@
 #include "Background.h"
 #include "GameStartTimer.h"
 
+#include "ControlDisplay.h"
+
 #define SCREEN_SEPARATOR_WIDTH 10
 
 #define MP_PLAYER_OFFSET 64
@@ -122,6 +124,9 @@ void Level2_onInit()
     ObjectManager_addObj(timer);
 
 	GameStartTimer_init();
+	ControlDisplay_display(0);
+	if (splitScreen)
+		ControlDisplay_display(1);
 }
 
 static void initPlayers() {

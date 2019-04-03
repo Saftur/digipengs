@@ -57,6 +57,8 @@ void TitleScreen_onLoad()
 
 void TitleScreen_onInit()
 {
+    AEInputShowCursor(1);
+
     ObjectManager_addObj(Background_create());
 	ObjectManager_addObj(Object_new(NULL, NULL, titleDraw, NULL, NULL, "Title"));
 

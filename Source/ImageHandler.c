@@ -78,6 +78,12 @@ void ImageHandler_initializeTextures()
 
 	loadTexture(&TEXTURES.text_fl, "Text_FinalLap");
 	loadTexture(&TEXTURES.text_mapsaved, "Text_MapSaved");
+
+	loadTexture(&TEXTURES.text_lapleft1, "Text_1LapLeft");
+	loadTexture(&TEXTURES.text_lapleft2, "Text_2LapLeft");
+
+	loadTexture(&TEXTURES.controls_p1, "controls_p1");
+	loadTexture(&TEXTURES.controls_p2, "controls_p2");
 }
 
 void ImageHandler_shutdown() {

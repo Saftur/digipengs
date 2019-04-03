@@ -57,9 +57,9 @@ unsigned Map_NumTiles();
  */
 void Map_init(const char *filename);
 
-void Map_initCamera(Camera *cam, AEVec2 pos);
+void Map_initCamera(Camera *cam, AEVec2 pos, float playerDir);
 
-void Map_updateCamera(Camera *cam, AEVec2 pos);
+void Map_updateCamera(Camera *cam, AEVec2 pos, float playerDir);
 
 /**
  * @brief Draw the map.
