@@ -11,24 +11,6 @@
 #include <AEEngine.h>
 #include "ImageHandler.h"
 
-typedef struct DragButton {
-	float* effectedVariable;
-	float min;
-	float max;
-	AEGfxTexture* track_Texture;
-	AEGfxTexture* button_DefaultTexture;
-	AEGfxTexture* button_MouseHoverTexture;
-	AEGfxTexture* button_OnClickTexture;
-	int texture;
-	float track_Angle;
-	float track_Length;
-	float track_Thickness;
-	float button_Width;
-	float button_Height;
-	float button_X;
-	float button_Y;
-} DragButton;
-
 /**
  * @brief Button init function
  */
@@ -62,37 +44,40 @@ void DragButton_onUpdate(Object *obj, DragButton *data, float dt) {
 
 	if (button_X - button_Width/2 < mouseX && mouseX < button_X + button_Width/2 && button_Y - button_Height/2 < mouseY && mouseY < button_Y + button_Height/2)
 	{
-		if (AEInputCheckTriggered(VK_LBUTTON))
+		if (AEInputCheckCurr(VK_LBUTTON))
 		{
 			data->texture = ON_CLICK;
-
-			float locationOnTrack = ((mouseX - Object_getPos(obj).x) * cosf(data->track_Angle) + (mouseY - Object_getPos(obj).y) * cosf(data->track_Angle)) / data->track_Length;
-			
-			if (locationOnTrack < -0.5f)
-			{
-				locationOnTrack = -0.5f;
-			}
-
-			if (locationOnTrack > 0.5f)
-			{
-				locationOnTrack = 0.5f;
-			}
-
-			*(data->effectedVariable) = (data->min + data->max) / 2 + locationOnTrack * (data->max - data->min);
 		}
 		else
 		{
 			data->texture = HOVER;
 		}
 	}
-	else
+	else if(!AEInputCheckCurr(VK_LBUTTON))
 	{
 		data->texture = DEFAULT;
 	}
 
+	if (data->texture == ON_CLICK)
+	{
+		float locationOnTrack = ((mouseX - Object_getPos(obj).x) * cosf(data->track_Angle) + (mouseY - Object_getPos(obj).y) * cosf(data->track_Angle)) / data->track_Length;
+
+		if (locationOnTrack < -0.5f)
+		{
+			locationOnTrack = -0.5f;
+		}
+
+		if (locationOnTrack > 0.5f)
+		{
+			locationOnTrack = 0.5f;
+		}
+
+		*(data->effectedVariable) = (data->min + data->max) / 2 + locationOnTrack * (data->max - data->min);
+	}
+
 	AEVec2 pos = Object_getPos(obj);
 	data->button_X = pos.x + data->track_Length*cosf(data->track_Angle)*(*(data->effectedVariable) - ((data->min + data->max) / 2)) / (data->max - data->min);
-	data->button_X = pos.y + data->track_Length*sinf(data->track_Angle)*(*(data->effectedVariable) - ((data->min + data->max) / 2)) / (data->max - data->min);
+	data->button_Y = pos.y + data->track_Length*sinf(data->track_Angle)*(*(data->effectedVariable) - ((data->min + data->max) / 2)) / (data->max - data->min);
 }
 
 void DragButton_onDraw(Object *obj, DragButton *data) 
@@ -121,8 +106,8 @@ void DragButton_onDraw(Object *obj, DragButton *data)
 	}
 }
 
-Object *DragButton_new(float* effectedVariable, float min, float max, AEGfxTexture *track_Texture, AEGfxTexture *button_DefaultTexture, 
-		AEGfxTexture *button_MouseHoverTexture, AEGfxTexture *button_OnClickTexture,
+Object* DragButton_new(float* effectedVariable, float min, float max, AEGfxTexture* track_Texture, AEGfxTexture* button_DefaultTexture, 
+		AEGfxTexture* button_MouseHoverTexture, AEGfxTexture* button_OnClickTexture,
 		float x, float y, float track_Angle, float track_Length, float track_Thickness, float button_Width, float button_Height)
 {
 	DragButton *buttonData = malloc(sizeof(DragButton));
@@ -133,6 +118,7 @@ Object *DragButton_new(float* effectedVariable, float min, float max, AEGfxTextu
 	buttonData->button_DefaultTexture = button_DefaultTexture;
 	buttonData->button_MouseHoverTexture = button_MouseHoverTexture;
 	buttonData->button_OnClickTexture = button_OnClickTexture;
+	buttonData->texture = DEFAULT;
 	buttonData->track_Angle = track_Angle;
 	buttonData->track_Length = track_Length;
 	buttonData->track_Thickness = track_Thickness;

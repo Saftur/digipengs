@@ -11,6 +11,8 @@
 #define HOVER 1
 #define ON_CLICK 2
 
+typedef void(*ButtonEffectFunc)();
+
 typedef struct Button {
 	AEGfxTexture *defaultTexture;
 	AEGfxTexture *mouseHoverTexture;
@@ -20,8 +22,6 @@ typedef struct Button {
 	int texture;
 	ButtonEffectFunc buttonEffect;
 } Button;
-
-typedef void(*ButtonEffectFunc)();
 
 /**
  * @brief Create new Button
