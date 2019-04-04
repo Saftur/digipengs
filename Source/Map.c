@@ -15,9 +15,9 @@
 #include "Utils.h"
 
 #define CAM_STRAIGHT_ROT_LERP 0.2f
-#define CAM_TURN_ROT_LERP 0.2f
+#define CAM_TURN_ROT_LERP 0.05f
 #define CAM_BETWEEN_ROT_LERP(percentOfStraight) (CAM_STRAIGHT_ROT_LERP * percentOfStraight + CAM_TURN_ROT_LERP * (1-percentOfStraight))
-#define CAM_PLAYER_ROT_LERP 0.1f
+#define CAM_PLAYER_ROT_LERP 0.07f
 
 static Tile tiles[MAP_MAX_SIZE][MAP_MAX_SIZE];
 
@@ -153,35 +153,36 @@ void Map_init(const char *filename) {
 }
 
 static void _updateCamera(Camera *cam, AEVec2 pos, float playerDir, int lerp) {
+    UNREFERENCED_PARAMETER(playerDir);
     unsigned tx, ty;
     Map_worldPosToTilePos(&tx, &ty, pos.x, pos.y);
     float twx, twy;
     Map_tilePosToWorldPos(&twx, &twy, tx, ty);
     Tile *tile = Map_getTile(tx, ty);
-    //Tile *nextTile = Map_getNextTile(tile);
-    //Tile *prevTile = Map_getPrevTile(tile);
-    //Tile *prevPrevTile = Map_getPrevTile(prevTile);
+    Tile *nextTile = Map_getNextTile(tile);
+    Tile *prevTile = Map_getPrevTile(tile);
+    Tile *prevPrevTile = Map_getPrevTile(prevTile);
 
     switch (tile->type) {
     case TTHoriz:
         cam->worldPos.x = pos.x;
         cam->worldPos.y = twy;
-        /*if (lerp)
+        if (lerp)
             cam->worldRot = deg_lerpf(cam->worldRot, (tile->from == SLeft ? 90.f : -90.f),
                                       prevTile->type == TTTurn ? CAM_BETWEEN_ROT_LERP(0.5f) : 
                                       prevPrevTile->type == TTTurn ? CAM_BETWEEN_ROT_LERP(0.75f) : CAM_STRAIGHT_ROT_LERP);
         else
-            cam->worldRot = (tile->from == SLeft ? 90.f : -90.f);*/
+            cam->worldRot = (tile->from == SLeft ? 90.f : -90.f);
         break;
     case TTVert:
         cam->worldPos.x = twx;
         cam->worldPos.y = pos.y;
-        /*if (lerp)
+        if (lerp)
             cam->worldRot = deg_lerpf(cam->worldRot, (tile->from == SDown ? 0.f : 180.f), 
                                       prevTile->type == TTTurn ? CAM_BETWEEN_ROT_LERP(0.5f) : 
                                       prevPrevTile->type == TTTurn ? CAM_BETWEEN_ROT_LERP(0.75f) : CAM_STRAIGHT_ROT_LERP);
         else
-            cam->worldRot = (tile->from == SDown ? 0.f : 180.f);*/
+            cam->worldRot = (tile->from == SDown ? 0.f : 180.f);
         break;
     case TTTurn: {
         AEVec2 localPos;
@@ -219,17 +220,17 @@ static void _updateCamera(Camera *cam, AEVec2 pos, float playerDir, int lerp) {
         AEVec2Scale(&localPos, &localPos, (TILE_SIZE / 2.f) / AEVec2Length(&localPos));
         AEVec2Add(&point, &localPos, &point);
         cam->worldPos = point;
-        //float rot = addAngle - AERadToDeg(AEVec2AngleFromVec2(&localPos));
-        /*if (lerp)
-            cam->worldRot = deg_lerpf(cam->worldRot, rot, nextTile->type == TTTurn ? CAM_TURN_ROT_LERP : CAM_BETWEEN_ROT_LERP(0.5f));
+        float rot = addAngle - AERadToDeg(AEVec2AngleFromVec2(&localPos));
+        if (lerp)
+            cam->worldRot = deg_lerpf(cam->worldRot, rot, (nextTile->type == TTHoriz || nextTile->type == TTVert)/* || (prevTile->type == TTHoriz || prevTile->type == TTVert)*/ ? CAM_BETWEEN_ROT_LERP(0.5f) : CAM_TURN_ROT_LERP );
         else
-            cam->worldRot = rot;*/
+            cam->worldRot = rot;
         break;
     }
     }
-    if (lerp)
+    /*if (lerp)
         cam->worldRot = deg_lerpf(cam->worldRot, playerDir, CAM_PLAYER_ROT_LERP);
-    else cam->worldRot = playerDir;
+    else cam->worldRot = playerDir;*/
 }
 
 void Map_initCamera(Camera *cam, AEVec2 pos, float playerDir) {
