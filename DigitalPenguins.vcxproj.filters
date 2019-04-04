@@ -80,9 +80,6 @@
     <ClCompile Include="Source\Utils.c">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Source\LevelEditor.c">
-      <Filter>Engine\Levels</Filter>
-    </ClCompile>
     <ClCompile Include="Source\LevelEditorLevel.c">
       <Filter>Game\Levels</Filter>
     </ClCompile>
@@ -141,6 +138,15 @@
       <Filter>Game\Levels</Filter>
     </ClCompile>
     <ClCompile Include="Source\DragButton.c">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LapsLeftDisplay.c">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ControlDisplay.c">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LevelEditor.c">
       <Filter>Game\Objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -205,9 +211,6 @@
     </ClInclude>
     <ClInclude Include="Source\Player.h">
       <Filter>Game\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\LevelEditor.h">
-      <Filter>Engine\Levels</Filter>
     </ClInclude>
     <ClInclude Include="Source\LevelEditorLevel.h">
       <Filter>Game\Levels</Filter>
@@ -279,6 +282,15 @@
       <Filter>Game\Levels</Filter>
     </ClInclude>
     <ClInclude Include="Source\DragButton.h">
+      <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LapsLeftDisplay.h">
+      <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ControlDisplay.h">
+      <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LevelEditor.h">
       <Filter>Game\Objects</Filter>
     </ClInclude>
   </ItemGroup>

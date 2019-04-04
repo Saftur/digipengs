@@ -28,11 +28,18 @@ void ImageHandler_initializeTextures()
 {
     loadTexture(&TEXTURES.test, "PlanetTexture");
 
-    loadTexture(&TEXTURES.titleScreen_title, "TempTitle");
-    loadTexture(&TEXTURES.titleScreen_startButton, "TempStartButton");
+    loadTexture(&TEXTURES.titleScreen_title, "Logo");
+    loadTexture(&TEXTURES.titleScreen_startButton, "SinglePlayer");
+    loadTexture(&TEXTURES.titleScreen_startButtonHover, "SinglePlayerHover");
+    loadTexture(&TEXTURES.titleScreen_startMultiButton, "Multi");
+    loadTexture(&TEXTURES.titleScreen_startMultiButtonHover, "MultiHover");
     loadTexture(&TEXTURES.titleScreen_button, "TempButton");
-    loadTexture(&TEXTURES.titleScreen_exitButton, "TempExitButton");
-    loadTexture(&TEXTURES.titleScreen_levelEditorButton, "dad");
+    loadTexture(&TEXTURES.titleScreen_exitButton, "Exit");
+    loadTexture(&TEXTURES.titleScreen_exitButtonHover, "ExitHover");
+    loadTexture(&TEXTURES.titleScreen_levelEditorButton, "Level_Editor");
+    loadTexture(&TEXTURES.titleScreen_levelEditorButtonHover, "Level EditorHover");
+    loadTexture(&TEXTURES.titleScreen_leaderboardButton, "Leader");
+    loadTexture(&TEXTURES.titleScreen_leaderboardButtonHover, "LeaderHover");
 
     loadTexture(&TEXTURES.map, "Map");
     loadTexture(&TEXTURES.player, "Player");
@@ -60,7 +67,7 @@ void ImageHandler_initializeTextures()
     loadTexture(&TEXTURES.font, "Comic_Sans");
 
     loadTexture(&TEXTURES.splashScreen, "DigiPen_RED_1024px");
-    loadTexture(&TEXTURES.background, "background");
+    loadTexture(&TEXTURES.background, "waterstrip_strip161");
 
 	loadTexture(&TEXTURES.le_helpMenu, "LEControls_Help");
 	loadTexture(&TEXTURES.le_fullMenu, "LEControls");
@@ -71,6 +78,12 @@ void ImageHandler_initializeTextures()
 
 	loadTexture(&TEXTURES.text_fl, "Text_FinalLap");
 	loadTexture(&TEXTURES.text_mapsaved, "Text_MapSaved");
+
+	loadTexture(&TEXTURES.text_lapleft1, "Text_1LapLeft");
+	loadTexture(&TEXTURES.text_lapleft2, "Text_2LapLeft");
+
+	loadTexture(&TEXTURES.controls_p1, "controls_p1");
+	loadTexture(&TEXTURES.controls_p2, "controls_p2");
 }
 
 void ImageHandler_shutdown() {

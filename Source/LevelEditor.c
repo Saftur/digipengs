@@ -406,6 +406,26 @@ void LoadObstacles() {
 }
 
 static void SaveMap() {
+    int newTileX = StartX, newTileY = StartY;
+
+    switch (Map[StartY][StartX].from) {
+    case SUp:
+        newTileY--;
+        break;
+    case SDown:
+        newTileY++;
+        break;
+    case SLeft:
+        newTileX--;
+        break;
+    case SRight:
+        newTileX++;
+        break;
+    }
+
+    if (Map[newTileY][newTileX].type == TTNone)
+        return;
+
     FILE *file;
     fopen_s(&file, "./Assets/Map.txt", "w");
     if (!file)

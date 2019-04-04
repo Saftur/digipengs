@@ -27,6 +27,8 @@
 #include "Background.h"
 #include "GameStartTimer.h"
 
+#include "ControlDisplay.h"
+
 #define SCREEN_SEPARATOR_WIDTH 10
 
 #define MP_PLAYER_OFFSET 64
@@ -63,9 +65,11 @@ void Level2_onInit()
         AEVec2 posL = {0, 0};
         AEVec2 posR = {0, 0};
         posR.x = size.x;
-		Camera_new((AEVec2) { 0, 0 }, 1.f, 0, posL, size);
-		Camera_new((AEVec2) { 0, 0 }, 1.f, 0, posR, size);
-	}
+		Camera_new((AEVec2) { 0, 0 }, 0.75f, 0, posL, size);
+		Camera_new((AEVec2) { 0, 0 }, 0.75f, 0, posR, size);
+	} else {
+        Camera_get(0)->worldScale = 0.75f;
+    }
 
     Map_init("Assets\\Map.txt");
     ObstacleManager_loadObstacles();
@@ -122,6 +126,9 @@ void Level2_onInit()
     ObjectManager_addObj(timer);
 
 	GameStartTimer_init();
+	ControlDisplay_display(0);
+	if (splitScreen)
+		ControlDisplay_display(1);
 }
 
 static void initPlayers() {

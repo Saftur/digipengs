@@ -19,8 +19,10 @@
     <ClCompile Include="Source\CollisionEvents.c" />
     <ClCompile Include="Source\CollisionHandler.c" />
     <ClCompile Include="Source\DragButton.c" />
+    <ClCompile Include="Source\ControlDisplay.c" />
     <ClCompile Include="Source\EndScreen.c" />
     <ClCompile Include="Source\HighscoreScreen.c" />
+    <ClCompile Include="Source\LapsLeftDisplay.c" />
     <ClCompile Include="Source\Leaderboard.c" />
     <ClCompile Include="Source\FinalLap.c" />
     <ClCompile Include="Source\GameStartTimer.c" />
@@ -69,8 +71,10 @@
     <ClInclude Include="source\Boulder.h" />
     <ClInclude Include="Source\CollisionEvents.h" />
     <ClInclude Include="Source\DragButton.h" />
+    <ClInclude Include="Source\ControlDisplay.h" />
     <ClInclude Include="Source\EndScreen.h" />
     <ClInclude Include="Source\HighscoreScreen.h" />
+    <ClInclude Include="Source\LapsLeftDisplay.h" />
     <ClInclude Include="Source\Leaderboard.h" />
     <ClInclude Include="Source\FinalLap.h" />
     <ClInclude Include="Source\GameStartTimer.h" />

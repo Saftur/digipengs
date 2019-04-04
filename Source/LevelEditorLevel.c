@@ -1,7 +1,7 @@
 ﻿   /**
  * @file LevelEditorLevel.c
- * @author Connor Meyers
  * @author Brand Knutson
+ * @author Connor Meyers
  * @date Wednesday, February 20, 2019
  * @brief Level editor level.
  */
@@ -22,6 +22,8 @@ void LevelEditorLevel_onInit()
     //Camera_new((AEVec2) { 1200, -1000 }, 0.16f, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 600 });
     LevelEditor_init();
 	LevelEditor_HelpMenu_init();
+    Camera *cam = Camera_get(0);
+    cam->worldScale = 0.25f;
 }
 
 void LevelEditorLevel_onUpdate(float dt)

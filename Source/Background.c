@@ -12,10 +12,10 @@
 
 #define BACKGROUND_SIZE 64
 #define BACKGROUND_TEXTURE TEXTURES.background
-#define BACKGROUND_ANIMATION_SPEED 0.25f
-#define BACKGROUND_FRAME_COUNT 17
-#define BACKGROUND_SPRITE_ROWS 4
-#define BACKGROUND_SPRITE_COLS 5
+#define BACKGROUND_ANIMATION_SPEED 0.1f
+#define BACKGROUND_FRAME_COUNT 161
+#define BACKGROUND_SPRITE_ROWS 1
+#define BACKGROUND_SPRITE_COLS 161
 
 static int frameIndex_ = 0;
 static AEVec2 offset_;
@@ -69,8 +69,8 @@ void Background_onUpdate(Object *obj, void *data, float dt)
 */
 Object *Background_create()
 {
-    Object *ice = Object_new(NULL, Background_onUpdate, NULL, NULL, Background_shutdown, "Background");
-    return ice;
+    Object *bg = Object_new(NULL, Background_onUpdate, NULL, NULL, Background_shutdown, "Background");
+    return bg;
 }
 
 static AEVec2 getOffsets_(int frameIndex)

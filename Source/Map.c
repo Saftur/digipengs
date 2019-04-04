@@ -15,8 +15,9 @@
 #include "Utils.h"
 
 #define CAM_STRAIGHT_ROT_LERP 0.2f
-#define CAM_TURN_ROT_LERP 0.2f
+#define CAM_TURN_ROT_LERP 0.05f
 #define CAM_BETWEEN_ROT_LERP(percentOfStraight) (CAM_STRAIGHT_ROT_LERP * percentOfStraight + CAM_TURN_ROT_LERP * (1-percentOfStraight))
+#define CAM_PLAYER_ROT_LERP 0.07f
 
 static Tile tiles[MAP_MAX_SIZE][MAP_MAX_SIZE];
 
@@ -151,7 +152,8 @@ void Map_init(const char *filename) {
     Map_load(filename, tiles, &width, &height, &startX, &startY);
 }
 
-static void _updateCamera(Camera *cam, AEVec2 pos, int lerp) {
+static void _updateCamera(Camera *cam, AEVec2 pos, float playerDir, int lerp) {
+    UNREFERENCED_PARAMETER(playerDir);
     unsigned tx, ty;
     Map_worldPosToTilePos(&tx, &ty, pos.x, pos.y);
     float twx, twy;
@@ -220,20 +222,23 @@ static void _updateCamera(Camera *cam, AEVec2 pos, int lerp) {
         cam->worldPos = point;
         float rot = addAngle - AERadToDeg(AEVec2AngleFromVec2(&localPos));
         if (lerp)
-            cam->worldRot = deg_lerpf(cam->worldRot, rot, nextTile->type == TTTurn ? CAM_TURN_ROT_LERP : CAM_BETWEEN_ROT_LERP(0.5f));
+            cam->worldRot = deg_lerpf(cam->worldRot, rot, (nextTile->type == TTHoriz || nextTile->type == TTVert)/* || (prevTile->type == TTHoriz || prevTile->type == TTVert)*/ ? CAM_BETWEEN_ROT_LERP(0.5f) : CAM_TURN_ROT_LERP );
         else
             cam->worldRot = rot;
         break;
     }
     }
+    /*if (lerp)
+        cam->worldRot = deg_lerpf(cam->worldRot, playerDir, CAM_PLAYER_ROT_LERP);
+    else cam->worldRot = playerDir;*/
 }
 
-void Map_initCamera(Camera *cam, AEVec2 pos) {
-    _updateCamera(cam, pos, 0);
+void Map_initCamera(Camera *cam, AEVec2 pos, float playerDir) {
+    _updateCamera(cam, pos, playerDir, 0);
 }
 
-void Map_updateCamera(Camera *cam, AEVec2 pos) {
-    _updateCamera(cam, pos, 1);
+void Map_updateCamera(Camera *cam, AEVec2 pos, float playerDir) {
+    _updateCamera(cam, pos, playerDir, 1);
 }
 
 void Map_draw()
