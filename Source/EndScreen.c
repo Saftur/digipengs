@@ -39,11 +39,11 @@ void EndScreen_onLoad()
 void EndScreen_onInit()
 {
 	Object *tryAgainButton = Button_new(tryAgainEffect, TEXTURES.endScreen_tryAgainButton, TEXTURES.buttonSelected, TEXTURES.endScreen_tryAgainButton,
-		0, 0, 600, 100);
+		0, 0, 600, 100, 0);
 	Object *mainMenuButton = Button_new(titleScreenEffect, TEXTURES.endScreen_titleScreenButton, TEXTURES.buttonSelected, TEXTURES.endScreen_titleScreenButton,
-		0, -100, 600, 100);
+		0, -100, 600, 100, 0);
 	Object *exitButton = Button_new(quitEffect, TEXTURES.titleScreen_exitButton, TEXTURES.buttonSelected, TEXTURES.titleScreen_exitButton,
-		0, -200, 600, 100);
+		0, -200, 600, 100, 0);
 
 	ObjectManager_addObj(tryAgainButton);
 	ObjectManager_addObj(mainMenuButton);

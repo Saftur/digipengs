@@ -59,17 +59,17 @@ void TitleScreen_onInit()
 	ObjectManager_addObj(Object_new(NULL, NULL, titleDraw, NULL, NULL, "Title"));
 
 	Object *singlePlayerButton = Button_new(singleplayerButtonEffect, TEXTURES.titleScreen_startButton, TEXTURES.buttonSelected, TEXTURES.titleScreen_startButton,
-        0,  100, 600, 100);
+        0,  100, 600, 100, 0);
 	Object *multiPlayerButton = Button_new(multiplayerButtonEffect, TEXTURES.titleScreen_startButton, TEXTURES.buttonSelected, TEXTURES.titleScreen_startButton,
-		0,    0, 600, 100);
+		0,    0, 600, 100, 0);
 	Object *leaderboardButton = Button_new(leaderboardEffect, TEXTURES.titleScreen_levelEditorButton, TEXTURES.buttonSelected, NULL,
-		0, -100, 600, 100);
+		0, -100, 600, 100, 0);
     Object *levelEditorButton = Button_new(levelEditorEffect, TEXTURES.titleScreen_levelEditorButton, TEXTURES.buttonSelected, NULL, 
-        0, -200, 600, 100);
+        0, -200, 600, 100, 0);
 	Object *exitButton = Button_new(quitEffect, TEXTURES.titleScreen_exitButton, TEXTURES.buttonSelected, TEXTURES.titleScreen_exitButton,
-		0, -300, 600, 100);
+		0, -300, 600, 100, 0);
 	Object *settingsButton = Button_new(NULL, TEXTURES.titleScreen_button, TEXTURES.buttonSelected, TEXTURES.titleScreen_startButton,
-	 -375,  375, 50, 50);
+	 -375,  375, 50, 50, 0);
 
 
     ObjectManager_addObj(singlePlayerButton);

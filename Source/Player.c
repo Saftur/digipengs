@@ -19,9 +19,7 @@
 #include "Utils.h"
 #include "GameStartTimer.h"
 #include "FinalLap.h"
-
-//Bad code #1
-#include "HighscoreScreen.h"
+#include "Leaderboard.h"
 
 #define PLAYER_ACCEL 240.75f
 #define PLAYER_DECCEL 252.f
@@ -74,8 +72,7 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 			}
 			else EndScreen_winner = 0;
 
-			// Bad code #2
-			HighscoreScreen_onInit();
+			Default_Leaderboard(data->playerNum);
 			AEInputShowCursor(true);
 		}
     }

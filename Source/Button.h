@@ -18,4 +18,4 @@ typedef void(*ButtonEffectFunc)();
  * @return New Button
  */
 Object *Button_new(ButtonEffectFunc buttonEffect, AEGfxTexture *defaultTexture, AEGfxTexture *mouseHoverTexture, AEGfxTexture *onClickTexture,
-	float x, float y, float width, float height);
+	float x, float y, float width, float height, unsigned camNum);

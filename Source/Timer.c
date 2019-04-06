@@ -87,9 +87,9 @@ static void Timer_onDraw(Object *obj, Timer *data)
     Object_draw(data->textObj);
 }
 
-static void Timer_onShutdown(Timer *data) {
-    Object_delete(data->textObj);
-    free(data);
+static void Timer_onShutdown(Timer *data) 
+{
+	UNREFERENCED_PARAMETER(data);
 }
 
 Object* Timer_new(unsigned camNum, AEGfxTexture* font, AEVec2 textPos, AEVec2 charScale, float initialTime)
@@ -99,9 +99,11 @@ Object* Timer_new(unsigned camNum, AEGfxTexture* font, AEVec2 textPos, AEVec2 ch
 	timerData->time = initialTime;
 	timerData->intTime = (int) initialTime;
 
-	timerData->textObj = Text_new(timerData->timeAsString, font, textPos, charScale.x, charScale.y, (Color) { 1, 1, 1, 1 });
+	Object* textObj = Text_new(timerData->timeAsString, font, textPos, charScale.x, charScale.y, (Color) { 1, 1, 1, 1 }, camNum);
+	timerData->textObj = textObj;
+	ObjectManager_addObj(textObj);
 
-	Object *timerObj = Object_new(Timer_onInit, Timer_onUpdate, Timer_onDraw, timerData, Timer_onShutdown, "Timer");
+	Object* timerObj = Object_new(Timer_onInit, Timer_onUpdate, Timer_onDraw, timerData, Timer_onShutdown, "Timer");
 	Object_setPos(timerObj, textPos);
 	return timerObj;
 }

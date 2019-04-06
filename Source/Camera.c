@@ -59,6 +59,14 @@ Camera *Camera_get(unsigned camNum) {
     return vector_at(cams, camNum);
 }
 
+void Camera_GetCursorPosition(s32 *x, s32 *y, unsigned camNum) {
+	AEInputGetCursorPosition(x, y);
+	Camera *cam = Camera_get(camNum);
+	*x -= (s32) cam->viewportPos.x;
+	*y -= (s32) cam->viewportPos.y;
+}
+
+
 float Camera_xPos() {
     return currCam->worldPos.x;
 }

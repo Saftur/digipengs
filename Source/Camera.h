@@ -60,6 +60,8 @@ Camera *Camera_getCurr();
 
 Camera *Camera_get(unsigned camNum);
 
+void Camera_GetCursorPosition(s32* screenX, s32* screenY, unsigned camNum);
+
 /**
  * @brief Get current Camera X pos
  * @return Camera X pos

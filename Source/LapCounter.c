@@ -50,8 +50,7 @@ static void LapCounter_onDraw(Object *obj, LapCounter *data)
 
 static void LapCounter_onShutdown(LapCounter *data) 
 {
-    Object_delete(data->textObj);
-    free(data);
+	UNREFERENCED_PARAMETER(data);
 }
 
 Object* LapCounter_new(unsigned camNum, char* format, AEGfxTexture* font, AEVec2 textPos, AEVec2 charScale, float* currentLap)
@@ -61,9 +60,12 @@ Object* LapCounter_new(unsigned camNum, char* format, AEGfxTexture* font, AEVec2
 	counterData->lap = currentLap;
 	counterData->format = format;
 
-    counterData->textObj = Text_new(counterData->lapAsString, font, textPos, charScale.x, charScale.y, (Color) { 1, 1, 1, 1 });
+    Object* textObj = Text_new(counterData->lapAsString, font, textPos, charScale.x, charScale.y, (Color) { 1, 1, 1, 1 }, camNum);
+	counterData->textObj = textObj;
+	ObjectManager_addObj(textObj);
 
-	Object* counterObj = Object_new(LapCounter_onInit, LapCounter_onUpdate, LapCounter_onDraw, counterData, LapCounter_onShutdown, "Lap Counter");
+	Object* counterObj = Object_new(
+		LapCounter_onInit, LapCounter_onUpdate, LapCounter_onDraw, counterData, LapCounter_onShutdown, "Lap Counter");
 	Object_setPos(counterObj, textPos);
 	return counterObj;
 }

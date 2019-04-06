@@ -21,6 +21,7 @@ typedef struct Text {
 	float charWidth;
 	float charHeight;
     Color textColor;
+	unsigned camNum;
 } Text;
 
 static void Text_onInit(Object *obj, Text *data)
@@ -64,7 +65,7 @@ static void Text_onDraw(Object *obj, Text *data)
 	}
 }
 
-Object* Text_new(char *text, AEGfxTexture *font, AEVec2 textPos, float charWidth, float charHeight, Color textColor)
+Object* Text_new(char *text, AEGfxTexture *font, AEVec2 textPos, float charWidth, float charHeight, Color textColor, unsigned camNum)
 {
 	Text* textData = malloc(sizeof(Text));
 	textData->text = text;
@@ -73,6 +74,7 @@ Object* Text_new(char *text, AEGfxTexture *font, AEVec2 textPos, float charWidth
 	textData->charWidth = charWidth;
 	textData->charHeight = charHeight;
     textData->textColor = textColor;
+	textData->camNum = camNum;
 	
 	Object* textObj = Object_new(Text_onInit, Text_onUpdate, Text_onDraw, textData, free, "Text");
 	Object_setPos(textObj, textPos);

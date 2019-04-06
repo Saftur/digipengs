@@ -9,6 +9,7 @@
 #include "MeshHandler.h"
 #include <AEEngine.h>
 #include "ImageHandler.h"
+#include "Camera.h"
 
 typedef struct Button {
 	AEGfxTexture *defaultTexture;
@@ -17,6 +18,7 @@ typedef struct Button {
 	float width;
 	float height;
 	int texture;
+	unsigned camNum;
 	ButtonEffectFunc buttonEffect;
 } Button;
 
@@ -46,7 +48,7 @@ void Button_onUpdate(Object *obj, Button *data, float dt) {
 	objHeight = data->height;
 
 	s32 screenX, screenY;
-	AEInputGetCursorPosition(&screenX, &screenY);
+	Camera_GetCursorPosition(&screenX, &screenY, data->camNum);
 
 	//Convert mouse screen position to world position.
 	float mouseX;
@@ -71,29 +73,33 @@ void Button_onUpdate(Object *obj, Button *data, float dt) {
 	}
 }
 
-void Button_onDraw(Object *obj, Button *data) {
-    
-	if (data->texture == DEFAULT)
+void Button_onDraw(Object *obj, Button *data) 
+{
+	if (data->camNum == Camera_getCurrNum())
 	{
-		ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), data->defaultTexture, Object_getPos(obj), data->width, data->height, 0, 1);
-	}
-	else if (data->texture == HOVER)
-	{
-		ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), data->mouseHoverTexture, Object_getPos(obj), data->width, data->height, 0, 1);
-	}
-	else if (data->texture == ON_CLICK)
-	{
-		ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), data->onClickTexture, Object_getPos(obj), data->width, data->height, 0, 1);
+		if (data->texture == DEFAULT)
+		{
+			ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), data->defaultTexture, Object_getPos(obj), data->width, data->height, 0, 1);
+		}
+		else if (data->texture == HOVER)
+		{
+			ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), data->mouseHoverTexture, Object_getPos(obj), data->width, data->height, 0, 1);
+		}
+		else if (data->texture == ON_CLICK)
+		{
+			ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), data->onClickTexture, Object_getPos(obj), data->width, data->height, 0, 1);
+		}
 	}
 }
 
 Object *Button_new(ButtonEffectFunc buttonEffect, AEGfxTexture *defaultTexture, AEGfxTexture *mouseHoverTexture, AEGfxTexture *onClickTexture, 
-				   float x, float y, float width, float height) {
+				   float x, float y, float width, float height, unsigned camNum) {
 	Button *buttonData = malloc(sizeof(Button));
 	buttonData->buttonEffect = buttonEffect;
 	buttonData->defaultTexture = defaultTexture;
 	buttonData->mouseHoverTexture = mouseHoverTexture;
 	buttonData->onClickTexture = onClickTexture;
+	buttonData->camNum = camNum;
 	Object *buttonObj = Object_new(Button_onInit, Button_onUpdate, Button_onDraw, buttonData, free, "Button");
 	AEVec2 pos;
 	pos.x = x;
