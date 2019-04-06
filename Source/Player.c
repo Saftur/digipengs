@@ -20,6 +20,9 @@
 #include "GameStartTimer.h"
 #include "FinalLap.h"
 #include "Leaderboard.h"
+#include "Timer.h"
+#include "LapCounter.h"
+#include "objectmanager.h"
 
 #define PLAYER_ACCEL 240.75f
 #define PLAYER_DECCEL 252.f
@@ -40,6 +43,8 @@ void Player_onInit(Object *obj, PlayerData *data)
     data->speed = 0.f;
 
     Map_initCamera(Camera_get(data->playerNum), Object_getPos(obj));
+
+	//Timer_Start(data->timer->data);
 }
 
 void Player_onShutdown(PlayerData *data) {
@@ -55,13 +60,13 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 		return;
     UNREFERENCED_PARAMETER(dt);
 
-	if (*(data->lap) == NUM_LAPS && !data->finalLap)
+	if (data->lap == NUM_LAPS && !data->finalLap)
 	{
 		FinalLap_display(data->playerNum);
 		data->finalLap = 1;
 	}
 
-    if (*(data->lap) >= NUM_LAPS+1) 
+    if (data->lap >= NUM_LAPS+1) 
 	{
 		if (data->finished == false)
 		{
@@ -112,11 +117,12 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 void Player_onDraw(Object *obj, PlayerData *data)
 {
     ParticleEmitter_draw(data->particleEmitter);
-    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), data->texture, Object_getPos(obj), PLAYER_SCALE.x, PLAYER_SCALE.y, data->direction, data->alpha);
+    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), 
+		data->texture, Object_getPos(obj), PLAYER_SCALE.x, PLAYER_SCALE.y, data->direction, data->alpha);
 }
 
 
-Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned playerNum, float* lap)
+Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned playerNum)
 {
     PlayerData * data = calloc(1, sizeof(PlayerData));
     Object *player = Object_new(Player_onInit, Player_onUpdate, Player_onDraw, data, Player_onShutdown, "Player");
@@ -127,7 +133,7 @@ Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned play
     data->speedcap = PLAYER_MAXSPD;
     data->speedScalar = 1;
 
-	data->lap = lap;
+	data->lap = 1.0f;
 
     data->controls = controls;
 
@@ -144,6 +150,20 @@ Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned play
     ((PlayerParticleData*)data->particleData)->playerData = data;
     ((PlayerParticleData*)data->particleData)->modeSwitch = 0;
     data->particleEmitter = ParticleEmitter_new(pos, direction, 1, 16, particleSpawnFunc, particleSpawnTimeFunc, data->particleData);
+
+	AEVec2 timerPos;
+	timerPos.x = (splitScreen ? AEGfxGetWinMinX() / 2.f : AEGfxGetWinMinX()) + 30.f;
+	timerPos.y = AEGfxGetWinMaxY() - 80.f;
+	Object *timer = Timer_new(playerNum, TEXTURES.font, timerPos, (AEVec2) { 23, 42 }, 0);
+	data->timer = timer;
+	ObjectManager_addObj(timer);
+
+	AEVec2 lapCounterPos;
+	lapCounterPos.x = (splitScreen ? AEGfxGetWinMinX() / 2.f : AEGfxGetWinMinX()) + 40.f;
+	lapCounterPos.y = AEGfxGetWinMaxY() - 40.f;
+	Object *lapCounter = LapCounter_new(playerNum, "Lap %d", TEXTURES.font, lapCounterPos, (AEVec2) { 23, 42 }, &(data->lap));
+	data->lapCounter = lapCounter;
+	ObjectManager_addObj(lapCounter);
 
     return player;
 }

@@ -48,12 +48,12 @@ void Button_onUpdate(Object *obj, Button *data, float dt) {
 	objHeight = data->height;
 
 	s32 screenX, screenY;
-	Camera_GetCursorPosition(&screenX, &screenY, data->camNum);
+	AEInputGetCursorPosition(&screenX, &screenY);
 
 	//Convert mouse screen position to world position.
 	float mouseX;
 	float mouseY;
-	AEGfxConvertScreenCoordinatesToWorld((float)screenX, (float)screenY, &mouseX, &mouseY);
+	Camera_ConvertScreenCoordinatesToCamereaCoordinates((float)screenX, (float)screenY, &mouseX, &mouseY, data->camNum);
 
 	if (objX - objWidth / 2 < mouseX && mouseX < objX + objWidth / 2 && objY - objHeight / 2 < mouseY && mouseY < objY + objHeight / 2)
 	{

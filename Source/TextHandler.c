@@ -44,7 +44,7 @@ static void Text_onDraw(Object *obj, Text *data)
 {
     UNREFERENCED_PARAMETER(obj);
 
-	if (data->camNum == Camera_getCurrNum)
+	if (data->camNum == Camera_getCurrNum())
 	{
 		AEVec2 charPos, charOffset;
 		charPos.x = data->textPos.x;

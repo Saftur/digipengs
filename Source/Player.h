@@ -25,7 +25,7 @@ typedef struct PlayerData
 	float speedcap;
     float speedScalar;
 
-    float* lap;
+    float lap;
 
     Controls controls; ///< Player's controls
 
@@ -41,6 +41,10 @@ typedef struct PlayerData
 
     ParticleEmitter *particleEmitter;
     void *particleData;
+
+	Object *timer;
+	Object *lapCounter;
+
 }PlayerData;
 
 /**
@@ -51,7 +55,7 @@ typedef struct PlayerData
  * @param playerNum Player number
  * @return New player
  */
-Object * Player_new(AEVec2 pos, float direction, Controls controls, unsigned playerNum, float* lap);
+Object * Player_new(AEVec2 pos, float direction, Controls controls, unsigned playerNum);
 
 /**
  * @brief Returns the direction of a player

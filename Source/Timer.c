@@ -18,13 +18,24 @@ typedef struct Timer {
 	int decimalMinutes[MAX_MINUTE_DIGITS];
 	float time;
 	int intTime;
+	int paused;
 } Timer;
 
 static void Timer_updateString(Timer* data);
 
-void Timer_Reset(Timer *data, float newTime)
+void Timer_Reset(Timer* data, float newTime)
 {
 	data->time = newTime;
+}
+
+void Timer_Start(Timer* data)
+{
+	data->paused = 0;
+}
+
+void Timer_Stop(Timer* data)
+{
+	data->paused = 1;
 }
 
 static void Timer_onInit(Object *obj, Timer *data)
@@ -38,15 +49,19 @@ static void Timer_onUpdate(Object* obj, Timer* data, float dt)
 {
 	printf("Timer update\n");
 
-	data->time += dt;
-	int currentIntTime = (int) data->time;
-
-	if (currentIntTime != data->intTime)
+	if (!data->paused)
 	{
-		data->intTime = currentIntTime;
+		data->time += dt;
+		int currentIntTime = (int)data->time;
 
-		Timer_updateString(data);
+		if (currentIntTime != data->intTime)
+		{
+			data->intTime = currentIntTime;
+
+			Timer_updateString(data);
+		}
 	}
+
 	UNREFERENCED_PARAMETER(obj);
 }
 
@@ -98,6 +113,7 @@ Object* Timer_new(unsigned camNum, AEGfxTexture* font, AEVec2 textPos, AEVec2 ch
     timerData->camNum = camNum;
 	timerData->time = initialTime;
 	timerData->intTime = (int) initialTime;
+	timerData->paused = 0;
 
 	Object* textObj = Text_new(timerData->timeAsString, font, textPos, charScale.x, charScale.y, (Color) { 1, 1, 1, 1 }, camNum);
 	timerData->textObj = textObj;

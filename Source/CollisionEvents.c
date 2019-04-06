@@ -54,8 +54,8 @@ void StartLineOnCollision(Collider *self, Collider *other) {
     if (strcmp(Object_getName(other->gameObject), "Player"))
         return;
     PlayerData *player = Object_getData(other->gameObject);
-    if ( *(player->lap) != floorf( *(player->lap) ))
-        *(player->lap) += 0.5f;
+    if (player->lap != floorf(player->lap))
+        player->lap += 0.5f;
 }
 
 void CheckpointOnCollision(Collider *self, Collider *other) {
@@ -63,6 +63,6 @@ void CheckpointOnCollision(Collider *self, Collider *other) {
     if (strcmp(Object_getName(other->gameObject), "Player"))
         return;
     PlayerData *player = Object_getData(other->gameObject);
-    if ( *(player->lap) == floorf( *(player->lap) ))
-        *(player->lap) += 0.5f;
+    if (player->lap == floorf(player->lap))
+        player->lap += 0.5f;
 }

@@ -34,9 +34,6 @@
 Object *Player1 = NULL;
 Object *Player2 = NULL;
 
-float player1Lap;
-float player2Lap;
-
 int splitScreen = 0;
 
 static void initPlayers();
@@ -112,14 +109,10 @@ void Level2_onInit()
 
     initPlayers();
 
-    if (splitScreen)
-        ObjectManager_addObj(Object_new(NULL, NULL, separatorDraw, NULL, NULL, "Separator"));
-
-    AEVec2 timerPos;
-    timerPos.x = (splitScreen ? AEGfxGetWinMinX() / 2.f : AEGfxGetWinMinX()) + 30.f;
-    timerPos.y = AEGfxGetWinMaxY() - 80.f;
-    Object *timer = Timer_new(0, TEXTURES.font, timerPos, (AEVec2) {23, 42}, 0);
-    ObjectManager_addObj(timer);
+	if (splitScreen)
+	{
+		ObjectManager_addObj(Object_new(NULL, NULL, separatorDraw, NULL, NULL, "Separator"));
+	}
 
 	GameStartTimer_init();
 }
@@ -157,14 +150,7 @@ static void initPlayers() {
     if (splitScreen)
         AEVec2Add(&pos1, &pos1, &p1Offset);
 
-    player1Lap = 1.f;
-    AEVec2 lapPos1;
-    lapPos1.x = (splitScreen ? AEGfxGetWinMinX() / 2.f : AEGfxGetWinMinX()) + 40.f;
-    lapPos1.y = AEGfxGetWinMaxY() - 40.f;
-	Object *lapCounter1 = LapCounter_new(0, "Lap %d", TEXTURES.font, lapPos1, (AEVec2) { 23, 42 }, &player1Lap);
-	ObjectManager_addObj(lapCounter1);
-
-    Object *player = Player_new(pos1, direction, (Controls) { 'A', 'D', 'W', 'S', 0 }, 0, &player1Lap);
+    Object *player = Player_new(pos1, direction, (Controls) { 'A', 'D', 'W', 'S', 0 }, 0);
     ObjectManager_addObj(player);
     CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, 0, PlayerOnCollision);
     Player1 = player;
@@ -175,15 +161,7 @@ static void initPlayers() {
 		Map_tilePosToWorldPos(&pos2.x, &pos2.y, startTileX, startTileY);
         AEVec2Add(&pos2, &pos2, &p2Offset);
 
-        player2Lap = 1.f;
-        AEVec2 lapPos2;
-        lapPos2.x = (splitScreen ? AEGfxGetWinMinX() / 2.f : AEGfxGetWinMinX()) + 40.f;
-        lapPos2.y = AEGfxGetWinMaxY() - 40.f;
-		Object *lapCounter2 = LapCounter_new(1, "Lap %d", TEXTURES.font, lapPos2, (AEVec2) { 23, 42 }, &player2Lap);
-
-		ObjectManager_addObj(lapCounter2);
-
-        player = Player_new(pos2, direction, (Controls) { VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN, 1 }, 1, &player2Lap);
+        player = Player_new(pos2, direction, (Controls) { VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN, 1 }, 1);
         ObjectManager_addObj(player);
         Player_changeTexture(player, PLAYER_GREEN_TEXTURE);
         CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, 0, PlayerOnCollision);
@@ -223,9 +201,9 @@ void Level2_onUpdate(float dt)
 
         unsigned tileX, tileY;
         Map_worldPosToTilePos(&tileX, &tileY, Object_getPos(Player1).x, Object_getPos(Player1).y);
-        unsigned p1Tile = Map_getTile(tileX, tileY)->tileNum + ((unsigned)floor(*p1Data->lap) * Map_NumTiles());
+        unsigned p1Tile = Map_getTile(tileX, tileY)->tileNum + ((unsigned)floor(p1Data->lap) * Map_NumTiles());
         Map_worldPosToTilePos(&tileX, &tileY, Object_getPos(Player2).x, Object_getPos(Player2).y);
-        unsigned p2Tile = Map_getTile(tileX, tileY)->tileNum + ((unsigned)floor(*p2Data->lap) * Map_NumTiles());
+        unsigned p2Tile = Map_getTile(tileX, tileY)->tileNum + ((unsigned)floor(p2Data->lap) * Map_NumTiles());
 
         if (AEInputCheckTriggered('F')) {
             p1Data->speedScalar = p1Data->speedScalar;
