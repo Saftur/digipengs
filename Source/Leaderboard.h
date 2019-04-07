@@ -1,3 +1,10 @@
+/**
+ * @file Leaderboard.h
+ * @author Parker Friedland
+ * @date 3/31/2019
+ * @brief Leaderboard
+ */
+
 #pragma once
 
 #include <AEEngine.h>

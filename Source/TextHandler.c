@@ -1,5 +1,5 @@
 /**
- * @file ImageHandler.c
+ * @file TextHandler.c
  * @author Parker Friedland
  * @date 2019/01/10
  * @brief Imports images from a filename. The file should be located in the 'Assets' folder.

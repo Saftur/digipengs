@@ -1,7 +1,7 @@
 /**
  * @file Timer.c
  * @author Parker Friedland
- * @date 1/23/2019
+ * @date 3/7/2019
  * @brief Timer
  */
 
