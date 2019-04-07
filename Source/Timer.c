@@ -11,16 +11,6 @@
 #include "objectmanager.h"
 #include "Camera.h"
 
-typedef struct Timer {
-    unsigned camNum;
-	Object* textObj;
-	char timeAsString[MAX_TIME_STRING_SIZE];
-	int decimalMinutes[MAX_MINUTE_DIGITS];
-	float time;
-	int intTime;
-	int paused;
-} Timer;
-
 static void Timer_updateString(Timer* data);
 
 void Timer_Reset(Timer* data, float newTime)

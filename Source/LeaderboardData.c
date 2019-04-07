@@ -33,32 +33,59 @@ void Leaderboard_write()
 	fclose(file);
 }
 
-LeaderboardRank Leaderboard_getEntry(unsigned rank)
+LeaderboardRank* Leaderboard_getEntry(unsigned rank)
 {
 	if (rank < LEADERBOARD_SIZE)
 	{
-		return leaderboard[rank];
+		return &leaderboard[rank];
 	}
 	else
 	{
-		return (LeaderboardRank){ 0 };
+		return NULL;
 	}
 }
 
-void Leaderboard_addEntry(LeaderboardRank entry)
+int Leaderboard_addEntry(char* name, float time, int minutes, int seconds)
 {
 	for (unsigned i = 0; i < LEADERBOARD_SIZE; i++) 
 	{
-		if (entry.time <= Leaderboard_getEntry(i).time || Leaderboard_getEntry(i).time == 0)
+
+		if (time <= leaderboard[i].time || leaderboard[i].time == 0)
 		{
-			LeaderboardRank temp, next = entry;
+			char *tempName = NULL, *nextName = name; 
+			float tempTime = 0, nextTime = time;
+			int tempMinutes = 0, nextMinuets = minutes;
+			int tempSeconds = 0, nextSeconds = seconds;
 
 			for (i; i < LEADERBOARD_SIZE; i++)
 			{
-				temp = leaderboard[i];
-				leaderboard[i] = next;
-				next = temp;
+				if (i != 0)
+				{
+					tempName = leaderboard[i].name;
+					tempTime = leaderboard[i].time;
+					tempMinutes = leaderboard[i].minutes;
+					tempSeconds = leaderboard[i].seconds;
+				}
+
+				leaderboard[i].name = nextName;
+				leaderboard[i].time = nextTime;
+				leaderboard[i].minutes = nextMinuets;
+				leaderboard[i].seconds = nextSeconds;
+
+				nextName = tempName;
+				nextTime = tempTime;
+				nextMinuets = tempMinutes;
+				nextSeconds = tempSeconds;
 			}
+
+			if (nextName != NULL)
+			{
+				free(nextName);
+			}
+
+			return i+1;
 		}
 	}
+
+	return 0;
 }

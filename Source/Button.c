@@ -53,7 +53,7 @@ void Button_onUpdate(Object *obj, Button *data, float dt) {
 	//Convert mouse screen position to world position.
 	float mouseX;
 	float mouseY;
-	Camera_ConvertScreenCoordinatesToCamereaCoordinates((float)screenX, (float)screenY, &mouseX, &mouseY, data->camNum);
+	Camera_ScreenCoordToCamCoord((float)screenX, (float)screenY, &mouseX, &mouseY, data->camNum);
 
 	if (objX - objWidth / 2 < mouseX && mouseX < objX + objWidth / 2 && objY - objHeight / 2 < mouseY && mouseY < objY + objHeight / 2)
 	{

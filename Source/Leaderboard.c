@@ -75,9 +75,9 @@ static void Leaderboard_onUpdate(Object* obj, Leaderboard* data, float dt)
 
 	if (data->ranksBeingDisplayed < data->ranksToDisplay)
 	{
-		LeaderboardRank rank = Leaderboard_getEntry(data->ranksBeingDisplayed);
+		LeaderboardRank* rank = Leaderboard_getEntry(data->ranksBeingDisplayed);
 
-		if (rank.time > 0)
+		if (rank->time > 0)
 		{
 			data->timeUntilNextRank -= dt;
 
@@ -86,9 +86,9 @@ static void Leaderboard_onUpdate(Object* obj, Leaderboard* data, float dt)
 				sprintf_s(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_RANK_INDEX],
 					LEADERBOARD_RANK_LENGTH, leaderboardFormat[LEADERBOARD_RANK_INDEX], data->ranksBeingDisplayed + 1);
 				sprintf_s(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_NAME_INDEX],
-					LEADERBOARD_NAME_LENGTH, leaderboardFormat[LEADERBOARD_NAME_INDEX], rank.name);
+					LEADERBOARD_NAME_LENGTH, leaderboardFormat[LEADERBOARD_NAME_INDEX], rank->name);
 				sprintf_s(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_TIME_INDEX],
-					LEADERBOARD_TIME_LENGTH, leaderboardFormat[LEADERBOARD_TIME_INDEX], rank.minutes, rank.seconds);
+					LEADERBOARD_TIME_LENGTH, leaderboardFormat[LEADERBOARD_TIME_INDEX], rank->minutes, rank->seconds);
 
 
 				int paleteRowIndex = LEADERBOARD_PALETTE_LEADERBOARD_INDEX;

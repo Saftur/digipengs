@@ -6,6 +6,7 @@
 #include "stdafx.h"
 #include "Camera.h"
 #include "vector.h"
+#include "Utils.h"
 
 static vector *cams;
 static Camera *currCam;
@@ -59,27 +60,15 @@ Camera *Camera_get(unsigned camNum) {
     return vector_at(cams, camNum);
 }
 
-void Camera_ConvertScreenCoordinatesToCamereaCoordinates(float screenX, float screenY, float *x, float *y, unsigned camNum) {
-	AEGfxConvertScreenCoordinatesToWorld(screenX, screenY, x, y);
+void Camera_ScreenCoordToCamCoord(float screenX, float screenY, float *x, float *y, unsigned camNum) {
 	Camera *cam = Camera_get(camNum);
 
-	if (camNum == 1)
-	{
-		camNum = 1;
-	}
+	screenX -= cam->viewportPos.x;
+	screenY -= cam->viewportPos.y;
+	screenX *= AEGfxGetWinSizeX() / cam->viewportSize.x;
+	screenY *= AEGfxGetWinSizeY() / cam->viewportSize.y;
 
-	float maxX = AEGfxGetWinMaxX();
-	float maxY = AEGfxGetWinMaxY();
-	//float X = *x;
-	//float Y = *y;
-
-	//float camX = maxX - (cam->viewportPos.x + cam->viewportSize.x / 2.0f);
-	//float camY = maxY - (cam->viewportPos.y + cam->viewportSize.y / 2.0f);
-
-	*x -= (maxX - (cam->viewportPos.x + cam->viewportSize.x / 2.0f)) * (cam->viewportSize.x / (2.0f*AEGfxGetWinMaxX()));
-	*y -= (maxY - (cam->viewportPos.y + cam->viewportSize.y / 2.0f)) * (cam->viewportSize.y / (2.0f*AEGfxGetWinMaxY()));
-	//UNREFERENCED_PARAMETER(X);
-	//UNREFERENCED_PARAMETER(Y);
+	AEGfxConvertScreenCoordinatesToWorld(screenX, screenY, x, y);
 }
 
 

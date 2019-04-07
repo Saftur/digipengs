@@ -38,6 +38,10 @@ typedef struct PlayerData
 
 	bool finalLap;
 	bool finished;
+	bool highscore;
+	bool typingName;
+
+	int nameIndex;
 
     ParticleEmitter *particleEmitter;
     void *particleData;

@@ -20,6 +20,7 @@
 #include "GameStartTimer.h"
 #include "FinalLap.h"
 #include "Leaderboard.h"
+#include "LeaderboardData.h"
 #include "Timer.h"
 #include "LapCounter.h"
 #include "objectmanager.h"
@@ -43,8 +44,6 @@ void Player_onInit(Object *obj, PlayerData *data)
     data->speed = 0.f;
 
     Map_initCamera(Camera_get(data->playerNum), Object_getPos(obj));
-
-	//Timer_Start(data->timer->data);
 }
 
 void Player_onShutdown(PlayerData *data) {
@@ -56,9 +55,16 @@ void Player_onShutdown(PlayerData *data) {
 
 void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 {
+										//12345678901234567890
+	char name[LEADERBOARD_NAME_LENGTH] = "[insert name]       ";
+
+	UNREFERENCED_PARAMETER(dt);
+
 	if (!GameStartTimer_started())
 		return;
-    UNREFERENCED_PARAMETER(dt);
+
+	if (!(data->finished))
+		Timer_Start(Object_getData(data->timer));
 
 	if (data->lap == NUM_LAPS && !data->finalLap)
 	{
@@ -71,14 +77,94 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 		if (data->finished == false)
 		{
 			data->finished = true;
+			Timer_Stop(Object_getData(data->timer));
 
 			if (splitScreen) {
 				EndScreen_winner = data->playerNum + 1;
 			}
 			else EndScreen_winner = 0;
 
+			Timer* timerData = Object_getData(data->timer);
+
+			if (Leaderboard_addEntry(name, timerData->time, timerData->intTime / 60, timerData->intTime % 60))
+			{
+				data->highscore = true;
+			}
+
 			Default_Leaderboard(data->playerNum);
+
 			AEInputShowCursor(true);
+		}
+
+		if (data->highscore)
+		{
+			for (u8 key = 'A'; key <= 'Z'; key++) 
+			{
+				if (AEInputCheckTriggered(key)) 
+				{
+					if (data->nameIndex < LEADERBOARD_NAME_LENGTH)
+					{
+						if (!(data->typingName))
+						{
+							for (int i = 0; i < LEADERBOARD_NAME_LENGTH; i++)
+							{
+								name[i] = ' ';
+							}
+
+							data->typingName = true;
+						}
+
+						if (AEInputCheckCurr(VK_LSHIFT) || AEInputCheckCurr(VK_RSHIFT))
+						{
+							name[data->nameIndex] = (char)key;
+						}
+						else
+						{
+							name[data->nameIndex] = (char)key - 'A' + 'a';
+						}
+					}
+				}
+			}
+
+			for (u8 key = '0'; key <= '9'; key++)
+			{
+				if (AEInputCheckTriggered(key))
+				{
+					if (data->nameIndex < LEADERBOARD_NAME_LENGTH)
+					{
+						if (!(data->typingName))
+						{
+							for (int i = 0; i < LEADERBOARD_NAME_LENGTH; i++)
+							{
+								name[i] = 0;
+							}
+
+							data->typingName = true;
+						}
+
+						name[data->nameIndex] = (char)key;
+					}
+				}
+			}
+
+			if (AEInputCheckTriggered('\b'))
+			{
+				if (!(data->typingName))
+				{
+					for (int i = 0; i < LEADERBOARD_NAME_LENGTH; i++)
+					{
+						name[i] = 0;
+					}
+
+					data->typingName = true;
+				}
+
+				if (data->nameIndex > 0)
+				{
+					data->nameIndex--;
+					name[data->nameIndex] = 0;
+				}
+			}
 		}
     }
 
@@ -145,6 +231,10 @@ Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned play
 
 	data->finalLap = false;
 	data->finished = false;
+	data->highscore = false;
+	data->typingName = false;
+
+	data->nameIndex = 0;
 
     data->particleData = malloc(sizeof(PlayerParticleData));
     ((PlayerParticleData*)data->particleData)->playerData = data;
