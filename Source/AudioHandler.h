@@ -15,3 +15,8 @@ void Audio_playGameplay();
 void Audio_stopGameplay();
 
 void Audio_playSfxHitWall();
+
+void Audio_playSfxPolarGrowl();
+void Audio_playSfxReady();
+void Audio_playSfxSet();
+void Audio_playSfxGo();
