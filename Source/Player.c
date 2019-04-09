@@ -55,9 +55,6 @@ void Player_onShutdown(PlayerData *data) {
 
 void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 {
-										//12345678901234567890
-	char name[LEADERBOARD_NAME_LENGTH] = "[insert name]       ";
-
 	UNREFERENCED_PARAMETER(dt);
 
 	if (!GameStartTimer_started())
@@ -86,7 +83,8 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 
 			Timer* timerData = Object_getData(data->timer);
 
-			if (Leaderboard_addEntry(name, timerData->time, timerData->intTime / 60, timerData->intTime % 60))
+			data->name = Leaderboard_addEntry("[insert name]       ", timerData->time, timerData->intTime / 60, timerData->intTime % 60);
+			if (data->name)
 			{
 				data->highscore = true;
 			}
@@ -108,7 +106,7 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 						{
 							for (int i = 0; i < LEADERBOARD_NAME_LENGTH; i++)
 							{
-								name[i] = ' ';
+								data->name[i] = ' ';
 							}
 
 							data->typingName = true;
@@ -116,11 +114,11 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 
 						if (AEInputCheckCurr(VK_LSHIFT) || AEInputCheckCurr(VK_RSHIFT))
 						{
-							name[data->nameIndex] = (char)key;
+							data->name[data->nameIndex] = (char)key;
 						}
 						else
 						{
-							name[data->nameIndex] = (char)key - 'A' + 'a';
+							data->name[data->nameIndex] = (char)key - 'A' + 'a';
 						}
 					}
 				}
@@ -136,13 +134,13 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 						{
 							for (int i = 0; i < LEADERBOARD_NAME_LENGTH; i++)
 							{
-								name[i] = 0;
+								data->name[i] = 0;
 							}
 
 							data->typingName = true;
 						}
 
-						name[data->nameIndex] = (char)key;
+						data->name[data->nameIndex] = (char)key;
 					}
 				}
 			}
@@ -153,7 +151,7 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 				{
 					for (int i = 0; i < LEADERBOARD_NAME_LENGTH; i++)
 					{
-						name[i] = 0;
+						data->name[i] = 0;
 					}
 
 					data->typingName = true;
@@ -162,7 +160,7 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 				if (data->nameIndex > 0)
 				{
 					data->nameIndex--;
-					name[data->nameIndex] = 0;
+					data->name[data->nameIndex] = 0;
 				}
 			}
 		}
@@ -234,6 +232,7 @@ Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned play
 	data->highscore = false;
 	data->typingName = false;
 
+	//strcpy(data->name, "[insert name]       ");
 	data->nameIndex = 0;
 
     data->particleData = malloc(sizeof(PlayerParticleData));

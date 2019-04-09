@@ -7,13 +7,15 @@
 
 #pragma once
 
+#include "Leaderboard.h"
+
 #define LEADERBOARD_SIZE 10
 
 /**
 * @brief data structure used to store leaderboard ranks. Stores the player name and their score associated with a given rank.
 */
 typedef struct LeaderboardRank {
-	char *name;
+	char name[LEADERBOARD_NAME_LENGTH];
 	float time;
 	int minutes;
 	int seconds;
@@ -37,4 +39,4 @@ LeaderboardRank* Leaderboard_getEntry(unsigned rank);
 /**
 * @brief adds a new score to the leaderboard. If the leaderboard is full, it will only add the score if it is >= one of the scores already on the leaderboard.
 */
-int Leaderboard_addEntry(char* name, float time, int minutes, int seconds);
+char* Leaderboard_addEntry(const char* name, float time, int minutes, int seconds);

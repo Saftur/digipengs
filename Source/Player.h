@@ -10,6 +10,7 @@
 
 #include "InputHandler.h"
 #include "ParticleHandler.h"
+#include "Leaderboard.h"
 
 #define PLAYER_STANDARD_TEXTURE TEXTURES.player
 #define PLAYER_RED_TEXTURE TEXTURES.playerRed
@@ -41,6 +42,8 @@ typedef struct PlayerData
 	bool highscore;
 	bool typingName;
 
+	//char name[LEADERBOARD_NAME_LENGTH];
+	char *name;
 	int nameIndex;
 
     ParticleEmitter *particleEmitter;
