@@ -185,9 +185,9 @@ static void titleScreenEffect() {
 Leaderboard* Default_Leaderboard(unsigned camNum)
 {
 	Color palette[LEADERBOARD_PALETTE_ROWS][LEADERBOARD_PALETTE_COLUMNS] = {
-			{ { 1, 1, 1, 1, }, { 1, 1, 1, 1, }, { 1, 1, 1, 1, } },
-			{ { 1, 1, 1, 1, }, { 1, 1, 1, 1, }, { 1, 1, 1, 1, } },
-			{ { 1, 1, 1, 1, }, { 1, 1, 1, 1, }, { 1, 1, 1, 1, } } };
+			{ { 1, .5, 0, 1, }, { 1, .5, 0, 1, }, { 1, .5, 0, 1, } },
+			{ { 1, .5, 0, 1, }, { 1, .5, 0, 1, }, { 1, .5, 0, 1, } },
+			{ { 1, .5, 0, 1, }, { 1, .5, 0, 1, }, { 1, .5, 0, 1, } } };
 
 	Object* leaderboard = Leaderboard_new(TEXTURES.font, 
 		(AEVec2) { -375, 275 }, (AEVec2) { 5, 45 }, (AEVec2) { 23, 42 }, palette, 0, 10, 0.2f, camNum);
