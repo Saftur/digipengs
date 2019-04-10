@@ -131,12 +131,6 @@ void Level2_onInit()
 	ControlDisplay_display(0);
 	if (splitScreen)
 		ControlDisplay_display(1);
-
-	AEVec2 posPed;
-	AEVec2Set(&posPed, 200, 100);
-	Tile *tile123 = Map_getStartTile();
-	Map_tilePosToWorldPos(&posPed.x, &posPed.y, tile123->x, tile123->y);
-	ObjectManager_addObj(Pedestal_new(posPed));
 }
 
 static void initPlayers() {

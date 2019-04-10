@@ -50,7 +50,10 @@ void CollisionHandler_Check_Collisions()
 
             //If both colliders are circles.
             if (collider1->type == Circle && collider2->type == Circle) {
-                if (strcmp(Object_getName(collider1->gameObject), "Wall") && strcmp(Object_getName(collider2->gameObject), "Wall")) {
+                if (strcmp(Object_getName(collider1->gameObject), "Wall") && strcmp(Object_getName(collider2->gameObject), "Wall")
+					&& strcmp(Object_getName(collider1->gameObject), "Powerup_Speed") && strcmp(Object_getName(collider2->gameObject),"Powerup_Speed")
+					&& strcmp(Object_getName(collider1->gameObject), "Powerup_Phase") && strcmp(Object_getName(collider2->gameObject),"Powerup_Phase")
+					&& strcmp(Object_getName(collider1->gameObject), "Powerup_Blind") && strcmp(Object_getName(collider2->gameObject),"Powerup_Blind")) {
                     if (collider1->phase > 0 || collider2->phase > 0) continue;
                 }
 
