@@ -23,6 +23,7 @@
 #define BOULDER_TEXTURE TEXTURES.boulder
 #define POLARBEAR_TEXTURE TEXTURES.polarbear
 #define ICE_TEXTURE TEXTURES.test
+#define PEDESTAL_TEXTURE TEXTURES.pedestal
 
 static int PlacementMode = 0;
 static int ObstacleScale = 32;
@@ -131,6 +132,19 @@ void LevelEditor_update(float dt)
             polarbear->rotation = 0;
 
             vector_push_back(Obstacles, polarbear);
+        }
+        break;
+    case Pedestal:
+        ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), PEDESTAL_TEXTURE, mouseLoc, (float)ObstacleScale * Camera_getCurr()->worldScale, (float)ObstacleScale * Camera_getCurr()->worldScale, 0, 1);
+
+        if (AEInputCheckTriggered(VK_LBUTTON)) {
+            Obstacle *pedestal = malloc(sizeof(Obstacle));
+            pedestal->type = Pedestal;
+            pedestal->radius = ObstacleScale / 2.f;
+            pedestal->pos = placementLoc;
+            pedestal->rotation = 0;
+
+            vector_push_back(Obstacles, pedestal);
         }
         break;
     /*case Ice:
@@ -398,6 +412,9 @@ void LoadObstacles() {
         case 'I':
             obstacle->type = Ice;
             break;
+        case 'A':
+            obstacle->type = Pedestal;
+            break;
         }
 
         vector_push_back(Obstacles, obstacle);
@@ -479,6 +496,9 @@ static void SaveMap() {
             break;
         case Ice:
             fputc('I', file);
+            break;
+        case Pedestal:
+            fputc('A', file);
             break;
         }
 

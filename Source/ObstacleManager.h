@@ -12,6 +12,7 @@ typedef enum ObstacleType {
     None = 0,
     Boulder,
     Polarbear,
+    Pedestal,
     Ice
 } ObstacleType;
 

@@ -18,6 +18,7 @@
 #include "ImageHandler.h"
 #include "MeshHandler.h"
 #include "Map.h"
+#include "Pedestal.h"
 
 #define NUM_WALLS 8
 
@@ -56,6 +57,11 @@ void ObstacleManager_loadObstacles()
         case 'I':
             obstacle = Ice_new(obstacleData->pos);
             Ice_setSize(obstacle, obstacleData->radius * 2);
+            CollisionHandler_Create_Circle_Collider(obstacle, obstacleData->radius, obstacleData->rotation, NULL);
+            break;
+        case 'A':
+            obstacle = Pedestal_new(obstacleData->pos);
+            Pedestal_setSize(obstacle, obstacleData->radius * 2);
             CollisionHandler_Create_Circle_Collider(obstacle, obstacleData->radius, obstacleData->rotation, NULL);
             break;
         }
