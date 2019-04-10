@@ -80,16 +80,9 @@ char* Leaderboard_addEntry(const char* name, float time, int minutes, int second
 			strcpy_s(leaderboard[i].name, LEADERBOARD_NAME_LENGTH * sizeof(char), name);
 			leaderboard[i].time = time;
 			leaderboard[i].minutes = minutes;
-			leaderboard[i].seconds = seconds;
+			leaderboard[i].seconds = seconds; 
 
 			return leaderboard[i].name;
-
-			/*if (nextName != NULL)
-			{
-				free(nextName);
-			}*/
-
-			//return i+1;
 		}
 	}
 

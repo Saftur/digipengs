@@ -131,6 +131,10 @@ static void Leaderboard_onUpdate(Object* obj, Leaderboard* data, float dt)
 		}
 	}
 
+	sprintf_s(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_NAME_INDEX],
+		LEADERBOARD_NAME_LENGTH, leaderboardFormat[LEADERBOARD_NAME_INDEX], 
+		Leaderboard_getEntry(data->yourRank)->name);
+
 	UNREFERENCED_PARAMETER(obj);
 }
 
