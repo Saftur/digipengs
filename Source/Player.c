@@ -20,11 +20,14 @@
 #include "GameStartTimer.h"
 #include "FinalLap.h"
 #include "LapsLeftDisplay.h"
+#include "CollisionHandler.h"
+#include "CollisionEvents.h"
 
 #define PLAYER_ACCEL 240.75f
 #define PLAYER_DECCEL 252.f
 #define PLAYER_MAXSPD 420.f
 #define PLAYER_ROTSPD 3.f
+
 
 typedef struct PlayerParticleData {
     PlayerData *playerData;
@@ -34,11 +37,14 @@ typedef struct PlayerParticleData {
 static Particle *particleSpawnFunc(PlayerParticleData *data);
 static float particleSpawnTimeFunc(PlayerParticleData *data);
 
+
+
 void Player_onInit(Object *obj, PlayerData *data)
 {
     UNREFERENCED_PARAMETER(obj);
     data->speed = 0.f;
     Map_initCamera(Camera_get(data->playerNum), Object_getPos(obj), 90.f - AERadToDeg(data->direction));
+	data->collider = CollisionHandler_Create_Circle_Collider(obj, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, 0, PlayerOnCollision);
 }
 
 void Player_onShutdown(PlayerData *data) {
@@ -53,6 +59,8 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 	if (!GameStartTimer_started())
 		return;
     UNREFERENCED_PARAMETER(dt);
+
+	data->alpha = 1.f - min(data->collider->phase, 0.8f) ;
 
 	if (*(data->lap) == NUM_LAPS && data->currentLap == NUM_LAPS)
 	{
@@ -76,9 +84,8 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
         LevelManager_setNextLevel(EndScreen);
         return;
     }
-
-	data->speed += data->acceleration * data->speedScalar * dt;
-	data->speed = fminf(data->speed, data->speedcap * data->speedScalar);
+	if(data->speed < data->speedcap)
+		data->speed += data->acceleration * data->speedScalar * dt;
 
 	if (Input_leftCheck(data->controls))
 	{

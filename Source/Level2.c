@@ -29,6 +29,8 @@
 
 #include "ControlDisplay.h"
 
+#include "Pedestal.h"
+
 #define SCREEN_SEPARATOR_WIDTH 10
 
 #define MP_PLAYER_OFFSET 64
@@ -129,6 +131,12 @@ void Level2_onInit()
 	ControlDisplay_display(0);
 	if (splitScreen)
 		ControlDisplay_display(1);
+
+	AEVec2 posPed;
+	AEVec2Set(&posPed, 200, 100);
+	Tile *tile123 = Map_getStartTile();
+	Map_tilePosToWorldPos(&posPed.x, &posPed.y, tile123->x, tile123->y);
+	ObjectManager_addObj(Pedestal_new(posPed));
 }
 
 static void initPlayers() {
@@ -173,7 +181,6 @@ static void initPlayers() {
 
     Object *player = Player_new(pos1, direction, (Controls) { 'A', 'D', 'W', 'S', 0 }, 0, &player1Lap);
     ObjectManager_addObj(player);
-    CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, 0, PlayerOnCollision);
     Player1 = player;
 
 	if (splitScreen) {
@@ -193,7 +200,6 @@ static void initPlayers() {
         player = Player_new(pos2, direction, (Controls) { VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN, 1 }, 1, &player2Lap);
         ObjectManager_addObj(player);
         Player_changeTexture(player, PLAYER_GREEN_TEXTURE);
-        CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, 0, PlayerOnCollision);
         Player2 = player;
 	}
 }

@@ -10,6 +10,7 @@
 
 #include "InputHandler.h"
 #include "ParticleHandler.h"
+#include "CollisionHandler.h"
 
 #define PLAYER_STANDARD_TEXTURE TEXTURES.player
 #define PLAYER_RED_TEXTURE TEXTURES.playerRed
@@ -40,6 +41,8 @@ typedef struct PlayerData
 
     ParticleEmitter *particleEmitter;
     void *particleData;
+
+	Collider *collider;
 }PlayerData;
 
 /**

@@ -123,7 +123,7 @@ void CollisionHandler_Create_Square_Collider(Object * gameObject, AEVec2 size, f
     vector_push_back(colliders, collider);
 }
 
-void CollisionHandler_Create_Circle_Collider(Object * gameObject, float radius, float angle, void(*OnCollision)(Collider *self, Collider *other))
+Collider *CollisionHandler_Create_Circle_Collider(Object * gameObject, float radius, float angle, void(*OnCollision)(Collider *self, Collider *other))
 {
     Collider *collider = malloc(sizeof(Collider));
     collider->type = Circle;
@@ -133,6 +133,7 @@ void CollisionHandler_Create_Circle_Collider(Object * gameObject, float radius, 
     collider->angle = angle;
 
     vector_push_back(colliders, collider);
+	return collider;
 }
 
 void CollisionHandler_Destroy_Collider(Collider * collider)

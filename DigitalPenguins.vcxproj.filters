@@ -149,6 +149,21 @@
     <ClCompile Include="Source\LevelEditor.c">
       <Filter>Game\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Pedestal.c">
+      <Filter>Game\Objects\Powerups</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Powerup_Speed.c">
+      <Filter>Game\Objects\Powerups</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Powerup_Phase.c">
+      <Filter>Game\Objects\Powerups</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Powerup_Blind.c">
+      <Filter>Game\Objects\Powerups</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BlindObject.c">
+      <Filter>Game\Objects\Powerups</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
@@ -293,6 +308,21 @@
     <ClInclude Include="Source\LevelEditor.h">
       <Filter>Game\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Pedestal.h">
+      <Filter>Game\Objects\Powerups</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Powerup_Blind.h">
+      <Filter>Game\Objects\Powerups</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Powerup_Speed.h">
+      <Filter>Game\Objects\Powerups</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Powerup_Phase.h">
+      <Filter>Game\Objects\Powerups</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BlindObject.h">
+      <Filter>Game\Objects\Powerups</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
@@ -324,6 +354,9 @@
     </Filter>
     <Filter Include="Engine\Collisions">
       <UniqueIdentifier>{70303c5b-c750-41c6-a6ab-78044851b966}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Objects\Powerups">
+      <UniqueIdentifier>{b7b3bda1-22fb-49b2-9edc-e1e613eb9e94}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
