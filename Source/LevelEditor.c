@@ -23,7 +23,7 @@
 #define BOULDER_TEXTURE TEXTURES.boulder
 #define POLARBEAR_TEXTURE TEXTURES.polarbear
 #define ICE_TEXTURE TEXTURES.test
-#define PEDESTAL_TEXTURE TEXTURES.pedestal
+#define PEDESTAL_TEXTURE TEXTURES.powerup_pedastal
 
 static int PlacementMode = 0;
 static int ObstacleScale = 32;
@@ -556,6 +556,9 @@ void DrawObstacles()
             break;
         case Ice:
             ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), ICE_TEXTURE, obstacle.pos, obstacle.radius * 2, obstacle.radius * 2, 0, 1);
+            break;
+        case Pedestal:
+            ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), PEDESTAL_TEXTURE, obstacle.pos, obstacle.radius * 2, obstacle.radius * 2, 0, 1);
             break;
         }
     }
