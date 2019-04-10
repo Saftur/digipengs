@@ -11,6 +11,7 @@
 #include "InputHandler.h"
 #include "ParticleHandler.h"
 #include "Leaderboard.h"
+#include "CollisionHandler.h"
 
 #define PLAYER_STANDARD_TEXTURE TEXTURES.player
 #define PLAYER_RED_TEXTURE TEXTURES.playerRed
@@ -56,6 +57,7 @@ typedef struct PlayerData
 	Object *timer;
 	Object *lapCounter;
 
+	Collider *collider;
 }PlayerData;
 
 /**

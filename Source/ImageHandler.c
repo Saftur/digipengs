@@ -84,6 +84,17 @@ void ImageHandler_initializeTextures()
 
 	loadTexture(&TEXTURES.controls_p1, "controls_p1");
 	loadTexture(&TEXTURES.controls_p2, "controls_p2");
+
+
+	loadTexture(&TEXTURES.powerup_pedastal, "powerup_pedestal");
+	loadTexture(&TEXTURES.powerup_blind, "powerup_blind");
+	loadTexture(&TEXTURES.powerup_speed, "powerup_speed");
+	loadTexture(&TEXTURES.powerup_phase, "powerup_phase");
+
+	loadTexture(&TEXTURES.text_playerGreen, "text_playerGreen");
+	loadTexture(&TEXTURES.text_playerRed, "text_playerRed");
+
+	loadTexture(&TEXTURES.blindObject, "blindObject");
 }
 
 void ImageHandler_shutdown() {

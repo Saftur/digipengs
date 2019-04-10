@@ -73,6 +73,16 @@ struct LOADEDTEXTURES
 
 	AEGfxTexture *controls_p1;
 	AEGfxTexture *controls_p2;
+
+	AEGfxTexture *powerup_pedastal;
+	AEGfxTexture *powerup_blind;
+	AEGfxTexture *powerup_speed;
+	AEGfxTexture *powerup_phase;
+
+	AEGfxTexture *blindObject;
+
+	AEGfxTexture *text_playerGreen;
+	AEGfxTexture *text_playerRed;
 }typedef LOADEDTEXTURES;
 #pragma pack(pop)
 

@@ -29,6 +29,8 @@
 
 #include "ControlDisplay.h"
 
+#include "Pedestal.h"
+
 #define SCREEN_SEPARATOR_WIDTH 10
 
 #define MP_PLAYER_OFFSET 64
@@ -159,7 +161,6 @@ static void initPlayers() {
 
     Object *player = Player_new(pos1, direction, (Controls) { 'A', 'D', 'W', 'S', 0 }, 0);
     ObjectManager_addObj(player);
-    CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, 0, PlayerOnCollision);
     Player1 = player;
 
 	if (splitScreen) {
@@ -171,7 +172,6 @@ static void initPlayers() {
         player = Player_new(pos2, direction, (Controls) { VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN, 1 }, 1);
         ObjectManager_addObj(player);
         Player_changeTexture(player, PLAYER_GREEN_TEXTURE);
-        CollisionHandler_Create_Circle_Collider(player, fmaxf(PLAYER_SCALE.x, PLAYER_SCALE.y) / 2, 0, PlayerOnCollision);
         Player2 = player;
 	}
 }

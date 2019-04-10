@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="Source\AudioHandler.c" />
     <ClCompile Include="Source\Background.c" />
+    <ClCompile Include="Source\BlindObject.c" />
     <ClCompile Include="source\Boulder.c" />
     <ClCompile Include="Source\Button.c" />
     <ClCompile Include="Source\Camera.c" />
@@ -49,9 +50,13 @@
     <ClCompile Include="Source\ObstacleManager.c" />
     <ClCompile Include="Source\OptionsScreen.c" />
     <ClCompile Include="Source\ParticleHandler.c" />
+    <ClCompile Include="Source\Pedestal.c" />
     <ClCompile Include="source\Player.c" />
     <ClCompile Include="Source\Polarbear.c" />
     <ClCompile Include="Source\Pothole.c" />
+    <ClCompile Include="Source\Powerup_Blind.c" />
+    <ClCompile Include="Source\Powerup_Phase.c" />
+    <ClCompile Include="Source\Powerup_Speed.c" />
     <ClCompile Include="Source\SplashScreen.c" />
     <ClCompile Include="Source\stdafx.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -66,6 +71,7 @@
   <ItemGroup>
     <ClInclude Include="Source\AudioHandler.h" />
     <ClInclude Include="Source\Background.h" />
+    <ClInclude Include="Source\BlindObject.h" />
     <ClInclude Include="Source\Button.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="source\Boulder.h" />
@@ -101,9 +107,13 @@
     <ClInclude Include="Source\ObstacleManager.h" />
     <ClInclude Include="Source\OptionsScreen.h" />
     <ClInclude Include="Source\ParticleHandler.h" />
+    <ClInclude Include="Source\Pedestal.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Polarbear.h" />
     <ClInclude Include="Source\Pothole.h" />
+    <ClInclude Include="Source\Powerup_Blind.h" />
+    <ClInclude Include="Source\Powerup_Phase.h" />
+    <ClInclude Include="Source\Powerup_Speed.h" />
     <ClInclude Include="Source\SplashScreen.h" />
     <ClInclude Include="Source\stdafx.h" />
     <ClInclude Include="Source\TextHandler.h" />

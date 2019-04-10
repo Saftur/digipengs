@@ -65,7 +65,7 @@ void CollisionHandler_Create_Square_Collider(Object *gameObject, AEVec2 size, fl
  * @param radius Radius of the collider.
  * @param OnCollision Function pointer to be called on collision.
  */
-void CollisionHandler_Create_Circle_Collider(Object *gameObject, float radius, float angle, void(*OnCollision)(Collider *self, Collider *other));
+Collider *CollisionHandler_Create_Circle_Collider(Object *gameObject, float radius, float angle, void(*OnCollision)(Collider *self, Collider *other));
 
 /**
  * @brief Destroy a collider.

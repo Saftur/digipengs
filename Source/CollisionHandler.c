@@ -50,7 +50,10 @@ void CollisionHandler_Check_Collisions()
 
             //If both colliders are circles.
             if (collider1->type == Circle && collider2->type == Circle) {
-                if (strcmp(Object_getName(collider1->gameObject), "Wall") && strcmp(Object_getName(collider2->gameObject), "Wall")) {
+                if (strcmp(Object_getName(collider1->gameObject), "Wall") && strcmp(Object_getName(collider2->gameObject), "Wall")
+					&& strcmp(Object_getName(collider1->gameObject), "Powerup_Speed") && strcmp(Object_getName(collider2->gameObject),"Powerup_Speed")
+					&& strcmp(Object_getName(collider1->gameObject), "Powerup_Phase") && strcmp(Object_getName(collider2->gameObject),"Powerup_Phase")
+					&& strcmp(Object_getName(collider1->gameObject), "Powerup_Blind") && strcmp(Object_getName(collider2->gameObject),"Powerup_Blind")) {
                     if (collider1->phase > 0 || collider2->phase > 0) continue;
                 }
 
@@ -123,7 +126,7 @@ void CollisionHandler_Create_Square_Collider(Object * gameObject, AEVec2 size, f
     vector_push_back(colliders, collider);
 }
 
-void CollisionHandler_Create_Circle_Collider(Object * gameObject, float radius, float angle, void(*OnCollision)(Collider *self, Collider *other))
+Collider *CollisionHandler_Create_Circle_Collider(Object * gameObject, float radius, float angle, void(*OnCollision)(Collider *self, Collider *other))
 {
     Collider *collider = malloc(sizeof(Collider));
     collider->type = Circle;
@@ -133,6 +136,7 @@ void CollisionHandler_Create_Circle_Collider(Object * gameObject, float radius, 
     collider->angle = angle;
 
     vector_push_back(colliders, collider);
+	return collider;
 }
 
 void CollisionHandler_Destroy_Collider(Collider * collider)
