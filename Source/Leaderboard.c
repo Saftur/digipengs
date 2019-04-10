@@ -131,11 +131,14 @@ static void Leaderboard_onUpdate(Object* obj, Leaderboard* data, float dt)
 		}
 	}
 
-	sprintf_s(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_NAME_INDEX],
-		LEADERBOARD_NAME_LENGTH, leaderboardFormat[LEADERBOARD_NAME_INDEX], 
-		Leaderboard_getEntry(data->yourRank)->name);
-
 	UNREFERENCED_PARAMETER(obj);
+}
+
+void Leaderboard_updateRankName(Leaderboard* data, int rank)
+{
+	sprintf_s(data->leaderboardText[rank + 1][LEADERBOARD_NAME_INDEX],
+		LEADERBOARD_NAME_LENGTH, leaderboardFormat[LEADERBOARD_NAME_INDEX],
+		Leaderboard_getEntry(rank)->name);
 }
 
 static void Leaderboard_onDraw(Object* obj, Leaderboard* data)
@@ -179,7 +182,7 @@ static void titleScreenEffect() {
 	LevelManager_setNextLevel(TitleScreen);
 }
 
-void Default_Leaderboard(unsigned camNum)
+Leaderboard* Default_Leaderboard(unsigned camNum)
 {
 	Color palette[LEADERBOARD_PALETTE_ROWS][LEADERBOARD_PALETTE_COLUMNS] = {
 			{ { 1, 1, 1, 1, }, { 1, 1, 1, 1, }, { 1, 1, 1, 1, } },
@@ -194,4 +197,6 @@ void Default_Leaderboard(unsigned camNum)
 
 	ObjectManager_addObj(leaderboard);
 	ObjectManager_addObj(titleScreenButton);
+
+	return Object_getData(leaderboard);
 }

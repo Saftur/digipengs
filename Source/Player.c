@@ -83,13 +83,14 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 
 			Timer* timerData = Object_getData(data->timer);
 
-			data->name = Leaderboard_addEntry("[insert name]       ", timerData->time, timerData->intTime / 60, timerData->intTime % 60);
-			if (data->name)
+			data->playerRank = Leaderboard_addEntry("[insert name]       ", timerData->time, timerData->intTime / 60, timerData->intTime % 60);
+			if (data->playerRank != -1)
 			{
+				data->name = Leaderboard_getEntry(data->playerRank)->name;
 				data->highscore = true;
 			}
 
-			Default_Leaderboard(data->playerNum);
+			data->leaderboard = Default_Leaderboard(data->playerNum);
 
 			AEInputShowCursor(true);
 		}
@@ -100,35 +101,7 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 			{
 				if (AEInputCheckTriggered(key)) 
 				{
-					if (data->nameIndex < LEADERBOARD_NAME_LENGTH)
-					{
-						if (!(data->typingName))
-						{
-							for (int i = 0; i < LEADERBOARD_NAME_LENGTH; i++)
-							{
-								data->name[i] = ' ';
-							}
-
-							data->typingName = true;
-						}
-
-						if (AEInputCheckCurr(VK_LSHIFT) || AEInputCheckCurr(VK_RSHIFT))
-						{
-							data->name[data->nameIndex] = (char)key;
-						}
-						else
-						{
-							data->name[data->nameIndex] = (char)key - 'A' + 'a';
-						}
-					}
-				}
-			}
-
-			for (u8 key = '0'; key <= '9'; key++)
-			{
-				if (AEInputCheckTriggered(key))
-				{
-					if (data->nameIndex < LEADERBOARD_NAME_LENGTH)
+					if (data->nameIndex < LEADERBOARD_NAME_LENGTH-1)
 					{
 						if (!(data->typingName))
 						{
@@ -140,7 +113,35 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 							data->typingName = true;
 						}
 
-						data->name[data->nameIndex] = (char)key;
+						if (AEInputCheckCurr(VK_LSHIFT) || AEInputCheckCurr(VK_RSHIFT))
+						{
+							data->name[data->nameIndex++] = (char)key;
+						}
+						else
+						{
+							data->name[data->nameIndex++] = (char)key - 'A' + 'a';
+						}
+					}
+				}
+			}
+
+			for (u8 key = '0'; key <= '9'; key++)
+			{
+				if (AEInputCheckTriggered(key))
+				{
+					if (data->nameIndex < LEADERBOARD_NAME_LENGTH-1)
+					{
+						if (!(data->typingName))
+						{
+							for (int i = 0; i < LEADERBOARD_NAME_LENGTH; i++)
+							{
+								data->name[i] = 0;
+							}
+
+							data->typingName = true;
+						}
+
+						data->name[data->nameIndex++] = (char)key;
 					}
 				}
 			}
@@ -159,10 +160,11 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 
 				if (data->nameIndex > 0)
 				{
-					data->nameIndex--;
-					data->name[data->nameIndex] = 0;
+					data->name[--(data->nameIndex)] = 0;
 				}
 			}
+
+			Leaderboard_updateRankName(data->leaderboard, data->playerRank);
 		}
     }
 

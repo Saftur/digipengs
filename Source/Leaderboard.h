@@ -38,4 +38,6 @@ Object* Leaderboard_new(AEGfxTexture* font, AEVec2 pos, AEVec2 posDiff, AEVec2 c
 	Color palatte[LEADERBOARD_PALETTE_ROWS][LEADERBOARD_PALETTE_COLUMNS], 
 	int yourRank, int ranksToDisplay, float addRankTime, unsigned camNum);
 
-void Default_Leaderboard(unsigned camNum);
+Leaderboard* Default_Leaderboard(unsigned camNum);
+
+void Leaderboard_updateRankName(Leaderboard* data, int rank);

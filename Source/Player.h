@@ -45,6 +45,9 @@ typedef struct PlayerData
 	//char name[LEADERBOARD_NAME_LENGTH];
 	char *name;
 	int nameIndex;
+	int playerRank;
+
+	Leaderboard *leaderboard;
 
     ParticleEmitter *particleEmitter;
     void *particleData;
