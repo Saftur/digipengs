@@ -6,6 +6,7 @@
 #include "stdafx.h"
 #include "Camera.h"
 #include "vector.h"
+#include "Utils.h"
 
 static vector *cams;
 static Camera *currCam;
@@ -58,6 +59,18 @@ Camera *Camera_getCurr() {
 Camera *Camera_get(unsigned camNum) {
     return vector_at(cams, camNum);
 }
+
+void Camera_ScreenCoordToCamCoord(float screenX, float screenY, float *x, float *y, unsigned camNum) {
+	Camera *cam = Camera_get(camNum);
+
+	screenX -= cam->viewportPos.x;
+	screenY -= cam->viewportPos.y;
+	screenX *= AEGfxGetWinSizeX() / cam->viewportSize.x;
+	screenY *= AEGfxGetWinSizeY() / cam->viewportSize.y;
+
+	AEGfxConvertScreenCoordinatesToWorld(screenX, screenY, x, y);
+}
+
 
 float Camera_xPos() {
     return currCam->worldPos.x;

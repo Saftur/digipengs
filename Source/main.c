@@ -112,6 +112,9 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 	// Game Loop
 	while (LevelManager_isRunning())
 	{
+		// Test
+		AEInputShowCursor(true);
+
 		// Informing the system about the loop's start
 		AESysFrameStart();
 

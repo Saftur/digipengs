@@ -33,32 +33,34 @@ void Leaderboard_write()
 	fclose(file);
 }
 
-LeaderboardRank Leaderboard_getEntry(unsigned rank)
+LeaderboardRank* Leaderboard_getEntry(unsigned rank)
 {
 	if (rank < LEADERBOARD_SIZE)
 	{
-		return leaderboard[rank];
+		return &leaderboard[rank];
 	}
 	else
 	{
-		return (LeaderboardRank){ 0 };
+		return NULL;
 	}
 }
 
-void Leaderboard_addEntry(LeaderboardRank entry)
+int Leaderboard_addEntry(const char* name, float time, int minutes, int seconds)
 {
 	for (unsigned i = 0; i < LEADERBOARD_SIZE; i++) 
 	{
-		if (entry.time <= Leaderboard_getEntry(i).time || Leaderboard_getEntry(i).time == 0)
-		{
-			LeaderboardRank temp, next = entry;
 
-			for (i; i < LEADERBOARD_SIZE; i++)
-			{
-				temp = leaderboard[i];
-				leaderboard[i] = next;
-				next = temp;
-			}
+		if (time <= leaderboard[i].time || leaderboard[i].time == 0)
+		{
+			memmove(leaderboard + i + 1, leaderboard + i, (LEADERBOARD_SIZE - i - 1) * sizeof(LeaderboardRank));
+			strcpy_s(leaderboard[i].name, LEADERBOARD_NAME_LENGTH * sizeof(char), name);
+			leaderboard[i].time = time;
+			leaderboard[i].minutes = minutes;
+			leaderboard[i].seconds = seconds; 
+
+			return i;
 		}
 	}
+
+	return -1;
 }

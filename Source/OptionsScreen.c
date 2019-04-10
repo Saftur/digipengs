@@ -37,7 +37,7 @@ void OptionsScreen_onInit()
 
 	titleScreenButton = Button_new(titleScreenEffect, 
 		TEXTURES.endScreen_titleScreenButton, TEXTURES.buttonSelected, TEXTURES.endScreen_titleScreenButton,
-		0, -300, 600, 100);
+		0, -300, 600, 100, 0);
 
 	ObjectManager_addObj(titleScreenButton);
 	ObjectManager_addObj(dragButton);

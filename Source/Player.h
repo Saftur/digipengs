@@ -10,6 +10,7 @@
 
 #include "InputHandler.h"
 #include "ParticleHandler.h"
+#include "Leaderboard.h"
 
 #define PLAYER_STANDARD_TEXTURE TEXTURES.player
 #define PLAYER_RED_TEXTURE TEXTURES.playerRed
@@ -25,7 +26,7 @@ typedef struct PlayerData
 	float speedcap;
     float speedScalar;
 
-    float* lap;
+    float lap;
 
     Controls controls; ///< Player's controls
 
@@ -37,9 +38,24 @@ typedef struct PlayerData
 	float alpha; ///< Transparency
 
 	int currentLap;
+	bool finalLap;
+	bool finished;
+	bool highscore;
+	bool typingName;
+
+	//char name[LEADERBOARD_NAME_LENGTH];
+	char *name;
+	int nameIndex;
+	int playerRank;
+
+	Leaderboard *leaderboard;
 
     ParticleEmitter *particleEmitter;
     void *particleData;
+
+	Object *timer;
+	Object *lapCounter;
+
 }PlayerData;
 
 /**
@@ -50,7 +66,7 @@ typedef struct PlayerData
  * @param playerNum Player number
  * @return New player
  */
-Object * Player_new(AEVec2 pos, float direction, Controls controls, unsigned playerNum, float* lap);
+Object * Player_new(AEVec2 pos, float direction, Controls controls, unsigned playerNum);
 
 /**
  * @brief Returns the direction of a player

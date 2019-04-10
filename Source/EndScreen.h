@@ -1,6 +1,6 @@
 /**
  * @file EndScreen.h
- * @author Arthur Bouvier
+ * @author Parker Friedland
  * @date 3/10/2019
  * @brief End screen
  */

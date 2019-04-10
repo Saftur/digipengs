@@ -63,17 +63,17 @@ void TitleScreen_onInit()
 	ObjectManager_addObj(Object_new(NULL, NULL, titleDraw, NULL, NULL, "Title"));
 
 	Object *singlePlayerButton = Button_new(singleplayerButtonEffect, TEXTURES.titleScreen_startButton, TEXTURES.titleScreen_startButtonHover, TEXTURES.titleScreen_startButton,
-        0,  100, 600, 100);
-	Object *multiPlayerButton = Button_new(multiplayerButtonEffect, TEXTURES.titleScreen_startMultiButton, TEXTURES.titleScreen_startMultiButtonHover, TEXTURES.titleScreen_startButton,
-		0,    0, 600, 100);
-	Object *leaderboardButton = Button_new(leaderboardEffect, TEXTURES.titleScreen_leaderboardButton, TEXTURES.titleScreen_leaderboardButtonHover, NULL,
-		0, -100, 600, 100);
-    Object *levelEditorButton = Button_new(levelEditorEffect, TEXTURES.titleScreen_levelEditorButton, TEXTURES.titleScreen_levelEditorButtonHover, NULL, 
-        0, -200, 600, 100);
+        0,  100, 600, 100, 0);
+	Object *multiPlayerButton = Button_new(multiplayerButtonEffect, TEXTURES.titleScreen_startMultiButton, TEXTURES.titleScreen_startMultiButtonHover, TEXTURES.titleScreen_startMultiButton,
+		0,    0, 600, 100, 0);
+	Object *leaderboardButton = Button_new(leaderboardEffect, TEXTURES.titleScreen_leaderboardButton, TEXTURES.titleScreen_leaderboardButtonHover, TEXTURES.titleScreen_leaderboardButton,
+		0, -100, 600, 100, 0);
+    Object *levelEditorButton = Button_new(levelEditorEffect, TEXTURES.titleScreen_levelEditorButton, TEXTURES.titleScreen_levelEditorButtonHover, TEXTURES.titleScreen_levelEditorButton, 
+        0, -200, 600, 100, 0);
 	Object *exitButton = Button_new(quitEffect, TEXTURES.titleScreen_exitButton, TEXTURES.titleScreen_exitButtonHover, TEXTURES.titleScreen_exitButton,
-		0, -300, 600, 100);
-	Object *settingsButton = Button_new(NULL, TEXTURES.titleScreen_button, TEXTURES.titleScreen_button, TEXTURES.titleScreen_startButton,
-	 -375,  375, 50, 50);
+		0, -300, 600, 100, 0);
+	Object *settingsButton = Button_new(NULL, TEXTURES.titleScreen_button, TEXTURES.titleScreen_button, TEXTURES.titleScreen_button,
+	 -375,  375, 50, 50, 0);
 
 
     ObjectManager_addObj(singlePlayerButton);

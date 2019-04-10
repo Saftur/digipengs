@@ -1,3 +1,10 @@
+/**
+ * @file Leaderboard.h
+ * @author Parker Friedland
+ * @date 3/31/2019
+ * @brief Leaderboard
+ */
+
 #pragma once
 
 #include <AEEngine.h>
@@ -28,4 +35,9 @@
 typedef struct Leaderboard Leaderboard;
 
 Object* Leaderboard_new(AEGfxTexture* font, AEVec2 pos, AEVec2 posDiff, AEVec2 charScale,
-	Color palatte[LEADERBOARD_PALETTE_ROWS][LEADERBOARD_PALETTE_COLUMNS], int yourRank, int ranksToDisplay, float addRankTime);
+	Color palatte[LEADERBOARD_PALETTE_ROWS][LEADERBOARD_PALETTE_COLUMNS], 
+	int yourRank, int ranksToDisplay, float addRankTime, unsigned camNum);
+
+Leaderboard* Default_Leaderboard(unsigned camNum);
+
+void Leaderboard_updateRankName(Leaderboard* data, int rank);

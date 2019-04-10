@@ -60,6 +60,8 @@ Camera *Camera_getCurr();
 
 Camera *Camera_get(unsigned camNum);
 
+void Camera_ScreenCoordToCamCoord(float screenX, float screenY, float *x, float *y, unsigned camNum);
+
 /**
  * @brief Get current Camera X pos
  * @return Camera X pos

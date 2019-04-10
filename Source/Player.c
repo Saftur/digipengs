@@ -20,6 +20,11 @@
 #include "GameStartTimer.h"
 #include "FinalLap.h"
 #include "LapsLeftDisplay.h"
+#include "Leaderboard.h"
+#include "LeaderboardData.h"
+#include "Timer.h"
+#include "LapCounter.h"
+#include "objectmanager.h"
 
 #define PLAYER_ACCEL 240.75f
 #define PLAYER_DECCEL 252.f
@@ -50,31 +55,126 @@ void Player_onShutdown(PlayerData *data) {
 
 void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 {
+	UNREFERENCED_PARAMETER(dt);
+
 	if (!GameStartTimer_started())
 		return;
-    UNREFERENCED_PARAMETER(dt);
 
-	if (*(data->lap) == NUM_LAPS && data->currentLap == NUM_LAPS)
+	if (!(data->finished))
+		Timer_Start(Object_getData(data->timer));
+
+	if (data->lap == NUM_LAPS && data->currentLap == NUM_LAPS)
 	{
 		FinalLap_display(data->playerNum);
 		data->currentLap++;
 	}
-	else if (*(data->lap) == NUM_LAPS - 1 && data->currentLap == NUM_LAPS - 1)
+	else if (data->lap == NUM_LAPS - 1 && data->currentLap == NUM_LAPS - 1)
 	{
 		LapsLeftDisplay_display(data->playerNum, 2);
 		data->currentLap++;
 	}
-	else if (*(data->lap) == NUM_LAPS - 2 && data->currentLap == NUM_LAPS - 2)
+	else if (data->lap == NUM_LAPS - 2 && data->currentLap == NUM_LAPS - 2)
 	{
 		data->currentLap++;
 	}
 
-    if (*(data->lap) >= NUM_LAPS+1) {
-        if (splitScreen) {
-            EndScreen_winner = data->playerNum + 1;
-        } else EndScreen_winner = 0;
-        LevelManager_setNextLevel(EndScreen);
-        return;
+    if (data->lap >= NUM_LAPS+1) 
+	{
+		if (data->finished == false)
+		{
+			data->finished = true;
+			Timer_Stop(Object_getData(data->timer));
+
+			if (splitScreen) {
+				EndScreen_winner = data->playerNum + 1;
+			}
+			else EndScreen_winner = 0;
+
+			Timer* timerData = Object_getData(data->timer);
+
+			data->playerRank = Leaderboard_addEntry("[insert name]       ", timerData->time, timerData->intTime / 60, timerData->intTime % 60);
+			if (data->playerRank != -1)
+			{
+				data->name = Leaderboard_getEntry(data->playerRank)->name;
+				data->highscore = true;
+			}
+
+			data->leaderboard = Default_Leaderboard(data->playerNum);
+
+			AEInputShowCursor(true);
+		}
+
+		if (data->highscore)
+		{
+			for (u8 key = 'A'; key <= 'Z'; key++) 
+			{
+				if (AEInputCheckTriggered(key)) 
+				{
+					if (data->nameIndex < LEADERBOARD_NAME_LENGTH-1)
+					{
+						if (!(data->typingName))
+						{
+							for (int i = 0; i < LEADERBOARD_NAME_LENGTH; i++)
+							{
+								data->name[i] = 0;
+							}
+
+							data->typingName = true;
+						}
+
+						if (AEInputCheckCurr(VK_LSHIFT) || AEInputCheckCurr(VK_RSHIFT))
+						{
+							data->name[data->nameIndex++] = (char)key;
+						}
+						else
+						{
+							data->name[data->nameIndex++] = (char)key - 'A' + 'a';
+						}
+					}
+				}
+			}
+
+			for (u8 key = '0'; key <= '9'; key++)
+			{
+				if (AEInputCheckTriggered(key))
+				{
+					if (data->nameIndex < LEADERBOARD_NAME_LENGTH-1)
+					{
+						if (!(data->typingName))
+						{
+							for (int i = 0; i < LEADERBOARD_NAME_LENGTH; i++)
+							{
+								data->name[i] = 0;
+							}
+
+							data->typingName = true;
+						}
+
+						data->name[data->nameIndex++] = (char)key;
+					}
+				}
+			}
+
+			if (AEInputCheckTriggered('\b'))
+			{
+				if (!(data->typingName))
+				{
+					for (int i = 0; i < LEADERBOARD_NAME_LENGTH; i++)
+					{
+						data->name[i] = 0;
+					}
+
+					data->typingName = true;
+				}
+
+				if (data->nameIndex > 0)
+				{
+					data->name[--(data->nameIndex)] = 0;
+				}
+			}
+
+			Leaderboard_updateRankName(data->leaderboard, data->playerRank);
+		}
     }
 
 	data->speed += data->acceleration * data->speedScalar * dt;
@@ -112,11 +212,12 @@ void Player_onUpdate(Object *obj, PlayerData *data, float dt)
 void Player_onDraw(Object *obj, PlayerData *data)
 {
     ParticleEmitter_draw(data->particleEmitter);
-    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), data->texture, Object_getPos(obj), PLAYER_SCALE.x, PLAYER_SCALE.y, data->direction, data->alpha);
+    ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), 
+		data->texture, Object_getPos(obj), PLAYER_SCALE.x, PLAYER_SCALE.y, data->direction, data->alpha);
 }
 
 
-Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned playerNum, float* lap)
+Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned playerNum)
 {
     PlayerData * data = calloc(1, sizeof(PlayerData));
     Object *player = Object_new(Player_onInit, Player_onUpdate, Player_onDraw, data, Player_onShutdown, "Player");
@@ -127,7 +228,7 @@ Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned play
     data->speedcap = PLAYER_MAXSPD;
     data->speedScalar = 1;
 
-	data->lap = lap;
+	data->lap = 1.0f;
 
     data->controls = controls;
 
@@ -138,11 +239,31 @@ Object *Player_new(AEVec2 pos, float direction, Controls controls, unsigned play
     data->alpha = 1.0f;
 
 	data->currentLap = 1;
+	data->finished = false;
+	data->highscore = false;
+	data->typingName = false;
+
+	//strcpy(data->name, "[insert name]       ");
+	data->nameIndex = 0;
 
     data->particleData = malloc(sizeof(PlayerParticleData));
     ((PlayerParticleData*)data->particleData)->playerData = data;
     ((PlayerParticleData*)data->particleData)->modeSwitch = 0;
     data->particleEmitter = ParticleEmitter_new(pos, direction, 1, 16, particleSpawnFunc, particleSpawnTimeFunc, data->particleData);
+
+	AEVec2 timerPos;
+	timerPos.x = (splitScreen ? AEGfxGetWinMinX() / 2.f : AEGfxGetWinMinX()) + 30.f;
+	timerPos.y = AEGfxGetWinMaxY() - 80.f;
+	Object *timer = Timer_new(playerNum, TEXTURES.font, timerPos, (AEVec2) { 23, 42 }, 0);
+	data->timer = timer;
+	ObjectManager_addObj(timer);
+
+	AEVec2 lapCounterPos;
+	lapCounterPos.x = (splitScreen ? AEGfxGetWinMinX() / 2.f : AEGfxGetWinMinX()) + 40.f;
+	lapCounterPos.y = AEGfxGetWinMaxY() - 40.f;
+	Object *lapCounter = LapCounter_new(playerNum, "Lap %d", TEXTURES.font, lapCounterPos, (AEVec2) { 23, 42 }, &(data->lap));
+	data->lapCounter = lapCounter;
+	ObjectManager_addObj(lapCounter);
 
     return player;
 }
