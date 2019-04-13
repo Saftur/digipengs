@@ -14,6 +14,7 @@
 #include "Camera.h"
 #include "Button.h"
 #include "LevelManager.h"
+#include "Level2.h"
 
                                                 //1234    12345678901234567890    12345
 char* leaderboardHeader[LEADERBOARD_COLUMNS] = { "Rank", "Name                ", "Time " };
@@ -49,19 +50,19 @@ static void Leaderboard_onInit(Object* obj, Leaderboard* data)
 
 	data->textObj[0][LEADERBOARD_RANK_INDEX] = Text_new(leaderboardHeader[LEADERBOARD_RANK_INDEX],
 		data->font, textPos, data->charScale.x, data->charScale.y,
-		data->palatte[LEADERBOARD_PALETTE_RANK_INDEX][LEADERBOARD_PALETTE_HEADER_INDEX], camNum);
+		data->palatte[LEADERBOARD_PALETTE_HEADER_INDEX][LEADERBOARD_PALETTE_RANK_INDEX], camNum);
 
 	textPos.x += LEADERBOARD_RANK_LENGTH * (data->charScale.x);
 
 	data->textObj[0][LEADERBOARD_NAME_INDEX] = Text_new(leaderboardHeader[LEADERBOARD_NAME_INDEX],
 		data->font, textPos, data->charScale.x, data->charScale.y,
-		data->palatte[LEADERBOARD_PALETTE_NAME_INDEX][LEADERBOARD_PALETTE_HEADER_INDEX], camNum);
+		data->palatte[LEADERBOARD_PALETTE_HEADER_INDEX][LEADERBOARD_PALETTE_NAME_INDEX], camNum);
 
 	textPos.x += LEADERBOARD_NAME_LENGTH * (data->charScale.x);
 
 	data->textObj[0][LEADERBOARD_TIME_INDEX] = Text_new(leaderboardHeader[LEADERBOARD_TIME_INDEX],
 		data->font, textPos, data->charScale.x, data->charScale.y,
-		data->palatte[LEADERBOARD_PALETTE_TIME_INDEX][LEADERBOARD_PALETTE_HEADER_INDEX], camNum);
+		data->palatte[LEADERBOARD_PALETTE_HEADER_INDEX][LEADERBOARD_PALETTE_TIME_INDEX], camNum);
 
 	ObjectManager_addObj(data->textObj[0][LEADERBOARD_RANK_INDEX]);
 	ObjectManager_addObj(data->textObj[0][LEADERBOARD_NAME_INDEX]);
@@ -94,21 +95,21 @@ static void AddNextLeaderboardRank(Leaderboard* data, LeaderboardRank* rank)
 	data->textObj[data->ranksBeingDisplayed + 1][LEADERBOARD_RANK_INDEX] =
 		Text_new(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_RANK_INDEX],
 			data->font, textPos, data->charScale.x, data->charScale.y,
-			data->palatte[LEADERBOARD_PALETTE_RANK_INDEX][paleteRowIndex], camNum);
+			data->palatte[paleteRowIndex][LEADERBOARD_PALETTE_RANK_INDEX], camNum);
 
 	textPos.x += LEADERBOARD_RANK_LENGTH * (data->charScale.x);
 
 	data->textObj[data->ranksBeingDisplayed + 1][LEADERBOARD_NAME_INDEX] =
 		Text_new(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_NAME_INDEX],
 			data->font, textPos, data->charScale.x, data->charScale.y,
-			data->palatte[LEADERBOARD_PALETTE_NAME_INDEX][paleteRowIndex], camNum);
+			data->palatte[paleteRowIndex][LEADERBOARD_PALETTE_NAME_INDEX], camNum);
 
 	textPos.x += LEADERBOARD_NAME_LENGTH * (data->charScale.x);
 
 	data->textObj[data->ranksBeingDisplayed + 1][LEADERBOARD_TIME_INDEX] =
 		Text_new(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_TIME_INDEX],
 			data->font, textPos, data->charScale.x, data->charScale.y,
-			data->palatte[LEADERBOARD_PALETTE_TIME_INDEX][paleteRowIndex], camNum);
+			data->palatte[paleteRowIndex][LEADERBOARD_PALETTE_TIME_INDEX], camNum);
 
 	ObjectManager_addObj(data->textObj[data->ranksBeingDisplayed + 1][LEADERBOARD_RANK_INDEX]);
 	ObjectManager_addObj(data->textObj[data->ranksBeingDisplayed + 1][LEADERBOARD_NAME_INDEX]);
@@ -215,6 +216,7 @@ static void Leaderboard_onUpdate(Object* obj, Leaderboard* data, float dt)
 
 	if (data->yourRank)
 	{
+		keysEnabled = 0;
 		InsertingPlayerName(data);
 	}
 
@@ -267,12 +269,14 @@ static void titleScreenEffect() {
 Leaderboard* Default_Leaderboard(unsigned camNum, int yourRank)
 {
 	Color palette[LEADERBOARD_PALETTE_ROWS][LEADERBOARD_PALETTE_COLUMNS] = {
-			{ { 1, .5, 0, 1, }, { 1, .5, 0, 1, }, { 1, .5, 0, 1, } },
-			{ { 1, .5, 0, 1, }, { 1, .5, 0, 1, }, { 1, .5, 0, 1, } },
-			{ { 1, .5, 0, 1, }, { 1, .5, 0, 1, }, { 1, .5, 0, 1, } } };
+			{ { 1, 0, 0, 1, }, { 1, 0, 0, 1, }, { 1, 0, 0, 1, } },
+			{ { 1, 0, 0, 1, }, { 1, 0, 0, 1, }, { 1, 0, 0, 1, } },
+			{ { 1, 1, 0, 1, }, { 1, 1, 0, 1, }, { 1, 1, 0, 1, } } };
 
 	Object* leaderboard = Leaderboard_new(TEXTURES.font, 
-		(AEVec2) { -375, 275 }, (AEVec2) { 5, 45 }, (AEVec2) { 23, 42 }, palette, yourRank, 10, 0.2f, camNum);
+		(AEVec2) { -375, 275 }, (AEVec2) { 5, 45 }, (AEVec2) { 23, 42 }, palette, yourRank, 
+		LEADERBOARD_DEFAULT_NUM_RANKS_TO_DISPLAY, LEADERBOARD_DEFAULT_GROW_RATE, camNum);
+
 	Object* titleScreenButton = Button_new(
 		titleScreenEffect, TEXTURES.endScreen_titleScreenButton, TEXTURES.buttonSelected, TEXTURES.endScreen_titleScreenButton,
 		0, -300, 600, 100, camNum);

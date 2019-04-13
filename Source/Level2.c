@@ -39,6 +39,7 @@ Object *Player1 = NULL;
 Object *Player2 = NULL;
 
 int splitScreen = 0;
+int keysEnabled = 1;
 
 static void initPlayers();
 static void separatorDraw(Object *obj, void *data);
@@ -181,15 +182,15 @@ void Level2_onUpdate(float dt)
     UNREFERENCED_PARAMETER(dt);
 
     Camera *cam = Camera_getCurr();
-    if (AEInputCheckCurr('Q'))
-        cam->worldScale *= 0.9f;
-    if (AEInputCheckCurr('E'))
-        cam->worldScale *= 1.1f;
+    if (keysEnabled && AEInputCheckCurr('Q'))
+        cam->worldScale *= SHRINK_RATE;
+    if (keysEnabled && AEInputCheckCurr('E'))
+        cam->worldScale *= GROW_RATE;
 	
-	if (AEInputCheckCurr('R'))
+	if (keysEnabled && AEInputCheckCurr('R'))
 		LevelManager_setNextLevel(EndScreen);
 
-    if (AEInputCheckTriggered('O'))
+    if (keysEnabled && AEInputCheckTriggered('O'))
     {
         s32 mX, mY;
         AEInputGetCursorPosition(&mX, &mY);

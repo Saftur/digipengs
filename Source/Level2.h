@@ -9,7 +9,11 @@
 
 #define NUM_LAPS 3
 
+#define SHRINK_RATE 0.95f
+#define GROW_RATE 1.05f
+
 extern int splitScreen;
+extern int keysEnabled;
 
 /**
  * @brief Load Level.

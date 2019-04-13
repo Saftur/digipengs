@@ -19,6 +19,7 @@
 #include "ObstacleManager.h"
 #include "Polarbear.h"
 #include "MapSavedText.h"
+#include "LeaderboardData.h"
 
 #define BOULDER_TEXTURE TEXTURES.boulder
 #define POLARBEAR_TEXTURE TEXTURES.polarbear
@@ -485,6 +486,8 @@ static void SaveMap() {
         fprintf(file, "%5d%5d%5d%5d", (int)obstacle->radius, (int)obstacle->pos.x, (int)obstacle->pos.y, (int)obstacle->rotation);
     }
     fclose(file);
+
+	Leaderboard_clear();
 }
 
 static void ClearMap() {

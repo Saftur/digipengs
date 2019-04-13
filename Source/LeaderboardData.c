@@ -64,3 +64,8 @@ int Leaderboard_addEntry(const char* name, float time, int minutes, int seconds)
 
 	return 0;
 }
+
+void Leaderboard_clear()
+{
+	memset(leaderboard, 0, sizeof(LeaderboardRank) * LEADERBOARD_SIZE);
+}

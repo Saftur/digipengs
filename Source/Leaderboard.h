@@ -32,6 +32,9 @@
 #define LEADERBOARD_PALETTE_LEADERBOARD_INDEX 1
 #define LEADERBOARD_PALETTE_YOUR_RANK_INDEX 2
 
+#define LEADERBOARD_DEFAULT_NUM_RANKS_TO_DISPLAY 10
+#define LEADERBOARD_DEFAULT_GROW_RATE 0.3f
+
 typedef struct Leaderboard Leaderboard;
 
 Object* Leaderboard_new(AEGfxTexture* font, AEVec2 pos, AEVec2 posDiff, AEVec2 charScale,
