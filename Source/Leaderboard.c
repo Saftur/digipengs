@@ -19,7 +19,8 @@
 char* leaderboardHeader[LEADERBOARD_COLUMNS] = { "Rank", "Name                ", "Time " };
 char* leaderboardFormat[LEADERBOARD_COLUMNS] = { "%2i  ", "%-20s", "%2.2i:%2.2i" };
 
-typedef struct Leaderboard {
+typedef struct Leaderboard 
+{
 	unsigned camNum;
 	AEGfxTexture* font;
 	AEVec2 nextPos;
@@ -33,6 +34,9 @@ typedef struct Leaderboard {
 	int ranksBeingDisplayed;
 	float addRankTime;
 	float timeUntilNextRank;
+	bool typingName;
+	int nameIndex;
+	char* name;
 } Leaderboard;
 
 static void Leaderboard_onInit(Object* obj, Leaderboard* data)
@@ -69,13 +73,134 @@ static void Leaderboard_onInit(Object* obj, Leaderboard* data)
 	UNREFERENCED_PARAMETER(obj);
 }
 
+static void AddNextLeaderboardRank(Leaderboard* data, LeaderboardRank* rank)
+{
+	sprintf_s(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_RANK_INDEX],
+		LEADERBOARD_RANK_LENGTH, leaderboardFormat[LEADERBOARD_RANK_INDEX], data->ranksBeingDisplayed + 1);
+	sprintf_s(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_NAME_INDEX],
+		LEADERBOARD_NAME_LENGTH, leaderboardFormat[LEADERBOARD_NAME_INDEX], rank->name);
+	sprintf_s(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_TIME_INDEX],
+		LEADERBOARD_TIME_LENGTH, leaderboardFormat[LEADERBOARD_TIME_INDEX], rank->minutes, rank->seconds);
+
+	int paleteRowIndex = LEADERBOARD_PALETTE_LEADERBOARD_INDEX;
+	if (data->ranksBeingDisplayed + 1 == data->yourRank)
+	{
+		paleteRowIndex = LEADERBOARD_PALETTE_YOUR_RANK_INDEX;
+	}
+
+	AEVec2 textPos = data->nextPos;
+	unsigned camNum = data->camNum;
+
+	data->textObj[data->ranksBeingDisplayed + 1][LEADERBOARD_RANK_INDEX] =
+		Text_new(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_RANK_INDEX],
+			data->font, textPos, data->charScale.x, data->charScale.y,
+			data->palatte[LEADERBOARD_PALETTE_RANK_INDEX][paleteRowIndex], camNum);
+
+	textPos.x += LEADERBOARD_RANK_LENGTH * (data->charScale.x);
+
+	data->textObj[data->ranksBeingDisplayed + 1][LEADERBOARD_NAME_INDEX] =
+		Text_new(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_NAME_INDEX],
+			data->font, textPos, data->charScale.x, data->charScale.y,
+			data->palatte[LEADERBOARD_PALETTE_NAME_INDEX][paleteRowIndex], camNum);
+
+	textPos.x += LEADERBOARD_NAME_LENGTH * (data->charScale.x);
+
+	data->textObj[data->ranksBeingDisplayed + 1][LEADERBOARD_TIME_INDEX] =
+		Text_new(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_TIME_INDEX],
+			data->font, textPos, data->charScale.x, data->charScale.y,
+			data->palatte[LEADERBOARD_PALETTE_TIME_INDEX][paleteRowIndex], camNum);
+
+	ObjectManager_addObj(data->textObj[data->ranksBeingDisplayed + 1][LEADERBOARD_RANK_INDEX]);
+	ObjectManager_addObj(data->textObj[data->ranksBeingDisplayed + 1][LEADERBOARD_NAME_INDEX]);
+	ObjectManager_addObj(data->textObj[data->ranksBeingDisplayed + 1][LEADERBOARD_TIME_INDEX]);
+
+	data->timeUntilNextRank = data->addRankTime;
+	data->ranksBeingDisplayed++;
+	data->nextPos.x += data->posDiff.x;
+	data->nextPos.y -= data->posDiff.y;
+}
+
+static void InsertingPlayerName(Leaderboard* data)
+{
+	for (u8 key = 'A'; key <= 'Z'; key++)
+	{
+		if (AEInputCheckTriggered(key))
+		{
+			if (data->nameIndex < LEADERBOARD_NAME_LENGTH - 1)
+			{
+				if (!(data->typingName))
+				{
+					for (int i = 0; i < LEADERBOARD_NAME_LENGTH; i++)
+					{
+						data->name[i] = 0;
+					}
+
+					data->typingName = true;
+				}
+
+				if (AEInputCheckCurr(VK_LSHIFT) || AEInputCheckCurr(VK_RSHIFT))
+				{
+					data->name[data->nameIndex++] = (char)key;
+				}
+				else
+				{
+					data->name[data->nameIndex++] = (char)key - 'A' + 'a';
+				}
+			}
+		}
+	}
+
+	for (u8 key = '0'; key <= '9'; key++)
+	{
+		if (AEInputCheckTriggered(key))
+		{
+			if (data->nameIndex < LEADERBOARD_NAME_LENGTH - 1)
+			{
+				if (!(data->typingName))
+				{
+					for (int i = 0; i < LEADERBOARD_NAME_LENGTH; i++)
+					{
+						data->name[i] = 0;
+					}
+
+					data->typingName = true;
+				}
+
+				data->name[data->nameIndex++] = (char)key;
+			}
+		}
+	}
+
+	if (AEInputCheckTriggered('\b'))
+	{
+		if (!(data->typingName))
+		{
+			for (int i = 0; i < LEADERBOARD_NAME_LENGTH; i++)
+			{
+				data->name[i] = 0;
+			}
+
+			data->typingName = true;
+		}
+
+		if (data->nameIndex > 0)
+		{
+			data->name[--(data->nameIndex)] = 0;
+		}
+	}
+
+	sprintf_s(data->leaderboardText[data->yourRank][LEADERBOARD_NAME_INDEX],
+		LEADERBOARD_NAME_LENGTH, leaderboardFormat[LEADERBOARD_NAME_INDEX],
+		Leaderboard_getEntry(data->yourRank)->name);
+}
+
 static void Leaderboard_onUpdate(Object* obj, Leaderboard* data, float dt)
 {
 	printf("Leaderboard update\n");
 
 	if (data->ranksBeingDisplayed < data->ranksToDisplay)
 	{
-		LeaderboardRank* rank = Leaderboard_getEntry(data->ranksBeingDisplayed);
+		LeaderboardRank* rank = Leaderboard_getEntry(data->ranksBeingDisplayed+1);
 
 		if (rank->time > 0)
 		{
@@ -83,62 +208,17 @@ static void Leaderboard_onUpdate(Object* obj, Leaderboard* data, float dt)
 
 			if (data->timeUntilNextRank < 0)
 			{
-				sprintf_s(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_RANK_INDEX],
-					LEADERBOARD_RANK_LENGTH, leaderboardFormat[LEADERBOARD_RANK_INDEX], data->ranksBeingDisplayed + 1);
-				sprintf_s(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_NAME_INDEX],
-					LEADERBOARD_NAME_LENGTH, leaderboardFormat[LEADERBOARD_NAME_INDEX], rank->name);
-				sprintf_s(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_TIME_INDEX],
-					LEADERBOARD_TIME_LENGTH, leaderboardFormat[LEADERBOARD_TIME_INDEX], rank->minutes, rank->seconds);
-
-
-				int paleteRowIndex = LEADERBOARD_PALETTE_LEADERBOARD_INDEX;
-				if (data->ranksBeingDisplayed + 1 == data->yourRank)
-				{
-					paleteRowIndex = LEADERBOARD_PALETTE_YOUR_RANK_INDEX;
-				}
-
-				AEVec2 textPos = data->nextPos;
-				unsigned camNum = data->camNum;
-
-				data->textObj[data->ranksBeingDisplayed + 1][LEADERBOARD_RANK_INDEX] =
-					Text_new(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_RANK_INDEX],
-						data->font, textPos, data->charScale.x, data->charScale.y,
-						data->palatte[LEADERBOARD_PALETTE_RANK_INDEX][paleteRowIndex], camNum);
-
-				textPos.x += LEADERBOARD_RANK_LENGTH * (data->charScale.x);
-
-				data->textObj[data->ranksBeingDisplayed + 1][LEADERBOARD_NAME_INDEX] =
-					Text_new(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_NAME_INDEX],
-						data->font, textPos, data->charScale.x, data->charScale.y,
-						data->palatte[LEADERBOARD_PALETTE_NAME_INDEX][paleteRowIndex], camNum);
-
-				textPos.x += LEADERBOARD_NAME_LENGTH * (data->charScale.x);
-
-				data->textObj[data->ranksBeingDisplayed + 1][LEADERBOARD_TIME_INDEX] =
-					Text_new(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_TIME_INDEX],
-						data->font, textPos, data->charScale.x, data->charScale.y,
-						data->palatte[LEADERBOARD_PALETTE_TIME_INDEX][paleteRowIndex], camNum);
-
-				ObjectManager_addObj(data->textObj[data->ranksBeingDisplayed + 1][LEADERBOARD_RANK_INDEX]);
-				ObjectManager_addObj(data->textObj[data->ranksBeingDisplayed + 1][LEADERBOARD_NAME_INDEX]);
-				ObjectManager_addObj(data->textObj[data->ranksBeingDisplayed + 1][LEADERBOARD_TIME_INDEX]);
-
-				data->timeUntilNextRank = data->addRankTime;
-				data->ranksBeingDisplayed++;
-				data->nextPos.x += data->posDiff.x;
-				data->nextPos.y -= data->posDiff.y;
+				AddNextLeaderboardRank(data, rank);
 			}
 		}
 	}
 
-	UNREFERENCED_PARAMETER(obj);
-}
+	if (data->yourRank)
+	{
+		InsertingPlayerName(data);
+	}
 
-void Leaderboard_updateRankName(Leaderboard* data, int rank)
-{
-	sprintf_s(data->leaderboardText[rank + 1][LEADERBOARD_NAME_INDEX],
-		LEADERBOARD_NAME_LENGTH, leaderboardFormat[LEADERBOARD_NAME_INDEX],
-		Leaderboard_getEntry(rank)->name);
+	UNREFERENCED_PARAMETER(obj);
 }
 
 static void Leaderboard_onDraw(Object* obj, Leaderboard* data)
@@ -163,6 +243,8 @@ Object* Leaderboard_new(AEGfxTexture* font, AEVec2 pos, AEVec2 posDiff, AEVec2 c
 	leaderboard->ranksBeingDisplayed = 0;
 	leaderboard->addRankTime = addRankTime;
 	leaderboard->timeUntilNextRank = addRankTime;
+	leaderboard->typingName = false;
+	leaderboard->name = Leaderboard_getEntry(yourRank)->name;
 	leaderboard->camNum = camNum;
 
 	for (int i = 0; i < LEADERBOARD_PALETTE_ROWS; i++)
@@ -182,7 +264,7 @@ static void titleScreenEffect() {
 	LevelManager_setNextLevel(TitleScreen);
 }
 
-Leaderboard* Default_Leaderboard(unsigned camNum)
+Leaderboard* Default_Leaderboard(unsigned camNum, int yourRank)
 {
 	Color palette[LEADERBOARD_PALETTE_ROWS][LEADERBOARD_PALETTE_COLUMNS] = {
 			{ { 1, .5, 0, 1, }, { 1, .5, 0, 1, }, { 1, .5, 0, 1, } },
@@ -190,7 +272,7 @@ Leaderboard* Default_Leaderboard(unsigned camNum)
 			{ { 1, .5, 0, 1, }, { 1, .5, 0, 1, }, { 1, .5, 0, 1, } } };
 
 	Object* leaderboard = Leaderboard_new(TEXTURES.font, 
-		(AEVec2) { -375, 275 }, (AEVec2) { 5, 45 }, (AEVec2) { 23, 42 }, palette, 0, 10, 0.2f, camNum);
+		(AEVec2) { -375, 275 }, (AEVec2) { 5, 45 }, (AEVec2) { 23, 42 }, palette, yourRank, 10, 0.2f, camNum);
 	Object* titleScreenButton = Button_new(
 		titleScreenEffect, TEXTURES.endScreen_titleScreenButton, TEXTURES.buttonSelected, TEXTURES.endScreen_titleScreenButton,
 		0, -300, 600, 100, camNum);

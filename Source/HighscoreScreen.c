@@ -21,7 +21,7 @@ void HighscoreScreen_onLoad()
 
 void HighscoreScreen_onInit()
 {
-	Default_Leaderboard(0);
+	Default_Leaderboard(0, 0);
 }
 
 void HighscoreScreen_onUpdate(float dt)
