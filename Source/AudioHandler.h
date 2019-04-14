@@ -15,6 +15,7 @@ extern float musicVolume;
 extern float SFXVolume;
 
 void Audio_init();
+void AudioUpdate();
 void Audio_cleanup();
 
 void Audio_playGameplay();

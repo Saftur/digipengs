@@ -55,6 +55,9 @@ void Audio_init()
   void *extrasfxdriverdata = 0;
   result = FMOD_System_Init(sfxSystem, 32, FMOD_INIT_NORMAL, extrasfxdriverdata);
   ERRCHECK(result);
+
+  FMOD_Channel_SetVolume(MusicChannel, musicVolume*musicVolume); // musicVolume^2 because we do not hear on a linear scale
+  FMOD_Channel_SetVolume(SFXChannel, SFXVolume*SFXVolume); // SFXVolume^2 because we do not hear on a linear scale
 }
 
 // Update the Audio System
@@ -62,13 +65,13 @@ void Audio_init()
 //       every time a user enters a command depending on the engine
 void AudioUpdate()
 {
-	FMOD_Channel_SetVolume(MusicChannel, musicVolume);
-	FMOD_Channel_SetVolume(SFXChannel, SFXVolume);
-
 	result = FMOD_System_Update(soundSystem);
 	ERRCHECK(result);
   result = FMOD_System_Update(sfxSystem);
   ERRCHECK(result);
+
+  FMOD_Channel_SetVolume(MusicChannel, musicVolume*musicVolume); // musicVolume^2 because we do not hear on a linear scale
+  FMOD_Channel_SetVolume(SFXChannel, SFXVolume*SFXVolume); // SFXVolume^2 because we do not hear on a linear scale
 }
 
 // Cleanup the Audio System
