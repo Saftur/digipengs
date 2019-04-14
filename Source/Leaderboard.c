@@ -25,7 +25,8 @@ typedef struct Leaderboard
 	unsigned camNum;
 	AEGfxTexture* font;
 	AEVec2 nextPos;
-	AEVec2 posDiff;
+	AEVec2 posDiff1;
+	AEVec2 posDiff2;
 	AEVec2 charScale;
 	Color palatte[LEADERBOARD_PALETTE_ROWS][LEADERBOARD_PALETTE_COLUMNS];
 	Object* textObj[LEADERBOARD_SIZE + 1][LEADERBOARD_COLUMNS];
@@ -53,12 +54,16 @@ static void Leaderboard_onInit(Object* obj, Leaderboard* data)
 		data->palatte[LEADERBOARD_PALETTE_HEADER_INDEX][LEADERBOARD_PALETTE_RANK_INDEX], camNum);
 
 	textPos.x += LEADERBOARD_RANK_LENGTH * (data->charScale.x);
+	textPos.x += data->posDiff1.x;
+	textPos.y += data->posDiff1.y;
 
 	data->textObj[0][LEADERBOARD_NAME_INDEX] = Text_new(leaderboardHeader[LEADERBOARD_NAME_INDEX],
 		data->font, textPos, data->charScale.x, data->charScale.y,
 		data->palatte[LEADERBOARD_PALETTE_HEADER_INDEX][LEADERBOARD_PALETTE_NAME_INDEX], camNum);
 
 	textPos.x += LEADERBOARD_NAME_LENGTH * (data->charScale.x);
+	textPos.x += data->posDiff1.x;
+	textPos.y += data->posDiff1.y;
 
 	data->textObj[0][LEADERBOARD_TIME_INDEX] = Text_new(leaderboardHeader[LEADERBOARD_TIME_INDEX],
 		data->font, textPos, data->charScale.x, data->charScale.y,
@@ -68,8 +73,8 @@ static void Leaderboard_onInit(Object* obj, Leaderboard* data)
 	ObjectManager_addObj(data->textObj[0][LEADERBOARD_NAME_INDEX]);
 	ObjectManager_addObj(data->textObj[0][LEADERBOARD_TIME_INDEX]);
 
-	data->nextPos.x += data->posDiff.x;
-	data->nextPos.y -= data->posDiff.y;
+	data->nextPos.x += data->posDiff2.x;
+	data->nextPos.y -= data->posDiff2.y;
 
 	UNREFERENCED_PARAMETER(obj);
 }
@@ -98,6 +103,8 @@ static void AddNextLeaderboardRank(Leaderboard* data, LeaderboardRank* rank)
 			data->palatte[paleteRowIndex][LEADERBOARD_PALETTE_RANK_INDEX], camNum);
 
 	textPos.x += LEADERBOARD_RANK_LENGTH * (data->charScale.x);
+	textPos.x += data->posDiff1.x;
+	textPos.y += data->posDiff1.y;
 
 	data->textObj[data->ranksBeingDisplayed + 1][LEADERBOARD_NAME_INDEX] =
 		Text_new(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_NAME_INDEX],
@@ -105,6 +112,8 @@ static void AddNextLeaderboardRank(Leaderboard* data, LeaderboardRank* rank)
 			data->palatte[paleteRowIndex][LEADERBOARD_PALETTE_NAME_INDEX], camNum);
 
 	textPos.x += LEADERBOARD_NAME_LENGTH * (data->charScale.x);
+	textPos.x += data->posDiff1.x;
+	textPos.y += data->posDiff1.y;
 
 	data->textObj[data->ranksBeingDisplayed + 1][LEADERBOARD_TIME_INDEX] =
 		Text_new(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_TIME_INDEX],
@@ -117,8 +126,8 @@ static void AddNextLeaderboardRank(Leaderboard* data, LeaderboardRank* rank)
 
 	data->timeUntilNextRank = data->addRankTime;
 	data->ranksBeingDisplayed++;
-	data->nextPos.x += data->posDiff.x;
-	data->nextPos.y -= data->posDiff.y;
+	data->nextPos.x += data->posDiff2.x;
+	data->nextPos.y -= data->posDiff2.y;
 }
 
 static void InsertingPlayerName(Leaderboard* data)
@@ -230,7 +239,7 @@ static void Leaderboard_onDraw(Object* obj, Leaderboard* data)
 	UNREFERENCED_PARAMETER(data);
 }
 
-Object* Leaderboard_new(AEGfxTexture* font, AEVec2 pos, AEVec2 posDiff, AEVec2 charScale, 
+Object* Leaderboard_new(AEGfxTexture* font, AEVec2 pos, AEVec2 posDiff1, AEVec2 posDiff2, AEVec2 charScale,
 		Color palatte[LEADERBOARD_PALETTE_ROWS][LEADERBOARD_PALETTE_COLUMNS], 
 		int yourRank, int ranksToDisplay, float addRankTime, unsigned camNum)
 {
@@ -238,7 +247,8 @@ Object* Leaderboard_new(AEGfxTexture* font, AEVec2 pos, AEVec2 posDiff, AEVec2 c
 
 	leaderboard->font = font;
 	leaderboard->nextPos = pos;
-	leaderboard->posDiff = posDiff;
+	leaderboard->posDiff1 = posDiff1;
+	leaderboard->posDiff2 = posDiff2;
 	leaderboard->charScale = charScale;
 	leaderboard->yourRank = yourRank;
 	leaderboard->ranksToDisplay = ranksToDisplay;
@@ -274,7 +284,7 @@ Leaderboard* Default_Leaderboard(unsigned camNum, int yourRank)
 			{ { 1, 1, 0, 1, }, { 1, 1, 0, 1, }, { 1, 1, 0, 1, } } };
 
 	Object* leaderboard = Leaderboard_new(TEXTURES.font, 
-		(AEVec2) { -375, 275 }, (AEVec2) { 5, 45 }, (AEVec2) { 23, 42 }, palette, yourRank, 
+		(AEVec2) { -360, 275 }, (AEVec2) { 30, 0 }, (AEVec2) { 5, 45 }, (AEVec2) { 23, 42 }, palette, yourRank,
 		LEADERBOARD_DEFAULT_NUM_RANKS_TO_DISPLAY, LEADERBOARD_DEFAULT_GROW_RATE, camNum);
 
 	Object* titleScreenButton = Button_new(

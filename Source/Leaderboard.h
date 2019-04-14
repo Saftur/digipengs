@@ -37,7 +37,7 @@
 
 typedef struct Leaderboard Leaderboard;
 
-Object* Leaderboard_new(AEGfxTexture* font, AEVec2 pos, AEVec2 posDiff, AEVec2 charScale,
+Object* Leaderboard_new(AEGfxTexture* font, AEVec2 pos, AEVec2 posDiff1, AEVec2 posDiff2, AEVec2 charScale,
 	Color palatte[LEADERBOARD_PALETTE_ROWS][LEADERBOARD_PALETTE_COLUMNS], 
 	int yourRank, int ranksToDisplay, float addRankTime, unsigned camNum);
 

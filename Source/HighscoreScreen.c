@@ -14,6 +14,7 @@
 #include "LevelManager.h"
 #include "TitleScreen.h"
 #include "Button.h"
+#include "Background.h"
 
 void HighscoreScreen_onLoad()
 {
@@ -21,11 +22,14 @@ void HighscoreScreen_onLoad()
 
 void HighscoreScreen_onInit()
 {
+	AEInputShowCursor(1);
+	ObjectManager_addObj(Background_create());
 	Default_Leaderboard(0, 0);
 }
 
 void HighscoreScreen_onUpdate(float dt)
 {
+	Background_onDraw();
 	UNREFERENCED_PARAMETER(dt);
 }
 
