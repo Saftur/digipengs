@@ -63,7 +63,6 @@ void TitleScreen_onLoad()
 void TitleScreen_onInit()
 {
     AEInputShowCursor(1);
-
     ObjectManager_addObj(Background_create());
 	ObjectManager_addObj(Object_new(NULL, NULL, titleDraw, NULL, NULL, "Title"));
 
@@ -91,14 +90,7 @@ void TitleScreen_onInit()
 void TitleScreen_onUpdate(float dt)
 {
     Background_onDraw();
-	UNREFERENCED_PARAMETER(dt); // don't think we need this for the title screen but it's here just in case
-	
-	//ImageHandler_drawTexture(titleMesh, TEXTURES.titleScreen_title, (AEVec2) { 0, 150 }, 0);
-
-	//ImageHandler_drawTexture(StartMesh, TEXTURES.titleScreen_startButton, (AEVec2) { 0, 0 });
-	//ImageHandler_drawTexture(StartMesh, TEXTURES.titleScreen_startButton, (AEVec2) { 0, -100});
-	//ImageHandler_drawTexture(ExitMesh, TEXTURES.titleScreen_exitButton, (AEVec2) { 0, -200 });
-	//ImageHandler_drawTexture(OptionsMesh, TEXTURES.titleScreen_button, (AEVec2) { -375, 275 });
+	UNREFERENCED_PARAMETER(dt);
 }
 
 void TitleScreen_onShutdown()

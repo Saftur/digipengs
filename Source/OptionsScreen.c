@@ -15,6 +15,7 @@
 #include "Level2.h"
 #include "Button.h"
 #include "DragButton.h"
+#include "Background.h"
 #include "AudioHandler.h"
 #include <AEExport.h>
 
@@ -31,16 +32,21 @@ void OptionsScreen_onLoad()
 
 void OptionsScreen_onInit()
 {
+	AEInputShowCursor(1);
+	ObjectManager_addObj(Background_create());
+
 	Object* musicVolumeLabel = Text_new("Music Volume:", TEXTURES.font, (AEVec2) {-250, 250}, 23, 42, (Color) { 1, 1, 1, 1 }, 0);
 
 	Object* musicVolumeSlider = DragButton_new(&musicVolume, 0, 1, 
-		TEXTURES.buttonSelected, TEXTURES.titleScreen_levelEditorButton, TEXTURES.buttonSelected, TEXTURES.titleScreen_levelEditorButton,
+		TEXTURES.buttonSelected, TEXTURES.optionsScreen_track,
+		TEXTURES.optionsScreen_track, TEXTURES.optionsScreen_track,
 		0, 150, 0, 500, 50, 100, 100);
 
 	Object* SFXVolumeLabel = Text_new("Sound Effects Volume:", TEXTURES.font, (AEVec2) { -250, 0 }, 23, 42, (Color) { 1, 1, 1, 1 }, 0);
 
 	Object* SFXVolumeSlider = DragButton_new(&SFXVolume, 0, 1,
-		TEXTURES.buttonSelected, TEXTURES.titleScreen_levelEditorButton, TEXTURES.buttonSelected, TEXTURES.titleScreen_levelEditorButton,
+		TEXTURES.buttonSelected, TEXTURES.optionsScreen_track,
+		TEXTURES.optionsScreen_track, TEXTURES.optionsScreen_track,
 		0, -100, 0, 500, 50, 100, 100);
 
 	titleScreenButton = Button_new(titleScreenEffect, 
@@ -56,6 +62,7 @@ void OptionsScreen_onInit()
 
 void OptionsScreen_onUpdate(float dt)
 {
+	Background_onDraw();
 	UNREFERENCED_PARAMETER(dt);
 }
 

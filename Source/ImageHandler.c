@@ -56,6 +56,10 @@ void ImageHandler_initializeTextures()
     loadTexture(&TEXTURES.endScreen_tryAgainButton, "TempTryAgainButton");
     loadTexture(&TEXTURES.endScreen_titleScreenButton, "TempTitleScreenButton");
 
+	loadTexture(&TEXTURES.optionsScreen_dragButton, "Drag_Button");
+	loadTexture(&TEXTURES.optionsScreen_dragButtonHover, "Drag_Button_Hover");
+	loadTexture(&TEXTURES.optionsScreen_track, "Track");
+
     loadTexture(&TEXTURES.buttonSelected, "TempButtonSelected");
 
     loadTexture(&TEXTURES.map_straightTile, "StraightTile");
