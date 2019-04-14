@@ -231,10 +231,14 @@ void Level2_onUpdate(float dt)
         }
     }
 
+	// Power-Up Sound? :
+
+	/*
     if (AEInputCheckTriggered('P'))
     {
       Audio_playSfxHitWall();
     }
+	*/
 }
 
 void Level2_onDraw()
