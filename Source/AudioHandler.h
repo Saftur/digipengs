@@ -8,6 +8,12 @@
 
 #pragma once
 
+#define MIN_VOLUME 0.0f
+#define MAX_VOLUME 1.0f
+
+extern float musicVolume;
+extern float SFXVolume;
+
 void Audio_init();
 void Audio_cleanup();
 

@@ -44,6 +44,11 @@ static void quitEffect()
 	LevelManager_setNextLevel(LevelQuit);
 }
 
+static void optionsEffect()
+{
+	LevelManager_setNextLevel(OptionsScreen);
+}
+
 static void titleDraw(Object *obj, void *data) 
 {
     UNREFERENCED_PARAMETER(obj);
@@ -72,9 +77,8 @@ void TitleScreen_onInit()
         0, -200, 600, 100, 0);
 	Object *exitButton = Button_new(quitEffect, TEXTURES.titleScreen_exitButton, TEXTURES.titleScreen_exitButtonHover, TEXTURES.titleScreen_exitButton,
 		0, -300, 600, 100, 0);
-	Object *settingsButton = Button_new(NULL, TEXTURES.titleScreen_button, TEXTURES.titleScreen_button, TEXTURES.titleScreen_button,
+	Object *settingsButton = Button_new(optionsEffect, TEXTURES.titleScreen_button, TEXTURES.titleScreen_button, TEXTURES.titleScreen_button,
 	 -375,  375, 50, 50, 0);
-
 
     ObjectManager_addObj(singlePlayerButton);
     ObjectManager_addObj(multiPlayerButton);

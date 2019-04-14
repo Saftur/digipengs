@@ -23,6 +23,9 @@ FMOD_RESULT result;
 FMOD_SOUND *bgmGameplay;
 FMOD_SOUND *sfxPlayerHitWall;
 
+float musicVolume = 1;
+float SFXVolume = 1;
+
 //FMOD_Channel_SetMode(MusicChannel, FMOD_LOOP_OFF);
 //FMOD_Channel_SetLoopCount(FMOD_CHANNEL *MusicChannel, int loopcount);
 
@@ -59,6 +62,9 @@ void Audio_init()
 //       every time a user enters a command depending on the engine
 void AudioUpdate()
 {
+	FMOD_Channel_SetVolume(MusicChannel, musicVolume);
+	FMOD_Channel_SetVolume(SFXChannel, SFXVolume);
+
 	result = FMOD_System_Update(soundSystem);
 	ERRCHECK(result);
   result = FMOD_System_Update(sfxSystem);
