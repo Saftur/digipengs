@@ -17,5 +17,7 @@ typedef void(*ButtonEffectFunc)();
  * @brief Create new Button
  * @return New Button
  */
-Object *Button_new(ButtonEffectFunc buttonEffect, AEGfxTexture *defaultTexture, AEGfxTexture *mouseHoverTexture, AEGfxTexture *onClickTexture,
-	float x, float y, float width, float height, unsigned camNum);
+Object *Button_new(ButtonEffectFunc buttonEffect,
+	AEGfxTexture *defaultTexture, AEGfxTexture *mouseHoverTexture, AEGfxTexture *onClickTexture,
+	float x, float y, float minWidth, float minHeight, float maxWidth, float maxHeight,
+	float growTime, float shrinkTime, unsigned camNum);

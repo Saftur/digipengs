@@ -42,7 +42,8 @@ void DragButton_onUpdate(Object *obj, DragButton *data, float dt) {
 	float mouseY;
 	AEGfxConvertScreenCoordinatesToWorld((float)screenX, (float)screenY, &mouseX, &mouseY);
 
-	if (button_X - button_Width/2 < mouseX && mouseX < button_X + button_Width/2 && button_Y - button_Height/2 < mouseY && mouseY < button_Y + button_Height/2)
+	if (button_X - button_Width/2 < mouseX && mouseX < button_X + button_Width/2 
+		&& button_Y - button_Height/2 < mouseY && mouseY < button_Y + button_Height/2)
 	{
 		if (AEInputCheckCurr(VK_LBUTTON))
 		{
@@ -60,7 +61,8 @@ void DragButton_onUpdate(Object *obj, DragButton *data, float dt) {
 
 	if (data->texture == ON_CLICK)
 	{
-		float locationOnTrack = ((mouseX - Object_getPos(obj).x) * cosf(data->track_Angle) + (mouseY - Object_getPos(obj).y) * cosf(data->track_Angle)) / data->track_Length;
+		float locationOnTrack = ((mouseX - Object_getPos(obj).x) * cosf(data->track_Angle) 
+			+ (mouseY - Object_getPos(obj).y) * cosf(data->track_Angle)) / data->track_Length;
 
 		if (locationOnTrack < -0.5f)
 		{
@@ -76,8 +78,11 @@ void DragButton_onUpdate(Object *obj, DragButton *data, float dt) {
 	}
 
 	AEVec2 pos = Object_getPos(obj);
-	data->button_X = pos.x + data->track_Length*cosf(data->track_Angle)*(*(data->effectedVariable) - ((data->min + data->max) / 2)) / (data->max - data->min);
-	data->button_Y = pos.y + data->track_Length*sinf(data->track_Angle)*(*(data->effectedVariable) - ((data->min + data->max) / 2)) / (data->max - data->min);
+	data->button_X = pos.x + data->track_Length*cosf(data->track_Angle)*(*(data->effectedVariable) 
+		- ((data->min + data->max) / 2)) / (data->max - data->min);
+
+	data->button_Y = pos.y + data->track_Length*sinf(data->track_Angle)*(*(data->effectedVariable) 
+		- ((data->min + data->max) / 2)) / (data->max - data->min);
 }
 
 void DragButton_onDraw(Object *obj, DragButton *data) 

@@ -51,7 +51,7 @@ void OptionsScreen_onInit()
 
 	titleScreenButton = Button_new(titleScreenEffect, 
 		TEXTURES.endScreen_titleScreenButton, TEXTURES.buttonSelected, TEXTURES.endScreen_titleScreenButton,
-		0, -250, 600, 100, 0);
+		0, -250, 500, 80, 600, 100, 2.0f, 1.0f, 0);
 
 	ObjectManager_addObj(musicVolumeLabel);
 	ObjectManager_addObj(musicVolumeSlider);

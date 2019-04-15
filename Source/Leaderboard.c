@@ -287,9 +287,9 @@ Leaderboard* Default_Leaderboard(unsigned camNum, int yourRank)
 		(AEVec2) { -360, 275 }, (AEVec2) { 30, 0 }, (AEVec2) { 5, 45 }, (AEVec2) { 23, 42 }, palette, yourRank,
 		LEADERBOARD_DEFAULT_NUM_RANKS_TO_DISPLAY, LEADERBOARD_DEFAULT_GROW_RATE, camNum);
 
-	Object* titleScreenButton = Button_new(
-		titleScreenEffect, TEXTURES.endScreen_titleScreenButton, TEXTURES.buttonSelected, TEXTURES.endScreen_titleScreenButton,
-		0, -300, 600, 100, camNum);
+	Object* titleScreenButton = Button_new(titleScreenEffect, 
+		TEXTURES.endScreen_titleScreenButton, TEXTURES.buttonSelected, TEXTURES.endScreen_titleScreenButton,
+		0, -300, 550, 95, 600, 100, 2.0f, 1.0f, camNum);
 
 	ObjectManager_addObj(leaderboard);
 	ObjectManager_addObj(titleScreenButton);
