@@ -53,7 +53,6 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 	UNREFERENCED_PARAMETER(command_line);
 	UNREFERENCED_PARAMETER(prevInstanceH);
 
-    //srand((int)time(NULL));
     srand(20);
 
     RECT desktop;
@@ -81,14 +80,8 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 
     const HWND hwnd = AESysGetWindowHandle();
 
-    /*SetWindowLong(hwnd, GWL_STYLE,
-                  ~(WS_CAPTION | WS_THICKFRAME));*/
     SetWindowLong(hwnd, GWL_EXSTYLE, 0);
 
-    /*RECT desktop;
-    const HWND hDesktop = GetDesktopWindow();
-    GetWindowRect(hDesktop, &desktop);
-    SetWindowPos(hwnd, HWND_TOP, 0, 0, desktop.right, desktop.bottom, SWP_SHOWWINDOW);*/
     SetWindowPos(hwnd, HWND_TOP, 0, 0, desktop.right, desktop.bottom, SWP_SHOWWINDOW);
 
     //Dt variables
@@ -107,8 +100,6 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
     
     Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, AEGfxGetWinSize());
 
-    //AEInputShowCursor(0); //Hide the cursor.
-
 	// Game Loop
 	while (LevelManager_isRunning())
 	{
@@ -123,7 +114,7 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 
         //Calculate dt
         currentTime = GetTickCount();
-        //if (lastTime > 0) dt = (float) (currentTime - lastTime)/1000;
+        if (lastTime > 0) dt = (float) (currentTime - lastTime)/1000;
         lastTime = currentTime;
 
         LevelManager_update(dt);

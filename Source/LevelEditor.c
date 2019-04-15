@@ -538,6 +538,8 @@ static void DrawIcons() {
     AEVec2Add(&iconPos, &iconPos, &distBetweenIcons);
     ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), POLARBEAR_TEXTURE, iconPos, 32 * POLARBEAR_ASPECT_RATIO, 32, 0, 1);
     AEVec2Add(&iconPos, &iconPos, &distBetweenIcons);
+    ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), PEDESTAL_TEXTURE, iconPos, 32, 32, 0, 1);
+    AEVec2Add(&iconPos, &iconPos, &distBetweenIcons);
     //ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), ICE_TEXTURE, iconPos, 32, 32, 0, 1);
     //AEVec2Add(&iconPos, &iconPos, &distBetweenIcons);
 }

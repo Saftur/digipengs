@@ -61,7 +61,7 @@ void ObstacleManager_loadObstacles()
             break;
         case 'A':
             obstacle = Pedestal_new(obstacleData->pos);
-            Pedestal_setSize(obstacle, obstacleData->radius * 2);
+            //Pedestal_setSize(obstacle, obstacleData->radius * 2);
             CollisionHandler_Create_Circle_Collider(obstacle, obstacleData->radius, obstacleData->rotation, NULL);
             break;
         }
