@@ -40,14 +40,14 @@ void OptionsScreen_onInit()
 	Object* musicVolumeSlider = DragButton_new(&musicVolume, 0, 1, 
 		TEXTURES.buttonSelected, TEXTURES.optionsScreen_track,
 		TEXTURES.optionsScreen_track, TEXTURES.optionsScreen_track,
-		0, 150, 0, 500, 50, 100, 100);
+		0, 150, 0, 500, 50, 95, 95, 100, 100, 2.0f, 1.0f, 0);
 
 	Object* SFXVolumeLabel = Text_new("Sound Effects Volume:", TEXTURES.font, (AEVec2) { -250, 0 }, 23, 42, (Color) { 1, 1, 1, 1 }, 0);
 
 	Object* SFXVolumeSlider = DragButton_new(&SFXVolume, 0, 1,
 		TEXTURES.buttonSelected, TEXTURES.optionsScreen_track,
 		TEXTURES.optionsScreen_track, TEXTURES.optionsScreen_track,
-		0, -100, 0, 500, 50, 100, 100);
+		0, -100, 0, 500, 50, 95, 95, 100, 100, 2.0f, 1.0f, 0);
 
 	titleScreenButton = Button_new(titleScreenEffect, 
 		TEXTURES.endScreen_titleScreenButton, TEXTURES.buttonSelected, TEXTURES.endScreen_titleScreenButton,

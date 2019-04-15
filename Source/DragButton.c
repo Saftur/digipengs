@@ -10,6 +10,34 @@
 #include "MeshHandler.h"
 #include <AEEngine.h>
 #include "ImageHandler.h"
+#include "Camera.h"
+
+typedef struct DragButton {
+	float* effectedVariable;
+	float min;
+	float max;
+	AEGfxTexture* track_Texture;
+	AEGfxTexture* button_DefaultTexture;
+	AEGfxTexture* button_MouseHoverTexture;
+	AEGfxTexture* button_OnClickTexture;
+	int texture;
+	float track_Angle;
+	float track_Length;
+	float track_Thickness;
+	float button_minWidth;
+	float button_minHeight;
+	float button_maxWidth;
+	float button_maxHeight;
+	float button_currentWidth;
+	float button_currentHeight;
+	float button_widthGrowRate;
+	float button_heightGrowRate;
+	float button_widthShrinkRate;
+	float button_heightShrinkRate;
+	float button_X;
+	float button_Y;
+	unsigned camNum;
+} DragButton;
 
 /**
  * @brief Button init function
@@ -31,8 +59,8 @@ void DragButton_onUpdate(Object *obj, DragButton *data, float dt) {
 	f32 button_X, button_Y, button_Width, button_Height;
 	button_X = data->button_X;
 	button_Y = data->button_Y;
-	button_Width = data->button_Width;
-	button_Height = data->button_Height;
+	button_Width = data->button_currentWidth;
+	button_Height = data->button_currentHeight;
 
 	s32 screenX, screenY;
 	AEInputGetCursorPosition(&screenX, &screenY);
@@ -40,7 +68,7 @@ void DragButton_onUpdate(Object *obj, DragButton *data, float dt) {
 	//Convert mouse screen position to world position.
 	float mouseX;
 	float mouseY;
-	AEGfxConvertScreenCoordinatesToWorld((float)screenX, (float)screenY, &mouseX, &mouseY);
+	Camera_ScreenCoordToCamCoord((float)screenX, (float)screenY, &mouseX, &mouseY, data->camNum);
 
 	if (button_X - button_Width/2 < mouseX && mouseX < button_X + button_Width/2 
 		&& button_Y - button_Height/2 < mouseY && mouseY < button_Y + button_Height/2)
@@ -77,6 +105,37 @@ void DragButton_onUpdate(Object *obj, DragButton *data, float dt) {
 		*(data->effectedVariable) = (data->min + data->max) / 2 + locationOnTrack * (data->max - data->min);
 	}
 
+	if (data->texture == DEFAULT)
+	{
+		data->button_currentWidth -= data->button_widthGrowRate * dt;
+		data->button_currentHeight -= data->button_heightGrowRate * dt;
+
+		if (data->button_currentWidth < data->button_minWidth)
+		{
+			data->button_currentWidth = data->button_minWidth;
+		}
+
+		if (data->button_currentHeight < data->button_minHeight)
+		{
+			data->button_currentHeight = data->button_minHeight;
+		}
+	}
+	else
+	{
+		data->button_currentWidth += data->button_widthGrowRate * dt;
+		data->button_currentHeight += data->button_heightGrowRate * dt;
+
+		if (data->button_currentHeight > data->button_maxWidth)
+		{
+			data->button_currentHeight = data->button_maxWidth;
+		}
+
+		if (data->button_currentWidth > data->button_maxHeight)
+		{
+			data->button_currentWidth = data->button_maxHeight;
+		}
+	}
+
 	AEVec2 pos = Object_getPos(obj);
 	data->button_X = pos.x + data->track_Length*cosf(data->track_Angle)*(*(data->effectedVariable) 
 		- ((data->min + data->max) / 2)) / (data->max - data->min);
@@ -87,33 +146,38 @@ void DragButton_onUpdate(Object *obj, DragButton *data, float dt) {
 
 void DragButton_onDraw(Object *obj, DragButton *data) 
 {
-	ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), data->track_Texture, Object_getPos(obj), 
-		data->track_Length, data->track_Thickness, data->track_Angle, 1);
+	if (data->camNum == Camera_getCurrNum())
+	{
+		ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), data->track_Texture, Object_getPos(obj),
+			data->track_Length, data->track_Thickness, data->track_Angle, 1);
 
-	AEVec2 buttonPos;
-	buttonPos.x = data->button_X;
-	buttonPos.y = data->button_Y;
+		AEVec2 buttonPos;
+		buttonPos.x = data->button_X;
+		buttonPos.y = data->button_Y;
 
-	if (data->texture == DEFAULT)
-	{
-		ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), data->button_DefaultTexture, buttonPos, 
-			data->button_Width, data->button_Height, 0, 1);
-	}
-	else if (data->texture == HOVER)
-	{
-		ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), data->button_MouseHoverTexture, buttonPos, 
-			data->button_Width, data->button_Height, 0, 1);
-	}
-	else if (data->texture == ON_CLICK)
-	{
-		ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), data->button_OnClickTexture, buttonPos, 
-			data->button_Width, data->button_Height, 0, 1);
+		if (data->texture == DEFAULT)
+		{
+			ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), data->button_DefaultTexture, buttonPos,
+				data->button_currentWidth, data->button_currentHeight, 0, 1);
+		}
+		else if (data->texture == HOVER)
+		{
+			ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), data->button_MouseHoverTexture, buttonPos,
+				data->button_currentWidth, data->button_currentHeight, 0, 1);
+		}
+		else if (data->texture == ON_CLICK)
+		{
+			ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), data->button_OnClickTexture, buttonPos,
+				data->button_currentWidth, data->button_currentHeight, 0, 1);
+		}
 	}
 }
 
 Object* DragButton_new(float* effectedVariable, float min, float max, AEGfxTexture* track_Texture, AEGfxTexture* button_DefaultTexture, 
 		AEGfxTexture* button_MouseHoverTexture, AEGfxTexture* button_OnClickTexture,
-		float x, float y, float track_Angle, float track_Length, float track_Thickness, float button_Width, float button_Height)
+		float x, float y, float track_Angle, float track_Length, float track_Thickness, 
+		float button_minWidth, float button_minHeight, float button_maxWidth, float button_maxHeight, 
+		float growTime, float shrinkTime, unsigned camNum)
 {
 	DragButton *buttonData = malloc(sizeof(DragButton));
 	buttonData->effectedVariable = effectedVariable;
@@ -127,8 +191,17 @@ Object* DragButton_new(float* effectedVariable, float min, float max, AEGfxTextu
 	buttonData->track_Angle = track_Angle;
 	buttonData->track_Length = track_Length;
 	buttonData->track_Thickness = track_Thickness;
-	buttonData->button_Width = button_Width;
-	buttonData->button_Height = button_Height;
+	buttonData->button_minWidth = button_minWidth;
+	buttonData->button_minHeight = button_minHeight;
+	buttonData->button_maxWidth = button_maxWidth;
+	buttonData->button_maxHeight = button_maxHeight;
+	buttonData->button_currentWidth = button_minWidth;
+	buttonData->button_currentHeight = button_minHeight;
+	buttonData->button_widthGrowRate = growTime * (button_maxWidth - button_minWidth);
+	buttonData->button_heightGrowRate = growTime * (button_maxHeight - button_minHeight);
+	buttonData->button_widthShrinkRate = shrinkTime * (button_maxWidth - button_minWidth);
+	buttonData->button_heightShrinkRate = shrinkTime * (button_maxHeight - button_minHeight);
+	buttonData->camNum = camNum;
 
 	Object *buttonObj = Object_new(DragButton_onInit, DragButton_onUpdate, DragButton_onDraw, buttonData, free, "Drag Button");
 	AEVec2 pos;
