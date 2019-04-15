@@ -41,6 +41,9 @@ static void ERRCHECK(const FMOD_RESULT checkResult)
 // Initialize the Audio System
 void Audio_init()
 {
+	musicVolume = 1;
+	SFXVolume = 1;
+
 	// Create and Initialize the FMOD System
 	result = FMOD_System_Create(&soundSystem);
 	ERRCHECK(result);
@@ -55,9 +58,6 @@ void Audio_init()
   void *extrasfxdriverdata = 0;
   result = FMOD_System_Init(sfxSystem, 32, FMOD_INIT_NORMAL, extrasfxdriverdata);
   ERRCHECK(result);
-
-  FMOD_Channel_SetVolume(MusicChannel, musicVolume);
-  FMOD_Channel_SetVolume(SFXChannel, SFXVolume);
 }
 
 // Update the Audio System
