@@ -132,7 +132,8 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 
         CollisionHandler_Update(dt);
 
-		AudioUpdate();
+		// Might be causing weird sound bug
+		// AudioUpdate();
 
 		for (unsigned i = 0; i < Camera_count(); i++) {
 			Camera_set(i);

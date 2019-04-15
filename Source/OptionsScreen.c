@@ -63,6 +63,7 @@ void OptionsScreen_onInit()
 void OptionsScreen_onUpdate(float dt)
 {
 	Background_onDraw();
+	AudioUpdate();
 	UNREFERENCED_PARAMETER(dt);
 }
 
