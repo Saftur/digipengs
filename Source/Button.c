@@ -15,8 +15,16 @@ typedef struct Button {
 	AEGfxTexture *defaultTexture;
 	AEGfxTexture *mouseHoverTexture;
 	AEGfxTexture *onClickTexture;
-	float width;
-	float height;
+	float minWidth;
+	float minHeight;
+	float maxWidth;
+	float maxHeight;
+	float currentWidth;
+	float currentHeight;
+	float widthGrowRate;
+	float heightGrowRate;
+	float widthShrinkRate;
+	float heightShrinkRate;
 	int texture;
 	unsigned camNum;
 	ButtonEffectFunc buttonEffect;
@@ -44,8 +52,8 @@ void Button_onUpdate(Object *obj, Button *data, float dt) {
 	objY = pos.y;
 
 	f32 objWidth, objHeight;
-	objWidth = data->width;
-	objHeight = data->height;
+	objWidth = data->currentWidth;
+	objHeight = data->currentHeight;
 
 	s32 screenX, screenY;
 	AEInputGetCursorPosition(&screenX, &screenY);
@@ -55,11 +63,13 @@ void Button_onUpdate(Object *obj, Button *data, float dt) {
 	float mouseY;
 	Camera_ScreenCoordToCamCoord((float)screenX, (float)screenY, &mouseX, &mouseY, data->camNum);
 
-	if (objX - objWidth / 2 < mouseX && mouseX < objX + objWidth / 2 && objY - objHeight / 2 < mouseY && mouseY < objY + objHeight / 2)
+	if (objX - objWidth / 2 < mouseX && mouseX < objX + objWidth / 2 
+		&& objY - objHeight / 2 < mouseY && mouseY < objY + objHeight / 2)
 	{
 		if (AEInputCheckTriggered(VK_LBUTTON))
 		{
 			data->texture = ON_CLICK;
+
 			data->buttonEffect();
 		}
 		else
@@ -67,9 +77,40 @@ void Button_onUpdate(Object *obj, Button *data, float dt) {
 			data->texture = HOVER;
 		}
 	}
-	else
+	else if(!AEInputCheckCurr(VK_LBUTTON))
 	{
 		data->texture = DEFAULT;
+	}
+
+	if (data->texture == DEFAULT)
+	{
+		data->currentWidth -= data->widthGrowRate * dt;
+		data->currentHeight -= data->heightGrowRate * dt;
+
+		if (data->currentWidth < data->minWidth)
+		{
+			data->currentWidth = data->minWidth;
+		}
+
+		if (data->currentHeight < data->minHeight)
+		{
+			data->currentHeight = data->minHeight;
+		}
+	}
+	else
+	{
+		data->currentWidth += data->widthGrowRate * dt;
+		data->currentHeight += data->heightGrowRate * dt;
+
+		if (data->currentWidth > data->maxWidth)
+		{
+			data->currentWidth = data->maxWidth;
+		}
+
+		if (data->currentHeight > data->maxHeight)
+		{
+			data->currentHeight = data->maxHeight;
+		}
 	}
 }
 
@@ -79,33 +120,48 @@ void Button_onDraw(Object *obj, Button *data)
 	{
 		if (data->texture == DEFAULT)
 		{
-			ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), data->defaultTexture, Object_getPos(obj), data->width, data->height, 0, 1);
+			ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), data->defaultTexture, 
+				Object_getPos(obj), data->currentWidth, data->currentHeight, 0, 1);
 		}
 		else if (data->texture == HOVER)
 		{
-			ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), data->mouseHoverTexture, Object_getPos(obj), data->width, data->height, 0, 1);
+			ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), data->mouseHoverTexture, 
+				Object_getPos(obj), data->currentWidth, data->currentHeight, 0, 1);
 		}
 		else if (data->texture == ON_CLICK)
 		{
-			ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), data->onClickTexture, Object_getPos(obj), data->width, data->height, 0, 1);
+			ImageHandler_screenDrawTexture(MeshHandler_getSquareMesh(), data->onClickTexture, 
+				Object_getPos(obj), data->currentWidth, data->currentHeight, 0, 1);
 		}
 	}
 }
 
-Object *Button_new(ButtonEffectFunc buttonEffect, AEGfxTexture *defaultTexture, AEGfxTexture *mouseHoverTexture, AEGfxTexture *onClickTexture, 
-				   float x, float y, float width, float height, unsigned camNum) {
+Object *Button_new(ButtonEffectFunc buttonEffect, 
+		AEGfxTexture *defaultTexture, AEGfxTexture *mouseHoverTexture, AEGfxTexture *onClickTexture, 
+		float x, float y, float minWidth, float minHeight, float maxWidth, float maxHeight, 
+		float growTime, float shrinkTime, unsigned camNum) 
+{
 	Button *buttonData = malloc(sizeof(Button));
 	buttonData->buttonEffect = buttonEffect;
 	buttonData->defaultTexture = defaultTexture;
 	buttonData->mouseHoverTexture = mouseHoverTexture;
 	buttonData->onClickTexture = onClickTexture;
 	buttonData->camNum = camNum;
+	buttonData->minWidth = minWidth;
+	buttonData->minHeight = minHeight;
+	buttonData->maxWidth = maxWidth;
+	buttonData->maxHeight = maxHeight;
+	buttonData->currentWidth = minWidth;
+	buttonData->currentHeight = minHeight;
+	buttonData->widthGrowRate = growTime * (maxWidth - minWidth);
+	buttonData->heightGrowRate = growTime * (maxHeight - minHeight);
+	buttonData->widthShrinkRate = shrinkTime * (maxWidth - minWidth);
+	buttonData->heightShrinkRate = shrinkTime * (maxHeight - minHeight);
+
 	Object *buttonObj = Object_new(Button_onInit, Button_onUpdate, Button_onDraw, buttonData, free, "Button");
 	AEVec2 pos;
 	pos.x = x;
 	pos.y = y;
 	Object_setPos(buttonObj, pos);
-	buttonData->width = width;
-	buttonData->height = height;
 	return buttonObj;
 }

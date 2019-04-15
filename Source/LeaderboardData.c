@@ -33,11 +33,11 @@ void Leaderboard_write()
 	fclose(file);
 }
 
-LeaderboardRank* Leaderboard_getEntry(unsigned rank)
+LeaderboardRank* Leaderboard_getEntry(int rank)
 {
-	if (rank < LEADERBOARD_SIZE)
+	if (0 <= rank-1 && rank-1 < LEADERBOARD_SIZE)
 	{
-		return &leaderboard[rank];
+		return &leaderboard[rank-1];
 	}
 	else
 	{
@@ -58,9 +58,14 @@ int Leaderboard_addEntry(const char* name, float time, int minutes, int seconds)
 			leaderboard[i].minutes = minutes;
 			leaderboard[i].seconds = seconds; 
 
-			return i;
+			return i+1;
 		}
 	}
 
-	return -1;
+	return 0;
+}
+
+void Leaderboard_clear()
+{
+	memset(leaderboard, 0, sizeof(LeaderboardRank) * LEADERBOARD_SIZE);
 }

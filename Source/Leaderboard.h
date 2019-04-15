@@ -32,12 +32,13 @@
 #define LEADERBOARD_PALETTE_LEADERBOARD_INDEX 1
 #define LEADERBOARD_PALETTE_YOUR_RANK_INDEX 2
 
+#define LEADERBOARD_DEFAULT_NUM_RANKS_TO_DISPLAY 10
+#define LEADERBOARD_DEFAULT_GROW_RATE 0.3f
+
 typedef struct Leaderboard Leaderboard;
 
-Object* Leaderboard_new(AEGfxTexture* font, AEVec2 pos, AEVec2 posDiff, AEVec2 charScale,
+Object* Leaderboard_new(AEGfxTexture* font, AEVec2 pos, AEVec2 posDiff1, AEVec2 posDiff2, AEVec2 charScale,
 	Color palatte[LEADERBOARD_PALETTE_ROWS][LEADERBOARD_PALETTE_COLUMNS], 
 	int yourRank, int ranksToDisplay, float addRankTime, unsigned camNum);
 
-Leaderboard* Default_Leaderboard(unsigned camNum);
-
-void Leaderboard_updateRankName(Leaderboard* data, int rank);
+Leaderboard* Default_Leaderboard(unsigned camNum, int yourRank);

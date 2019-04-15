@@ -34,9 +34,11 @@ void Leaderboard_write();
 /**
 * @brief gets the player name and score data associated with a given name;
 */
-LeaderboardRank* Leaderboard_getEntry(unsigned rank);
+LeaderboardRank* Leaderboard_getEntry(int rank);
 
 /**
 * @brief adds a new score to the leaderboard. If the leaderboard is full, it will only add the score if it is >= one of the scores already on the leaderboard.
 */
 int Leaderboard_addEntry(const char* name, float time, int minutes, int seconds);
+
+void Leaderboard_clear();

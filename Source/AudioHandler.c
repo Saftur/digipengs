@@ -23,6 +23,9 @@ FMOD_RESULT result;
 FMOD_SOUND *bgmGameplay;
 FMOD_SOUND *sfxPlayerHitWall;
 
+float musicVolume = 1;
+float SFXVolume = 1;
+
 //FMOD_Channel_SetMode(MusicChannel, FMOD_LOOP_OFF);
 //FMOD_Channel_SetLoopCount(FMOD_CHANNEL *MusicChannel, int loopcount);
 
@@ -52,6 +55,9 @@ void Audio_init()
   void *extrasfxdriverdata = 0;
   result = FMOD_System_Init(sfxSystem, 32, FMOD_INIT_NORMAL, extrasfxdriverdata);
   ERRCHECK(result);
+
+  FMOD_Channel_SetVolume(MusicChannel, musicVolume);
+  FMOD_Channel_SetVolume(SFXChannel, SFXVolume);
 }
 
 // Update the Audio System
@@ -63,6 +69,9 @@ void AudioUpdate()
 	ERRCHECK(result);
   result = FMOD_System_Update(sfxSystem);
   ERRCHECK(result);
+
+  FMOD_Channel_SetVolume(MusicChannel, musicVolume);
+  FMOD_Channel_SetVolume(SFXChannel, SFXVolume);
 }
 
 // Cleanup the Audio System
