@@ -42,7 +42,7 @@ typedef struct DragButton {
 /**
  * @brief Button init function
  */
-void DragButton_onInit(Object *obj, void *data) 
+void DragButton_onInit(Object *obj, void *data)
 {
 	printf("Button init\n");
 	UNREFERENCED_PARAMETER(obj);
@@ -55,12 +55,28 @@ void DragButton_onInit(Object *obj, void *data)
 void DragButton_onUpdate(Object *obj, DragButton *data, float dt) {
 	printf("Button update\n");
 	UNREFERENCED_PARAMETER(dt);
-	
-	f32 button_X, button_Y, button_Width, button_Height;
+
+	f32 button_X, button_Y, button_Width, button_Height, track_Width, track_Height;
 	button_X = data->button_X;
 	button_Y = data->button_Y;
 	button_Width = data->button_currentWidth;
 	button_Height = data->button_currentHeight;
+	track_Width = 0;
+	track_Height = 0;
+
+	if (fabsf(data->track_Angle - 0) < EPSILON || fabsf(data->track_Angle - PI) < EPSILON)
+	{
+
+		track_Width = data->track_Length;
+		track_Height = data->track_Thickness;
+	}
+	if (fabsf(data->track_Angle - PI / 2) < EPSILON || fabsf(data->track_Angle - 3 * PI / 2) < EPSILON)
+	{
+		track_Width = data->track_Thickness;
+		track_Height = data->track_Length;
+	}
+
+	AEVec2 trackPos = Object_getPos(obj);
 
 	s32 screenX, screenY;
 	AEInputGetCursorPosition(&screenX, &screenY);
@@ -70,8 +86,17 @@ void DragButton_onUpdate(Object *obj, DragButton *data, float dt) {
 	float mouseY;
 	Camera_ScreenCoordToCamCoord((float)screenX, (float)screenY, &mouseX, &mouseY, data->camNum);
 
-	if (button_X - button_Width/2 < mouseX && mouseX < button_X + button_Width/2 
-		&& button_Y - button_Height/2 < mouseY && mouseY < button_Y + button_Height/2)
+	if (trackPos.x - track_Width / 2 < mouseX && mouseX < trackPos.x + track_Width / 2
+		&& trackPos.y - track_Height / 2 < mouseY && mouseY < trackPos.y + track_Height / 2
+		&& AEInputCheckCurr(VK_LBUTTON))
+	{
+		data->texture = ON_CLICK;
+
+		data->button_currentWidth = data->button_maxWidth;
+		data->button_currentHeight = data->button_maxHeight;
+	}
+	else if (button_X - button_Width / 2 < mouseX && mouseX < button_X + button_Width / 2
+		&& button_Y - button_Height / 2 < mouseY && mouseY < button_Y + button_Height / 2)
 	{
 		if (AEInputCheckCurr(VK_LBUTTON))
 		{
@@ -82,14 +107,14 @@ void DragButton_onUpdate(Object *obj, DragButton *data, float dt) {
 			data->texture = HOVER;
 		}
 	}
-	else if(!AEInputCheckCurr(VK_LBUTTON))
+	else if (!AEInputCheckCurr(VK_LBUTTON))
 	{
 		data->texture = DEFAULT;
 	}
 
 	if (data->texture == ON_CLICK)
 	{
-		float locationOnTrack = ((mouseX - Object_getPos(obj).x) * cosf(data->track_Angle) 
+		float locationOnTrack = ((mouseX - Object_getPos(obj).x) * cosf(data->track_Angle)
 			+ (mouseY - Object_getPos(obj).y) * cosf(data->track_Angle)) / data->track_Length;
 
 		if (locationOnTrack < -0.5f)
@@ -137,14 +162,14 @@ void DragButton_onUpdate(Object *obj, DragButton *data, float dt) {
 	}
 
 	AEVec2 pos = Object_getPos(obj);
-	data->button_X = pos.x + data->track_Length*cosf(data->track_Angle)*(*(data->effectedVariable) 
+	data->button_X = pos.x + data->track_Length*cosf(data->track_Angle)*(*(data->effectedVariable)
 		- ((data->min + data->max) / 2)) / (data->max - data->min);
 
-	data->button_Y = pos.y + data->track_Length*sinf(data->track_Angle)*(*(data->effectedVariable) 
+	data->button_Y = pos.y + data->track_Length*sinf(data->track_Angle)*(*(data->effectedVariable)
 		- ((data->min + data->max) / 2)) / (data->max - data->min);
 }
 
-void DragButton_onDraw(Object *obj, DragButton *data) 
+void DragButton_onDraw(Object *obj, DragButton *data)
 {
 	if (data->camNum == Camera_getCurrNum())
 	{
@@ -173,11 +198,11 @@ void DragButton_onDraw(Object *obj, DragButton *data)
 	}
 }
 
-Object* DragButton_new(float* effectedVariable, float min, float max, AEGfxTexture* track_Texture, AEGfxTexture* button_DefaultTexture, 
-		AEGfxTexture* button_MouseHoverTexture, AEGfxTexture* button_OnClickTexture,
-		float x, float y, float track_Angle, float track_Length, float track_Thickness, 
-		float button_minWidth, float button_minHeight, float button_maxWidth, float button_maxHeight, 
-		float growTime, float shrinkTime, unsigned camNum)
+Object* DragButton_new(float* effectedVariable, float min, float max, AEGfxTexture* track_Texture, AEGfxTexture* button_DefaultTexture,
+	AEGfxTexture* button_MouseHoverTexture, AEGfxTexture* button_OnClickTexture,
+	float x, float y, float track_Angle, float track_Length, float track_Thickness,
+	float button_minWidth, float button_minHeight, float button_maxWidth, float button_maxHeight,
+	float growTime, float shrinkTime, unsigned camNum)
 {
 	DragButton *buttonData = malloc(sizeof(DragButton));
 	buttonData->effectedVariable = effectedVariable;
