@@ -22,6 +22,10 @@ FMOD_RESULT result;
 // Contains all the music/soundeffects in the game
 FMOD_SOUND *bgmGameplay;
 FMOD_SOUND *sfxPlayerHitWall;
+FMOD_SOUND *sfxPolarGrowl;
+FMOD_SOUND *sfxReady;
+FMOD_SOUND *sfxSet;
+FMOD_SOUND *sfxGo;
 
 float musicVolume = 1;
 float SFXVolume = 1;
@@ -106,6 +110,42 @@ void Audio_stopGameplay() {
 void Audio_playSfxHitWall()
 {
   result = FMOD_System_CreateStream(sfxSystem, "./Assets/Audio/sfx.wav", FMOD_LOOP_OFF | FMOD_2D, 0, &sfxPlayerHitWall);
+  ERRCHECK(result);
+
+  result = FMOD_System_PlaySound(sfxSystem, sfxPlayerHitWall, 0, false, &SFXChannel);
+  ERRCHECK(result);
+}
+
+void Audio_playSfxPolarGrowl()
+{
+  result = FMOD_System_CreateStream(sfxSystem, "./Assets/Audio/SFX/PolarGrowl.wav", FMOD_LOOP_OFF | FMOD_2D, 0, &sfxPlayerHitWall);
+  ERRCHECK(result);
+
+  result = FMOD_System_PlaySound(sfxSystem, sfxPlayerHitWall, 0, false, &SFXChannel);
+  ERRCHECK(result);
+}
+
+void Audio_playSfxReady()
+{
+  result = FMOD_System_CreateStream(sfxSystem, "./Assets/Audio/SFX/Ready.wav", FMOD_LOOP_OFF | FMOD_2D, 0, &sfxPlayerHitWall);
+  ERRCHECK(result);
+
+  result = FMOD_System_PlaySound(sfxSystem, sfxPlayerHitWall, 0, false, &SFXChannel);
+  ERRCHECK(result);
+}
+
+void Audio_playSfxSet()
+{
+  result = FMOD_System_CreateStream(sfxSystem, "./Assets/Audio/SFX/Set.wav", FMOD_LOOP_OFF | FMOD_2D, 0, &sfxPlayerHitWall);
+  ERRCHECK(result);
+
+  result = FMOD_System_PlaySound(sfxSystem, sfxPlayerHitWall, 0, false, &SFXChannel);
+  ERRCHECK(result);
+}
+
+void Audio_playSfxGo()
+{
+  result = FMOD_System_CreateStream(sfxSystem, "./Assets/Audio/SFX/Go.wav", FMOD_LOOP_OFF | FMOD_2D, 0, &sfxPlayerHitWall);
   ERRCHECK(result);
 
   result = FMOD_System_PlaySound(sfxSystem, sfxPlayerHitWall, 0, false, &SFXChannel);

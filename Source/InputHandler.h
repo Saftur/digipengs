@@ -18,6 +18,10 @@ unsigned char right;
 unsigned char up;
 unsigned char down;
 unsigned int gamepad;
+unsigned char A;
+unsigned char B;
+unsigned char C;
+unsigned char start;
 } Controls;
 
 //------------------------------------------------------------------------------
