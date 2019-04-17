@@ -52,6 +52,7 @@
     <ClCompile Include="Source\ParticleHandler.c" />
     <ClCompile Include="Source\Pedestal.c" />
     <ClCompile Include="source\Player.c" />
+    <ClCompile Include="Source\PlayerParticles.c" />
     <ClCompile Include="Source\Polarbear.c" />
     <ClCompile Include="Source\Pothole.c" />
     <ClCompile Include="Source\Powerup_Blind.c" />
@@ -109,6 +110,7 @@
     <ClInclude Include="Source\ParticleHandler.h" />
     <ClInclude Include="Source\Pedestal.h" />
     <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\PlayerParticles.h" />
     <ClInclude Include="Source\Polarbear.h" />
     <ClInclude Include="Source\Pothole.h" />
     <ClInclude Include="Source\Powerup_Blind.h" />
