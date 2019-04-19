@@ -11,6 +11,7 @@
 #include "Player.h"
 #include "Polarbear.h"
 #include "Map.h"
+#include "Utils.h"
 
 void PlayerOnCollision(Collider *self, Collider *other) {
     PlayerData *data = (PlayerData*)Object_getData(self->gameObject);
@@ -105,7 +106,7 @@ void PlayerOnCollision(Collider *self, Collider *other) {
 
         AEVec2 newPos;
         AEVec2Normalize(&direction, &direction);
-        AEVec2Scale(&direction, &direction, data->speed * 0.0167f);
+        AEVec2Scale(&direction, &direction, data->speed * getDt());
         data->speed *= 0.9f;
         AEVec2Add(&newPos, &playerPos, &direction);
         Object_setPos(self->gameObject, newPos);

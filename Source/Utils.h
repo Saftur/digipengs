@@ -76,3 +76,15 @@ float AEGfxGetWinSizeY();
  * @param rot          Angle to rotate by in radians
  */
 void AEVec2Rotate(AEVec2 *pResult, AEVec2 *pVec0, f32 rot);
+
+/*
+ * @brief Set the game's dt value;
+ * @param deltaTime The value to set dt to.
+*/
+void setDt(float deltaTime);
+
+/*
+ * @brief Get the game's dt value;
+ * @return Current game delta time.
+*/
+float getDt();

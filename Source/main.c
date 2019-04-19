@@ -85,9 +85,8 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
     SetWindowPos(hwnd, HWND_TOP, 0, 0, desktop.right, desktop.bottom, SWP_SHOWWINDOW);
 
     //Dt variables
-    float dt = 0.0167f;
     DWORD lastTime = 0;
-    DWORD currentTime = GetTickCount();
+    DWORD currentTime;
 
     CollisionHandler_Init();
     LevelManager_init();
@@ -114,14 +113,14 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 
         //Calculate dt
         currentTime = GetTickCount();
-        if (lastTime > 0) dt = (float) (currentTime - lastTime)/1000;
+        if (lastTime > 0) setDt((float) (currentTime - lastTime) / 1000);
         lastTime = currentTime;
 
-        LevelManager_update(dt);
+        LevelManager_update(getDt());
 
-		ObjectManager_update(dt);
+		ObjectManager_update(getDt());
 
-        CollisionHandler_Update(dt);
+        CollisionHandler_Update(getDt());
 
 		AudioUpdate();
 
