@@ -40,6 +40,8 @@ void ImageHandler_initializeTextures()
     loadTexture(&TEXTURES.titleScreen_levelEditorButtonHover, "Level EditorHover");
     loadTexture(&TEXTURES.titleScreen_leaderboardButton, "Leader");
     loadTexture(&TEXTURES.titleScreen_leaderboardButtonHover, "LeaderHover");
+	loadTexture(&TEXTURES.titleScreen_creditsButton, "Credits");
+	loadTexture(&TEXTURES.titleScreen_creditsButtonHover, "CreditsHoverOver");
 
     loadTexture(&TEXTURES.map, "Map");
     loadTexture(&TEXTURES.player, "Player");

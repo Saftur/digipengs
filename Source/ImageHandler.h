@@ -28,8 +28,10 @@ struct LOADEDTEXTURES
 	AEGfxTexture *titleScreen_exitButtonHover;        ///< the title for the titlescreen 
     AEGfxTexture *titleScreen_levelEditorButton; ///< Button for loading the level editor.
     AEGfxTexture *titleScreen_levelEditorButtonHover; ///< Button for loading the level editor.
-    AEGfxTexture *titleScreen_leaderboardButton; ///< Button for loading the level editor.
-    AEGfxTexture *titleScreen_leaderboardButtonHover; ///< Button for loading the level editor.
+    AEGfxTexture *titleScreen_leaderboardButton; ///< Button for loading the leaderboard screen.
+    AEGfxTexture *titleScreen_leaderboardButtonHover; ///< Button for loading the leaderboard. screen
+	AEGfxTexture *titleScreen_creditsButton; ///< Button for loading the credits screen.
+	AEGfxTexture *titleScreen_creditsButtonHover; ///< Button for loading the credits screen.
 
 	AEGfxTexture *map;                     ///< A test map
     AEGfxTexture *player;                  ///< THE PLAYER
