@@ -88,7 +88,7 @@ void TitleScreen_onInit()
         0, -100, 550, 95, 600, 100, 2.0f, 1.0f, 0);
 
 	Object *creditsButton = Button_new(creditsEffect,
-		TEXTURES.titleScreen_levelEditorButton, TEXTURES.titleScreen_levelEditorButtonHover, TEXTURES.titleScreen_levelEditorButton,
+		TEXTURES.titleScreen_creditsButton, TEXTURES.titleScreen_creditsButtonHover, TEXTURES.titleScreen_creditsButton,
 		0, -200, 550, 95, 600, 100, 2.0f, 1.0f, 0);
 
 	Object *exitButton = Button_new(quitEffect, TEXTURES.titleScreen_exitButton, TEXTURES.titleScreen_exitButtonHover, TEXTURES.titleScreen_exitButton,
