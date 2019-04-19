@@ -20,6 +20,27 @@
 char* leaderboardHeader[LEADERBOARD_COLUMNS] = { "Rank", "Name                ", "Time " };
 char* leaderboardFormat[LEADERBOARD_COLUMNS] = { "%2i  ", "%-20s", "%2.2i:%2.2i" };
 
+typedef struct Leaderboard 
+{
+	unsigned camNum;
+	AEGfxTexture* font;
+	AEVec2 nextPos;
+	AEVec2 posDiff1;
+	AEVec2 posDiff2;
+	AEVec2 charScale;
+	Color palatte[LEADERBOARD_PALETTE_ROWS][LEADERBOARD_PALETTE_COLUMNS];
+	Object* textObj[LEADERBOARD_SIZE + 1][LEADERBOARD_COLUMNS];
+	char leaderboardText[LEADERBOARD_SIZE + 1][LEADERBOARD_COLUMNS][LEADERBOARD_NAME_LENGTH];
+	int yourRank;
+	int ranksToDisplay;
+	int ranksBeingDisplayed;
+	float addRankTime;
+	float timeUntilNextRank;
+	bool typingName;
+	int nameIndex;
+	char* name;
+} Leaderboard;
+
 static void Leaderboard_onInit(Object* obj, Leaderboard* data)
 {
 	printf("Leaderboard init\n");
@@ -62,9 +83,8 @@ static void AddNextLeaderboardRank(Leaderboard* data, LeaderboardRank* rank)
 {
 	sprintf_s(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_RANK_INDEX],
 		LEADERBOARD_RANK_LENGTH, leaderboardFormat[LEADERBOARD_RANK_INDEX], data->ranksBeingDisplayed + 1);
-
-	Leaderboard_getName(rank, data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_NAME_INDEX]);
-
+	sprintf_s(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_NAME_INDEX],
+		LEADERBOARD_NAME_LENGTH, leaderboardFormat[LEADERBOARD_NAME_INDEX], rank->name);
 	sprintf_s(data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_TIME_INDEX],
 		LEADERBOARD_TIME_LENGTH, leaderboardFormat[LEADERBOARD_TIME_INDEX], rank->minutes, rank->seconds);
 
@@ -179,7 +199,9 @@ static void InsertingPlayerName(Leaderboard* data)
 		}
 	}
 
-	Leaderboard_setName(Leaderboard_getEntry(data->yourRank), data->leaderboardText[data->ranksBeingDisplayed + 1][LEADERBOARD_NAME_INDEX]);
+	sprintf_s(data->leaderboardText[data->yourRank][LEADERBOARD_NAME_INDEX],
+		LEADERBOARD_NAME_LENGTH, leaderboardFormat[LEADERBOARD_NAME_INDEX],
+		Leaderboard_getEntry(data->yourRank)->name);
 }
 
 static void Leaderboard_onUpdate(Object* obj, Leaderboard* data, float dt)
@@ -217,13 +239,6 @@ static void Leaderboard_onDraw(Object* obj, Leaderboard* data)
 	UNREFERENCED_PARAMETER(data);
 }
 
-static void Leaderboard_onDelete(Object* obj, Leaderboard* data)
-{
-	// Nothing to draw except text which is drawn by the text handeler
-	UNREFERENCED_PARAMETER(obj);
-	UNREFERENCED_PARAMETER(data);
-}
-
 Object* Leaderboard_new(AEGfxTexture* font, AEVec2 pos, AEVec2 posDiff1, AEVec2 posDiff2, AEVec2 charScale,
 		Color palatte[LEADERBOARD_PALETTE_ROWS][LEADERBOARD_PALETTE_COLUMNS], 
 		int yourRank, int ranksToDisplay, float addRankTime, unsigned camNum)
@@ -241,9 +256,8 @@ Object* Leaderboard_new(AEGfxTexture* font, AEVec2 pos, AEVec2 posDiff1, AEVec2 
 	leaderboard->addRankTime = addRankTime;
 	leaderboard->timeUntilNextRank = addRankTime;
 	leaderboard->typingName = false;
+	leaderboard->name = Leaderboard_getEntry(yourRank)->name;
 	leaderboard->camNum = camNum;
-
-	Leaderboard_getName(Leaderboard_getEntry(yourRank), leaderboard->name);
 
 	for (int i = 0; i < LEADERBOARD_PALETTE_ROWS; i++)
 	{

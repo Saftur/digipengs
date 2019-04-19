@@ -10,7 +10,6 @@
 #include <AEEngine.h>
 #include "Object.h"
 #include "ImageHandler.h"
-#include "LeaderboardData.h"
 
 #define LEADERBOARD_COLUMNS 3
 
@@ -19,7 +18,7 @@
 #define LEADERBOARD_TIME_INDEX 2
 
 #define LEADERBOARD_RANK_LENGTH 5
-#define LEADERBOARD_NAME_LENGTH 15
+#define LEADERBOARD_NAME_LENGTH 21
 #define LEADERBOARD_TIME_LENGTH 6
 
 #define LEADERBOARD_PALETTE_ROWS 3
@@ -36,28 +35,7 @@
 #define LEADERBOARD_DEFAULT_NUM_RANKS_TO_DISPLAY 10
 #define LEADERBOARD_DEFAULT_GROW_RATE 0.3f
 
-typedef struct Leaderboard
-{
-	unsigned camNum;
-	AEGfxTexture* font;
-	AEVec2 nextPos;
-	AEVec2 posDiff1;
-	AEVec2 posDiff2;
-	AEVec2 charScale;
-	Color palatte[LEADERBOARD_PALETTE_ROWS][LEADERBOARD_PALETTE_COLUMNS];
-	Object* textObj[LEADERBOARD_SIZE + 1][LEADERBOARD_COLUMNS];
-	char leaderboardText[LEADERBOARD_SIZE + 1][LEADERBOARD_COLUMNS][LEADERBOARD_NAME_LENGTH];
-	int yourRank;
-	int ranksToDisplay;
-	int ranksBeingDisplayed;
-	float addRankTime;
-	float timeUntilNextRank;
-	bool typingName;
-	int nameIndex;
-	char* name;
-} Leaderboard;
-
-//typedef struct Leaderboard Leaderboard;
+typedef struct Leaderboard Leaderboard;
 
 Object* Leaderboard_new(AEGfxTexture* font, AEVec2 pos, AEVec2 posDiff1, AEVec2 posDiff2, AEVec2 charScale,
 	Color palatte[LEADERBOARD_PALETTE_ROWS][LEADERBOARD_PALETTE_COLUMNS], 
