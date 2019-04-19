@@ -10,12 +10,14 @@
 #include "Leaderboard.h"
 
 #define LEADERBOARD_SIZE 10
+#define LEADERBOARD_NAME_LENGTH 15;
 
 /**
 * @brief data structure used to store leaderboard ranks. Stores the player name and their score associated with a given rank.
 */
 typedef struct LeaderboardRank {
-	char name[LEADERBOARD_NAME_LENGTH];
+	unsigned long name_bytes_0_to_7;
+	unsigned long name_bytes_8_to_15;
 	float time;
 	int minutes;
 	int seconds;
@@ -30,6 +32,10 @@ void Leaderboard_read();
 * @brief saves leaderboard data. Should be called when the game ends or on unload during the end screen level
 */
 void Leaderboard_write();
+
+void Leaderboard_getName(LeaderboardRank* rank, char* name);
+
+void Leaderboard_setName(LeaderboardRank* rank, char* name);
 
 /**
 * @brief gets the player name and score data associated with a given name;
