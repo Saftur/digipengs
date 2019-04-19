@@ -39,6 +39,11 @@ static void levelEditorEffect()
 	LevelManager_setNextLevel(LevelEditor);
 }
 
+static void creditsEffect()
+{
+	LevelManager_setNextLevel(LevelQuit);
+}
+
 static void quitEffect() 
 {
 	LevelManager_setNextLevel(LevelQuit);
@@ -53,7 +58,7 @@ static void titleDraw(Object *obj, void *data)
 {
     UNREFERENCED_PARAMETER(obj);
     UNREFERENCED_PARAMETER(data);
-	ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.titleScreen_title, (AEVec2) { 0, 250 }, 600, 100, 0, 1);
+	ImageHandler_fullDrawTexture(MeshHandler_getSquareMesh(), TEXTURES.titleScreen_title, (AEVec2) { 0, 333 }, 600, 100, 0, 1);
 }
 
 void TitleScreen_onLoad()
@@ -68,19 +73,23 @@ void TitleScreen_onInit()
 
 	Object *singlePlayerButton = Button_new(singleplayerButtonEffect, 
 		TEXTURES.titleScreen_startButton, TEXTURES.titleScreen_startButtonHover, TEXTURES.titleScreen_startButton,
-        0,  100, 550, 95, 600, 100, 2.0f, 1.0f, 0);
+        0,  200, 550, 95, 600, 100, 2.0f, 1.0f, 0);
 
 	Object *multiPlayerButton = Button_new(multiplayerButtonEffect, 
 		TEXTURES.titleScreen_startMultiButton, TEXTURES.titleScreen_startMultiButtonHover, TEXTURES.titleScreen_startMultiButton,
-		0,    0, 550, 95, 600, 100, 2.0f, 1.0f, 0);
+		0,  100, 550, 95, 600, 100, 2.0f, 1.0f, 0);
 
 	Object *leaderboardButton = Button_new(leaderboardEffect, 
 		TEXTURES.titleScreen_leaderboardButton, TEXTURES.titleScreen_leaderboardButtonHover, TEXTURES.titleScreen_leaderboardButton,
-		0, -100, 550, 95, 600, 100, 2.0f, 1.0f, 0);
+		0,    0, 550, 95, 600, 100, 2.0f, 1.0f, 0);
 
     Object *levelEditorButton = Button_new(levelEditorEffect, 
 		TEXTURES.titleScreen_levelEditorButton, TEXTURES.titleScreen_levelEditorButtonHover, TEXTURES.titleScreen_levelEditorButton, 
-        0, -200, 550, 95, 600, 100, 2.0f, 1.0f, 0);
+        0, -100, 550, 95, 600, 100, 2.0f, 1.0f, 0);
+
+	Object *creditsButton = Button_new(creditsEffect,
+		TEXTURES.titleScreen_levelEditorButton, TEXTURES.titleScreen_levelEditorButtonHover, TEXTURES.titleScreen_levelEditorButton,
+		0, -200, 550, 95, 600, 100, 2.0f, 1.0f, 0);
 
 	Object *exitButton = Button_new(quitEffect, TEXTURES.titleScreen_exitButton, TEXTURES.titleScreen_exitButtonHover, TEXTURES.titleScreen_exitButton,
 		0, -300, 550, 95, 600, 100, 2.0f, 1.0f, 0);
@@ -92,6 +101,7 @@ void TitleScreen_onInit()
     ObjectManager_addObj(multiPlayerButton);
 	ObjectManager_addObj(leaderboardButton);
 	ObjectManager_addObj(levelEditorButton);
+	ObjectManager_addObj(creditsButton);
     ObjectManager_addObj(exitButton);
     ObjectManager_addObj(settingsButton);
 }
