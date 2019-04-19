@@ -100,6 +100,8 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
     
     Camera_new((AEVec2) { 0, 0 }, 1.f, 0, (AEVec2) { 0, 0 }, AEGfxGetWinSize());
 
+    Leaderboard_read();
+
 	// Game Loop
 	while (LevelManager_isRunning())
 	{
