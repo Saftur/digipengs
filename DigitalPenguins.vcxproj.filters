@@ -167,6 +167,18 @@
     <ClCompile Include="Source\PlayerParticles.c">
       <Filter>Game\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Source\LevelCredits1.c">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LevelCredits2.c">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LevelCredits3.c">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LevelCredits4.c">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
@@ -328,6 +340,18 @@
     </ClInclude>
     <ClInclude Include="Source\PlayerParticles.h">
       <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LevelCredits1.h">
+      <Filter>Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LevelCredits2.h">
+      <Filter>Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LevelCredits3.h">
+      <Filter>Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LevelCredits4.h">
+      <Filter>Game\Levels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
