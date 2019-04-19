@@ -7,6 +7,7 @@
 #pragma once
 
 #include <AEVec2.h>
+#include <Windows.h>
 
 /**
  * @brief Lerp float values
@@ -88,3 +89,7 @@ void setDt(float deltaTime);
  * @return Current game delta time.
 */
 float getDt();
+
+FILE *openAppdataFile(const char *filename, const char *mode);
+
+BOOL copyAssetToAppdata(const char *filename, const char *newFilename);

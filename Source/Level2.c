@@ -71,7 +71,8 @@ void Level2_onInit()
         Camera_get(0)->worldScale = 0.75f;
     }
 
-    Map_init("Assets\\Map.txt");
+    //Map_init("Assets\\Map.txt");
+    Map_init("Map.txt");
     ObstacleManager_loadObstacles();
 
     Tile *tile = Map_getStartTile();

@@ -19,6 +19,7 @@
 #include "MeshHandler.h"
 #include "Map.h"
 #include "Pedestal.h"
+#include "Utils.h"
 
 #define NUM_WALLS 8
 
@@ -26,9 +27,14 @@
 
 void ObstacleManager_loadObstacles()
 {
-    FILE *file;
-    fopen_s(&file, "./Assets/ObstacleMap.txt", "rt");
-    if (!file) return;
+    FILE *file = openAppdataFile("ObstacleMap.txt", "rt");
+    //fopen_s(&file, "./Assets/ObstacleMap.txt", "rt");
+    if (!file) {
+        copyAssetToAppdata("ObstacleMap.txt", "ObstacleMap.txt");
+        file = openAppdataFile("ObstacleMap.txt", "rt");
+        if (!file)
+            return;
+    }
 
     Obstacle *obstacleData = malloc(sizeof(Obstacle));
     Object *obstacle = NULL;

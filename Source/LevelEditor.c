@@ -20,6 +20,7 @@
 #include "Polarbear.h"
 #include "MapSavedText.h"
 #include "LeaderboardData.h"
+#include "Utils.h"
 
 #define BOULDER_TEXTURE TEXTURES.boulder
 #define POLARBEAR_TEXTURE TEXTURES.polarbear
@@ -51,7 +52,8 @@ static void LoadObstacles();
 
 void LevelEditor_init()
 {
-    LoadMap("./Assets/Map.txt");
+    //LoadMap("./Assets/Map.txt");
+    LoadMap("Map.txt");
     Obstacles = vector_new(5, NULL, free);
     LoadObstacles();
 }
@@ -203,8 +205,11 @@ static void EditMap(float dt) {
     if (AEInputCheckTriggered(VK_INSERT)) ClearMap();
     if (AEInputCheckTriggered(VK_RETURN)) SaveMap();
     if (AEInputCheckTriggered(VK_DELETE)) {
-        LoadMap("./Assets/DefaultMap.txt");
-        SaveMap();
+        copyAssetToAppdata("Map.txt", "Map.txt");
+        copyAssetToAppdata("ObstacleMap.txt", "ObstacleMap.txt");
+        LoadMap("Map.txt");
+        Obstacles = vector_new(5, NULL, free);
+        LoadObstacles();
     }
 
     AddTile(CheckEditKey(VK_UP, dt) ? SUp :
@@ -387,9 +392,16 @@ static void LoadMap(const char *filename) {
 }
 
 void LoadObstacles() {
-    FILE *file;
-    fopen_s(&file, "./Assets/ObstacleMap.txt", "rt");
-    if (!file) return;
+    FILE *file = openAppdataFile("ObstacleMap.txt", "rt");
+    //fopen_s(&file, "./Assets/ObstacleMap.txt", "rt");
+    if (!file) {
+        copyAssetToAppdata("ObstacleMap.txt", "ObstacleMap.txt");
+        file = openAppdataFile("ObstacleMap.txt", "rt");
+        if (!file)
+            return;
+    }
+
+    vector_clear(Obstacles);
 
     Obstacle *obstacle;
     char obstacleType;
@@ -444,8 +456,8 @@ static void SaveMap() {
     if (Map[newTileY][newTileX].type == TTNone)
         return;
 
-    FILE *file;
-    fopen_s(&file, "./Assets/Map.txt", "w");
+    FILE *file = openAppdataFile("Map.txt", "wt");
+    //fopen_s(&file, "./Assets/Map.txt", "w");
     if (!file)
         return;
 
@@ -484,7 +496,8 @@ static void SaveMap() {
 
     fclose(file);
 
-    fopen_s(&file, "./Assets/ObstacleMap.txt", "w");
+    //fopen_s(&file, "./Assets/ObstacleMap.txt", "w");
+    file = openAppdataFile("ObstacleMap.txt", "wt");
 
     for (unsigned i = 0; i < vector_size(Obstacles); i++) {
         Obstacle *obstacle = vector_at(Obstacles, i);

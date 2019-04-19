@@ -7,15 +7,16 @@
 
 #include "stdafx.h"
 #include "LeaderboardData.h"
+#include "Utils.h"
 #include <stdio.h>
 #include <string.h>
 
 static LeaderboardRank leaderboard[LEADERBOARD_SIZE] = { 0 };
 
-void Leaderboard_read() 
+void Leaderboard_read()
 {
-	FILE *file;
-	fopen_s(&file, "Leaderboard.bin", "rb");
+	FILE *file = openAppdataFile("Leaderboard.bin", "rb");
+	//fopen_s(&file, "Leaderboard.bin", "rb");
 	if (!file) 
 	{
 		memset(leaderboard, 0, sizeof(LeaderboardRank) * LEADERBOARD_SIZE);
@@ -27,8 +28,8 @@ void Leaderboard_read()
 
 void Leaderboard_write() 
 {
-	FILE *file;
-	fopen_s(&file, "Leaderboard.bin", "wb");
+	FILE *file = openAppdataFile("Leaderboard.bin", "wb");
+	//fopen_s(&file, "Leaderboard.bin", "wb");
 	fwrite(leaderboard, sizeof(LeaderboardRank), LEADERBOARD_SIZE, file);
 	fclose(file);
 }
