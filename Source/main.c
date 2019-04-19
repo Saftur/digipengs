@@ -25,6 +25,7 @@
 #include "Player.h"
 #include "MeshHandler.h"
 #include "AudioHandler.h"
+#include "LeaderboardData.h"
 #include "Utils.h"
 
 // ---------------------------------------------------------------------------
@@ -140,6 +141,7 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 	ObjectManager_shutdown();
 	ImageHandler_shutdown();
 	Camera_shutdown();
+	Leaderboard_write();
     AEGfxMeshFree(MeshHandler_getSquareMesh());
     Audio_cleanup();
 
