@@ -20,6 +20,7 @@ void LevelEditorLevel_onLoad()
 void LevelEditorLevel_onInit()
 {
     //Camera_new((AEVec2) { 1200, -1000 }, 0.16f, 0, (AEVec2) { 0, 0 }, (AEVec2) { 800, 600 });
+    AEGfxSetBackgroundColor(0.4f, 0.4f, 0.4f);
     LevelEditor_init();
 	LevelEditor_HelpMenu_init();
     Camera *cam = Camera_get(0);
