@@ -40,14 +40,14 @@ void LevelCredits5_onInit()
   AEGfxMeshStart();
 
   AEGfxTriAdd(
-    -503.0f, -243.0f, 0x00FF00FF, 0.0f, 1.0f,
-    503.0f, -243.0f, 0x00FFFF00, 1.0f, 1.0f,
-    -503.0f, 243.0f, 0x00F00FFF, 0.0f, 0.0f);
+    -522.0f, -26.0f, 0x00FF00FF, 0.0f, 1.0f,
+    522.0f, -26.0f, 0x00FFFF00, 1.0f, 1.0f,
+    -522.0f, 26.0f, 0x00F00FFF, 0.0f, 0.0f);
 
   AEGfxTriAdd(
-    503.0f, -243.0f, 0x00FFFFFF, 1.0f, 1.0f,
-    503.0f, 243.0f, 0x00FFFFFF, 1.0f, 0.0f,
-    -503.0f, 243.0f, 0x00FFFFFF, 0.0f, 0.0f);
+    522.0f, -26.0f, 0x00FFFFFF, 1.0f, 1.0f,
+    522.0f, 26.0f, 0x00FFFFFF, 1.0f, 0.0f,
+    -522.0f, 26.0f, 0x00FFFFFF, 0.0f, 0.0f);
 
   FMOD_Mesh = AEGfxMeshEnd();
   AE_ASSERT_MESG(FMOD_Mesh, "WHY IS THIS NOT WORKING, SOMEONE HELP PLEASE I'M DYING OVER HERE. ;)");

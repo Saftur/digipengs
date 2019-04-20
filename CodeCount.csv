@@ -1,10 +1,10 @@
 
 		:	antoineabichacra
-language,filename,blank,comment,code,"github.com/AlDanial/cloc v 1.74  T=1.00 s (1.0 files/s, 158.0 lines/s)"
+language,filename,blank,comment,code,"github.com/AlDanial/cloc v 1.74  T=0.50 s (2.0 files/s, 316.0 lines/s)"
 C,.\\Source\\main.c,38,35,85
 
 arthurbouvier
-language,filename,blank,comment,code,"github.com/AlDanial/cloc v 1.74  T=1.00 s (11.0 files/s, 1437.0 lines/s)"
+language,filename,blank,comment,code,"github.com/AlDanial/cloc v 1.74  T=0.50 s (22.0 files/s, 2874.0 lines/s)"
 C,.\\Source\\Map.c,28,21,325
 C,.\\Source\\Level2.c,42,20,212
 C,.\\Source\\Utils.c,37,8,132
@@ -40,8 +40,8 @@ C,.\\Source\\GameStartTimer.c,19,7,62
 C,.\\Source\\LapsLeftDisplay.c,9,7,47
 C,.\\Source\\Powerup_Phase.c,14,8,47
 C,.\\Source\\Powerup_Blind.c,10,8,46
-C,.\\Source\\ControlDisplay.c,9,7,45
 C,.\\Source\\LevelEditor_HelpMenu.c,12,9,45
+C,.\\Source\\ControlDisplay.c,9,7,45
 C,.\\Source\\BlindObject.c,11,8,43
 C,.\\Source\\FinalLap.c,8,7,39
 C,.\\Source\\Ice.c,11,7,36
