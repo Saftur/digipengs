@@ -17,6 +17,10 @@
 #include "OptionsScreen.h"
 #include "EndScreen.h"
 #include "LevelEditorLevel.h"
+#include "LevelCredits1.h"
+#include "LevelCredits2.h"
+#include "LevelCredits3.h"
+#include "LevelCredits4.h"
 
  /**
   * @struct TableEntry
@@ -40,7 +44,11 @@ static const TableEntry LevelTable[LevelNum] = {
 	{HighscoreScreen_onLoad, HighscoreScreen_onInit, HighscoreScreen_onUpdate, NULL, HighscoreScreen_onShutdown, HighscoreScreen_onUnload},
 	{OptionsScreen_onLoad, OptionsScreen_onInit, OptionsScreen_onUpdate, NULL, OptionsScreen_onShutdown, OptionsScreen_onUnload},
 	{EndScreen_onLoad, EndScreen_onInit, EndScreen_onUpdate, EndScreen_onDraw, EndScreen_onShutdown, EndScreen_onUnload},
-    {LevelEditorLevel_onLoad, LevelEditorLevel_onInit, LevelEditorLevel_onUpdate, NULL, LevelEditorLevel_onShutdown, LevelEditorLevel_onUnload}
+    {LevelEditorLevel_onLoad, LevelEditorLevel_onInit, LevelEditorLevel_onUpdate, NULL, LevelEditorLevel_onShutdown, LevelEditorLevel_onUnload},
+    {LevelCredits1_onLoad, LevelCredits1_onInit, LevelCredits1_onUpdate, NULL, LevelCredits1_onShutdown, LevelCredits1_onUnload},
+    {LevelCredits2_onLoad, LevelCredits2_onInit, LevelCredits2_onUpdate, NULL, LevelCredits2_onShutdown, LevelCredits2_onUnload},
+    {LevelCredits3_onLoad, LevelCredits3_onInit, LevelCredits3_onUpdate, NULL, LevelCredits3_onShutdown, LevelCredits3_onUnload},
+    {LevelCredits4_onLoad, LevelCredits4_onInit, LevelCredits4_onUpdate, NULL, LevelCredits4_onShutdown, LevelCredits4_onUnload}
 };
 
 int Level_isValid(Levels level)

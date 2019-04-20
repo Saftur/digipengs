@@ -1,11 +1,16 @@
 /**
  * @file Level1.h
- * @author Brand Knutson
+ * @author Richard Folorunso
  * @date 1/10/2019
  * @brief First Level
  */
+#include "AEEngine.h"
 
 #pragma once
+
+AEGfxVertexList*	pMesh2;				// Pointer to Mesh (Model)
+AEGfxTexture *pTex1;					// Pointer to Texture (Image)
+
 /**
  * @brief Load Level1.
  */

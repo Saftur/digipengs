@@ -392,16 +392,15 @@ static void LoadMap(const char *filename) {
 }
 
 void LoadObstacles() {
+    vector_clear(Obstacles);
+
     FILE *file = openAppdataFile("ObstacleMap.txt", "rt");
-    //fopen_s(&file, "./Assets/ObstacleMap.txt", "rt");
     if (!file) {
         copyAssetToAppdata("ObstacleMap.txt", "ObstacleMap.txt");
         file = openAppdataFile("ObstacleMap.txt", "rt");
         if (!file)
             return;
     }
-
-    vector_clear(Obstacles);
 
     Obstacle *obstacle;
     char obstacleType;

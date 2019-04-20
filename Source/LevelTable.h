@@ -26,6 +26,10 @@ typedef enum
 	OptionsScreen,
 	EndScreen,
 	LevelEditor,
+  LevelCredits1,
+  LevelCredits2,
+  LevelCredits3,
+  LevelCredits4,
 
 	//Extra info
 	LevelNum,

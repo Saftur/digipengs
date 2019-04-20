@@ -237,7 +237,7 @@ void Level2_onUpdate(float dt)
 	/*
     if (AEInputCheckTriggered('P'))
     {
-      Audio_playSfxHitWall();
+      Audio_playSfxGo();
     }
 	*/
 }

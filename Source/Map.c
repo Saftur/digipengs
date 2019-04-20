@@ -30,7 +30,6 @@ void Map_load(const char *filename, Tile tilemap[MAP_MAX_SIZE][MAP_MAX_SIZE],
                  unsigned *w, unsigned *h, unsigned *sx, unsigned *sy) {
     NumTiles = 0;
     FILE *file = openAppdataFile(filename, "rt");
-    //fopen_s(&file, filename, "rt");
     if (!file) {
         copyAssetToAppdata(filename, filename);
         file = openAppdataFile(filename, "rt");

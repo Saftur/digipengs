@@ -28,7 +28,6 @@
 void ObstacleManager_loadObstacles()
 {
     FILE *file = openAppdataFile("ObstacleMap.txt", "rt");
-    //fopen_s(&file, "./Assets/ObstacleMap.txt", "rt");
     if (!file) {
         copyAssetToAppdata("ObstacleMap.txt", "ObstacleMap.txt");
         file = openAppdataFile("ObstacleMap.txt", "rt");

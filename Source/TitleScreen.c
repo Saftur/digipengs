@@ -41,7 +41,7 @@ static void levelEditorEffect()
 
 static void creditsEffect()
 {
-	LevelManager_setNextLevel(LevelQuit);
+	LevelManager_setNextLevel(LevelCredits1);
 }
 
 static void quitEffect() 
