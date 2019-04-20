@@ -1,2 +1,2 @@
-@date([^\n]+)\n
-@date$1\n * All content © 2019 DigiPen (USA) Corporation, all rights reserved.\n
+/\*\*\r?\n \* @file([^\r\n]+\r?\n)(( \* [^\r\n]+\r?\n)+)
+/**\r\n * Project: DigitalPenguins\r\n * All content © 2019 DigiPen (USA) Corporation, all rights reserved.\r\n * @file$1$2

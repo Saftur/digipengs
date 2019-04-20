@@ -1,4 +1,6 @@
 /**
+ * Project: DigitalPenguins
+ * All content © 2019 DigiPen (USA) Corporation, all rights reserved.
  * @file Utils.h
  * @author Arthur Bouvier
  * @date 2/20/2019

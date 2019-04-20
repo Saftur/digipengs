@@ -1,4 +1,6 @@
 /**
+ * Project: DigitalPenguins
+ * All content © 2019 DigiPen (USA) Corporation, all rights reserved.
  * @file Vector.h
  * @author Arthur Bouvier
  * @brief C++-style NULL-type vector class

@@ -1,4 +1,6 @@
 /**
+ * Project: DigitalPenguins
+ * All content © 2019 DigiPen (USA) Corporation, all rights reserved.
  * @file OptionsScreen.c
  * @author Parker Friedland
  * @date 4/3/2019

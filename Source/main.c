@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------------
-// Project Name		:	Simple Demo
+// Project Name		:	DigitalPenguins
 // File Name		:	Main.c
 // Author			:	Antoine Abi Chacra
 // Creation Date	:	2012/01/11
@@ -8,6 +8,7 @@
 // - 2012/01/11		:	- initial implementation
 // - 2019/01/04		:	- Fixed AE_ASSERT/AE_WARNING issues.
 // - 2019/01/06		:	- Added missing call to AESysUpdate().
+// All content © 2019 DigiPen (USA) Corporation, all rights reserved.
 // ---------------------------------------------------------------------------
 
 // ---------------------------------------------------------------------------

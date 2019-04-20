@@ -1,4 +1,6 @@
 /**
+ * Project: DigitalPenguins
+ * All content © 2019 DigiPen (USA) Corporation, all rights reserved.
  * @file PlayerParticles.c
  * @author Arthur Bouvier
  * @brief Player particle functions

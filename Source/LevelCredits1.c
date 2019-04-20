@@ -1,4 +1,6 @@
 ﻿/**
+ * Project: DigitalPenguins
+ * All content © 2019 DigiPen (USA) Corporation, all rights reserved.
  * @file LevelCredits1.c
  * @author Richard Folorunso
  * @date 1/10/2019

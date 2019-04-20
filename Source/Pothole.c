@@ -1,4 +1,6 @@
 /**
+ * Project: DigitalPenguins
+ * All content © 2019 DigiPen (USA) Corporation, all rights reserved.
  * @file Pothole.c
  * @author Connor Meyers
  * @brief Object implementation for the pothole obstacle

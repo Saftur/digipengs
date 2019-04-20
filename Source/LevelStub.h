@@ -1,4 +1,6 @@
 ﻿/**
+ * Project: DigitalPenguins
+ * All content © 2019 DigiPen (USA) Corporation, all rights reserved.
  * @file LevelStub.h
  * @author Brand
  * @date Monday, January 14, 2019

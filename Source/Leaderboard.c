@@ -1,4 +1,6 @@
 /**
+ * Project: DigitalPenguins
+ * All content © 2019 DigiPen (USA) Corporation, all rights reserved.
  * @file Leaderboard.c
  * @author Parker Friedland
  * @date 3/31/2019

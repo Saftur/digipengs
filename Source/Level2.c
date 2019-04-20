@@ -1,4 +1,6 @@
 ﻿/**
+ * Project: DigitalPenguins
+ * All content © 2019 DigiPen (USA) Corporation, all rights reserved.
  * @file Level2.c
  * @author Arthur Bouvier
  * @date 1/30/2019

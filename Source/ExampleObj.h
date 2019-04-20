@@ -1,4 +1,6 @@
 /**
+ * Project: DigitalPenguins
+ * All content © 2019 DigiPen (USA) Corporation, all rights reserved.
  * @file ExampleObj.h
  * @author Arthur Bouvier
  * @brief Example Game Object
