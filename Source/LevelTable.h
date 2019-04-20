@@ -32,6 +32,7 @@ typedef enum
   LevelCredits2,
   LevelCredits3,
   LevelCredits4,
+  LevelCredits5,
 
 	//Extra info
 	LevelNum,

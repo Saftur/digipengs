@@ -8,7 +8,7 @@
  */
 
 #include "stdafx.h"
-#include "LevelCredits4.h"
+#include "LevelCredits5.h"
 #include "AEEngine.h"
 #include "ImageHandler.h"
 #include "TextHandler.h"
@@ -25,14 +25,12 @@
 
 static float NextRoomTimer = 0.0f;
 
-void LevelCredits4_onLoad()
+void LevelCredits5_onLoad()
 {
 }
 
-void LevelCredits4_onInit()
+void LevelCredits5_onInit()
 {
-  Audio_playSfxGo();
-
   AEInputShowCursor(1);
   AEGfxSetBackgroundColor(0.0f, 0.0f, 0.0f);
   AEGfxSetBlendMode(AE_GFX_BM_BLEND);
@@ -51,14 +49,14 @@ void LevelCredits4_onInit()
     503.0f, 243.0f, 0x00FFFFFF, 1.0f, 0.0f,
     -503.0f, 243.0f, 0x00FFFFFF, 0.0f, 0.0f);
 
-  IMPORTANT_Mesh = AEGfxMeshEnd();
-  AE_ASSERT_MESG(IMPORTANT_Mesh, "WHY IS THIS NOT WORKING, SOMEONE HELP PLEASE I'M DYING OVER HERE. ;)");
+  FMOD_Mesh = AEGfxMeshEnd();
+  AE_ASSERT_MESG(FMOD_Mesh, "WHY IS THIS NOT WORKING, SOMEONE HELP PLEASE I'M DYING OVER HERE. ;)");
 
-  IMPORTANT_Texture = AEGfxTextureLoad("./Assets/Credits/15.png");
-  AE_ASSERT_MESG(IMPORTANT_Texture, "WHY IS THIS NOT WORKING, SOMEONE HELP PLEASE I'M DYING OVER HERE. ;)");
+  FMOD_Texture = AEGfxTextureLoad("./Assets/Credits/16.png");
+  AE_ASSERT_MESG(FMOD_Texture, "WHY IS THIS NOT WORKING, SOMEONE HELP PLEASE I'M DYING OVER HERE. ;)");
 }
 
-void LevelCredits4_onUpdate(float dt)
+void LevelCredits5_onUpdate(float dt)
 {
     NextRoomTimer += (2.0f * dt);
   
@@ -69,25 +67,25 @@ void LevelCredits4_onUpdate(float dt)
     AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
 
     AEGfxSetPosition(0.0f, 0.0f);
-    AEGfxTextureSet(IMPORTANT_Texture, 0.0f, 0.0f);
+    AEGfxTextureSet(FMOD_Texture, 0.0f, 0.0f);
     AEGfxSetTransparency(1.0f);
-    AEGfxMeshDraw(IMPORTANT_Mesh, AE_GFX_MDM_TRIANGLES);
+    AEGfxMeshDraw(FMOD_Mesh, AE_GFX_MDM_TRIANGLES);
 
 
     if (NextRoomTimer > 5.0f)
     {
-      LevelManager_setNextLevel(LevelCredits5);
+      LevelManager_setNextLevel(TitleScreen);
     }
 }
 
-void LevelCredits4_onShutdown()
+void LevelCredits5_onShutdown()
 {
   NextRoomTimer = 0.0f;
 
-  AEGfxMeshFree(IMPORTANT_Mesh);
-  AEGfxTextureUnload(IMPORTANT_Texture);
+  AEGfxMeshFree(FMOD_Mesh);
+  AEGfxTextureUnload(FMOD_Texture);
 }
 
-void LevelCredits4_onUnload()
+void LevelCredits5_onUnload()
 {
 }

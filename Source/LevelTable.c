@@ -23,6 +23,7 @@
 #include "LevelCredits2.h"
 #include "LevelCredits3.h"
 #include "LevelCredits4.h"
+#include "LevelCredits5.h"
 
  /**
   * @struct TableEntry
@@ -50,7 +51,8 @@ static const TableEntry LevelTable[LevelNum] = {
     {LevelCredits1_onLoad, LevelCredits1_onInit, LevelCredits1_onUpdate, NULL, LevelCredits1_onShutdown, LevelCredits1_onUnload},
     {LevelCredits2_onLoad, LevelCredits2_onInit, LevelCredits2_onUpdate, NULL, LevelCredits2_onShutdown, LevelCredits2_onUnload},
     {LevelCredits3_onLoad, LevelCredits3_onInit, LevelCredits3_onUpdate, NULL, LevelCredits3_onShutdown, LevelCredits3_onUnload},
-    {LevelCredits4_onLoad, LevelCredits4_onInit, LevelCredits4_onUpdate, NULL, LevelCredits4_onShutdown, LevelCredits4_onUnload}
+    {LevelCredits4_onLoad, LevelCredits4_onInit, LevelCredits4_onUpdate, NULL, LevelCredits4_onShutdown, LevelCredits4_onUnload},
+    {LevelCredits5_onLoad, LevelCredits5_onInit, LevelCredits5_onUpdate, NULL, LevelCredits5_onShutdown, LevelCredits5_onUnload}
 };
 
 int Level_isValid(Levels level)

@@ -179,6 +179,9 @@
     <ClCompile Include="Source\LevelCredits4.c">
       <Filter>Game\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="Source\LevelCredits5.c">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h" />
@@ -351,6 +354,9 @@
       <Filter>Game\Levels</Filter>
     </ClInclude>
     <ClInclude Include="Source\LevelCredits4.h">
+      <Filter>Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LevelCredits5.h">
       <Filter>Game\Levels</Filter>
     </ClInclude>
   </ItemGroup>
