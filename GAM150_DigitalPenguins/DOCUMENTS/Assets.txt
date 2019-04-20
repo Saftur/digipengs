@@ -1,0 +1,37 @@
+Art (Sprites)
+
+Gameplay:
+    Players - Blue/Red/Green Penguin
+    Obstacle - Boulder, PolarBear
+    Background - Water Anim
+    Particals - Circle,
+    GUI - Controls, Lap Status Announcers
+    Course Tileset
+    Powerups
+    
+
+Menu Buttons:
+    Single Player
+    Multiplayer
+    Level Editor
+    Leaderboard
+    Credits
+
+Level Editor:
+    GUI - Controls
+
+Credits:
+    Team Members
+    Digipen Staff
+    FMOD
+
+Data files
+    Map file
+    Obstacles file
+
+Audio
+    Gameplay Music
+	SFXs
+		Ready
+		Set
+		Go
