@@ -37,6 +37,7 @@
     <ClCompile Include="Source\LevelCredits2.c" />
     <ClCompile Include="Source\LevelCredits3.c" />
     <ClCompile Include="Source\LevelCredits4.c" />
+    <ClCompile Include="Source\LevelCredits5.c" />
     <ClCompile Include="Source\LevelEditor.c" />
     <ClCompile Include="Source\LevelEditorLevel.c" />
     <ClCompile Include="Source\LevelEditor_HelpMenu.c" />
@@ -100,6 +101,7 @@
     <ClInclude Include="Source\LevelCredits2.h" />
     <ClInclude Include="Source\LevelCredits3.h" />
     <ClInclude Include="Source\LevelCredits4.h" />
+    <ClInclude Include="Source\LevelCredits5.h" />
     <ClInclude Include="Source\LevelEditor.h" />
     <ClInclude Include="Source\LevelEditorLevel.h" />
     <ClInclude Include="Source\LevelEditor_HelpMenu.h" />
